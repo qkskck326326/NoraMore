@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ include file="side.jsp"%>
+
 <!DOCTYPE html>
 <html lang="ko" class="no-js">
 <head>
@@ -13,6 +16,8 @@
 <link rel="stylesheet" type="text/css" href="resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/component.css" />
 <script src="resources/js/modernizr.custom.js"></script>
+
+
 </head>
 <body>
 	<div class="container">
