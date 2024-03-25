@@ -24,12 +24,11 @@
 			</section>
 		</section>
 		<ul>
-			<li><a href="#"><i class="fa-solid fa-cat"></i> 메인으로</a>
-			<br>
+			<li><a href="#"><i class="fa-solid fa-cat"></i> 메인으로</a> <br>
 			<li><a href="#">볼링</a>
 				<ul>
 					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>					
+					<li><a href="#">자유게시판</a></li>
 				</ul></li>
 			<li><a href="#">클라이밍</a>
 				<ul>
@@ -56,6 +55,8 @@
 					<li><a href="#">모집게시판</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul></li>
+			<li><a href="#">공지사항</a>
+			<li><a href="#">QnA</a>
 		</ul>
 	</aside>
 </body>
