@@ -56,7 +56,15 @@
 					<li><a href="#">자유게시판</a></li>
 				</ul></li>
 			<li><a href="#">공지사항</a>
+				<ul>
+					<li><a href="#">모집게시판</a></li>
+					<li><a href="#">자유게시판</a></li>
+				</ul></li>
 			<li><a href="#">QnA</a>
+				<ul>
+					<li><a href="#">모집게시판</a></li>
+					<li><a href="#">자유게시판</a></li>
+				</ul></li>
 		</ul>
 	</aside>
 </body>
