@@ -11,7 +11,14 @@ h1 {
 	font-size: 48pt;
 	color: navy;
 	 display:flex;
-   align-items:flex-start;
+   /* align-items:flex-start; */
+   padding: 20px 20px 100px 20px;
+   width: 300px;
+   hight: 600px;	
+   margin: 0 auto;
+   list-style: none;
+   text-align: center;
+   
 }
 div {
 	width: 500px;
@@ -51,7 +58,7 @@ div#loginForm form input[type=submit] {
 
 <div id="loginForm"  >	
 	<form action="login.do" method="post">
-	<h1 align="center">first 로그인</h1>
+	<h1 align="center">로그인</h1>
 	<label>아이디 : <input type="text" name="userId" id="uid" class="pos"></label>
 	<br>
 	<label>암 호 : <input type="password" name="userPwd" id="upwd" class="pos"></label>
