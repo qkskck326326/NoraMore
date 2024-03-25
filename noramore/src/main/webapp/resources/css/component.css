@@ -12,34 +12,34 @@ ul,ol,li {
     list-style: none;
 }
 
-/* 로그인 및 회원가입 버튼 스타일 */
+/* 濡쒓렇�씤 諛� �쉶�썝媛��엯 踰꾪듉 �뒪���씪 */
 .button {
 
   width:120px;
   height: 50px;
   padding: 10px 20px;
-  background-color: rgb(0, 0, 139); /* 버튼 배경색 */
-  color: white; /* 버튼 텍스트 색상 */
-  font-size: 16px; /* 폰트 크기 */
+  background-color: rgb(0, 0, 139); /* 踰꾪듉 諛곌꼍�깋 */
+  color: white; /* 踰꾪듉 �뀓�뒪�듃 �깋�긽 */
+  font-size: 16px; /* �룿�듃 �겕湲� */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
-  margin: 10px; /* 버튼 간격 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 洹몃┝�옄 */
+  margin: 10px; /* 踰꾪듉 媛꾧꺽 */
   /* position: relative;
   left: 500; */
   /* float: right; */
- /*  position: fixed;  // 화면에 고정된 채로 움직임
+ /*  position: fixed;  // �솕硫댁뿉 怨좎젙�맂 梨꾨줈 ��吏곸엫
   right: 500px; */
   font-weight: bold;
 
 }
 
 .loginSing {
-	display:flex; /*자식들을 자동 가로배치*/
-    flex-direction:row; /*display:flex의 디폴트 값임 생략가능*/
+	display:flex; /*�옄�떇�뱾�쓣 �옄�룞 媛�濡쒕같移�*/
+    flex-direction:row; /*display:flex�쓽 �뵒�뤃�듃 媛믪엫 �깮�왂媛��뒫*/
 	margin-left: 1100px;
 	margin-top: 20px; 
 	position: absolute;
@@ -50,7 +50,7 @@ ul,ol,li {
 
 
 .button:hover {
-  background-color: #45a049; /* 마우스 호버 시 배경색 변경 */
+  background-color: #45a049; /* 留덉슦�뒪 �샇踰� �떆 諛곌꼍�깋 蹂�寃� */
 }
 
 .grid li {
@@ -65,6 +65,7 @@ ul,ol,li {
 .grid figure {
    margin: 0;
    position: relative;
+   z-index: 2;
 }
 
 .grid figure img {
@@ -102,11 +103,11 @@ ul,ol,li {
 }
 
 /* Caption Style 3 */
-.cs-style-3 figure { /*사진에서 올라오는 간판 상자안에서만 나오기 밖에 삐져나오지 않음*/
+.cs-style-3 figure { /*�궗吏꾩뿉�꽌 �삱�씪�삤�뒗 媛꾪뙋 �긽�옄�븞�뿉�꽌留� �굹�삤湲� 諛뽰뿉 �굪�졇�굹�삤吏� �븡�쓬*/
    overflow: hidden;
 }
 
-.cs-style-3 figure img {/*사진 슬로우*/
+.cs-style-3 figure img {/*�궗吏� �뒳濡쒖슦*/
    -webkit-transition: -webkit-transform 0.4s;
    -moz-transition: -moz-transform 0.4s;
    transition: transform 0.4s;
@@ -156,27 +157,27 @@ ul,ol,li {
 
 
 html, body {
-     max-width: 100%;  /*너비를 100%사용하겠다.*/
+     max-width: 100%;  /*�꼫鍮꾨�� 100%�궗�슜�븯寃좊떎.*/
 }
 
 * { 
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /*초기화 함*/
+    box-sizing: border-box; /*珥덇린�솕 �븿*/
 }
 
  .bottom_contents{
     
-    display:flex; /*자식들을 자동 가로배치*/
-    flex-direction:row; /*display:flex의 디폴트 값임 생략가능*/
+    display:flex; /*�옄�떇�뱾�쓣 �옄�룞 媛�濡쒕같移�*/
+    flex-direction:row; /*display:flex�쓽 �뵒�뤃�듃 媛믪엫 �깮�왂媛��뒫*/
     flex-flow: wrap;  
-    /*주 축을 수평으로 설정하고, 요소들이 한 줄에 나타날 수 없을 때 줄 바꿈(wrap)을 허용하라는 의미*/
-    justify-content: space-around;  /* 자식 요소에 정렬방식 여백을 똑같이함*/
-    width : inherit;  /*너비를 부모요소 너비로 상속 받겠다*/
+    /*二� 異뺤쓣 �닔�룊�쑝濡� �꽕�젙�븯怨�, �슂�냼�뱾�씠 �븳 以꾩뿉 �굹���궇 �닔 �뾾�쓣 �븣 以� 諛붽퓞(wrap)�쓣 �뿀�슜�븯�씪�뒗 �쓽誘�*/
+    justify-content: space-around;  /* �옄�떇 �슂�냼�뿉 �젙�젹諛⑹떇 �뿬諛깆쓣 �삊媛숈씠�븿*/
+    width : inherit;  /*�꼫鍮꾨�� 遺�紐⑥슂�냼 �꼫鍮꾨줈 �긽�냽 諛쏄쿋�떎*/
  }
 
 .bottom_contents > * {
-    min-width: 550px; /*최소 가장 작은 사이즈*/
+    min-width: 550px; /*理쒖냼 媛��옣 �옉�� �궗�씠利�*/
     /* padding-top: 5px; */
 }
 
@@ -194,7 +195,7 @@ div div.announcement {
    font-size: 20px; 
    font-weight:bold; 
    color: white;
-   /* px: 절대적인 크기임, em,rem: 상대적인 크기임 */
+   /* px: �젅���쟻�씤 �겕湲곗엫, em,rem: �긽���쟻�씤 �겕湲곗엫 */
 }
 
 
