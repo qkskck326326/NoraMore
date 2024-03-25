@@ -1,6 +1,7 @@
 package com.develup.noramore.memadd.model.vo;
 
-public class MemAdd {
+public class MemAdd implements java.io.Serializable{
+	private static final long serialVersionUID = 5681507755826042927L;
 	
 	//Field
 	private String memberId;     //회원아이디
