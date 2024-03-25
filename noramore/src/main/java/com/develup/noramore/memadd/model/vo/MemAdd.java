@@ -4,11 +4,11 @@ public class MemAdd implements java.io.Serializable{
 	private static final long serialVersionUID = 5681507755826042927L;
 	
 	//Field
-	private String memberId;     //È¸¿ø¾ÆÀÌµğ
-	private int heartBeat;     //ÇÏÆ®ºñÆ®
-	private String grade;       //µî±Ş
-	private int articleCount;  //È°µ¿°Ç¼ö
-	private int reportCount;    //½Å°í°Ç¼ö
+	private String memberId;     //íšŒì›ì•„ì´ë””
+	private int heartBeat;     //í•˜íŠ¸ë¹„íŠ¸
+	private String grade;       //ë“±ê¸‰
+	private int articleCount;  //í™œë™ê±´ìˆ˜
+	private int reportCount;    //ì‹ ê³ ê±´ìˆ˜
 	
 	
 	

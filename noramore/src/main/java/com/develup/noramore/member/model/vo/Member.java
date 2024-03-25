@@ -7,18 +7,19 @@ public class Member implements java.io.Serializable  {
 	
 	
 	//Field
-	private String memberId;      //È¸¿ø¾ÆÀÌµğ
-	private String memberPWD;       //ºñ¹Ğ¹øÈ£
-	private String memberName;      //ÀÌ¸§
-	private String socialId;       //ÁÖ¹Îµî·Ï¹øÈ£
-	private String email;          //ÀÌ¸ŞÀÏ
-	private String photoFilename;    //È¸¿ø»çÁøÆÄÀÏ¸í
-	private String resign;         //È¸¿øÅ»Åğ
-	private String adminYN;        //°ü¸®ÀÚ¿©ºÎ
-	private String signType;       //·Î±×ÀÎ Á¾·ù
-	private String actLimit;        //»ç¿ëÁ¦¾à
-	private Date registDate;       //µî·ÏÀÏÀÚ 
-	private Date modifiedDate;     //ÃÖÁ¾¼öÁ¤ÀÏÀÚ
+	private String memberId;      //íšŒì›ì•„ì´ë””
+	private String memberPWD;       //ë¹„ë°€ë²ˆí˜¸
+	private String memberName;      //ì´ë¦„
+	private String socialId;       //ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸
+	private String email;          //ì´ë©”ì¼
+	private String photoFilename;    //íšŒì›ì‚¬ì§„íŒŒì¼ëª…
+	private String resign;         //íšŒì›íƒˆí‡´
+	private String adminYN;        //ê´€ë¦¬ìì—¬ë¶€
+	private String signType;       //ë¡œê·¸ì¸ ì¢…ë¥˜
+	private String actLimit;        //ì‚¬ìš©ì œì•½
+	private Date registDate;       //ë“±ë¡ì¼ì 
+	private Date modifiedDate;     //ìµœì¢…ìˆ˜ì •ì¼ì
+
 	
 	
 	

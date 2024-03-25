@@ -13,8 +13,17 @@
 <link rel="stylesheet" type="text/css" href="resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/component.css" />
 <script src="resources/js/modernizr.custom.js"></script>
+<script type="text/javascript">
+	function movePage(){	
+		location.href = "moveLoginPage.do";
+	}
+
+</script>
 </head>
+
 <body>
+
+	
 	<div class="container">
 	
 		<header class="headline">
@@ -22,8 +31,8 @@
 				<img src="resources/images/noramore_main.png" width=460 height=220>
 			</h1>
 			<div class="loginSing">
-				<button class=button onclick="">로그인</button>
-				<button class=button id=two onclick="">회원가입</button>
+				<button class='button' onclick="movePage();">로그인</button><br>
+				<button class='button' id=two onclick="">회원가입</button>
 			</div>
 		</header>
 		
