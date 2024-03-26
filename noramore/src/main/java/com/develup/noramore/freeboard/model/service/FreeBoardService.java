@@ -1,5 +1,5 @@
 package com.develup.noramore.freeboard.model.service;
 
-public class FreeBoardService {
+public interface FreeBoardService {
 
 }

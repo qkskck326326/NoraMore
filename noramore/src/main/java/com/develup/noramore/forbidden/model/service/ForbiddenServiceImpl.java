@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.develup.noramore.forbidden.model.dao.ForbiddenDao;
 
 @Service("forbiddenService")
-public class ForbiddenServiceImpl {
+public class ForbiddenServiceImpl implements ForbiddenService{
 	@Autowired
 	public ForbiddenDao forbiddenDao;
 }
