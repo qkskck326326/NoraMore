@@ -8,24 +8,24 @@ public class RecreBoard implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 3659973663458254242L;
 	
-	private int boardId; 				// ¸ğÁı±Û ID
-    private String memberId; 			// ¸ğÁı±Û ÀÛ¼ºÀÚID
-    private int categoryId;				// Ä«Å×°í¸®ID
-    private String title; 				// ¸ğÁı±Û Á¦¸ñ
-    private String context; 			// ¸ğÁı±Û ³»¿ë
-    private int reportCount; 			// ½Å°í È½¼ö
-    private int maxRecr;				// ¸ğÁı ÀÎ¿ø
-    private int nowRecr; 				// ÇöÀç ÀÎ¿ø
-    private String RecrStatus;			// ¸ğÁı±Û »óÅÂ
-    private Date RecrStartDate; 		// ¸ğÁı½ÃÀÛÀÏ
-    private Date RecrEndDate; 			// ¸ğÁıÁ¾·áÀÏ
-    private Date RecrActStartDate; 		// È°µ¿½ÃÀÛÀÏ½Ã
-    private Date RecrActEndDate; 		// È°µ¿Á¾·áÀÏ½Ã
-    private String RecrLocation; 		// À§Ä¡Á¤º¸
-    private int commentCount; 			// ´ñ±Û °³¼ö
-    private int readCount; 				// Á¶È¸¼ö
-    private Date registrationDate; 		// µî·ÏÀÏÀÚ
-    private Date lastUpdateDate; 		// ¼öÁ¤ÀÏÀÚ
+	private int boardId; 				// ëª¨ì§‘ê¸€ ID
+	private String memberId; 			// ëª¨ì§‘ê¸€ ì‘ì„±ìID
+	private int categoryId;				// ì¹´í…Œê³ ë¦¬ID
+	private String title; 				// ëª¨ì§‘ê¸€ ì œëª©
+	private String context; 			// ëª¨ì§‘ê¸€ ë‚´ìš©
+	private int reportCount; 			// ì‹ ê³  íšŸìˆ˜
+	private int maxRecr;				// ëª¨ì§‘ ì¸ì›
+	private int nowRecr; 				// í˜„ì¬ ì¸ì›
+	private String RecrStatus;			// ëª¨ì§‘ ìƒíƒœ
+	private Date RecrStartDate; 		// ëª¨ì§‘ì‹œì‘ì¼
+	private Date RecrEndDate; 			// ëª¨ì§‘ì¢…ë£Œì¼
+	private Date RecrActStartDate; 		// í™œë™ì‹œì‘ì¼ì‹œ
+	private Date RecrActEndDate; 		// í™œë™ì¢…ë£Œì¼ì‹œ
+	private String RecrLocation; 		// ìœ„ì¹˜ì •ë³´
+	private int commentCount; 			// ëŒ“ê¸€ ê°œìˆ˜
+	private int readCount; 				// ì¡°íšŒìˆ˜
+	private Date registrationDate; 		// ë“±ë¡ì¼ì
+	private Date lastUpdateDate; 		// ìˆ˜ì •ì¼ì
     
 	public RecreBoard() {
 		super();
