@@ -13,34 +13,48 @@
 <link rel="stylesheet" type="text/css" href="resources/css/default.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/component.css" />
 <script src="resources/js/modernizr.custom.js"></script>
+<script type="text/javascript">
+	function movePage(){	
+		location.href = "moveLoginPage.do";
+	}
+
+</script>
 </head>
+
 <body>
+
+	
 	<div class="container">
 	
 		<header class="headline">
 			<h1 class="logo">
 				<img src="resources/images/noramore_main.png" width=460 height=220>
 			</h1>
-			<div class="loginSing">
-				<button class=button onclick="">로그인</button>
-				<button class=button id=two onclick="">회원가입</button>
+			<div class="loginSign">
+				<button class='button' onclick="movePage();">로그인</button><br>
+				<button class='button' id=two onclick="">회원가입</button>
 			</div>
 		</header>
 		
 		<ul class="grid cs-style-3">
 			<li>
 				<figure>
-					<img src="resources/images/balling.png" alt="img04">
+					<a href="rblist.do">
+					<img src="resources/images/balling.png" alt="img04" >
+					</a>
 					<figcaption>
-						<h3>볼링</h3>
+						<h3>모집</h3>
 					</figcaption>
 				</figure>
 			</li>
 			<li>
 				<figure>
+					<a href="freeboardlist.do">
+					<img src="resources/images/balling.png" alt="img04" >
+					</a>
 					<img src="resources/images/climbing.png" alt="img01">
 					<figcaption>
-						<h3>클라이밍</h3>
+						<h3>자유</h3>
 					</figcaption>
 				</figure>
 			</li>
@@ -84,7 +98,9 @@
 
 	<div class=bottom_contents>
 		<div class="announcement">
+			<a href ="notice.do">
 			<div class="an1">공지사항</div>
+			</a>
 			<div class="inan1">
 				<ul>
 					<li><a>안녕하세요 하핳하하하하ㅏ 너무 졸립니다. 자고 싶습니다. 으하하핳하하</a></li>
@@ -96,7 +112,9 @@
 			</div>
 		</div>
 		<div class="qna">
+			<a href="qna.do">
 			<div class="qna1">QnA</div>
+			</a>
 			<div class="inqnal">
 				<ul>
 					<li><a>안녕하세요 하핳하하하하ㅏ 너무 졸립니다. 자고 싶습니다. 으하하핳하하하하</a></li>

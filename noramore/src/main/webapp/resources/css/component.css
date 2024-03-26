@@ -1,11 +1,27 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+body{
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+
+
+
+
 .grid {
    padding: 20px 20px 100px 20px;
    max-width: 1300px;
    margin: 0 auto;
    list-style: none;
    text-align: center;
-
-   
 }
 
 ul,ol,li {
@@ -28,23 +44,27 @@ ul,ol,li {
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
   margin: 10px; /* 버튼 간격 */
+  font-weight: bold;
   /* position: relative;
   left: 500; */
   /* float: right; */
- /*  position: fixed;  // 화면에 고정된 채로 움직임
-  right: 500px; */
-  font-weight: bold;
-
 }
 
-.loginSing {
-	display:flex; /*자식들을 자동 가로배치*/
-    flex-direction:row; /*display:flex의 디폴트 값임 생략가능*/
-	margin-left: 1100px;
-	margin-top: 20px; 
-	position: absolute;
-    left: 50px;
-    top: 200px;
+
+.loginSign {
+	width: 250;
+	hight: 101;
+	display:flex; /* 자식들을 자동 가로배치 */
+   flex-direction:row; /* display:flex의 디폴트 값임 생략가능 */
+	
+	
+  /*   position: absolute;
+    top: 50%;
+    left: 50%; */
+  position: fixed;
+    right: 0;
+    width: 36.3333%;
+   
 }
 
 
@@ -59,7 +79,7 @@ ul,ol,li {
    margin: 0;
    padding: 20px;
    text-align: left;
-   position: relative;
+  
 }
 
 .grid figure {
@@ -102,6 +122,10 @@ ul,ol,li {
 }
 
 /* Caption Style 3 */
+
+
+
+
 .cs-style-3 figure { /*사진에서 올라오는 간판 상자안에서만 나오기 밖에 삐져나오지 않음*/
    overflow: hidden;
 }

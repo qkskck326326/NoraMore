@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+
+
+*{
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+body{
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#loginForm{
+	width: 400px;
+    height: 600px;
+    padding: 40px;
+    box-sizing: border-box;
+	border: 2px solid navy;
+	display: flex;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	
+}
+
+
+div form {
+	font-size: 16pt;
+	color: navy;
+	font-weight: bold;
+	margin: 10px;
+	padding: 10px;
+	
+}
+
+
+box_in {
+	
+}
+
+
+
+h1 {
+	font-size: 24px;
+    color: #6A24FE;
+    margin-bottom: 20px;
+    font-weight: bold;
+   
+}
+ 
+ 
+
+div#loginForm form input.pos {    /* 아이디, 암호 */
+	
+	width: 200px;
+	height: 25px;
+	 font-size: 24px;
+    color: #6A24FE;
+    margin-bottom: 20px;
+
+}
+div#loginForm form input[type=submit] {
+	margin: 30px;
+	width: 250px;
+	height: 40px;
+
+	background: navy;
+	font-weight: bold;
+	font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+}
