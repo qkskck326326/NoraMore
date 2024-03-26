@@ -1,5 +1,5 @@
 package com.develup.noramore.commentfreeboard.model.service;
 
-public class CommentFreeBoardService {
+public interface CommentFreeBoardService {
 
 }

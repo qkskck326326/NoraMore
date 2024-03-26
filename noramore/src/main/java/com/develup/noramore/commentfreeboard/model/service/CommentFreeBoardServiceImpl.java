@@ -1,5 +1,8 @@
 package com.develup.noramore.commentfreeboard.model.service;
 
-public class CommentFreeBoardServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service("commentFreeBoardSevice")
+public class CommentFreeBoardServiceImpl implements CommentFreeBoardService {
 
 }

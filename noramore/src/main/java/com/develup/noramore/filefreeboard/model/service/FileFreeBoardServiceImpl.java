@@ -1,5 +1,8 @@
 package com.develup.noramore.filefreeboard.model.service;
 
-public class FileFreeBoardServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service("fileFreeBoardService")
+public class FileFreeBoardServiceImpl implements FileFreeBoardService {
 
 }
