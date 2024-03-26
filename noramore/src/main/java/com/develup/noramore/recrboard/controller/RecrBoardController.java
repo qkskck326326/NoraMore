@@ -16,5 +16,5 @@ public class RecrBoardController {
 	
 		return "recrBoard/RecrBoardList";
 	}//
-	   
-}
+
+}   
