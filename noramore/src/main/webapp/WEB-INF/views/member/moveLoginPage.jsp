@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>first</title>
+<title>로그인 페이지</title>
 <style type="text/css">
 h1 {
 	font-size: 48pt;
