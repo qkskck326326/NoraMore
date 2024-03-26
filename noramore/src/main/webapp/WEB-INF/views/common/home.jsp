@@ -50,7 +50,6 @@
 			<li>
 				<figure>
 					<a href="freeboardlist.do">
-					<img src="resources/images/balling.png" alt="img04" >
 					</a>
 					<img src="resources/images/climbing.png" alt="img01">
 					<figcaption>
@@ -98,9 +97,9 @@
 
 	<div class=bottom_contents>
 		<div class="announcement">
-			<a href ="notice.do">
-			<div class="an1">공지사항</div>
-			</a>
+			
+			<div class="an1"><a href ="notice.do">공지사항</a></div>
+			
 			<div class="inan1">
 				<ul>
 					<li><a>안녕하세요 하핳하하하하ㅏ 너무 졸립니다. 자고 싶습니다. 으하하핳하하</a></li>
@@ -112,9 +111,9 @@
 			</div>
 		</div>
 		<div class="qna">
-			<a href="qna.do">
-			<div class="qna1">QnA</div>
-			</a>
+			
+			<div class="qna1"><a href="qna.do">QnA</a></div>
+			
 			<div class="inqnal">
 				<ul>
 					<li><a>안녕하세요 하핳하하하하ㅏ 너무 졸립니다. 자고 싶습니다. 으하하핳하하하하</a></li>
