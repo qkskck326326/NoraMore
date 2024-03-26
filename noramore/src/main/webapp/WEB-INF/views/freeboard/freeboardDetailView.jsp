@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>freeboardDetailView</title>
 </head>
 <body>
+<h1>freeboardDetailView</h1>
 
 </body>
 </html>
