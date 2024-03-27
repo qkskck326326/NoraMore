@@ -116,21 +116,25 @@ hr {
  	left:70px;
  } 
     
+    
 .social_login{
  	padding: 5px 20px;
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 15px;
+    width: 300px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
     
-   
-  
  }    
     
-div label #kakao {
-    background-color: yellow; /* 카카오 버튼 배경색 */
+#kakao {
+    background-color: #FFEB00; /* 카카오 버튼 배경색 */
     color: #000000; /* 텍스트 색상 */
-    margin-bottom: 10px;
+   
     
       /*  font-size: 10px;
        padding: 5px;
@@ -143,16 +147,16 @@ div label #kakao {
 #naver {
     background-color: #1EC800; /* 네이버 버튼 배경색 */
     color: #FFFFFF; /* 텍스트 색상 */
-     margin-bottom: 10px;
+
      
        /* font-size: 10px;
        padding: 5px; */
 }
 
 #google {
-    background-color: #DB4437; /* 구글 버튼 배경색 */
-    color: #FFFFFF; /* 텍스트 색상 */
-    margin-bottom: 10px;
+    background-color: #dee2e6; /* 구글 버튼 배경색 */
+    color: black; /* 텍스트 색상 */
+   
    
       /*  font-size: 10px;
        padding: 5px; */
