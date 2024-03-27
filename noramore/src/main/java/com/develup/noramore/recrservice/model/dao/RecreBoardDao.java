@@ -18,5 +18,9 @@ public class RecreBoardDao {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectRecrBoard");
 		return (ArrayList<RecrBoard>)list;
 	}
+
+	public RecrBoard selectBoardId(int boardId) {
+		return SqlSessionTemplate.selectOne("recrboard.selectBoardId", boardId);
+	}
 	
 }

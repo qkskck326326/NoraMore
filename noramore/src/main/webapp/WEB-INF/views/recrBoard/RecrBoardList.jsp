@@ -55,7 +55,7 @@
         <tbody>
             <c:forEach var="rl" items="${list}">
 	            <c:url var="rbd" value="rbdetail.do">
-					<c:param name="bnum" value="${b.boardNum}" />
+					<c:param name="boardId" value="${rl.boardId}" />
 					<c:param name="page" value="${nowpage}" />
 				</c:url>
                 <tr>

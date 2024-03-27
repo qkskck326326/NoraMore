@@ -30,5 +30,10 @@
 	<select id="selectRecrBoard" resultMap="resultRecr">
 		select * from recr_board 
 	</select>
+	
+	<select id="selectBoardId" parameterType="_int" resultType="RecrBoard">
+		select * from recr_board 
+		where board_id = #{boardId} 
+	</select>
 
 </mapper>

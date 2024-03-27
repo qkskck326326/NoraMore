@@ -17,7 +17,7 @@
 	
 <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> -->
 		
-    <form action="writeOk.jsp" method="post" enctype="multipart/form-data" >
+    <form action="#" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
 		<h1>글쓰기</h1>
@@ -27,7 +27,7 @@
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
 		
 		<p>본문</p>
-		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="sub"></textarea>
+		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context"></textarea>
 		
 		<p>첨부파일</p>
 		<input type="file" id="file" name="file">
