@@ -12,7 +12,7 @@ public class FreeBoard implements java.io.Serializable {
 	private String title;
 	private String context;
 	private String freeOriginalFileName;
-	private String freeRenameFileName;
+	private String freeRenameFileName; 
 	private int readCount;
 	private int likeCount;
 	private int reportCount;
