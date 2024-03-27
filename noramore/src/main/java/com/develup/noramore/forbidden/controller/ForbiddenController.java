@@ -19,9 +19,9 @@ public class ForbiddenController {
 	
 	
 	//금지어 추가 페이지(팝업) 이동
-	@RequestMapping("forbiddenView.do")
+	@RequestMapping("forbiddenInsert.do")
 	public String forbiddenPage() {
-		return "forbidden/forbiddenInsertView";
+		return "forbidden/forbiddenListView";
 	}
 	
 	//금지어 전체 조회
