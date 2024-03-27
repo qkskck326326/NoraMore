@@ -57,7 +57,7 @@
   cursor: pointer;
 }
 /* 버튼 스타일링 */
-.button {
+.newfb {
   display: inline-block;
   background-color: #4CAF50; /* 기본 배경색 */
   color: white; /* 기본 텍스트 색상 */
@@ -70,14 +70,27 @@
 }
 
 /* 버튼 호버 효과 */
-.button:hover {
+.newfb:hover {
   background-color: #45a049; /* 호버 배경색 */
 }
 
 /* 버튼 액티브 효과 */
-.button:active {
+.newfb:active {
   background-color: #3e8e41; /* 액티브 배경색 */
 }
+
+#fbsubmit{
+  display: inline-block;
+  background-color: #6E6E6E; /* 기본 배경색 */
+  color: white; /* 기본 텍스트 색상 */
+  padding: 5px 10px; /* 내부 여백 */
+  font-size: 12px; /* 텍스트 크기 */
+  border: none; /* 테두리 없음 */
+  border-radius: 5px; /* 테두리 반경 */
+  cursor: pointer; /* 포인터 커서 */
+  text-decoration: none; /* 텍스트에 밑줄 제거 */
+}
+
 </style>
 <!-- JavaScript 코드 -->
 <script type="text/javascript">
@@ -96,7 +109,7 @@ function closePopup() {
 <body>
 
 <!-- 팝업 버튼 -->
-<button class="button" onclick="openPopup()">등록하기</button>
+<button class="newfb" onclick="openPopup()">등록하기</button>
 
 <!-- 팝업 -->
 <div id="popup" class="popup">
@@ -104,7 +117,7 @@ function closePopup() {
   	<h4 class="title">새 금지어 등록</h4><p>
     <span class="close" onclick="closePopup()">&times;</span> <!-- 팝업 닫기 버튼 -->
     <input type="text" placeholder="입력해주세요"> <!-- 팝업 내부의 input 태그 -->
-    <input type="submit" value="등록하기">
+    <input id="fbsubmit" type="submit" value="등록">
   </form>
 </div>
 
