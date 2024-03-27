@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="resources/css/style.css">
 		<script type="text/javascript"
-			src="/first/resources/js/jquery-3.7.0.min.js"></script>
+			src="/resources/js/jquery-3.7.0.min.js"></script>
 		<title>Insert title here</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
 		<%
 		}
 		%>
-		<button onclick="location.href='write.jsp';" class="blueBtn">글쓰기</button>
+		<button onclick="location.href='noticewrite.do';" class="blueBtn">글쓰기</button>
 		<form action="board.jsp" method="get">
 
 			<div class="position">

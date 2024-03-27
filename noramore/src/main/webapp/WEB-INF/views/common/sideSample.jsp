@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="resources/css/side.css" rel="stylesheet">
-<script src="script/jquery-3.3.1.js"></script>
+<script src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 
 <title>noramore</title>
 </head>

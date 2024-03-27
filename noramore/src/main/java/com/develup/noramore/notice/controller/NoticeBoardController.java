@@ -11,8 +11,14 @@ public class NoticeBoardController {
 	@Autowired
 	private NoticeBoardService noticeBoardService;
 	
+	@RequestMapping("noticewrite.do")
+	public String insertNoticeBoard() {
+		return "notice/noticewrite";
+	}//
+	
+	
 	@RequestMapping("notice.do")
-	public String selectRecrBoard() {
+	public String selectNoticeBoard() {
 	
 		return "notice/notice";
 	}//
