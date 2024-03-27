@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입페이지</title>
+<link rel="stylesheet" type="text/css" href="resources/css/enrollPage.css" />
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
 <script type="text/javascript">
+
 
 function validate(){
 
@@ -69,7 +72,7 @@ function dupIDCheck(){
 </script>
 </head>
 <body>
-<h1 align="center">회원 가입 페이지</h1>
+<h1 align="center">회원가입</h1>
 <br>
 <!-- 사진파일 첨부시 enctype="multipart/form-data" 속성 추가함 -->
 <form action="enroll.do" id="enrollForm" method="post" onsubmit="return validate();">  
@@ -78,7 +81,7 @@ function dupIDCheck(){
 <table id="outer" align="center" width="700" cellspacing="5" cellpadding="0">
 	<tr><th colspan="3">회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</th></tr>
 	<tr><th width="120">*아이디</th>
-		<td><input type="text" name="userId" id="userid" required> &nbsp;  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->
+		<td><input type="text" name="userId" id="userid" class="input" required> &nbsp;  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->
 			<input type="button" value="중복체크" onclick="return dupIDCheck();">  
 		</td>
 		<td rowspan="7" width="180" align="center" valign="middle">
@@ -92,23 +95,25 @@ function dupIDCheck(){
 		</td>
 	</tr>
 	<tr><th>*암호</th>
-	<td><input type="password" name="userPwd" id="userpwd" required></td></tr>
+	<td><input type="password" name="userPwd" id="userpwd" class="input" required></td></tr>
 	<tr><th>*암호확인</th>
-	<td><input type="password" id="userpwd2" required></td></tr>
+	<td><input type="password" id="userpwd2" class="input" required></td></tr>
 	<tr><th>*이름</th>
-	<td><input type="text" name="userName" required></td></tr>
+	<td><input type="text" name="userName" class="input" required></td></tr>
 	<tr><th>*성별</th>
-	<td>
-		<input type="radio" name="gender" value="M"> 남자 &nbsp;
-		<input type="radio" name="gender" value="F"> 여자
+	<td class="labels">
+		<input type="radio" name="gender" value="M" id="m" class="none"> 
+		<input type="radio" name="gender" value="F" id="f" class="none"> 
+		<label for="m">남자</label>
+		<label for="f">여자</label>
 	</td></tr>
 	<tr><th>*나이</th>
-	<td><input type="number" name="age" min="19" value="20" required></td>	
+	<td><input type="number" name="age" min="19" value="20" class="input" required></td>	
 	</tr>
 	<tr><th>*전화번호</th>
-	<td><input type="tel" name="phone" required></td>	
+	<td><input type="tel" name="phone" class="input" required></td>	
 	<tr><th>*이메일</th>
-	<td><input type="email" name="email" required></td>
+	<td><input type="email" name="email" class="input" required></td>
 	<td align="right"><input type="file" name="photofile" id="photofile" value=""></td>
 	</tr>
 

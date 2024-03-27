@@ -118,22 +118,23 @@ hr {
     
     
 .social_login{
- 	padding: 5px 20px;
+ 	padding: 10px 20px;
     font-size: 18px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-bottom: 15px;
     width: 300px;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0%);
+   
     
  }    
     
 #kakao {
     background-color: #FFEB00; /* 카카오 버튼 배경색 */
     color: #000000; /* 텍스트 색상 */
+     position: absolute;
+    left: 50%;
+    transform: translate(-50%, -30%);
    
     
       /*  font-size: 10px;
@@ -145,6 +146,9 @@ hr {
 #naver {
     background-color: #1EC800; /* 네이버 버튼 배경색 */
     color: #FFFFFF; /* 텍스트 색상 */
+     position: absolute;
+    left: 50%;
+    transform: translate(-50%, 20%);
 
      
        /* font-size: 10px;
@@ -154,6 +158,9 @@ hr {
 #google {
     background-color: #dee2e6; /* 구글 버튼 배경색 */
     color: black; /* 텍스트 색상 */
+     position: absolute;
+    left: 50%;
+    transform: translate(-50%, 70%);
    
    
       /*  font-size: 10px;
@@ -164,7 +171,7 @@ hr {
 #enroll {
 	font-size: 15px;
 	position: absolute;
-	top: 520px;
+	top: 500px;
 	left: 30px;
 	
 }
@@ -174,7 +181,7 @@ hr {
 	color: gray;
 	padding: 3px;
 	position: absolute;
-	top: 515px;
+	top: 495px;
 	left:225px;
 	size: 10px 5px;
 	/* background-color: #dee2e6; */
