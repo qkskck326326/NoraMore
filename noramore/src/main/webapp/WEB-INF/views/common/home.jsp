@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caption Hover Effects - Demo 3</title>
+<title>NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="author" content="Codrops" />
@@ -127,6 +127,11 @@
 	</div>
 	<hr>
 
+<div class="adminF">
+	<a href="fblist.do?page=1">금지어 관리</a>
+</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div class="admin">
+</div>
 
 </body>
 </html>
