@@ -59,7 +59,9 @@
 			</li>
 			<li>
 				<figure>
+					<a href="fbinsert.do">
 					<img src="resources/images/cycle.png" alt="img02">
+					</a>
 					<figcaption>
 						<h3>사이클</h3>
 					</figcaption>
