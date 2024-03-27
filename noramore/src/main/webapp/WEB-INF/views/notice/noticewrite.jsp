@@ -17,10 +17,8 @@
 	
 <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> -->
 		
-
-
-<form action="writeOk.jsp" method="post" enctype="multipart/form-data" >
-	<input type="hidden" value="<%-- <%= vo.getUserId() %> --%>" name="writer">
+    <form action="writeOk.jsp" method="post" enctype="multipart/form-data" >
+	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
 		<h1>글쓰기</h1>
 		<div class="line"></div>
@@ -31,20 +29,16 @@
 		<p>본문</p>
 		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="sub"></textarea>
 		
-		<p>사진</p>
+		<p>첨부파일</p>
 		<input type="file" id="file" name="file">
-		<img src="" id="img">
-		
-		<p>시간당 가격</p>
-		<input type="number" name="price">
-		
+						
 		<p>시작 날짜</p>
 		<input type="date" name="start"> 
 		
 		<p>마감 날짜</p>
 		<input type="date" name="end">
 		
-		<p>위치</p>
+		<p>장소</p>
 		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
 		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
 		
@@ -52,6 +46,8 @@
 		<input type="submit" class="none">
 	</section>
 </form>
+
+
 <!-- <script>
 	$("#where").on("click",function(e){
 		new daum.Postcode({
