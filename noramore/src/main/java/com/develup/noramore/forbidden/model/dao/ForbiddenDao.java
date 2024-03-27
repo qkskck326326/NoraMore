@@ -21,6 +21,10 @@ public class ForbiddenDao {
 	}
 
 	public int selectListCount() {
-		return sqlSessionTemplate.selectOne("forbiddenMapper.selectListCount");
+		return sqlSessionTemplate.selectOne("forbidden.selectListCount");
+	}
+
+	public int insertForbidden(String fbWord) {
+		return sqlSessionTemplate.insert("forbidden.insertForbidden", fbWord);
 	}
 }

@@ -125,7 +125,7 @@ function closePopup() {
   <form action="forbiddenInsert.do" class="popup-content">
   	<h4 class="title">새 금지어 등록</h4><p>
     <span class="close" onclick="closePopup()">&times;</span> <!-- 팝업 닫기 버튼 -->
-    <input id="fbtext" type="text" placeholder="입력해주세요">&nbsp; <!-- 팝업 내부의 input 태그 -->
+    <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord" value="금지어">&nbsp; <!-- 팝업 내부의 input 태그 -->
     <input id="fbsubmit" type="submit" value="등록">
   </form>
 </div>
