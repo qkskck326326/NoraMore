@@ -34,4 +34,11 @@ public class MemberController {
 	return "/member/moveLoginPage";
 	
 	}
+	
+	@RequestMapping(value = "enrollPage.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String enrollPage() {
+	return "/member/moveEnrollPage";
+	
+	}
 }
