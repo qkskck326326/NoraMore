@@ -33,9 +33,10 @@ function EnrollPage(){
 	<div id="find">
 	<a href="">아이디찾기</a> / <a href="">비밀번호찾기</a>
 	</div>
-	<input class="social_login" id="kakao" type="submit" value="카카오로 1초만에 시작하기"><br>
-	<input class="social_login" id="naver" type="submit" value="네이버로 1초만에 시작하기"><br>
-	<input class="social_login" id="google" type="submit" value="구글로 1초만에 시작하기"><br>
+	
+	<button class='social_login' id= "kakao" onclick="">카카오로 1초만에 로그인하기</button><br>
+    <button class='social_login' id= "naver" onclick="">네이버로 1초만에 로그인하기</button><br>
+	<button class='social_login' id= "google" onclick="">구글로 1초만에 로그인하기</button><br>
 	
 	<div id="enroll">아직도 회원이 아니신가요?</div>
 	<button class='button' onclick="EnrollPage();">회원가입</button><br>
