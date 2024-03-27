@@ -12,6 +12,8 @@ public interface ForbiddenService {
 	int selectListCount();
 
 	int insertForbidden(String fbWord);
+
+	int selectCheckFb(String fbWord);
 	
 	
 }
