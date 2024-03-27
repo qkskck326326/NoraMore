@@ -31,7 +31,7 @@
 	<!-- 금지어 등록 -->
 	<insert id="insertForbidden" parameterType="string">
 		insert into forbidden
-		values ( (select max(fbId) + 1 from forbidden) , #{ fbWord }, sysdate)
+		values ( (select max(fb_id) + 1 from forbidden) , #{ fbWord }, sysdate)
 	</insert>
 	
 	<!-- 금지어 등록 중복 여부 -->
