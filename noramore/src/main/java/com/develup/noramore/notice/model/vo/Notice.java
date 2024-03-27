@@ -2,7 +2,7 @@ package com.develup.noramore.notice.model.vo;
 
 import java.sql.Date;
 
-public class NoticeBoard implements java.io.Serializable{
+public class Notice implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int noticeNo;
@@ -17,11 +17,11 @@ public class NoticeBoard implements java.io.Serializable{
     private int readCount;
 	
      
-    public NoticeBoard() {
+    public Notice() {
 		super();
 	}
     
-    public NoticeBoard(int noticeNo, String noticeTitle, Date noticeDate, String noticeWriter, String noticeContent,
+    public Notice(int noticeNo, String noticeTitle, Date noticeDate, String noticeWriter, String noticeContent,
 			String originalFilePath, String renameFilePath, char importance, Date impEndDate, int readCount) {
 		super();
 		this.noticeNo = noticeNo;

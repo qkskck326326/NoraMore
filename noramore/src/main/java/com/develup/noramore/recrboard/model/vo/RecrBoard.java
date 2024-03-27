@@ -2,7 +2,7 @@ package com.develup.noramore.recrboard.model.vo;
 
 import java.sql.Date;
 
-public class RecreBoard implements java.io.Serializable {
+public class RecrBoard implements java.io.Serializable {
 	/**
 	 * 
 	 */
@@ -27,11 +27,11 @@ public class RecreBoard implements java.io.Serializable {
 	private Date registrationDate; 		// 등록일자
 	private Date lastUpdateDate; 		// 수정일자
     
-	public RecreBoard() {
+	public RecrBoard() {
 		super();
 	}
 
-	public RecreBoard(int boardId, String memberId, int categoryId, String title, String context, int reportCount,
+	public RecrBoard(int boardId, String memberId, int categoryId, String title, String context, int reportCount,
 			int maxRecr, int nowRecr, String RecrStatus, Date RecrStartDate,
 			Date RecrEndDate, Date RecrActStartDate, Date RecrActEndDate,
 			String RecrLocation, int commentCount, int readCount, Date registrationDate, Date lastUpdateDate) {
