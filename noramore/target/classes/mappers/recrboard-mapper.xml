@@ -14,17 +14,17 @@
 	    <result property="maxRecr" column="max_recr"/>
 	    <result property="nowRecr" column="now_recr"/>
 	    <result property="RecrStatus" column="recr_status"/>
-	    <result property="RecrStartDate" column="recr_start_date" javaType="java.util.Date"/>
-	    <result property="RecrEndDate" column="recr_end_date" javaType="java.util.Date"/>
+	    <result property="RecrStartDate" column="recr_start_date" />
+	    <result property="RecrEndDate" column="recr_end_date" />
 	    <result property="RecrOriginalFilename" column="recr_original_filename"/>
 	    <result property="RecrRenameFilename" column="recr_rename_filename"/>
-	    <result property="RecrActStartDate" column="recr_act_start_date" javaType="java.util.Date"/>
-	    <result property="RecrActEndDate" column="recr_act_end_date" javaType="java.util.Date"/>
+	    <result property="RecrActStartDate" column="recr_act_start_date" />
+	    <result property="RecrActEndDate" column="recr_act_end_date" />
 	    <result property="RecrLocation" column="recr_location"/>
 	    <result property="commentCount" column="comment_count"/>
 	    <result property="readCount" column="read_count"/>
-	    <result property="registrationDate" column="registration_date" javaType="java.util.Date"/>
-	    <result property="lastUpdateDate" column="last_update_date" javaType="java.util.Date"/>
+	    <result property="registrationDate" column="registration_date" />
+	    <result property="lastUpdateDate" column="last_update_date" />
 	</resultMap>
 	
 	<select id="selectRecrBoard" resultMap="resultRecr">

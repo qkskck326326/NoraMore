@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:import url="/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/sideSample.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,21 +41,28 @@
 </style>
 </head>
 <body>
+
 	<h1>모집게시판 전체 목록</h1>
     <table>
         <thead>
             <tr>
                 <th>번호</th>
                 <th>제목</th>
-                <th>작성자</th>
+                <th>작성자ID</th>
+                <th>조회수</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="post" items="${postList}">
+            <c:forEach var="rl" items="${list}">
+	            <c:url var="rbd" value="rbdetail.do">
+					<c:param name="bnum" value="${b.boardNum}" />
+					<c:param name="page" value="${nowpage}" />
+				</c:url>
                 <tr>
-                    <td>${post.id}</td>
-                    <td><a href="postDetail.jsp?id=${post.id}">${post.title}</a></td>
-                    <td>${post.author}</td>
+                    <td>${rl.boardId}</td>
+                    <td><a href="${rbd}">${rl.title}</a></td>
+                    <td>${rl.memberId}</td>
+                    <td>${rl.readCount}</td>
                 </tr>
             </c:forEach>
         </tbody>
