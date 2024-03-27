@@ -3,9 +3,6 @@ package com.develup.noramore.recrboard.model.vo;
 import java.sql.Date;
 
 public class RecrBoard implements java.io.Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3659973663458254242L;
 	
 	private int boardId; 				// 모집글 ID
@@ -19,6 +16,8 @@ public class RecrBoard implements java.io.Serializable {
 	private String RecrStatus;			// 모집 상태
 	private Date RecrStartDate; 		// 모집시작일
 	private Date RecrEndDate; 			// 모집종료일
+	private String RecrOriginalFilename;//모집원본파일명
+    private String RecrRenameFilename;	//모집변경파일명
 	private Date RecrActStartDate; 		// 활동시작일시
 	private Date RecrActEndDate; 		// 활동종료일시
 	private String RecrLocation; 		// 위치정보
@@ -32,9 +31,9 @@ public class RecrBoard implements java.io.Serializable {
 	}
 
 	public RecrBoard(int boardId, String memberId, int categoryId, String title, String context, int reportCount,
-			int maxRecr, int nowRecr, String RecrStatus, Date RecrStartDate,
-			Date RecrEndDate, Date RecrActStartDate, Date RecrActEndDate,
-			String RecrLocation, int commentCount, int readCount, Date registrationDate, Date lastUpdateDate) {
+			int maxRecr, int nowRecr, String recrStatus, Date recrStartDate, Date recrEndDate,
+			String recrOriginalFilename, String recrRenameFilename, Date recrActStartDate, Date recrActEndDate,
+			String recrLocation, int commentCount, int readCount, Date registrationDate, Date lastUpdateDate) {
 		super();
 		this.boardId = boardId;
 		this.memberId = memberId;
@@ -44,12 +43,14 @@ public class RecrBoard implements java.io.Serializable {
 		this.reportCount = reportCount;
 		this.maxRecr = maxRecr;
 		this.nowRecr = nowRecr;
-		this.RecrStatus = RecrStatus;
-		this.RecrStartDate = RecrStartDate;
-		this.RecrEndDate = RecrEndDate;
-		this.RecrActStartDate = RecrActStartDate;
-		this.RecrActEndDate = RecrActEndDate;
-		this.RecrLocation = RecrLocation;
+		RecrStatus = recrStatus;
+		RecrStartDate = recrStartDate;
+		RecrEndDate = recrEndDate;
+		RecrOriginalFilename = recrOriginalFilename;
+		RecrRenameFilename = recrRenameFilename;
+		RecrActStartDate = recrActStartDate;
+		RecrActEndDate = recrActEndDate;
+		RecrLocation = recrLocation;
 		this.commentCount = commentCount;
 		this.readCount = readCount;
 		this.registrationDate = registrationDate;
@@ -124,48 +125,64 @@ public class RecrBoard implements java.io.Serializable {
 		return RecrStatus;
 	}
 
-	public void setRecrStatus(String RecrStatus) {
-		this.RecrStatus = RecrStatus;
+	public void setRecrStatus(String recrStatus) {
+		RecrStatus = recrStatus;
 	}
 
 	public Date getRecrStartDate() {
 		return RecrStartDate;
 	}
 
-	public void setRecrStartDate(Date RecrStartDate) {
-		this.RecrStartDate = RecrStartDate;
+	public void setRecrStartDate(Date recrStartDate) {
+		RecrStartDate = recrStartDate;
 	}
 
 	public Date getRecrEndDate() {
 		return RecrEndDate;
 	}
 
-	public void setRecrEndDate(Date RecrEndDate) {
-		this.RecrEndDate = RecrEndDate;
+	public void setRecrEndDate(Date recrEndDate) {
+		RecrEndDate = recrEndDate;
+	}
+
+	public String getRecrOriginalFilename() {
+		return RecrOriginalFilename;
+	}
+
+	public void setRecrOriginalFilename(String recrOriginalFilename) {
+		RecrOriginalFilename = recrOriginalFilename;
+	}
+
+	public String getRecrRenameFilename() {
+		return RecrRenameFilename;
+	}
+
+	public void setRecrRenameFilename(String recrRenameFilename) {
+		RecrRenameFilename = recrRenameFilename;
 	}
 
 	public Date getRecrActStartDate() {
 		return RecrActStartDate;
 	}
 
-	public void setRecrActStartDate(Date RecrActStartDate) {
-		this.RecrActStartDate = RecrActStartDate;
+	public void setRecrActStartDate(Date recrActStartDate) {
+		RecrActStartDate = recrActStartDate;
 	}
 
 	public Date getRecrActEndDate() {
 		return RecrActEndDate;
 	}
 
-	public void setRecrActEndDate(Date RecrActEndDate) {
-		this.RecrActEndDate = RecrActEndDate;
+	public void setRecrActEndDate(Date recrActEndDate) {
+		RecrActEndDate = recrActEndDate;
 	}
 
 	public String getRecrLocation() {
 		return RecrLocation;
 	}
 
-	public void setRecrLocation(String RecrLocation) {
-		this.RecrLocation = RecrLocation;
+	public void setRecrLocation(String recrLocation) {
+		RecrLocation = recrLocation;
 	}
 
 	public int getCommentCount() {
@@ -202,15 +219,17 @@ public class RecrBoard implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "RecreBoard [boardId=" + boardId + ", memberId=" + memberId + ", categoryId=" + categoryId + ", title="
+		return "RecrBoard [boardId=" + boardId + ", memberId=" + memberId + ", categoryId=" + categoryId + ", title="
 				+ title + ", context=" + context + ", reportCount=" + reportCount + ", maxRecr=" + maxRecr
-				+ ", nowRecr=" + nowRecr + ", RecrStatus=" + RecrStatus
-				+ ", RecrStartDate=" + RecrStartDate + ", RecrEndDate=" + RecrEndDate
-				+ ", RecrActStartDate=" + RecrActStartDate + ", RecrActEndDate="
-				+ RecrActEndDate + ", RecrLocation=" + RecrLocation + ", commentCount="
+				+ ", nowRecr=" + nowRecr + ", RecrStatus=" + RecrStatus + ", RecrStartDate=" + RecrStartDate
+				+ ", RecrEndDate=" + RecrEndDate + ", RecrOriginalFilename=" + RecrOriginalFilename
+				+ ", RecrRenameFilename=" + RecrRenameFilename + ", RecrActStartDate=" + RecrActStartDate
+				+ ", RecrActEndDate=" + RecrActEndDate + ", RecrLocation=" + RecrLocation + ", commentCount="
 				+ commentCount + ", readCount=" + readCount + ", registrationDate=" + registrationDate
 				+ ", lastUpdateDate=" + lastUpdateDate + "]";
 	}
+
+	
     
     
 }// class
