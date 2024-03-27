@@ -102,10 +102,9 @@ function dupIDCheck(){
 	<td><input type="text" name="userName" class="input" required></td></tr>
 	<tr><th>*성별</th>
 	<td class="labels">
-		<input type="radio" name="gender" value="M" id="m" class="none"> 
-		<input type="radio" name="gender" value="F" id="f" class="none"> 
-		<label for="m">남자</label>
-		<label for="f">여자</label>
+		<input type="radio" name="gender" value="M" id="m" > 남자 &nbsp; 
+		<input type="radio" name="gender" value="F" id="f" > 여자
+		
 	</td></tr>
 	<tr><th>*나이</th>
 	<td><input type="number" name="age" min="19" value="20" class="input" required></td>	
