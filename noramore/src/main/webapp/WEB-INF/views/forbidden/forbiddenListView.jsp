@@ -78,6 +78,15 @@
 .newfb:active {
   background-color: #3e8e41; /* 액티브 배경색 */
 }
+/* 텍스트 필드 스타일링 */
+#fbtext {
+  padding: 10px; /* 내부 여백 */
+  border: 1px solid #ccc; /* 테두리 */
+  border-width: 0 0 1px;
+  font-size: 12px; /* 텍스트 크기 */
+  width: 200px; /* 너비 */
+  box-sizing: border-box; /* 너비에 패딩과 테두리 포함 */
+ }
 
 #fbsubmit{
   display: inline-block;
@@ -116,7 +125,7 @@ function closePopup() {
   <form action="forbiddenInsert.do" class="popup-content">
   	<h4 class="title">새 금지어 등록</h4><p>
     <span class="close" onclick="closePopup()">&times;</span> <!-- 팝업 닫기 버튼 -->
-    <input type="text" placeholder="입력해주세요"> <!-- 팝업 내부의 input 태그 -->
+    <input id="fbtext" type="text" placeholder="입력해주세요">&nbsp; <!-- 팝업 내부의 input 태그 -->
     <input id="fbsubmit" type="submit" value="등록">
   </form>
 </div>
