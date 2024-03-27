@@ -20,7 +20,10 @@ public class ForbiddenController {
 	
 	//금지어 추가 페이지(팝업) 이동
 	@RequestMapping("forbiddenInsert.do")
-	public String forbiddenPage() {
+	public String forbiddenPage(@RequestParam("fbWord") String fbWord) {
+		
+		int result = forbiddenService.insertForbidden(fbWord);
+		
 		return "forbidden/forbiddenListView";
 	}
 	

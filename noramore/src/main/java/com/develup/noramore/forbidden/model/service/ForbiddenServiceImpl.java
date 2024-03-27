@@ -23,4 +23,9 @@ public class ForbiddenServiceImpl implements ForbiddenService{
 	public int selectListCount() {
 		return forbiddenDao.selectListCount();
 	}
+
+	@Override
+	public int insertForbidden(String fbWord) {
+		return forbiddenDao.insertForbidden(fbWord);
+	}
 }

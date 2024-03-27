@@ -10,6 +10,8 @@ public interface ForbiddenService {
 	ArrayList<Forbidden> selectList(Paging paging);
 
 	int selectListCount();
+
+	int insertForbidden(String fbWord);
 	
 	
 }
