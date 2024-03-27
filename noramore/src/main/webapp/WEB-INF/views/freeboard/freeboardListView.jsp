@@ -33,7 +33,10 @@
             
             itemSelect.onchange = function () {
                 var selectedOption = itemSelect.value;
-                sortData(selectedOption);
+                if (selectedOption === "title") {
+                    sortRecent();
+                } else if (selectedOption === "author") {
+                    sortViews();
             };
 
             function sortRecent() {
@@ -48,18 +51,12 @@
                 console.log("좋아요순 정렬 실행");
             }
             
-            function sortData(selectedOption) {
-                if (selectedOption === "recent") {
-                    console.log("최신순 정렬 실행");
-                } else if (selectedOption === "views") {
-                    console.log("조회순 정렬 실행");
-                } else if (selectedOption === "likes") {
-                    console.log("좋아요순 정렬 실행");
-                } else if (selectedOption === "title") {
-                    console.log("글제목으로 정렬 실행");
-                } else if (selectedOption === "author") {
-                    console.log("작성자로 정렬 실행");
-                }
+            function sortTitle(){
+            	 console.log("글제목 정렬 실행");
+            
+            }
+            function sortAuthor(){
+            	console.log("작성자 정렬 실행");
             }
         };
         };
@@ -79,7 +76,7 @@
 		<%
 		}
 		%>
-		<button onclick="location.href='noticewrite.do';" class="blueBtn">글쓰기</button>
+		<button onclick="location.href='freeboarddetail.do';" class="blueBtn">글쓰기</button>
 		<form action="board.jsp" method="get">
 
 			<div class="position">
@@ -110,13 +107,32 @@
    	 </div>
 		
 		<table>
+			<thead>
 			<tr>
 				<th>No</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
-				<th>작성자</th>
+				<th>등록일자</th>
 			</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="rl" items="${list}">
+	            <c:url var="rbd" value="rbdetail.do">
+					<c:param name="bnum" value="${b.boardNum}" />
+					<c:param name="page" value="${nowpage}" />
+				</c:url>
+                <tr>
+                    <td>${rl.boardId}</td>
+                    <td><a href="${rbd}">${rl.title}</a></td>
+                    <td>${rl.memberId}</td>
+                    <td>${rl.readCount}</td>
+                </tr>
+            </c:forEach>	
+				
+			
+			</tbody>
+			
 
 		</table>
 
