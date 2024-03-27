@@ -50,8 +50,8 @@
 			<li>
 				<figure>
 					<a href="freeboardlist.do">
-					</a>
 					<img src="resources/images/climbing.png" alt="img01">
+					</a>
 					<figcaption>
 						<h3>자유</h3>
 					</figcaption>
