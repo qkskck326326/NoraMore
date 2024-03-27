@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
 <link rel="stylesheet" type="text/css" href="resources/css/loginPage.css" />
+<script type="text/javascript">
+function EnrollPage(){	
+	location.href = "moveEnrollPage.do";
+}
+
+</script>
+
+
 </head>
 <body>
 
@@ -27,8 +35,11 @@
 	</div>
 	<input class="social_login" id="kakao" type="submit" value="카카오로 1초만에 시작하기"><br>
 	<input class="social_login" id="naver" type="submit" value="네이버로 1초만에 시작하기"><br>
-	<input class="social_login" id="google" type="submit" value="구글로 1초만에 시작하기">
-
+	<input class="social_login" id="google" type="submit" value="구글로 1초만에 시작하기"><br>
+	
+	<div id="enroll">아직도 회원이 아니신가요?</div>
+	<button class='button' onclick="EnrollPage();">회원가입</button><br>
+	
 	</form>
 	
 </div>
