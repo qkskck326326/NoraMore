@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>회원가입페이지</title>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
 <script type="text/javascript">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 
 function validate(){
 
@@ -69,7 +71,7 @@ function dupIDCheck(){
 </script>
 </head>
 <body>
-<h1 align="center">회원 가입 페이지</h1>
+<h1 align="center">회원가입</h1>
 <br>
 <!-- 사진파일 첨부시 enctype="multipart/form-data" 속성 추가함 -->
 <form action="enroll.do" id="enrollForm" method="post" onsubmit="return validate();">  

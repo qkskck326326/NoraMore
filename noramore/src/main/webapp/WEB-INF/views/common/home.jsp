@@ -18,6 +18,9 @@
 		location.href = "moveLoginPage.do";
 	}
 
+	function enroll(){	
+		location.href = "enrollPage.do";
+	}
 </script>
 </head>
 
@@ -32,7 +35,7 @@
 			</h1>
 			<div class="loginSign">
 				<button class='button' onclick="movePage();">로그인</button><br>
-				<button class='button' id=two onclick="">회원가입</button>
+				<button class='button' id=two onclick="enroll();">회원가입</button>
 			</div>
 		</header>
 		
