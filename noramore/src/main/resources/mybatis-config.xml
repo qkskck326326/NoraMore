@@ -13,10 +13,30 @@
 
 	<!-- 존재하지 않는 클래스와 매퍼파일을 먼저 등록 설정하면 톰켓 구동 안함 : 에러 발생함 -->
 	<typeAliases>			
-		<!-- <typeAlias type="com.develup.noramore.폴더이름.클래스이름" alias="" /> ************************************************ -->	  
+		<typeAlias type="com.develup.noramore.commentfreeboard.model.vo.commentfreeboard" alias="Commentfreeboard" />
+		<typeAlias type="com.develup.noramore.commentrecrboard.model.vo.commentrecrboard" alias="Commentrecrboard" />
+		<typeAlias type="com.develup.noramore.forbidden.model.vo.forbidden" alias="Forbidden" />
+		<typeAlias type="com.develup.noramore.freeboard.model.vo.freeboard" alias="Freeboard" />
+		<typeAlias type="com.develup.noramore.member.model.vo.member" alias="Member" />
+		<typeAlias type="com.develup.noramore.memadd.model.vo.memadd" alias="Memadd" />
+		<typeAlias type="com.develup.noramore.noticeboard.model.vo.noticeboard" alias="Noticeboard" />
+		<typeAlias type="com.develup.noramore.qnaboard.model.vo.qnaboard" alias="Qnaboard" />
+		<typeAlias type="com.develup.noramore.qnacomment.model.vo.qnacomment" alias="Qnacomment" />  
+		<typeAlias type="com.develup.noramore.recrboard.model.vo.recrboard" alias="Recrboard" /> 
+		<typeAlias type="com.develup.noramore.alarm.model.vo.alarm" alias="Alarm" />
 	</typeAliases>
-	 
+	  
 	<mappers>
-		<!-- <mapper resource="mappers/board-mapper.xml" /> 이와같이 mappers 안에 mapper 폴더 만들고 여기에 지정 -->
+		<mapper resource="mappers/commentfreeboard-mapper.xml" />
+		<mapper resource="mappers/commentrecrboard-mapper.xml" />
+		<mapper resource="mappers/forbidden-mapper.xml" />
+		<mapper resource="mappers/freeboard-mapper.xml" />
+		<mapper resource="mappers/member-mapper.xml" />
+		<mapper resource="mappers/memadd-mapper.xml" />
+		<mapper resource="mappers/noticeboard-mapper.xml" />
+		<mapper resource="mappers/qnaboard-mapper.xml" />
+		<mapper resource="mappers/qnacomment-mapper.xml" />
+		<mapper resource="mappers/recrboard-mapper.xml" />
+		<mapper resource="mappers/alarm-mapper.xml" />
 	</mappers>
 </configuration>
