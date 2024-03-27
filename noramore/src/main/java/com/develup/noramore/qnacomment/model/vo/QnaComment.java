@@ -1,5 +1,5 @@
 package com.develup.noramore.qnacomment.model.vo;
 
-public class Qnacomment {
+public class QnaComment {
 
 }

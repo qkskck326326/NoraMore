@@ -13,17 +13,17 @@
 
 	<!-- 존재하지 않는 클래스와 매퍼파일을 먼저 등록 설정하면 톰켓 구동 안함 : 에러 발생함 -->
 	<typeAliases>			
-		<typeAlias type="com.develup.noramore.commentfreeboard.model.vo.commentfreeboard" alias="Commentfreeboard" />
-		<typeAlias type="com.develup.noramore.commentrecrboard.model.vo.commentrecrboard" alias="Commentrecrboard" />
-		<typeAlias type="com.develup.noramore.forbidden.model.vo.forbidden" alias="Forbidden" />
-		<typeAlias type="com.develup.noramore.freeboard.model.vo.freeboard" alias="Freeboard" />
-		<typeAlias type="com.develup.noramore.member.model.vo.member" alias="Member" />
-		<typeAlias type="com.develup.noramore.memadd.model.vo.memadd" alias="Memadd" />
-		<typeAlias type="com.develup.noramore.noticeboard.model.vo.noticeboard" alias="Noticeboard" />
-		<typeAlias type="com.develup.noramore.qnaboard.model.vo.qnaboard" alias="Qnaboard" />
-		<typeAlias type="com.develup.noramore.qnacomment.model.vo.qnacomment" alias="Qnacomment" />  
-		<typeAlias type="com.develup.noramore.recrboard.model.vo.recrboard" alias="Recrboard" /> 
-		<typeAlias type="com.develup.noramore.alarm.model.vo.alarm" alias="Alarm" />
+		<typeAlias type="com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard" alias="CommentFreeBoard" />
+		<typeAlias type="com.develup.noramore.commentrecrboard.model.vo.CommentRecrBoard" alias="CommentRecrBoard" />      
+		<typeAlias type="com.develup.noramore.forbidden.model.vo.Forbidden" alias="Forbidden" />
+		<typeAlias type="com.develup.noramore.freeboard.model.vo.FreeBoard" alias="FreeBoard" />
+		<typeAlias type="com.develup.noramore.member.model.vo.Member" alias="Member" />
+		<typeAlias type="com.develup.noramore.memadd.model.vo.MemAdd" alias="MemAdd" />
+		<typeAlias type="com.develup.noramore.notice.model.vo.Notice" alias="Notice" />
+		<typeAlias type="com.develup.noramore.qna.model.vo.Qna" alias="Qna" />
+		<typeAlias type="com.develup.noramore.qnacomment.model.vo.QnaComment" alias="QnaComment" />  
+		<typeAlias type="com.develup.noramore.recrboard.model.vo.RecrBoard" alias="RecrBoard" /> 
+		<typeAlias type="com.develup.noramore.alarm.model.vo.Alarm" alias="Alarm" />
 	</typeAliases>
 	  
 	<mappers>
