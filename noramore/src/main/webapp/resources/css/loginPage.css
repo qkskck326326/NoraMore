@@ -117,36 +117,68 @@ hr {
  } 
     
 .social_login{
- 	
- 	padding: 5px 5px; 
+ 	padding: 5px 20px;
     font-size: 16px;
     border: none;
-    border-radius: 5px; 
+    border-radius: 5px;
     cursor: pointer;
-    margin-bottom: 10px; /*버튼간격 조절*/
- }   
     
-#kakao {
-    background-color: #FFEB00; /* 카카오 버튼 배경색 */
+   
+  
+ }    
+    
+div label #kakao {
+    background-color: yellow; /* 카카오 버튼 배경색 */
     color: #000000; /* 텍스트 색상 */
+    margin-bottom: 10px;
+    
+      /*  font-size: 10px;
+       padding: 5px;
+       width: 200px;
+       size: 100px; */
+    
+    
 }
 
 #naver {
     background-color: #1EC800; /* 네이버 버튼 배경색 */
     color: #FFFFFF; /* 텍스트 색상 */
+     margin-bottom: 10px;
+     
+       /* font-size: 10px;
+       padding: 5px; */
 }
 
 #google {
     background-color: #DB4437; /* 구글 버튼 배경색 */
     color: #FFFFFF; /* 텍스트 색상 */
+    margin-bottom: 10px;
+   
+      /*  font-size: 10px;
+       padding: 5px; */
 }
     
 
 #enroll {
+	font-size: 15px;
+	position: absolute;
+	top: 520px;
+	left: 30px;
 	
 }
  
 .button {
+	font-size: 15px;
+	color: gray;
+	padding: 3px;
+	position: absolute;
+	top: 515px;
+	left:225px;
+	size: 10px 5px;
+	/* background-color: #dee2e6; */
+	box-shadow:0 3px 3px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	
 	
 }
 
