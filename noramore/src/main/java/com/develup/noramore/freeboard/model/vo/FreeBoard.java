@@ -2,13 +2,17 @@ package com.develup.noramore.freeboard.model.vo;
 
 import java.sql.Date;
 
-public class FreeBoard {
+public class FreeBoard implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 5569582721809744524L;
 	
 	private int boardId;
 	private String memberId;
 	private int categoryId;
 	private String title;
 	private String context;
+	private String freeOriginalFileName;
+	private String freeRenameFileName;
 	private int readCount;
 	private int likeCount;
 	private int reportCount;
@@ -18,15 +22,18 @@ public class FreeBoard {
 	public FreeBoard() {
 		super();
 	}
-	
-	public FreeBoard(int boardId, String memberId, int categoryId, String title, String context, int readCount,
-			int likeCount, int reportCount, Date registDate, Date lastUpdDate) {
+
+	public FreeBoard(int boardId, String memberId, int categoryId, String title, String context,
+			String freeOriginalFileName, String freeRenameFileName, int readCount, int likeCount, int reportCount,
+			Date registDate, Date lastUpdDate) {
 		super();
 		this.boardId = boardId;
 		this.memberId = memberId;
 		this.categoryId = categoryId;
 		this.title = title;
 		this.context = context;
+		this.freeOriginalFileName = freeOriginalFileName;
+		this.freeRenameFileName = freeRenameFileName;
 		this.readCount = readCount;
 		this.likeCount = likeCount;
 		this.reportCount = reportCount;
@@ -74,6 +81,22 @@ public class FreeBoard {
 		this.context = context;
 	}
 
+	public String getFreeOriginalFileName() {
+		return freeOriginalFileName;
+	}
+
+	public void setFreeOriginalFileName(String freeOriginalFileName) {
+		this.freeOriginalFileName = freeOriginalFileName;
+	}
+
+	public String getFreeRenameFileName() {
+		return freeRenameFileName;
+	}
+
+	public void setFreeRenameFileName(String freeRenameFileName) {
+		this.freeRenameFileName = freeRenameFileName;
+	}
+
 	public int getReadCount() {
 		return readCount;
 	}
@@ -114,16 +137,17 @@ public class FreeBoard {
 		this.lastUpdDate = lastUpdDate;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "FreeBoard [boardId=" + boardId + ", memberId=" + memberId + ", categoryId=" + categoryId + ", title="
-				+ title + ", context=" + context + ", readCount=" + readCount + ", likeCount=" + likeCount
+				+ title + ", context=" + context + ", freeOriginalFileName=" + freeOriginalFileName
+				+ ", freeRenameFileName=" + freeRenameFileName + ", readCount=" + readCount + ", likeCount=" + likeCount
 				+ ", reportCount=" + reportCount + ", registDate=" + registDate + ", lastUpdDate=" + lastUpdDate + "]";
 	}
-	
-	
-	
-	
 	
 	
 	
