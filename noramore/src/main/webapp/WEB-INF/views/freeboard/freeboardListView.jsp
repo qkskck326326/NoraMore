@@ -159,6 +159,9 @@ function showWriteForm(){
 		<th>날짜</th>
 		<th>첨부파일</th>
 		<th>조회수</th>
+		<!-- **************추가한 부분************************ -->
+		<th>좋아요수</th>
+		<!--  *****************************************  -->
 	</tr>
 	
 	<c:forEach items="${ requestScope.list }" var="b">
@@ -190,6 +193,11 @@ function showWriteForm(){
 			</c:if>			
 			</td>
 			<td align="center">${ b.boardReadCount }</td>
+			<!-- **************추가한 부분************************ -->
+			<td align="center">${ b.likeCount }</td>
+			<!--  *****************************************  -->
+			
+			
 		</tr>
 	</c:forEach>
 	
