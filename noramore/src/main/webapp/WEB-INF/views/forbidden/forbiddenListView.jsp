@@ -8,7 +8,7 @@
 <title>noramore</title>
 </head>
 <body>
-<a href="${ pageContext.servletContext.contextPath }/blist.do?page=1">게시글관리</a>
+
 
 <table align="center" border="1" cellspacing="0" width="700">
 	<tr>
