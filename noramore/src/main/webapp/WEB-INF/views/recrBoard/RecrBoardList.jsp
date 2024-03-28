@@ -3,11 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <c:import url="/WEB-INF/views/common/sideSample.jsp"/>
+<script type="text/javascript">
+function rbwriteform(){
+	location.href = 'rbwriteform.do';
+}
+</script>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>RecrBoardList</title>
+<link rel="stylesheet" href="resources/css/style.css">
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,6 +49,9 @@
 <body>
 
 	<h1>모집게시판 전체 목록</h1>
+	
+	<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="rbwriteform()">글 작성</button>
+	
     <table>
         <thead>
             <tr>
@@ -55,14 +64,14 @@
         <tbody>
             <c:forEach var="rl" items="${list}">
 	            <c:url var="rbd" value="rbdetail.do">
-					<c:param name="bnum" value="${b.boardNum}" />
+					<c:param name="boardId" value="${rl.boardId}" />
 					<c:param name="page" value="${nowpage}" />
 				</c:url>
                 <tr>
-                    <td>${rl.boardId}</td>
-                    <td><a href="${rbd}">${rl.title}</a></td>
-                    <td>${rl.memberId}</td>
-                    <td>${rl.readCount}</td>
+                    <th>${rl.boardId}</td>
+                    <th><a href="${rbd}">${rl.title}</a></td>
+                    <th>${rl.memberId}</td>
+                    <th>${rl.readCount}</td>
                 </tr>
             </c:forEach>
         </tbody>
