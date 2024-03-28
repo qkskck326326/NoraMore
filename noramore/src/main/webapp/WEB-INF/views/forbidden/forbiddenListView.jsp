@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="resources/css/forbiddenPage.css"  rel="stylesheet">
-<title>noramore</title>
+<title>금지어관리 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 <!-- JavaScript 코드 -->
 <script type="text/javascript" src="/first/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
@@ -57,7 +57,7 @@ function delFb(fbWord){
 		data: { fbWord: fbWord },
 		success: function(result){
 			if(result == "delete"){
-				alert("금지어가 삭제되었습니다");
+				alert("금지어 < " + fbWord + " > 가 삭제되었습니다");
 			}else{
 				alert("오류! 금지어 삭제를 실패했습니다.");
 			}
