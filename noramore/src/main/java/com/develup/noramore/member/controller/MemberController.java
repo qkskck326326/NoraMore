@@ -1,14 +1,20 @@
 package com.develup.noramore.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.develup.noramore.member.model.service.MemberService;
+import com.develup.noramore.member.model.vo.Member;
 	
 @Controller 
 public class MemberController {
@@ -19,13 +25,11 @@ public class MemberController {
 	
 //	// 서비스 연결 처리 : 자동 DI처리
 //	@Autowired
-//	private MemberService memberService; // 스프링이 new를 알아서 해줌
-//	// 스프링에서는 부모 인터페이스 타입으로 레퍼런스 선언함.(다형성 이용함)
-//	// 실행시 후손이 오버라이딩된 메소드를 연결 실행하게 됨 (동적바인딩 이라고 함)
-//	
-//	@Autowired
-//	private BCryptPasswordEncoder bcryptPasswordEncoder; // spring-security.xml에서의 id를 가져다 변수 명으로 사용
-//	//암호를 암호화 함.
+	private MemberService memberService; 
+
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder; // spring-security.xml에서의 id를 가져다 변수 명으로 사용
+	//암호를 암호화 함.
 	
 	// 뷰 페이지 내보내기용 메소드 ---------------------------------------------------
 	@RequestMapping(value = "moveLoginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -41,4 +45,58 @@ public class MemberController {
 	return "/member/moveEnrollPage";
 	
 	}
+	
+	// 로그인 처리용 메소드 : command 객체 사용
+	// 서버로 전송 온 parameter 값을 저장하는 객체를 command 객체라고 함
+	// (loginPage.jsp) input 태그의 name 속성의 이름과 vo 객체의 필드명이 같으면 자동으로 command 객체가 값을 받음
+	@RequestMapping(value = "login.do", method = RequestMethod.POST) // post방식으로 보냄
+	public String loginMethod(Member member, HttpSession session, // 자동으로 입력값이 저장됨 //코드가 간략화됨
+			SessionStatus status, Model model) {   // HttpSession : 세션 자동생성, SessionStatus : 세션 상태 파악, Model : 모델자동 생성
+		logger.info("login.do : " + member.toString());
+
+		// 서비스 메소드로 보내고 결과 받기
+		// Member loginMember = memberService.selectLogin(member); //command 객체 사용
+
+		// 암호화 처리된 패스워드 일치 조회는 select 해 온 값으로 비교함
+		// 전달온 회원 아이디로 먼저 회원정보를 조회해 옴
+		Member loginMember = memberService.selectMember(member.getMemberID());
+		
+		// 조회해 온 회원 정보가 있고, 회원의 암호화된 패스워드와 뷰에서 전달받은 패스워드를 비교함
+		// matches(전달받은 암호 글자, 암호화된 패스워드)
+		if (loginMember != null && this.bcryptPasswordEncoder.matches(member.getMemberPWD(), loginMember.getMemberPWD())) {
+			session.setAttribute("loginMember", loginMember); // 세션이름에 loginMember을 저장함
+			status.setComplete(); // 로그인 성공 요청결과로 HttpStatus code 200 보냄
+			return "common/home";
+		} else {
+			model.addAttribute("message", "로그인 실패! 아이디나 암호를 다시 확인하세요. 또는 로그인 제한된 회원입니다. 관리자에게 문의하세요."); // addAttribute(속성명, 속성값)
+			// message : error페이지에서 message이름으로 모델객체를 보내면 값을 읽음
+			// 컨트롤러에서 뷰로 데이터를 전달하는 데 사용됨. 주로 뷰에 표시할 데이터를 저장하고 전달하는 데에 사용
+			return "common/error";
+		}
+	}
+	
+	//로그아웃 처리용 메소드
+		//요청에 대한 전송방식이 get 이면, method 속성 생략해도 됨, 
+		//method 속성을 생략하면 value 속성도 표기를 생략해도 됨
+		@RequestMapping("logout.do")
+		public String logoutMethod(HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession(false);
+			//세션 객체가 있으면 리턴받고, 없으면 null 리턴
+			if(session != null) {
+				session.invalidate();
+				return "common/home";
+			}else {
+				model.addAttribute("message", "로그인 세션이 존재하지 않습니다.");
+				return "common/error";
+			}
+		}
 }
+
+
+
+
+
+
+
+
+
