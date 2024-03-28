@@ -2,111 +2,66 @@ package com.develup.noramore.notice.model.vo;
 
 import java.sql.Date;
 
-public class Notice implements java.io.Serializable{
+public class Notice implements java.io.Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
-	private int noticeNo;
-    private String noticeTitle;
-    private java.sql.Date noticeDate;
-    private String noticeWriter;
-    private String noticeContent;
-    private String originalFilePath;
-    private String renameFilePath;
-    private char importance;
-    private Date impEndDate;
+	private int boardId;
+    private String memberId;
+    private String title;
+    private String substance;
     private int readCount;
-	
-     
-    public Notice() {
+    private Date registDt;
+    private Date lastUpdDt;
+    
+    
+	public Notice() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
     
-    public Notice(int noticeNo, String noticeTitle, Date noticeDate, String noticeWriter, String noticeContent,
-			String originalFilePath, String renameFilePath, char importance, Date impEndDate, int readCount) {
+	public Notice(int boardId, String memberId, String title, String substance, int readCount, Date registDt,
+			Date lastUpdDt) {
 		super();
-		this.noticeNo = noticeNo;
-		this.noticeTitle = noticeTitle;
-		this.noticeDate = noticeDate;
-		this.noticeWriter = noticeWriter;
-		this.noticeContent = noticeContent;
-		this.originalFilePath = originalFilePath;
-		this.renameFilePath = renameFilePath;
-		this.importance = importance;
-		this.impEndDate = impEndDate;
+		this.boardId = boardId;
+		this.memberId = memberId;
+		this.title = title;
+		this.substance = substance;
 		this.readCount = readCount;
+		this.registDt = registDt;
+		this.lastUpdDt = lastUpdDt;
 	}
 
-	
-	public int getNoticeNo() {
-		return noticeNo;
+	public int getBoardId() {
+		return boardId;
 	}
 
-	public void setNoticeNo(int noticeNo) {
-		this.noticeNo = noticeNo;
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
 	}
 
-	public String getNoticeTitle() {
-		return noticeTitle;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setNoticeTitle(String noticeTitle) {
-		this.noticeTitle = noticeTitle;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public Date getNoticeDate() {
-		return noticeDate;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setNoticeDate(Date noticeDate) {
-		this.noticeDate = noticeDate;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getNoticeWriter() {
-		return noticeWriter;
+	public String getSubstance() {
+		return substance;
 	}
 
-	public void setNoticeWriter(String noticeWriter) {
-		this.noticeWriter = noticeWriter;
-	}
-
-	public String getNoticeContent() {
-		return noticeContent;
-	}
-
-	public void setNoticeContent(String noticeContent) {
-		this.noticeContent = noticeContent;
-	}
-
-	public String getOriginalFilePath() {
-		return originalFilePath;
-	}
-
-	public void setOriginalFilePath(String originalFilePath) {
-		this.originalFilePath = originalFilePath;
-	}
-
-	public String getRenameFilePath() {
-		return renameFilePath;
-	}
-
-	public void setRenameFilePath(String renameFilePath) {
-		this.renameFilePath = renameFilePath;
-	}
-
-	public char getImportance() {
-		return importance;
-	}
-
-	public void setImportance(char importance) {
-		this.importance = importance;
-	}
-
-	public Date getImpEndDate() {
-		return impEndDate;
-	}
-
-	public void setImpEndDate(Date impEndDate) {
-		this.impEndDate = impEndDate;
+	public void setSubstance(String substance) {
+		this.substance = substance;
 	}
 
 	public int getReadCount() {
@@ -117,17 +72,27 @@ public class Notice implements java.io.Serializable{
 		this.readCount = readCount;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Date getRegistDt() {
+		return registDt;
+	}
+
+	public void setRegistDt(Date registDt) {
+		this.registDt = registDt;
+	}
+
+	public Date getLastUpdDt() {
+		return lastUpdDt;
+	}
+
+	public void setLastUpdDt(Date lastUpdDt) {
+		this.lastUpdDt = lastUpdDt;
 	}
 
 	@Override
 	public String toString() {
-		return "NoticeBoard [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeDate=" + noticeDate
-				+ ", noticeWriter=" + noticeWriter + ", noticeContent=" + noticeContent + ", originalFilePath="
-				+ originalFilePath + ", renameFilePath=" + renameFilePath + ", importance=" + importance
-				+ ", impEndDate=" + impEndDate + ", readCount=" + readCount + "]";
-	}
+		return "Notice [boardId=" + boardId + ", memberId=" + memberId + ", title=" + title + ", substance=" + substance
+				+ ", readCount=" + readCount + ", registDt=" + registDt + ", lastUpdDt=" + lastUpdDt + "]";
+	}   
     
     
 }
