@@ -36,12 +36,12 @@
 		where board_id = #{boardId} 
 	</select>
 	
-	<select id="selectListcount" resultMap="resultRecr">
+	<select id="selectListcount" resultType="_int">
 		select count(*) 
 		from recr_board 
 	</select>
 
-	<select id="selectSearchList" parameterType="Search">
+	<select id="selectSearchList" parameterType="Search" resultMap="resultRecr">
 		SELECT *
 		FROM (
 		    SELECT rownum rnum,
