@@ -58,6 +58,7 @@ function delFb(fbWord){
 		success: function(result){
 			if(result == "delete"){
 				alert("금지어 < " + fbWord + " > 가 삭제되었습니다");
+				$('tr:has(td:contains("' + fbWord + '"))').remove();
 			}else{
 				alert("오류! 금지어 삭제를 실패했습니다.");
 			}
@@ -68,6 +69,7 @@ function delFb(fbWord){
 	});
 }
 
+
 </script>
 
 </head>
@@ -77,7 +79,14 @@ function delFb(fbWord){
 <h2 class="title">금지어 관리</h2>
 <br>
 		<form class="search" action="fbsearch.do">
-			<input type="search" name="fbWord" id="fbsearch" placeholder="검색할 금지어를 입력하세요">
+			<input type="hidden" name="action" value="forbidden">	
+			<input type="search" name="keyword" id="fbsearch" placeholder="검색할 금지어를 입력하세요">
+				<select name="limit">
+					<option value="10" selected>10</option>
+					<option value="15" >15</option>
+					<option value="20" >20</option>
+				</select>
+			<input type="submit" value="검색">
 		</form>
 	<!-- 팝업 버튼 -->
 		<button class="newfb" onclick="openPopup();">등록하기</button>
@@ -112,6 +121,6 @@ function delFb(fbWord){
 			</c:forEach>
 		</table>
 
-<%-- <c:import url="/WEB-INF/views/common/pagingView.jsp" /> --%>
+<c:import url="/WEB-INF/views/common/pagingView.jsp" />
 </body>
 </html>

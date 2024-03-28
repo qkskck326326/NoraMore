@@ -41,8 +41,8 @@ public class ForbiddenServiceImpl implements ForbiddenService{
 	}
 
 	@Override
-	public int selectSearchForbiddenCount(String fbWord) {
-		return forbiddenDao.selectSearchForbiddenCount(fbWord);
+	public int selectSearchForbiddenCount(String keyword) {
+		return forbiddenDao.selectSearchForbiddenCount(keyword);
 	}
 
 	@Override

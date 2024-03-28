@@ -37,8 +37,8 @@ public class ForbiddenDao {
 		return sqlSessionTemplate.delete("forbidden.deleteForbidden", fbWord);
 	}
 
-	public int selectSearchForbiddenCount(String fbWord) {
-		return sqlSessionTemplate.selectOne("forbidden.selectSearchForbidden", fbWord);
+	public int selectSearchForbiddenCount(String keyword) {
+		return sqlSessionTemplate.selectOne("forbidden.selectSearchForbiddenCount", keyword);
 	}
 
 	public ArrayList<Forbidden> selectSearchForbidden(Search search) {

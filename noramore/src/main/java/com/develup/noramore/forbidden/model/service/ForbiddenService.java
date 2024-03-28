@@ -18,7 +18,7 @@ public interface ForbiddenService {
 
 	int deleteForbidden(String fbWord);
 
-	int selectSearchForbiddenCount(String fbWord);
+	int selectSearchForbiddenCount(String keyword);
 
 	ArrayList<Forbidden> selectSearchForbidden(Search search);
 	
