@@ -12,48 +12,35 @@
 <meta charset="UTF-8">
 <title>NoraMore</title>
 <link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/dropdown.css">
+<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function rbwriteform(){
 	location.href = 'rbwriteform.do';
 }
+
+function selectCategory(value){
+	$("#category").text(value).val(value);
+}
+
 </script>
-<style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #ddd;
-        }
-        a {
-            text-decoration: none;
-            color: #333;
-        }
-</style>
 </head>
 <body>
 
 	<h1>모집게시판 전체 목록</h1>
 	
 	<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="rbwriteform()">글 작성</button>
+	<div class="dropdown">
+    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
+    <div class="dropdown-content">
+        <a onclick="selectCategory('볼링')">볼링</a>
+        <a onclick="selectCategory('클라이밍')">클라이밍</a>
+        <a onclick="selectCategory('싸이클')">싸이클</a>
+        <a onclick="selectCategory('헬스')">헬스</a>
+        <a onclick="selectCategory('수상레저')">수상레저</a>
+        <a onclick="selectCategory('등산')">등산</a>
+    </div>
+</div>
 	
     <table>
         <thead>
@@ -68,7 +55,7 @@ function rbwriteform(){
             <c:forEach var="rl" items="${list}">
 	            <c:url var="rbd" value="rbdetail.do">
 					<c:param name="boardId" value="${rl.boardId}" />
-					<c:param name="page" value="${nowpage}" />
+					<c:param name="page" value="${page}" />
 				</c:url>
                 <tr>
                     <th>${rl.boardId}</th>
