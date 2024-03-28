@@ -40,12 +40,14 @@ public class RecrBoardController {
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
 		
+		
 		ArrayList<RecrBoard> list = recrBoardService.selectSearchList(search);
 		
 		
 		//Paging paging = new Paging();
 		mv.addObject("list", list);
 		mv.setViewName("recrBoard/RecrBoardList");
+		mv.addObject("currentPage", currentPage);
 		return mv;
 	}//
 	
