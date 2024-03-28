@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
-<c:import url="/WEB-INF/views/common/sideSample.jsp"/>
+<%-- <c:import url="/WEB-INF/views/common/sideSample.jsp"/> --%>
 <c:if test="${!empty requestScope.currentPage}">
-	<c:set var="currentPage" value="${requestScope.currentPage}" />
+	<c:set var="Page" value="${requestScope.currentPage}" />
 </c:if>
 <!DOCTYPE html>
 <html>
