@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.develup.noramore.common.Search;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 import com.develup.noramore.recrservice.model.dao.RecreBoardDao;
 
@@ -21,6 +22,16 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 	@Override
 	public RecrBoard selectBoardId(int boardId) {
 		return recreBoardDao.selectBoardId(boardId);
+	}
+
+	@Override
+	public int selectListcount() {
+		return recreBoardDao.selectListcount();
+	}
+
+	@Override
+	public ArrayList<RecrBoard> selectSearchList(Search search) {
+		return recreBoardDao.selectSearchList(search);
 	}
 
 }//
