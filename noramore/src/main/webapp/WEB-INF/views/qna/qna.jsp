@@ -5,25 +5,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    --%>
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-
-<c:set var="currentLimit" value="${ requestScope.limit }" />
-<c:set var="nowpage" value="1" />
-<c:if test="${ !empty requestScope.currentPage }">
-	<c:set var="nowpage" value="${ requestScope.currentPage }" />
-</c:if>
-
-
 <!DOCTYPE html >
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/style.css">
-<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
-<title>Insert title here</title>
+	<link rel="stylesheet" href="resources/css/style.css">
+		<script type="text/javascript"
+			src="/resources/js/jquery-3.7.0.min.js"></script>
+		<title>Insert title here</title>
 </head>
 <body>
 	<section id="board">
-		<h1>공지사항</h1>
+
+		<h1>게시판</h1>
 		<div class="line"></div>
 		<%
 		if (request.getParameter("pos") != null) {
@@ -34,7 +28,7 @@
 		<%
 		}
 		%>
-		<button onclick="location.href='noticewrite.do';" class="blueBtn">글쓰기</button>
+		<button onclick="location.href='qnawrite.do';" class="blueBtn">글쓰기</button>
 		<form action="board.jsp" method="get">
 
 			<div class="position">

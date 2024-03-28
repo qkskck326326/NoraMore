@@ -22,7 +22,7 @@
 	<section id="write">
 		<h1>글쓰기</h1>
 		<div class="line"></div>
-		<br>
+		
 		<p>글 제목</p>
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
 		
