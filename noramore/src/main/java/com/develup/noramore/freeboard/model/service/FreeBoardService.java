@@ -10,6 +10,9 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectFreeBoard();
 
 	
+	void insertFreeBoard(FreeBoard freeBoard);
+	
+	
 	
 	
 

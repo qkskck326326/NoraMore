@@ -76,7 +76,7 @@
 		<%
 		}
 		%>
-		<button onclick="location.href='freeboarddetail.do';" class="blueBtn">글쓰기</button>
+		<button onclick="location.href='freeboardwrite.do';" class="blueBtn">글쓰기</button>
 		<form action="board.jsp" method="get">
 
 			<div class="position">
