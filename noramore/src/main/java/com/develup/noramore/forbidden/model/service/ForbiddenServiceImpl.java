@@ -33,4 +33,9 @@ public class ForbiddenServiceImpl implements ForbiddenService{
 	public int selectCheckFb(String fbWord) {
 		return forbiddenDao.selectCheckFb(fbWord);
 	}
+
+	@Override
+	public int deleteForbidden(String fbWord) {
+		return forbiddenDao.deleteForbidden(fbWord);
+	}
 }

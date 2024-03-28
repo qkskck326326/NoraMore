@@ -10,7 +10,9 @@
 <link href="resources/css/forbiddenPage.css"  rel="stylesheet">
 <title>noramore</title>
 <!-- JavaScript 코드 -->
+<script type="text/javascript" src="/first/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
+
 // 팝업 열기 함수
 function openPopup() {
   document.getElementById("popup").style.display = "block";
@@ -30,10 +32,14 @@ function dupFbCheck(){
 		success: function(data){
 			console.log("success : " + data);
 			if(data == "ok"){
-				alert("중복 사항이 없습니다. 등록 가능합니다.");
-			}else{
+				alert("등록이 완료되었습니다.");
+				$('.popup-content')[0].submit();
+				$('#fbtext').val('');
+			}else if(data == "dup"){
 				alert("이미 등록된 금지어입니다.");
-				$('#fbtext').select();
+				$('#fbtext').val('');
+			}else{
+				alert("다시 확인해주세요.");
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown){
@@ -44,6 +50,23 @@ function dupFbCheck(){
 	return false;  //버튼 클릭이벤트 취소 (submit 버튼에 클릭이벤트 전달을 막기 위함)
 }
 
+function delFb(fbWord){
+	$.ajax({
+		url: "fbdelete.do",
+		type: "post",
+		data: { fbWord: fbWord },
+		success: function(result){
+			if(result == "delete"){
+				alert("금지어가 삭제되었습니다");
+			}else{
+				alert("오류! 금지어 삭제를 실패했습니다.");
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+}
 
 </script>
 
@@ -51,26 +74,29 @@ function dupFbCheck(){
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
 
+
+
 <!-- 팝업 버튼 -->
-<button class="newfb" onclick="openPopup()">등록하기</button>
+<button class="newfb" onclick="openPopup();">등록하기</button>
 
 <!-- 팝업 -->
 <div id="popup" class="popup">
-  <form action="forbiddenInsert.do" class="popup-content">
+  <form action="fbinsert.do" class="popup-content" onsubmit="return dupFbCheck();">
   	<h4 class="title">새 금지어 등록</h4><p>
-    <span class="close" onclick="closePopup()">&times;</span> <!-- 팝업 닫기 버튼 -->
+    <span class="close" onclick="closePopup();">&times;</span> <!-- 팝업 닫기 버튼 -->
     <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord">&nbsp; <!-- 팝업 내부의 input 태그 -->
-    <input type="button" value="중복체크" onclick="return dupFbCheck();"> &nbsp;
     <input id="fbsubmit" type="submit" value="등록">
   </form>
 </div>
 
 <br>
+
 <table align="center" border="1" cellspacing="0" width="700">
 	<tr>
 		<th>번호</th>
 		<th>금지어</th>
 		<th>등록일자</th>
+		<th>관리</th>
 	</tr>
 	
 	<c:forEach items="${ requestScope.list }" var="f">
@@ -78,10 +104,10 @@ function dupFbCheck(){
 			<td>${ f.fbId }</td>
 			<td>${ f.fbWord }</td>
 			<td>${ f.registDate }</td>
+			<td><button class="deletefb" onclick="return delFb('${ f.fbWord }');">삭제</button></td>
 		</tr>
 	</c:forEach>
-
-<%-- <c:import url="/WEB-INF/views/common/pagingView.jsp" /> --%>
 </table>
+<%-- <c:import url="/WEB-INF/views/common/pagingView.jsp" /> --%>
 </body>
 </html>

@@ -31,4 +31,8 @@ public class ForbiddenDao {
 	public int selectCheckFb(String fbWord) {
 		return sqlSessionTemplate.selectOne("forbidden.selectCheckFb", fbWord);
 	}
+
+	public int deleteForbidden(String fbWord) {
+		return sqlSessionTemplate.delete("forbidden.deleteForbidden", fbWord);
+	}
 }

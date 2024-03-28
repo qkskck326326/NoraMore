@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,46 +21,11 @@ import com.develup.noramore.forbidden.model.vo.Forbidden;
 
 @Controller
 public class ForbiddenController {
+	private static final Logger logger = LoggerFactory.getLogger(ForbiddenController.class);
 	@Autowired
 	private ForbiddenService forbiddenService;
 	
-	@RequestMapping(value="fbchk.do", method=RequestMethod.POST)
-	public void dupCheckIdMethod(@RequestParam("fbWord") String fbWord, 
-			HttpServletResponse response) throws IOException {
-		//메소드 매개변수 영역에서 사용하는 어노테이션 중에
-		//@RequestParam("전송온이름")  자료형 값저장변수명
-		//자료형 값저장변수명 = request.getParameter("전송온이름");  코드와 같음
-		
-		int fbCount = forbiddenService.selectCheckFb(fbWord);
-		
-		String returnStr = null;
-		if(fbCount == 0) {
-			returnStr = "ok";
-		}else {
-			returnStr = "dup";
-		}
-		
-		//response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.append(returnStr);
-		out.flush();
-		out.close();
-	}
-	//금지어 추가 페이지(팝업) 이동
-	@RequestMapping("forbiddenInsert.do")
-	public String forbiddenPage(@RequestParam("fbWord") String fbWord) {
 
-			if(forbiddenService.insertForbidden(fbWord) > 0) {
-				return "redirect:fblist.do";
-			}else {
-				//중복 상황 제외 실패
-				return "";
-
-		}
-		
-		
-	}
 	
 	
 	
@@ -114,18 +81,64 @@ public class ForbiddenController {
 //		}
 	}
 	
-	//금지어 추가
-	@RequestMapping("fbinsert.do")
-	public String forbiddenInsert() {
+	@RequestMapping(value="fbchk.do", method=RequestMethod.POST)
+	public void dupCheckIdMethod(@RequestParam("fbWord") String fbWord, 
+			HttpServletResponse response) throws IOException {
+		//메소드 매개변수 영역에서 사용하는 어노테이션 중에
+		//@RequestParam("전송온이름")  자료형 값저장변수명
+		//자료형 값저장변수명 = request.getParameter("전송온이름");  코드와 같음
+		int fbCount = forbiddenService.selectCheckFb(fbWord);
 		
-		return "forbidden/forbiddenInsertView";
+		String returnStr = null;
+		if(fbWord != "" && fbCount == 0) {		// 빈칸 아니면서 중복값 없을 때
+			returnStr = "ok";
+		}else if(fbWord != "" && fbCount != 0){		// 입력값이 중복값일 때
+			returnStr = "dup";
+		}else {					//빈칸인 경우
+			returnStr = "none";
+		}
+		
+		//response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.append(returnStr);
+		out.flush();
+		out.close();
+	}
+	
+	//금지어 추가(팝업)
+	@RequestMapping("fbinsert.do")
+	public String forbiddenInsert(@RequestParam("fbWord") String fbWord) {
+		logger.info("fbinsert.do : " + fbWord);
+		
+			if(forbiddenService.insertForbidden(fbWord) > 0) {
+				return "redirect:fblist.do";
+			}else {
+				//중복 상황 제외 실패
+				return "";
+
+		}
 	}
 	
 	//금지어 삭제
 	@RequestMapping("fbdelete.do")
-	public String forbiddenDelete() {
+	public String forbiddenDelete(
+			@RequestParam("fbWord") String fbWord,
+			HttpServletResponse response) throws IOException {
 		
-		return "";
+		String returnStr = null;
+		if(forbiddenService.selectCheckFb(fbWord) == 1) {
+			forbiddenService.deleteForbidden(fbWord);
+			returnStr = "delete";
+		}else {
+			returnStr = "failed";
+		}
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.append(returnStr);
+		out.flush();
+		out.close();
+		return "redirect:fblist.do";
 	}
 	
 }

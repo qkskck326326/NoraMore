@@ -24,7 +24,7 @@
 		select *
 		from (select rownum rnum, fb_id, fb_word, regist_date
 		     from (select * from forbidden
-		           order by fb_word asc, fb_id asc, regist_date desc))
+		           order by fb_id asc))
 		where rnum between #{ startRow } and #{ endRow }  
 	</select>
 
@@ -41,9 +41,9 @@
 	</select>
 	
 	
-	<delete id="deleteForbidden" parameterType="Forbidden">
+	<delete id="deleteForbidden" parameterType="string">
 		delete from forbidden
-		where fb_id = #{ fbId }
+		where fb_word = #{ fbWord }
 	</delete>
 	
 	
