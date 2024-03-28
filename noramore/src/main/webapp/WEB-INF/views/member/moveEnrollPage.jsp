@@ -81,41 +81,91 @@ function dupIDCheck(){
 
 
 	<h5>회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</h5>
-*아이디 <br>
-		<input type="text" name="memberID" id="memberid" class="input" required>&nbsp;  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
+	
+	<div>
+	<h3 class="list">*아이디<span id="idError"></span></h3>
+
+		<span class="box int_id" >
+		<input type="text" name="memberID" id="memberid" class="input" maxlength="20" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
 		<input type="button" value="중복체크" onclick="return dupIDCheck();">
-		<br>
+	</div>
 		
+	<div>
+		<h3 class="list">*비밀번호<span id="pwError" ></span></h3>
+		<span class="box int_id">
+			<input type="password" name="memberPWD" id="memberpwd" class="input" maxlength="20" required>
+		</span>
+	</div>
 	
-	*암호<br>
-	<input type="password" name="memberPWD" id="memberpwd" class="input" required>
+	<div id="myphoto">
+		<img src="/first/resources/member_photofiles/preview.jpg" id="photo" 				
+		style="width:150px;height:160px;border:1px solid navy;display:block;"
+		alt="사진을 드래그 드롭하세요."
+		style="padding:0;margin:0;">
+	</div>
+	<br>
 	
-			<div id="myphoto">
-				<img src="/first/resources/member_photofiles/preview.jpg" id="photo" 				
-				style="width:150px;height:160px;border:1px solid navy;display:block;"
-				alt="사진을 드래그 드롭하세요."
-				style="padding:0;margin:0;">
-			</div>
-			<br>
-
-*암호확인<br>
-	<input type="password" id="memberPWD2" class="input" required><br>
-*이름<br>
-	<input type="text" name="memberName" class="input" required><br>
-*주민번호<br>
-	<input type="text" name="socialId" class="input" required><br>
+	<div>
+		<h3 class="list">비밀번호 재확인<span id="pwCheckError"></span></h3>
+		<span class="box int_id">
+			<input type="password" id="memberPWD2" class="input" maxlength="20" required><br>
+		</span>	
+	</div>
 	
-
-*성별<br>
+	<div>
+		<h3 class="list">성명<span id="nameError"></span></h3>
+		<span class="box int_id">
+			<input type="text" name="memberName" class="input" maxlength="20" required><br>
+		</span>
+	</div>
 	
-		<input type="radio" name="gender" value="M" id="m" > 남자 &nbsp; 
-		<input type="radio" name="gender" value="F" id="f" > 여자 
-		<br>
+	<div>
+		<h3 class="list">주민번호<span id="socialIdError"></span></h3>
+		<span class="box int_id">
+			<input type="text" name="socialId" class="input" required><br>
+		</span>
+	</div>
+	
+	<div>
+		<h3 class="list">성별</h3>
+		<span class="box int_id">
+			<input type="radio" name="gender" value="M" id="m" > 남자 &nbsp; 
+			<input type="radio" name="gender" value="F" id="f" > 여자 
+		</span>
+	</div>
+	<br>
+	<div>
+		<h3 class="list">이메일<span id="socialIdError"></span></h3>
+		<span class="box int_id">
+			<input type="email" name="email" class="input" required>
+		</span>
+	</div>
 
-*이메일<br>
-<input type="email" name="email" class="input" required><br>
-<input type="file" name="photoFilename" id="photoFilename" value="첨부파일"><br>
+	<input type="file" name="photoFilename" id="photoFilename" value="첨부파일"><br>
+	<br>
+	<div>
+	   <h3 class="list">자택주소<span id="addressError"></span></h3>
+	   <div id="address" class="int_id">
+       <span>
+       <input type="text" id="sample4_postcode" class="d_form mini line addressCheck" placeholder="우편번호" readonly>
+       <input type="button" id="addressButton" class="d_form mini" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" readonly>
+       </span>
+       <br>
+       <input type="text" id="sample4_roadAddress" class="d_form mini line" placeholder="도로명주소" readonly>
+       <input type="text" id="sample4_jibunAddress" class="d_form mini line" placeholder="지번주소" readonly>
+       <span  id="guide" style="color:#999;display:none"></span><br>
+       <input type="text" id="sample4_extraAddress" class="d_form mini line" placeholder="참고주소" readonly>
+       <input type="text" id="sample4_detailAddress" class="d_form mini line addressCheck" placeholder="상세주소" >
+       </div>
+    </div>
 
+
+	   
+
+
+
+
+<br><br>
 <input type="submit" value="가입하기"> &nbsp;
 <input type="reset" value="작성취소"> &nbsp;
 <a href="home.do">시작페이지로 이동</a>

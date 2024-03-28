@@ -23,12 +23,11 @@ font-family : 'ELAND_Choice_M';
 }
 
 body{
-	
-
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 1000px
+    
 }
 
 #entire{
@@ -36,7 +35,7 @@ body{
 	top: 150px; 
 	border:1px solid gray;
 	width: 600px;
-	height: 700px;
+	height: 850px;
 	 display: flex;
     flex-direction: column;
     align-items: center;
