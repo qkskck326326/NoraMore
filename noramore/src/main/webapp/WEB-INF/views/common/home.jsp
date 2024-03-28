@@ -21,6 +21,10 @@
 	function enroll(){	
 		location.href = "enrollPage.do";
 	}
+	
+	function mypage(){	
+		location.href = "my.do";
+	}
 </script>
 </head>
 
@@ -33,10 +37,23 @@
 			<h1 class="logo">
 				<img src="resources/images/noramore_main.png" width=460 height=220>
 			</h1>
-			<div class="loginSign">
-				<button class='button' onclick="movePage();">로그인</button><br>
-				<button class='button' id=two onclick="enroll();">회원가입</button>
-			</div>
+			<c:if test="${ empty sessionScope.loginMember }">
+				<div class="loginSign">
+					<button class='button' onclick="movePage();">로그인</button><br>
+					<button class='button' id=two onclick="enroll();">회원가입</button>	
+				</div>
+			</c:if>
+			<c:if test="${ !empty sessionScope.loginMember }">
+				<div class="loginSign">
+				${ sessionScope.loginMember.userName } 님. <br>
+					<button class='button'><a href="logout.do">로그아웃</a></button>
+					
+					<c:url var="mypage" value="mypage();">
+						<c:param name="userId" value="${ loginMember.userId }"></c:param>
+					</c:url> <!--  마이 페이지 들어갈때 자기자신의 정보를 가지고 올 수 있게 함 -->
+					<a href="${ mypage }">My Page</a>
+				</div>
+			</c:if>
 		</header>
 		
 		<ul class="grid cs-style-3">

@@ -1,5 +1,22 @@
 package com.develup.noramore.member.model.service;
 
-public class MemberServiceImpl {
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Service;
+
+import com.develup.noramore.member.model.dao.MemberDao;
+import com.develup.noramore.member.model.vo.Member;
+
+@Service("memberService")
+public class MemberServiceImpl implements MemberService {
+
+	@Autowired
+	private MemberDao memberDao;
+
+	@Override
+	public Member selectMember(String memberID) {
+		return memberDao.selectMember(memberID);
+	}
+	
 
 }

@@ -2,7 +2,43 @@
 <!DOCTYPE mapper PUBLIC
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="member">
+<mapper namespace="memberMapper">
+	<resultMap id="resultMember" type="Member">
+		<id property="memberID" column="MEMBER_ID" />
+		<result property="memberPWD" column="MEMBER_PWD" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="socialId" column="SOCIAL_ID" />
+		<result property="gender" column="GENDER" />
+		<result property="email" column="EMAIL" />
+		<result property="photoFilename" column="PHOTO_FILENAME" />
+		<result property="resign" column="RESIGN" />
+		<result property="adminYN" column="ADMIN_YN" />
+		<result property="signType" column="SIGNTYPE" />
+		<result property="actLimit" column="ACT_LIMIT" />
+		<result property="registDate" column="REGIST_DATE" />
+		<result property="modifiedDate" column="MODIFIED_DATE" />
+	</resultMap>
+	
+	<resultMap id="resultList" type="Member">
+		<result property="memberID" column="MEMBER_ID" />
+		<result property="memberPWD" column="MEMBER_PWD" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="socialId" column="SOCIAL_ID" />
+		<result property="gender" column="GENDER" />
+		<result property="email" column="EMAIL" />
+		<result property="photoFilename" column="PHOTO_FILENAME" />
+		<result property="resign" column="RESIGN" />
+		<result property="adminYN" column="ADMIN_YN" />
+		<result property="signType" column="SIGNTYPE" />
+		<result property="actLimit" column="ACT_LIMIT" />
+		<result property="registDate" column="REGIST_DATE" />
+		<result property="modifiedDate" column="MODIFIED_DATE" />
+		
+	</resultMap>
 
-
+	<!-- 로그인용 쿼리 -->
+	<select id="selectMember" parameterType="string" resultMap="resultMember">
+	select * from member where MEMBER_ID = #{ memberID } and ACT_LIMIT in(0,1)
+		
+	</select>
 </mapper>

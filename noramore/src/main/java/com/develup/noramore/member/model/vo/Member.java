@@ -7,10 +7,11 @@ public class Member implements java.io.Serializable  {
 	
 	
 	//Field
-	private String memberId;      //회원아이디
+	private String memberID;      //회원아이디
 	private String memberPWD;       //비밀번호
 	private String memberName;      //이름
 	private String socialId;       //주민등록번호
+	private String gender;
 	private String email;          //이메일
 	private String photoFilename;    //회원사진파일명
 	private String resign;         //회원탈퇴
@@ -32,11 +33,11 @@ public class Member implements java.io.Serializable  {
 
 
 
-	public Member(String memberId, String memberPWD, String memberName, String socialId, String email,
+	public Member(String memberID, String memberPWD, String memberName, String socialId, String gender, String email,
 			String photoFilename, String resign, String adminYN, String signType, String actLimit, Date registDate,
 			Date modifiedDate) {
 		super();
-		this.memberId = memberId;
+		this.memberID = memberID;
 		this.memberPWD = memberPWD;
 		this.memberName = memberName;
 		this.socialId = socialId;
@@ -53,14 +54,14 @@ public class Member implements java.io.Serializable  {
 
 
 	//getters and setters
-	public String getMemberId() {
-		return memberId;
+	public String getMemberID() {
+		return memberID;
 	}
 
 
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
 	}
 
 
@@ -97,6 +98,17 @@ public class Member implements java.io.Serializable  {
 
 	public void setSocialId(String socialId) {
 		this.socialId = socialId;
+	}
+	
+
+	public String getGender() {
+		return gender;
+	}
+
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 
@@ -201,11 +213,14 @@ public class Member implements java.io.Serializable  {
 	
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", memberPWD=" + memberPWD + ", memberName=" + memberName
-				+ ", socialId=" + socialId + ", email=" + email + ", photoFilename=" + photoFilename + ", resign="
+		return "Member [memberID=" + memberID + ", memberPWD=" + memberPWD + ", memberName=" + memberName
+				+ ", socialId=" + socialId + ", gender=" + gender + ", email=" + email + ", photoFilename=" + photoFilename + ", resign="
 				+ resign + ", adminYN=" + adminYN + ", signType=" + signType + ", actLimit=" + actLimit
 				+ ", registDate=" + registDate + ", modifiedDate=" + modifiedDate + "]";
 	}
+
+
+
 
 	
 	

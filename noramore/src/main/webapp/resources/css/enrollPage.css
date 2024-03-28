@@ -14,10 +14,6 @@
     font-style: normal;
 }
 
-body{
-	align:center;
-}
-
 * {
 margin: 0;
 padding: 0;
@@ -26,16 +22,76 @@ color: #000;
 font-family : 'ELAND_Choice_M';
 }
 
+body{
+	
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 1000px
+}
+
+#entire{
+	position:relative;
+	top: 150px; 
+	border:1px solid gray;
+	width: 600px;
+	height: 700px;
+	 display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#outer tr th{
+	padding-bottom:8px;
+	width:150px;
+}
+
+#outer tr th:nth-of-type(7){
+	padding-top:3px;
+
+}
+
+
+.input{
+    width: 150px;
+	height:30px;
+	font-size: 15px;
+    color: gray;
+    margin-bottom: 10px;
+    background: #F8F8F8;
+    border: 2px solid gray;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-left: 5px;
+    
+    
+}
+myphoto{
+	position
+	margin:0;width:150px;
+	height:160px;
+	padding:0;
+	border:1px solid navy;
+}
+
+.input:focus{
+	outline: 3px solid black;
+	border:0px;
+}
+
+.labels{
+	width: 100px;
+	height:30px;
+	margin-bottom: 10px;
+} 
+
+
 a {
 text-decoration: none;
 color: inherit;
 }
 
-.input {
-border: 1px solid #15bef5 ;
-border-radius: 5px;
-background-color : #fff;
-padding: 10px;
-}
+
 
 
