@@ -13,13 +13,13 @@
 
 function validate(){
 
-	var pwdValue = $('#userpwd').val();
-	var pwdValue2 = $('#userpwd2').val();
+	var pwdValue = $('#memberPWD').val();
+	var pwdValue2 = $('#memberPWD2').val();
 	
 	if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
 		alert("암호와 암호확인이 일치하지 않습니다. 다시 입력하세요.");
-		document.getElementById("userpwd2").value = "";  // 두 번째 비밀번호 필드의 값을 비웁니다.
-		document.getElementById("userpwd").select();  // 첫 번째 비밀번호 필드를 선택합니다.
+		document.getElementById("memberPWD2").value = "";  // 두 번째 비밀번호 필드의 값을 비웁니다.
+		document.getElementById("memberPWD").select();  // 첫 번째 비밀번호 필드를 선택합니다.
 		return false;  //전송 취소함
 	}
 	
@@ -35,16 +35,16 @@ function dupIDCheck(){
 	
 	$.ajax({  //서버에서 값이 돌아와도 새로고침이 되지 않고 현재페이지는 바뀌지 않고 응답만 받음. 비동기 통신.
 		url: "idchk.do",
-		type: "post",   
-		data: { userid: $('#userid').val() }, //userid로 되어 있는 메소드를 보냄
+		type: "post",
+		data: { memberID: $('#memberID').val() }, 
 		success: function(data){  //온 결과 값.기본이 text임 
 			console.log("success : " + data);
 			if(data == "ok"){   
 				alert("사용 가능한 아이디입니다.");
-				$('#userpwd').focus();
+				$('#memberPWD').focus();
 			}else{
 				alert("이미 사용중인 아이디입니다.");
-				$('#userid').select();
+				$('#memberID').select();
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown){
@@ -82,13 +82,13 @@ function dupIDCheck(){
 
 	<h5>회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</h5>
 *아이디 <br>
-		<input type="text" name="userId" id="userid" class="input" required>&nbsp;  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
+		<input type="text" name="memberID" id="memberid" class="input" required>&nbsp;  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
 		<input type="button" value="중복체크" onclick="return dupIDCheck();">
 		<br>
 		
 	
 	*암호<br>
-	<input type="password" name="userPwd" id="userpwd" class="input" required>
+	<input type="password" name="memberPWD" id="memberpwd" class="input" required>
 	
 			<div id="myphoto">
 				<img src="/first/resources/member_photofiles/preview.jpg" id="photo" 				
@@ -99,12 +99,12 @@ function dupIDCheck(){
 			<br>
 
 *암호확인<br>
-	<input type="password" id="userpwd2" class="input" required><br>
+	<input type="password" id="memberPWD2" class="input" required><br>
 *이름<br>
-	<input type="text" name="userName" class="input" required><br>
+	<input type="text" name="memberName" class="input" required><br>
 *주민번호<br>
-	<input type="text" name="social_id" class="input" required><br>
-	<input type="file" name="photofile" id="photofile" value="첨부파일"><br>
+	<input type="text" name="socialId" class="input" required><br>
+	
 
 *성별<br>
 	
@@ -114,7 +114,13 @@ function dupIDCheck(){
 
 *이메일<br>
 <input type="email" name="email" class="input" required><br>
-	
+<input type="file" name="photoFilename" id="photoFilename" value="첨부파일"><br>
+
+<input type="submit" value="가입하기"> &nbsp;
+<input type="reset" value="작성취소"> &nbsp;
+<a href="home.do">시작페이지로 이동</a>
+
+</form>
 	
 </div>
 </body>
