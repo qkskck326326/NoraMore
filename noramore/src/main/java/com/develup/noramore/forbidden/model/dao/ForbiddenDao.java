@@ -16,7 +16,7 @@ public class ForbiddenDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	public ArrayList<Forbidden> selectList(Paging paging) {
-		List<Forbidden> list = sqlSessionTemplate.selectList("forbiddenMapper.selectList", paging);
+		List<Forbidden> list = sqlSessionTemplate.selectList("forbidden.selectList", paging);
 		return (ArrayList<Forbidden>)list;
 	}
 
@@ -26,5 +26,13 @@ public class ForbiddenDao {
 
 	public int insertForbidden(String fbWord) {
 		return sqlSessionTemplate.insert("forbidden.insertForbidden", fbWord);
+	}
+
+	public int selectCheckFb(String fbWord) {
+		return sqlSessionTemplate.selectOne("forbidden.selectCheckFb", fbWord);
+	}
+
+	public int deleteForbidden(String fbWord) {
+		return sqlSessionTemplate.delete("forbidden.deleteForbidden", fbWord);
 	}
 }

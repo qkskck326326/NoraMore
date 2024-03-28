@@ -22,9 +22,9 @@
 
 	<select id="selectList" resultMap="resultList">
 		select *
-		from (select rownum rnum, fb_id, fb_word, regitst_date
-		     from (select * from board
-		           order by regist_date desc))
+		from (select rownum rnum, fb_id, fb_word, regist_date
+		     from (select * from forbidden
+		           order by fb_id asc))
 		where rnum between #{ startRow } and #{ endRow }  
 	</select>
 
@@ -41,9 +41,9 @@
 	</select>
 	
 	
-	<delete id="deleteForbidden" parameterType="Forbidden">
+	<delete id="deleteForbidden" parameterType="string">
 		delete from forbidden
-		where fb_id = #{ fbId }
+		where fb_word = #{ fbWord }
 	</delete>
 	
 	
