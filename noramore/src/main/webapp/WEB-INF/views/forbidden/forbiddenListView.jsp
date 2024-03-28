@@ -73,41 +73,45 @@ function delFb(fbWord){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
+
 <h2 class="title">금지어 관리</h2>
 <br>
+		<form class="search" action="fbsearch.do">
+			<input type="search" name="fbWord" id="fbsearch" placeholder="검색할 금지어를 입력하세요">
+		</form>
+	<!-- 팝업 버튼 -->
+		<button class="newfb" onclick="openPopup();">등록하기</button>
 
-<!-- 팝업 버튼 -->
-<button class="newfb" onclick="openPopup();">등록하기</button>
+	<!-- 팝업 -->
+	<div id="popup" class="popup">
+	  <form action="fbinsert.do" class="popup-content" onsubmit="return dupFbCheck();">
+	  	<h4 class="fbenroll">새 금지어 등록</h4><p>
+	    <span class="close" onclick="closePopup();">&times;</span> <!-- 팝업 닫기 버튼 -->
+	    <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord">&nbsp; <!-- 팝업 내부의 input 태그 -->
+	    <input id="fbsubmit" type="submit" value="등록">
+	  </form>
+	</div>
+	<br>
 
-<!-- 팝업 -->
-<div id="popup" class="popup">
-  <form action="fbinsert.do" class="popup-content" onsubmit="return dupFbCheck();">
-  	<h4 class="fbenroll">새 금지어 등록</h4><p>
-    <span class="close" onclick="closePopup();">&times;</span> <!-- 팝업 닫기 버튼 -->
-    <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord">&nbsp; <!-- 팝업 내부의 input 태그 -->
-    <input id="fbsubmit" type="submit" value="등록">
-  </form>
-</div>
 
-<br>
+		<table class="table" align="center" border="1" cellspacing="0" width="700">
+			<tr>
+				<th>번호</th>
+				<th>금지어</th>
+				<th>등록일자</th>
+				<th>관리</th>
+			</tr>
+			
+			<c:forEach items="${ requestScope.list }" var="f">
+				<tr>
+					<td>${ f.fbId }</td>
+					<td>${ f.fbWord }</td>
+					<td>${ f.registDate }</td>
+					<td><button class="deletefb" onclick="return delFb('${ f.fbWord }');">삭제</button></td>
+				</tr>
+			</c:forEach>
+		</table>
 
-<table class="table" align="center" border="1" cellspacing="0" width="700">
-	<tr>
-		<th>번호</th>
-		<th>금지어</th>
-		<th>등록일자</th>
-		<th>관리</th>
-	</tr>
-	
-	<c:forEach items="${ requestScope.list }" var="f">
-		<tr>
-			<td>${ f.fbId }</td>
-			<td>${ f.fbWord }</td>
-			<td>${ f.registDate }</td>
-			<td><button class="deletefb" onclick="return delFb('${ f.fbWord }');">삭제</button></td>
-		</tr>
-	</c:forEach>
-</table>
 <%-- <c:import url="/WEB-INF/views/common/pagingView.jsp" /> --%>
 </body>
 </html>
