@@ -91,7 +91,7 @@ function delFb(fbWord){
 
 <br>
 
-<table align="center" border="1" cellspacing="0" width="700">
+<table class="table" align="center" border="1" cellspacing="0" width="700">
 	<tr>
 		<th>번호</th>
 		<th>금지어</th>
