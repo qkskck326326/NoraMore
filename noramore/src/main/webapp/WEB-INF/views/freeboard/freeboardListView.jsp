@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    --%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!DOCTYPE html >
@@ -33,7 +33,10 @@
             
             itemSelect.onchange = function () {
                 var selectedOption = itemSelect.value;
-                sortData(selectedOption);
+                if (selectedOption === "title") {
+                    sortRecent();
+                } else if (selectedOption === "author") {
+                    sortViews();
             };
 
             function sortRecent() {
@@ -48,18 +51,12 @@
                 console.log("좋아요순 정렬 실행");
             }
             
-            function sortData(selectedOption) {
-                if (selectedOption === "recent") {
-                    console.log("최신순 정렬 실행");
-                } else if (selectedOption === "views") {
-                    console.log("조회순 정렬 실행");
-                } else if (selectedOption === "likes") {
-                    console.log("좋아요순 정렬 실행");
-                } else if (selectedOption === "title") {
-                    console.log("글제목으로 정렬 실행");
-                } else if (selectedOption === "author") {
-                    console.log("작성자로 정렬 실행");
-                }
+            function sortTitle(){
+            	 console.log("글제목 정렬 실행");
+            
+            }
+            function sortAuthor(){
+            	console.log("작성자 정렬 실행");
             }
         };
         };
@@ -79,7 +76,7 @@
 		<%
 		}
 		%>
-		<button onclick="location.href='noticewrite.do';" class="blueBtn">글쓰기</button>
+		<button onclick="location.href='freeboarddetail.do';" class="blueBtn">글쓰기</button>
 		<form action="board.jsp" method="get">
 
 			<div class="position">
@@ -110,13 +107,31 @@
    	 </div>
 		
 		<table>
+			<thead>
 			<tr>
-				<th>No</th>
+				<th>번호</th>
 				<th>제목</th>
-				<th>작성자</th>
+				<th>작성자ID</th>
 				<th>조회수</th>
-				<th>작성자</th>
 			</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="fl" items="${list}">
+	            <c:url var="fbd" value="fbdetail.do">
+					<c:param name="bnum" value="${b.boardNum}" />
+					<c:param name="page" value="${nowpage}" />
+				</c:url>
+                <tr>
+                    <td>${fl.boardId}</td>
+                    <td><a href="${fbd}">${fl.title}</a></td>
+                    <td>${fl.memberId}</td>
+                    <td>${fl.readCount}</td>
+                </tr>
+            </c:forEach>	
+				
+			
+			</tbody>
+			
 
 		</table>
 

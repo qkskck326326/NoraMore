@@ -4,5 +4,25 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="freeboard">
 
+	<resultMap type="FreeBoard" id="resultfreeList">
+		<result property="boardId" column="BOARD_ID" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="categoryId" column="CATEGORY_ID" />
+		<result property="title" column="TITLE" />
+		<result property="context" column="CONTEXT" />
+		<result property="freeOriginalFileName" column="FREE_ORIGINAL_FILENAME" />
+		<result property="freeRenameFileName" column="FREE_RENAME_FILENAME" />
+		<result property="readCount" column="READ_COUNT" />
+		<result property="likeCount" column="LIKE_COUNT" />
+		<result property="reportCount" column="REPORT_COUNT" />
+		<result property="registDate" column="REGIST_DATE" />
+		<result property="lastUpdDate" column="LAST_UPD_DATE" />		
+	</resultMap>
+	
+	<select id="selectFreeBoard" resultMap="resultfreeList">
+		select * from free_board
+	</select>
+	
+
 
 </mapper>
