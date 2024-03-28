@@ -71,10 +71,10 @@ function rbwriteform(){
 					<c:param name="page" value="${nowpage}" />
 				</c:url>
                 <tr>
-                    <th>${rl.boardId}</td>
-                    <th><a href="${rbd}">${rl.title}</a></td>
-                    <th>${rl.memberId}</td>
-                    <th>${rl.readCount}</td>
+                    <th>${rl.boardId}</th>
+                    <th><a href="${rbd}">${rl.title}</a></th>
+                    <th>${rl.memberId}</th>
+                    <th>${rl.readCount}</th>
                 </tr>
             </c:forEach>
         </tbody>
