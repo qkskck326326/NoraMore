@@ -11,6 +11,9 @@ public interface FreeBoardService {
 
 	
 	void insertFreeBoard(FreeBoard freeBoard);
+
+
+	
 	
 	
 	

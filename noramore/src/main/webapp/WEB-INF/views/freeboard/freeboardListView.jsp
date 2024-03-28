@@ -118,7 +118,7 @@
 			<tbody>
 			<c:forEach var="fl" items="${list}">
 	            <c:url var="fbd" value="fbdetail.do">
-					<c:param name="bnum" value="${b.boardNum}" />
+					<c:param name="boardId" value="${fl.boardId}" />
 					<c:param name="page" value="${nowpage}" />
 				</c:url>
                 <tr>

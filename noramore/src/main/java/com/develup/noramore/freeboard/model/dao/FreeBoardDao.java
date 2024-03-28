@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
 
 public class FreeBoardDao {
+
+	
 	
 	
 

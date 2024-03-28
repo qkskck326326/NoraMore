@@ -19,6 +19,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	
 	
 	
+	
 	@Override
 	public ArrayList<FreeBoard> selectFreeBoard() {
 		List<FreeBoard> list = SqlSessionTemplate.selectList("freeboard.selectFreeBoard");
@@ -30,6 +31,8 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 		
 	}
+
+	
 	
 
 	
