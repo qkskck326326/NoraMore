@@ -72,49 +72,50 @@ function dupIDCheck(){
 </script>
 </head>
 <body>
+<div id="entire">
 <h1 align="center">회원가입</h1>
 <br>
 <!-- 사진파일 첨부시 enctype="multipart/form-data" 속성 추가함 -->
 <form action="enroll.do" id="enrollForm" method="post" onsubmit="return validate();">  
 <!-- form에는 submit버튼 1개만 만들수 있음 --> <!--  return을 붙여야 이 값을 보낼지 말지 가능함. -->
 
-<table id="outer" align="center" width="700" cellspacing="5" cellpadding="0">
-	<tr><th colspan="3">회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</th></tr>
-	<tr><th width="120">*아이디</th>
-		<td><input type="text" name="userId" id="userid" class="input" required> &nbsp;  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->
-			<input type="button" value="중복체크" onclick="return dupIDCheck();">  
-		</td>
-		<td rowspan="7" width="180" align="center" valign="middle">
-			<div id="myphoto" 
-			style="margin:0;width:150px;height:160px;padding:0;border:1px solid navy;">
+
+	<h5>회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</h5>
+*아이디 <br>
+		<input type="text" name="userId" id="userid" class="input" required>&nbsp;  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
+		<input type="button" value="중복체크" onclick="return dupIDCheck();">
+		<br>
+		
+	
+	*암호<br>
+	<input type="password" name="userPwd" id="userpwd" class="input" required>
+	
+			<div id="myphoto">
 				<img src="/first/resources/member_photofiles/preview.jpg" id="photo" 				
 				style="width:150px;height:160px;border:1px solid navy;display:block;"
-				alt="사진을 드래그 드롭하세요." 
-				style="padding:0;margin:0;"><br>				
-			</div>		
-		</td>
-	</tr>
-	<tr><th>*암호</th>
-	<td><input type="password" name="userPwd" id="userpwd" class="input" required></td></tr>
-	<tr><th>*암호확인</th>
-	<td><input type="password" id="userpwd2" class="input" required></td></tr>
-	<tr><th>*이름</th>
-	<td><input type="text" name="userName" class="input" required></td></tr>
-	<tr><th>*성별</th>
-	<td class="labels">
-		<input type="radio" name="gender" value="M" id="m" > 남자 &nbsp; 
-		<input type="radio" name="gender" value="F" id="f" > 여자
-		
-	</td></tr>
-	<tr><th>*나이</th>
-	<td><input type="number" name="age" min="19" value="20" class="input" required></td>	
-	</tr>
-	<tr><th>*전화번호</th>
-	<td><input type="tel" name="phone" class="input" required></td>	
-	<tr><th>*이메일</th>
-	<td><input type="email" name="email" class="input" required></td>
-	<td align="right"><input type="file" name="photofile" id="photofile" value=""></td>
-	</tr>
+				alt="사진을 드래그 드롭하세요."
+				style="padding:0;margin:0;">
+			</div>
+			<br>
 
+*암호확인<br>
+	<input type="password" id="userpwd2" class="input" required><br>
+*이름<br>
+	<input type="text" name="userName" class="input" required><br>
+*주민번호<br>
+	<input type="text" name="social_id" class="input" required><br>
+	<input type="file" name="photofile" id="photofile" value="첨부파일"><br>
+
+*성별<br>
+	
+		<input type="radio" name="gender" value="M" id="m" > 남자 &nbsp; 
+		<input type="radio" name="gender" value="F" id="f" > 여자 
+		<br>
+
+*이메일<br>
+<input type="email" name="email" class="input" required><br>
+	
+	
+</div>
 </body>
 </html>

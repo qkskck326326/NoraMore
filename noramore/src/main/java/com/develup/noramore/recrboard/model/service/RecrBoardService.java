@@ -7,5 +7,7 @@ import com.develup.noramore.recrboard.model.vo.RecrBoard;
 public interface RecrBoardService {
 
 	ArrayList<RecrBoard> selectRecrBoard();
+
+	RecrBoard selectBoardId(int boardId);
 	
 }

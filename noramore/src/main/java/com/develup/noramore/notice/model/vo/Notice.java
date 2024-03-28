@@ -7,7 +7,7 @@ public class Notice implements java.io.Serializable{
 	
 	private int noticeNo;
     private String noticeTitle;
-    private Date noticeDate;
+    private java.sql.Date noticeDate;
     private String noticeWriter;
     private String noticeContent;
     private String originalFilePath;

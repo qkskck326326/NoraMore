@@ -18,4 +18,9 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.selectRecrBoard();
 	}
 
+	@Override
+	public RecrBoard selectBoardId(int boardId) {
+		return recreBoardDao.selectBoardId(boardId);
+	}
+
 }//

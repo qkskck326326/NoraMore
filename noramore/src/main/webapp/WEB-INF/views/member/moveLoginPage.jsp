@@ -21,8 +21,8 @@ function EnrollPage(){
 <div id="loginForm"  >	
 	<form id="box_in" action="login.do" method="post">
 	<h1 >로그인</h1>
-	<label><input type="text" name="userId" id="uid" class="pos" placeholder=" Id" ></label>
-	<label><input type="password" name="userPwd" id="upwd" class="pos" placeholder=" Password"></label>
+	<label><input type="text" name="memberId" id="mid" class="pos" placeholder=" Id" ></label>
+	<label><input type="password" name="memberPWD" id="mpwd" class="pos" placeholder=" Password"></label>
 	
 	<label for="remember-check" id="remember-check">
             	  <input type="checkbox" > 아이디 저장하기
