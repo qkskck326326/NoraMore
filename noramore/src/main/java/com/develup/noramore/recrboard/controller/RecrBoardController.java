@@ -38,7 +38,7 @@ public class RecrBoardController {
 	
 	@RequestMapping("rbdetail.do")
 	public String moveRecrBoardDetail(Model model,
-									@RequestParam("") int boardId) {
+									@RequestParam("boardId") int boardId) {
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
 		return "recrBoard/RecrBoardDetail";

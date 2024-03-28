@@ -9,13 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
-		<script type="text/javascript"
-			src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+<script type="text/javascript"src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
 <title>Insert title here</title>
 </head>
 <body>
 	
-<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> -->
 		
     <form action="#" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>

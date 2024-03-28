@@ -13,25 +13,25 @@
 	    <result property="reportCount" column="report_count"/>
 	    <result property="maxRecr" column="max_recr"/>
 	    <result property="nowRecr" column="now_recr"/>
-	    <result property="RecrStatus" column="recr_status"/>
-	    <result property="RecrStartDate" column="recr_start_date" />
-	    <result property="RecrEndDate" column="recr_end_date" />
-	    <result property="RecrOriginalFilename" column="recr_original_filename"/>
-	    <result property="RecrRenameFilename" column="recr_rename_filename"/>
-	    <result property="RecrActStartDate" column="recr_act_start_date" />
-	    <result property="RecrActEndDate" column="recr_act_end_date" />
-	    <result property="RecrLocation" column="recr_location"/>
+	    <result property="recrStatus" column="recr_status"/>
+	    <result property="recrStartDate" column="recr_start_date" />
+	    <result property="recrEndDate" column="recr_end_date" />
+	    <result property="recrOriginalFilename" column="recr_original_filename"/>
+	    <result property="recrRenameFilename" column="recr_rename_filename"/>
+	    <result property="recrActStartDate" column="recr_act_start_date" />
+	    <result property="recrActEndDate" column="recr_act_end_date" />
+	    <result property="recrLocation" column="RECR_LOC"/>
 	    <result property="commentCount" column="comment_count"/>
 	    <result property="readCount" column="read_count"/>
-	    <result property="registrationDate" column="registration_date" />
-	    <result property="lastUpdateDate" column="last_update_date" />
+	    <result property="registrationDate" column="REGIST_DATE" />
+	    <result property="lastUpdateDate" column="LAST_UPD_DATE" />
 	</resultMap>
 	
 	<select id="selectRecrBoard" resultMap="resultRecr">
 		select * from recr_board 
 	</select>
 	
-	<select id="selectBoardId" parameterType="_int" resultType="RecrBoard">
+	<select id="selectBoardId" parameterType="_int" resultMap="resultRecr">
 		select * from recr_board 
 		where board_id = #{boardId} 
 	</select>

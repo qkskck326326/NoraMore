@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>RecrBoardList</title>
+<link rel="stylesheet" href="resources/css/style.css">
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,6 +44,7 @@
 <body>
 
 	<h1>모집게시판 전체 목록</h1>
+	<button class="whiteBtn" style="float: right;  margin-right:10;">글 작성</button>
     <table>
         <thead>
             <tr>
@@ -59,10 +61,10 @@
 					<c:param name="page" value="${nowpage}" />
 				</c:url>
                 <tr>
-                    <td>${rl.boardId}</td>
-                    <td><a href="${rbd}">${rl.title}</a></td>
-                    <td>${rl.memberId}</td>
-                    <td>${rl.readCount}</td>
+                    <th>${rl.boardId}</td>
+                    <th><a href="${rbd}">${rl.title}</a></td>
+                    <th>${rl.memberId}</td>
+                    <th>${rl.readCount}</td>
                 </tr>
             </c:forEach>
         </tbody>

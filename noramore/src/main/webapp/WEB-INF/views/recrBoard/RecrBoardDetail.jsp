@@ -2,42 +2,65 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/style.css">
-<script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+<c:url var="insertAppl" value="insertApp.do">
+	<c:param name="boardId" value="${RecrBoard.boardId}" />
+	<c:param name="memberID" value="${loginMember.memberID}" />
+</c:url>
+<script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+function(){
+	location.href = ${insertAppl};
+}
+</script>
 <title>NoraMore</title>
+
+
+<style>
+    div {
+    	margin-bottom: 20px;
+    }
+</style>
 </head>
 <body>
 <form action="#" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
-	<section id="write">
-		<h1>글쓰기</h1>
+	<div id="write">
+		<h1 style="text-align: left;">${RecrBoard.title}</h1>
 		<div class="line"></div>
+		<div>
+			<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
+			<button style="float: right; background-color:pink; color:black;" class="whiteBtn" onclick="report(); return false;">신고하기</button>
+			<button style="float: right;  margin-right:10;" class="whiteBtn" onclick="insertAppl(); return false;">모집신청</button>
+		</div>
+
+		<textarea cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 		
-		<p>${RecrBoard.title}</p><br>
-		
-		<p>본문</p>
-		<textarea readonly>${RecrBoard.context}</textarea>
-		
+		<c:if test="${ !empty RecrBoard.recrOriginalFilename}">
 		<p>첨부파일</p>
-		<input type="file" id="file" name="file">
+			<c:url var="rbdown" value="rbdown.do">
+				<c:param name="ofile" value="${RecrBoard.recrOriginalFilename}"/>
+				<c:param name="rfile" value="${RecrBoard.recrRenameFilename}"/>
+			</c:url>
+			<a href="${rbdown}">
+			${RecrBoard.recrOriginalFilename}</a>
+		</c:if>
+		<c:if test="${ empty RecrBoard.recrOriginalFilename}">
+			<p>첨부파일 없음</p>
+		</c:if>
 						
-		<p>시작 날짜</p>
-		<input type="date" name="start"> 
+		<p>시작 날짜 : ${RecrBoard.recrStartDate}</p>
+		<p>마감 날짜 : ${RecrBoard.recrEndDate}</p>
 		
-		<p>마감 날짜</p>
-		<input type="date" name="end">
+		<p>장소 : ${RecrBoard.recrLocation}</p>
 		
-		<p>장소</p>
-		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
-		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
 		
-		<button type="button" onclick="checkInput()">글쓰기</button>
-		<input type="submit" class="none">
-	</section>
+
+	</div>
 </form>
 
 
