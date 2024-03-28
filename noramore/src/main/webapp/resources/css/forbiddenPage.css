@@ -1,4 +1,10 @@
 @charset "UTF-8";
+.title {
+	position:ablsolute;
+	left: 50%;
+	transform: translate(-50%);
+}
+
 .popup {
   display: none; /* 기본적으로 숨겨진 상태 */
   position: fixed; /* 화면에 고정된 위치에 배치 */
@@ -25,7 +31,7 @@
   text-align:center;
 }
 
-.title {
+.fbenroll {
 	margin-bottom: 15px;
 }
 
@@ -48,12 +54,15 @@
 }
 /* 버튼 스타일링 */
 .newfb {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  position: relative;
+  left: 80%;
+  transform: translate(-50%);
   background-color: #4CAF50; /* 기본 배경색 */
   color: white; /* 기본 텍스트 색상 */
-  padding: 10px 20px; /* 내부 여백 */
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 5px 20px; /* 내부 여백 */
   font-size: 16px; /* 텍스트 크기 */
   border: none; /* 테두리 없음 */
   border-radius: 5px; /* 테두리 반경 */
@@ -74,6 +83,7 @@
 .table {
 	position: relative;
 	left: 50%;
+	transform: translate(-50%);
 }
 
 /* 텍스트 필드 스타일링 */
@@ -100,10 +110,11 @@
 
 .deletefb {
   display: inline-block;
-  background-color: #D8D8D8; /* 기본 배경색 */
-  color: black; /* 기본 텍스트 색상 */
+  background-color: #E6E6E6; /* 기본 배경색 */
+  color: #DF0101; /* 기본 텍스트 색상 */
   padding: 5px 10px; /* 내부 여백 */
   font-size: 12px; /* 텍스트 크기 */
+  font-weight: bold;
   border: none; /* 테두리 없음 */
   border-radius: 5px; /* 테두리 반경 */
   cursor: pointer; /* 포인터 커서 */
