@@ -18,7 +18,7 @@
 		select count(*) from board
 	</select>
 	
-	<select id="selectList" parameterType="Paging" resultMap="resultList">
+	<select id="selectList" parameterType="Paging" resultMap="resultlist">
 	select * 
 		from (select rownum rnum, board_id, member_id, title,
                 substance, read_count, regist_dt, last_upd_dt
