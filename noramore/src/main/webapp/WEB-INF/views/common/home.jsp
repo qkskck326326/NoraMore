@@ -31,10 +31,11 @@
 <body>
 
 	
-	<div class="container">
+<div class="container">
 	
-		<header class="headline">
-			<h1 class="logo">
+	<header class="headline">
+
+			 <h1 class="logo">
 				<img src="resources/images/noramore_main.png" width=460 height=220>
 			</h1>
 			<c:if test="${ empty sessionScope.loginMember }">

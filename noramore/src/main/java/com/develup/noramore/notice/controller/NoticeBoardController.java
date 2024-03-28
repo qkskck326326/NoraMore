@@ -28,34 +28,44 @@ public class NoticeBoardController {
 	public String selectNoticeBoard() {
 	
 		return "notice/notice";
-	}//
+	}
 	
-	// 전체 공지사항 출력용 메소드
+	
 	@RequestMapping("nlist.do")
 	public String noticeListMethod(
-			@RequestParam(name="page", required=false) String page,
-			@RequestParam(name="limit", required=false) String slimit,
+			@RequestParam(name="page", required=false) String page, 
+			@RequestParam(name="limit", required=false) String slimit, 
 			Model model) {
-		
 		int currentPage = 1;
-		if(page != null && page.trim().length() > 0) {
+		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 		
-		// 한페이지에 10개의 게시물을 출력
+		//한 페이지 공지 10개씩 출력되게 한다면
 		int limit = 10;
-		if(slimit != null && slimit.trim().length() > 0) {
+		if (slimit != null) {
 			limit = Integer.parseInt(slimit);
 		}
 		
-		// 총 페이지 수 계산을 위한 공짓글 총 갯수
+		//총 페이지 수 계산을 위한 공지글 총갯수 조회
 		int listCount = noticeBoardService.selectListCount();
-		Paging paging = new Paging(listCount, currentPage, limit, "nlist.do");
+		//페이지 관련 항목 계산 처리
+		Paging paging = new Paging(listCount, currentPage, limit, "notice.do");
 		paging.calculate();
 		
+		//페이지에 출력할 목록 조회해 옴
 		ArrayList<Notice> list = noticeBoardService.selectList(paging);
 		
-		
-		return "notice/notice";
+		if(list != null && list.size() > 0) {
+			model.addAttribute("list", list);
+			model.addAttribute("paging", paging);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("limit", limit);
+			
+			return "notice/notice";
+		}else {
+			model.addAttribute("message", currentPage + "페이지 목록 조회 실패!");
+			return "common/error";
+		}
 	}
 }
