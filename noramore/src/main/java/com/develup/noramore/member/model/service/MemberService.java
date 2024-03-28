@@ -8,6 +8,10 @@ public interface MemberService {
 
 	Member selectMember(String memberID);
 
+	int insertMember(Member member);
+
+	int selectCheckId(String memberid);
+
 
 
 }

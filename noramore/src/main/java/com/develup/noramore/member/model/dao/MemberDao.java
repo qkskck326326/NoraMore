@@ -16,5 +16,13 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.selectMember", memberID);
 	}
 
+	public int insertMember(Member member) {
+		return sqlSessionTemplate.insert("memberMapper.insertMember", member);
+	}
+
+	public int selectCheckId(String memberid) {
+		return sqlSessionTemplate.selectOne("memberMapper.selectCheckId", memberid);
+	}
+
 }
 
