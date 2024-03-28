@@ -45,7 +45,7 @@ public class RecrBoardController {
 	}
 	
 	@RequestMapping("rbwriteform.do")
-	public String insertRecrBoard() {
+	public String moveRecrBoardWriteForm() {
 		return "recrBoard/RecrBoardWriteForm";
 	}
 	

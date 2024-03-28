@@ -29,12 +29,14 @@
 		
 		<p>첨부파일</p>
 		<input type="file" id="file" name="file">
-						
-		<p>시작 날짜</p>
-		<input type="date" name="start"> 
 		
-		<p>마감 날짜</p>
-		<input type="date" name="end">
+		<div style="margin: 20px">			
+		    <p style="display: inline-block; width: 100px;">활동시작 날짜</p>
+		    <input type="date" name="start" style="display: inline-block; width: 200px;"> 
+				
+		    <p style="display: inline-block; width: 100px;">활동마감 날짜</p>
+		    <input type="date" name="end" style="display: inline-block; width: 200px;">
+		</div>
 		
 		<p>장소</p>
 		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>

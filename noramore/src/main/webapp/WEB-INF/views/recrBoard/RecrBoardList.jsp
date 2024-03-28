@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <c:import url="/WEB-INF/views/common/sideSample.jsp"/>
+<script type="text/javascript">
+function rbwriteform(){
+	location.href = 'rbwriteform.do';
+}
+</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +49,9 @@
 <body>
 
 	<h1>모집게시판 전체 목록</h1>
-	<button class="whiteBtn" style="float: right;  margin-right:10;">글 작성</button>
+	
+	<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="rbwriteform()">글 작성</button>
+	
     <table>
         <thead>
             <tr>
