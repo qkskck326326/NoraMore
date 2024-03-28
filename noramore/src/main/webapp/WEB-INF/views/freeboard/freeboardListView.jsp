@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    --%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!DOCTYPE html >
@@ -109,24 +109,23 @@
 		<table>
 			<thead>
 			<tr>
-				<th>No</th>
+				<th>번호</th>
 				<th>제목</th>
-				<th>작성자</th>
+				<th>작성자ID</th>
 				<th>조회수</th>
-				<th>등록일자</th>
 			</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="rl" items="${list}">
-	            <c:url var="rbd" value="rbdetail.do">
+			<c:forEach var="fl" items="${list}">
+	            <c:url var="fbd" value="fbdetail.do">
 					<c:param name="bnum" value="${b.boardNum}" />
 					<c:param name="page" value="${nowpage}" />
 				</c:url>
                 <tr>
-                    <td>${rl.boardId}</td>
-                    <td><a href="${rbd}">${rl.title}</a></td>
-                    <td>${rl.memberId}</td>
-                    <td>${rl.readCount}</td>
+                    <td>${fl.boardId}</td>
+                    <td><a href="${fbd}">${fl.title}</a></td>
+                    <td>${fl.memberId}</td>
+                    <td>${fl.readCount}</td>
                 </tr>
             </c:forEach>	
 				
