@@ -2,18 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
-<c:import url="/WEB-INF/views/common/sideSample.jsp"/>
+<%-- <c:import url="/WEB-INF/views/common/sideSample.jsp"/> --%>
+<c:if test="${!empty requestScope.currentPage}">
+	<c:set var="Page" value="${requestScope.currentPage}" />
+</c:if>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NoraMore</title>
+<link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript">
 function rbwriteform(){
 	location.href = 'rbwriteform.do';
 }
 </script>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>RecrBoardList</title>
-<link rel="stylesheet" href="resources/css/style.css">
 <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,14 +71,15 @@ function rbwriteform(){
 					<c:param name="page" value="${nowpage}" />
 				</c:url>
                 <tr>
-                    <th>${rl.boardId}</td>
-                    <th><a href="${rbd}">${rl.title}</a></td>
-                    <th>${rl.memberId}</td>
-                    <th>${rl.readCount}</td>
+                    <th>${rl.boardId}</th>
+                    <th><a href="${rbd}">${rl.title}</a></th>
+                    <th>${rl.memberId}</th>
+                    <th>${rl.readCount}</th>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-
+<br>
+<c:import url="/WEB-INF/views/common/pagingView.jsp"/>
 </body>
 </html>

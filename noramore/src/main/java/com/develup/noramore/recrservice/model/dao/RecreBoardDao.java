@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.develup.noramore.common.Search;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
 @Repository("recrBoardDao")
@@ -22,5 +23,14 @@ public class RecreBoardDao {
 	public RecrBoard selectBoardId(int boardId) {
 		return SqlSessionTemplate.selectOne("recrboard.selectBoardId", boardId);
 	}
+
+	public int selectListcount() {
+		return SqlSessionTemplate.selectOne("recrboard.selectListcount");
+	}
+
+	public ArrayList<RecrBoard> selectSearchList(Search search) {
+		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectSearchList", search);
+		return (ArrayList<RecrBoard>)list;
+	}
 	
-}
+}//
