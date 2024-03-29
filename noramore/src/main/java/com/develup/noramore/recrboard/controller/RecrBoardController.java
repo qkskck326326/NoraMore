@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
+import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
@@ -27,7 +28,9 @@ public class RecrBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(RecrBoardController.class);
 	@Autowired
 	private RecrBoardService recrBoardService;
-
+	
+	
+	// 테이블 검색
 	@RequestMapping("rblist.do")
 	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
 		// ArrayList<RecrBoard> list = recrBoardService.selectRecrBoard();
@@ -52,7 +55,7 @@ public class RecrBoardController {
 		search.setEndRow(paging.getEndRow());
 
 		ArrayList<RecrBoard> list = recrBoardService.selectSearchList(search);
-
+		
 		mv.addObject("list", list);
 		mv.setViewName("recrBoard/RecrBoardList");
 		mv.addObject("currentPage", currentPage);
@@ -61,7 +64,8 @@ public class RecrBoardController {
 	}//
 
 	
-	  @RequestMapping("rbinsert.do") 
+	  // 모집테이블 생성
+	  @RequestMapping("insertrb.do") 
 	  public String insertRecrBoard(RecrBoard recrBoard, HttpServletRequest request, Model model, 
 			  		@RequestParam("memberId") String memberId, 
 			  		@RequestParam(name="upfile", required=false) MultipartFile mfile) {
@@ -108,6 +112,7 @@ public class RecrBoardController {
 	  }//
 	 
 
+	  
 	// ****************************** 이동용 *********************************
 
 	@RequestMapping("rbdetail.do")
