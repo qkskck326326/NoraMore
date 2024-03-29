@@ -81,7 +81,8 @@ public class MemberController {
 			model.addAttribute("message", "로그인 실패! 아이디나 암호를 다시 확인하세요. 또는 로그인 제한된 회원입니다. 관리자에게 문의하세요."); // addAttribute(속성명, 속성값)
 			// message : error페이지에서 message이름으로 모델객체를 보내면 값을 읽음
 			// 컨트롤러에서 뷰로 데이터를 전달하는 데 사용됨. 주로 뷰에 표시할 데이터를 저장하고 전달하는 데에 사용
-			return "common/error";
+			/* model.addAllAttributes(null) */
+			return "common/moveLoginPage";
 		}
 	}
 	
@@ -103,16 +104,39 @@ public class MemberController {
 		
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
-		public String memberInsertMethod(Member member, Model model) {
+		public String memberInsertMethod(Member member, 
+										@RequestParam("email2") String email2, 
+										@RequestParam("road") String road,
+										@RequestParam("street") String street,
+										@RequestParam("detail") String detail,
+										@RequestParam("ref") String ref,
+										Model model) {
 			logger.info("enroll.do : " + member);
+			
 			
 			//패스워드 암호화 처리
 			member.setMemberPWD(bcryptPasswordEncoder.encode(member.getMemberPWD()));
 			logger.info("after encode : " + member.getMemberPWD());
 			logger.info("pwd length : " + member.getMemberPWD().length());
 			
+			
+			//이메일 입력값과 도메인 합치기
+			if (member.getEmail() != null && !email2.equals("이메일 선택") ) {
+		        String emailConnect = member.getEmail() + "@" + email2; // 전체 이메일 주소
+		        member.setEmail(emailConnect);
+		    } 
+			
+			
+			//주소 합치기
+			if(road != null && street != null && detail != null) {
+				String addressAdd = road + street + detail + ref;
+				member.setAddress(addressAdd);
+			}
+			
+			
+			
 			if(memberService.insertMember(member) > 0) {
-				return "member/loginPage";
+				return "member/moveLoginPage";
 			}else {
 				model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
 				return "common/error";

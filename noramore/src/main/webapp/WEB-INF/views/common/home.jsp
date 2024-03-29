@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko" class="no-js">
@@ -46,11 +45,11 @@
 			</c:if>
 			<c:if test="${ !empty sessionScope.loginMember }">
 				<div class="loginSign">
-				${ sessionScope.loginMember.userName } 님. <br>
+				${ sessionScope.loginMember.memberName } 님. <br>
 					<button class='button'><a href="logout.do">로그아웃</a></button>
 					
 					<c:url var="mypage" value="mypage();">
-						<c:param name="userId" value="${ loginMember.userId }"></c:param>
+						<c:param name="userId" value="${ loginMember.memberID }"></c:param>
 					</c:url> <!--  마이 페이지 들어갈때 자기자신의 정보를 가지고 올 수 있게 함 -->
 					<a href="${ mypage }">My Page</a>
 				</div>
@@ -119,7 +118,7 @@
 	<div class=bottom_contents>
 		<div class="announcement">
 			
-			<div class="an1"><a href ="notice.do">공지사항</a></div>
+			<div class="an1"><a href ="nlist.do">공지사항</a></div>
 			
 			<div class="inan1">
 				<ul>
@@ -133,7 +132,7 @@
 		</div>
 		<div class="qna">
 			
-			<div class="qna1"><a href="qna.do">QnA</a></div>
+			<div class="qna1"><a href="qnalist.do">QnA</a></div>
 			
 			<div class="inqnal">
 				<ul>
