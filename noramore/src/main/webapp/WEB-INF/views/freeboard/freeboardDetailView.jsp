@@ -13,9 +13,7 @@
 </c:url>
 <script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
-function(){
-	location.href = ${insertAppl};
-}
+
 </script>
 <title>NoraMore</title>
 
@@ -27,7 +25,7 @@ function(){
 </style>
 </head>
 <body>
-<form action="#" method="post" enctype="multipart/form-data" >
+<form action="freeboardlist.do" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<div id="write">
 		<h1 style="text-align: left;">${FreeBoard.title}</h1>
