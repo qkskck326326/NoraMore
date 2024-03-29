@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,6 +121,13 @@ function delFb(fbWord){
 			</c:forEach>
 		</table>
 
+<br>
 <c:import url="/WEB-INF/views/common/pagingView.jsp" />
+<br>
+<br>
+<br>
+<a href="alarmlist.do"><img src=""></a>
+
+
 </body>
 </html>

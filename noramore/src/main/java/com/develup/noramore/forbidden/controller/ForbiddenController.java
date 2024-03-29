@@ -65,13 +65,6 @@ public class ForbiddenController {
 		}
 	}
 	
-	//금지어 정렬
-	@RequestMapping("")
-	public String forbiddenSortList() {
-		
-		return "";
-	}
-	
 	//금지어 검색
 	@RequestMapping(value="fbsearch.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public String forbiddenSearch(
@@ -79,7 +72,8 @@ public class ForbiddenController {
 			@RequestParam("keyword") String keyword,
 			@RequestParam(name="page", required=false) String page,
 			 @RequestParam(name="limit", required=false) String slimit, Model model) {
-		 int currentPage = 1;
+		
+		int currentPage = 1;
 		 if(page != null && page.trim().length() > 0) {
 			 currentPage = Integer.parseInt(page);
 		 }
@@ -92,8 +86,9 @@ public class ForbiddenController {
 		 
 		 //총페이지수 계산을 위해 게시글 전체 갯수 조회해 옴
 		 int listCount = forbiddenService.selectSearchForbiddenCount(keyword); //페이징 계산 처리 실행
-			Paging paging = new Paging(listCount, currentPage, limit, "fbsearch.do");
-			paging.calculate();
+			
+		 Paging paging = new Paging(listCount, currentPage, limit, "fbsearch.do");
+		 paging.calculate();
 		 
 		 //출력할 페이지에 대한 목록 조회
 		Search search = new Search();
