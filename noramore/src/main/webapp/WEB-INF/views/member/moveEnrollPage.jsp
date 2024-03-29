@@ -143,6 +143,14 @@ function validate(){
 		return false;  //전송 취소함
 	}
 	
+	if (!/^[A-Z][a-z\d]{5,11}[!@#]$/.test(pwdValue)) {
+	    alert("아이디 : 첫글자는 영문 대문자, 마지막에 특수문자 넣어주세요. 6~12자 입력할 것!");
+	    document.getElementById("memberpwd").value = "";
+	    document.getElementById("memberpwd2").value = "";
+		document.getElementById("memberpwd").select();
+	    return false;
+	}
+	
 	
 	
 	//아이디의 값 형식이 요구한 대로 작성되었는지 검사
@@ -348,7 +356,7 @@ function dupIDCheck(){
 	<div>
 	<h3 class="list">*아이디<span id="idError"></span></h3>
 		<span class="box int_id" >
-		<input type="text" name="memberID" id="memberid" class="input" maxlength="20" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
+		<input type="text" name="memberID" id="memberid" class="input" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
 		<input type="button" value="중복체크" onclick="return dupIDCheck();">
 	</div>
 		
