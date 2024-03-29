@@ -19,15 +19,22 @@
 	</select>
 	
 	<select id="selectOne" parameterType="_int" resultMap="resultNotice">
-		select * from notice where BOARD_ID = #{ id }
+		select * from notice_board where BOARD_ID = #{ id }
 	</select>	
 	
 	<select id="selectList" parameterType="Paging" resultMap="resultNotice">
-	select * 
+		select * 
 		from (select rownum rnum, board_id, member_id, title,
                 substance, read_count, regist_dt, last_upd_dt
-		      from notice_board) 	    
+		      from (select * from notice_board
+		      order by  regist_dt desc, board_id desc)) 	 	    
 		where rnum between #{ startRow } and #{ endRow }
-	
 	</select>
+	
+	<update id="addReadCount" parameterType="_int">
+		update notice_board 
+		set READ_COUNT = READ_COUNT + 1 
+		where BOARD_ID = #{ no }
+	</update>
+	
 </mapper>

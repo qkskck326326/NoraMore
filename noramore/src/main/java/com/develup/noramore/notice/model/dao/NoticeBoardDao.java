@@ -23,6 +23,16 @@ public class NoticeBoardDao {
 		List<Notice> list = sqlSessionTemplate.selectList("noticeMapper.selectList", paging);
 		return (ArrayList<Notice>)list;
 	}
+
+	public Notice selectOne(int noticeNo) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("noticeMapper.selectOne",noticeNo);
+	}
+
+	public int addReadCount(int noticeNo) {
+		return sqlSessionTemplate.update("noticeMapper.addReadCount", noticeNo);
+		
+	}
 		
 }
 

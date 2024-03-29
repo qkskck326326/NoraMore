@@ -81,7 +81,9 @@
 			<c:forEach items="${ requestScope.list }" var="n">
 				<tr>
 					<td align="right">${ n.boardId }</td>
-					<td align="right">${ n.title }</td>
+					<td align="right">
+					<a href="${ pageContext.servletContext.contextPath }/noticedetail.do?no=${ n.boardId }">
+					${ n.title }</td>
 					<td align="right">${ n.memberId }</td>
 					<td align="right">${ n.readCount }</td>
 					<td align="center"><fmt:formatDate value="${ n.registDt }"
@@ -92,5 +94,6 @@
 
 	</section>
 
+<c:import url="/WEB-INF/views/common/pagingView.jsp"/>
 </body>
 </html>

@@ -23,4 +23,15 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public ArrayList<Notice> selectList(Paging paging) {
 		return noticeBoardDao.selectList(paging);
 	}
+
+	@Override
+	public Notice selectOne(int noticeNo) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectOne(noticeNo);
+	}
+
+	@Override
+	public void updateAddReadCount(int noticeNo) {		
+		noticeBoardDao.addReadCount(noticeNo);		
+	}
 }
