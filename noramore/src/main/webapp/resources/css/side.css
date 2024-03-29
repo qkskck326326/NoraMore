@@ -21,6 +21,7 @@
 
 /* 사이드바 -------------------------------------------------------------------- */
 body, ul, li {
+	position: fixed;
 	margin: 0;
 	padding: 0;
 	list-style: none;
