@@ -33,7 +33,7 @@ public class Paging implements java.io.Serializable {
 		// 페이지 그룹의 페이지 숫자를 10개씩 출력한다면,
 		// 현재 페이지가 3이면 페이지 그룹은 1페이지부터 10페이지가 됨
 		// 현재 페이지가 25 페이지이면 페이지 그룹은 21~30 페이지가 된다
-		this.startPage = ((int)((double)currentPage / limit + 0.9) -1 ) * limit + 1;
+		this.startPage = (int)(((double)currentPage / limit + 0.9) -1 ) * limit + 1;
 		this.endPage = startPage + limit -1;
 		
 		// 마지막 그룹의 끝값은 마지막 페이지와 맞춘다

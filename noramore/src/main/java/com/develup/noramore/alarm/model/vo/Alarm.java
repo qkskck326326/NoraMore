@@ -6,14 +6,43 @@ public class Alarm {
 	
 	private int alarmId;
 	private String alarmKind;
-	private int boardId;
+	private String rBoardId;
+	private String fBoardId;
 	private String receiverId;
 	private String senderId;
 	private String checkedYN;
 	private Date registDate;
-	
+
+	private String memberId;
+	private String categoryId;
+	private String title;
+
 	public Alarm() {
 		super();
+	}
+
+	public Alarm(int alarmId, String alarmKind, String rBoardId, String fBoardId, String receiverId, String senderId,
+			String checkedYN, Date registDate, String memberId, String categoryId, String title) {
+		super();
+		this.alarmId = alarmId;
+		this.alarmKind = alarmKind;
+		this.rBoardId = rBoardId;
+		this.fBoardId = fBoardId;
+		this.receiverId = receiverId;
+		this.senderId = senderId;
+		this.checkedYN = checkedYN;
+		this.registDate = registDate;
+		this.memberId = memberId;
+		this.categoryId = categoryId;
+		this.title = title;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public int getAlarmId() {
@@ -32,12 +61,20 @@ public class Alarm {
 		this.alarmKind = alarmKind;
 	}
 
-	public int getBoardId() {
-		return boardId;
+	public String getrBoardId() {
+		return rBoardId;
 	}
 
-	public void setBoardId(int boardId) {
-		this.boardId = boardId;
+	public void setrBoardId(String rBoardId) {
+		this.rBoardId = rBoardId;
+	}
+
+	public String getfBoardId() {
+		return fBoardId;
+	}
+
+	public void setfBoardId(String fBoardId) {
+		this.fBoardId = fBoardId;
 	}
 
 	public String getReceiverId() {
@@ -72,12 +109,30 @@ public class Alarm {
 		this.registDate = registDate;
 	}
 
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Override
 	public String toString() {
-		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", boardId=" + boardId + ", receiverId="
-				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
-				+ "]";
+		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", rBoardId=" + rBoardId + ", fBoardId="
+				+ fBoardId + ", receiverId=" + receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN
+				+ ", registDate=" + registDate + ", memberId=" + memberId + ", categoryId=" + categoryId + ", title="
+				+ title + "]";
 	}
+
 
 	
 }
