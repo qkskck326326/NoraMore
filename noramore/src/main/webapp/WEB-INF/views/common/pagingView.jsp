@@ -23,23 +23,23 @@
 <body>
 <%-- 목록 페이징 처리 : 검색 목록이 아닌 경우 --%>
 <c:if test="${ empty action }">
-<div style="text-align:center;">
+<div style="text-align:center;align-items:center;">
 	<%-- 첫 페이지로 이동 --%>	
 	<c:if test="${ currentPage eq 1 }">
-		[맨처음] &nbsp;
+		<img src="resources/images/firstPage.jpg" width="13" height="13"> &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage gt 1 }">
-		<a href="/noramore/${ urlMapping }?page=1">[맨처음]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=1"><img src="resources/images/firstPage.jpg" width="13" height="13"></a> &nbsp;
 	</c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<%-- 이전그룹이 있다면 --%>
-	<c:if test="${ (currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
-		<a href="/noramore/${ urlMapping }?page=${ startPage - 10 }">[이전그룹]</a> &nbsp;
+	<c:if test="${ currentPage > 10 }">
+		<a href="/noramore/${ urlMapping }?page=${ startPage - 1 }"><img src="resources/images/prePage.jpg" width="13" height="13"></a> &nbsp;
 	</c:if>	
 	<%-- 이전그룹이 없다면 --%>
-	<c:if test="${ !((currentPage - 10) lt startPage and (currentPage - 10) gt 1) }">
-		[이전그룹] &nbsp;
+	<c:if test="${ !(currentPage > 10 ) }">
+		<img src="resources/images/prePage.jpg" width="13" height="13"> &nbsp;
 	</c:if>	
 	
 	<%-- 현재 페이지가 속한 페이지그룹 페이지 숫자 출력 --%>	
@@ -55,20 +55,20 @@
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<%-- 다음그룹이 있다면 --%>
-	<c:if test="${ (currentPage + 10) gt startPage and (currentPage + 10) lt endPage + 10 }">
-		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }">[다음그룹]</a> &nbsp;
+	<c:if test="${ endPage < maxPage }">
+		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }">&nbsp;<img src="resources/images/nextPage.png" width="13" height="13"></a> &nbsp;
 	</c:if>
 	<%--다음그룹이 없다면 --%>
-	<c:if test="${ !((currentPage + 10) gt startPage and (currentPage + 10) lt endPage + 10) }">
-		[다음그룹] &nbsp;
+	<c:if test="${ !( endPage < maxPage ) }">
+		&nbsp;<img src="resources/images/nextPage.png" width="13" height="13"> &nbsp;
 	</c:if>
 	
 	<%-- 맨끝 페이지로 이동 --%>
 	<c:if test="${ currentPage >= maxPage }">
-		[맨끝] &nbsp;
+		<img src="resources/images/endPage.png" width="13" height="13"> &nbsp;
 	</c:if>
 	<c:if test="${ !(currentPage >= maxPage) }">
-		<a href="/noramore/${ urlMapping }?page=${ maxPage }">[맨끝]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=${ maxPage }"><img src="resources/images/endPage.png" width="13" height="13"></a> &nbsp;
 	</c:if>
 </div>
 </c:if>
@@ -76,29 +76,29 @@
 
 <%-- 검색(제목, 작성자, 내용) 페이징 처리 --%>
 <c:if test="${ !empty action and !empty keyword }">
-<div style="text-align:center;">
+<div style="text-align:center;align-items:center;">
 	
 	<c:if test="${ currentPage eq 1 }">
-		[맨처음] &nbsp;
+		<img src="resources/images/firstPage.jpg" width="13" height="13"> &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage gt 1 }">
-		<a href="/noramore/${ urlMapping }?page=1&action=${ action }&keyword=${ keyword }&limit=${ limit }">[맨처음]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=1&action=${ action }&keyword=${ keyword }&limit=${ limit }"><img src="resources/images/firstPage.jpg" width="13" height="13"></a> &nbsp;
 	</c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<%-- 이전그룹이 있다면 --%>
-	<c:if test="${ (currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
+	<c:if test="${ currentPage > 10 }">
 		<c:url var="um1" value="${ urlMapping }">
 			<c:param name="page" value="${ startPage - 10 }" />
 			<c:param name="action" value="${ action }" />
 			<c:param name="keyword" value="${ keyword }" />
 			<c:param name="limit" value='${ limit }'/>
 		</c:url>
-		<a href="${ um1 }">[이전그룹]</a> &nbsp;
+		<a href="${ um1 }"><img src="resources/images/prePage.jpg" width="13" height="13"></a> &nbsp;
 	</c:if>
 	<%-- 이전그룹이 없다면 --%>
-	<c:if test="${ !((currentPage - 10) lt startPage and (currentPage - 10) gt 1) }">
-		[이전그룹] &nbsp;
+	<c:if test="${ !(currentPage > 10 ) }">
+		<img src="resources/images/prePage.jpg" width="13" height="13"> &nbsp;
 	</c:if>	
 	
 	<%-- 현재 페이지가 속한 페이지그룹 숫자 출력 --%>	
@@ -113,19 +113,19 @@
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<%-- 다음그룹이 있다면 --%>
-	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < endPage + 10}">
-		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }&action=${ action }&keyword=${ keyword }&limit=${ limit }">[다음그룹]</a> &nbsp;
+	<c:if test="${ endPage < maxPage }">
+		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }&action=${ action }&keyword=${ keyword }&limit=${ limit }">&nbsp;<img src="resources/images/nextPage.png" width="13" height="13"></a> &nbsp;
 	</c:if>
 	<%-- 다음그룹이 없다면 --%>
-	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < endPage + 10) }">
-		[다음그룹] &nbsp;
+	<c:if test="${ !( endPage < maxPage ) }">
+		&nbsp;<img src="resources/images/nextPage.png" width="13" height="13"> &nbsp;
 	</c:if>		
 	
 	<c:if test="${ currentPage >= maxPage }">
-		[맨끝] &nbsp;
+		<img src="resources/images/endPage.png" width="13" height="13"> &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage < maxPage }">
-		<a href="/noramore/${ urlMapping }?page=${ maxPage }&action=${ action }&keyword=${ keyword }&limit=${ limit }">[맨끝]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=${ maxPage }&action=${ action }&keyword=${ keyword }&limit=${ limit }"><img src="resources/images/endPage.png" width="13" height="13"></a> &nbsp;
 	</c:if>
 	
 </div>
@@ -133,23 +133,23 @@
 
 <%-- 검색(등록날짜) 페이징 처리 --%>
 <c:if test="${ !empty action and action eq 'date' or action eq 'enrolldate' }">
-<div style="text-align:center;">
+<div style="text-align:center;align-items:center;">
 	
 	<c:if test="${ currentPage eq 1 }">
-		[맨처음] &nbsp;
+		<img src="resources/images/firstPage.jpg" width="13" height="13"> &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage gt 1 }">
-		<a href="/noramore/${ urlMapping }?page=1&action=${ action }&begin=${ begin }&end=${ end }">[맨처음]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=1&action=${ action }&begin=${ begin }&end=${ end }"><img src="resources/images/firstPage.jpg" width="13" height="13"></a> &nbsp;
 	</c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
 	<%-- 이전그룹이 있다면 --%>
-	<c:if test="${ (currentPage - 10) < startPage && (currentPage - 10) > 1 }">
-		<a href="/noramore/${ urlMapping }?page=${ startPage - 10 }&action=${ action }&begin=${ begin }&end=${ end }">[이전그룹]</a> &nbsp;
+	<c:if test="${ currentPage > 10 }">
+		<a href="/noramore/${ urlMapping }?page=${ startPage - 10 }&action=${ action }&begin=${ begin }&end=${ end }"><img src="resources/images/prePage.jpg" width="13" height="13"></a> &nbsp;
 	</c:if>
 	<%-- 이전그룹이 없다면 --%>
-	<c:if test="${ !((currentPage - 10) < startPage && (currentPage - 10) > 1) }">
-		[이전그룹] &nbsp;
+	<c:if test="${ !(currentPage > 10 ) }">
+		<img src="resources/images/prePage.jpg" width="13" height="13"> &nbsp;
 	</c:if>	
 	
 	<%-- 현재 페이지가 속한 페이지그룹 숫자 출력 --%>	
@@ -164,20 +164,20 @@
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<%-- 다음그룹이 있다면 --%>
-	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < endPage + 10 }">
-		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }">[다음그룹]</a> &nbsp;
+	<c:if test="${ endPage < maxPage }">
+		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }">&nbsp;<img src="resources/images/nextPage.png" width="13" height="13"></a> &nbsp;
 	</c:if>
 	<%-- 다음그룹이 없다면 --%>
-	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < endPage + 10) }">
-		[다음그룹] &nbsp;
+	<c:if test="${ !( endPage < maxPage ) }">
+		&nbsp;<img src="resources/images/nextPage.png" width="13" height="13"> &nbsp;
 	</c:if>	
 	
 	<%-- 맨끝 페이지로 이동 --%>
 	<c:if test="${ currentPage >= maxPage }">
-		[맨끝] &nbsp;
+		<img src="resources/images/endPage.png" width="13" height="13"> &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage < maxPage }">
-		<a href="/noramore/${ urlMapping }?page=${ maxPage }&action=${ action }&begin=${ begin }&end=${ end }">[맨끝]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=${ maxPage }&action=${ action }&begin=${ begin }&end=${ end }"><img src="resources/images/endPage.png" width="13" height="13"></a> &nbsp;
 	</c:if>
 	
 </div>

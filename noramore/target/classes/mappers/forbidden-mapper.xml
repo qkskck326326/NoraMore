@@ -30,7 +30,7 @@
 
 	<!-- 금지어 검색 페이징 -->
 	<select id="selectSearchForbiddenCount" parameterType="string" resultType="_int">
-		select count(*) from forbidden where fb_word = #{ fbWord }
+		select count(*) from forbidden where fb_word like '%' || #{ keyword } || '%'
 	</select>
 	
 	<!-- 금지어 검색 목록 -->
