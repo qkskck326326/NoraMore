@@ -14,37 +14,42 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<br>
+	<tr>
+    <th colspan="2">
+        <button class="blueBtn" style="float: right; margin-right: 30px; 
+        margin-left: 10px" onclick="javascript:history.go(-1);">삭제</button>
+        <button class="whiteBtn" style="float: right;" 
+        onclick="javascript:history.go(-1);">목록</button>
+    </th>
+	</tr>
     <form action="writeOk.jsp" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
 		<h1 align="center">${ notice.boardId } 번 공지글 상세보기</h1>
 		<div class="line"></div>
 		<br>
-		<tr>
-		<p>글 제목</p>
+		
+		<p><span style="float: left;">글 제목 : ${ notice.title }</span>
+		<span style="float: right;">작성자 : ${ notice.memberId }</span></p>	 
 		<br>
-		<h3>${ notice.title }</h3>
 		<br>
-		</tr>
-		<p>본문</p>
-		<textarea rows="30" cols="70" name="sub">
-		${ notice.substance }</textarea>
+		<p>작성일</p>
+		<h3>${ notice.registDt }</h3>		
+		<br>
+		<p>내용</p>
+		<textarea rows="30" cols="70" name="sub" readonly>${ notice.substance }</textarea>
 		
 		<p>첨부파일</p>
 		<input type="file" id="file" name="file">
-						
-		<p>시작 날짜</p>
-		<input type="date" name="start"> 
+			
 		
-		<p>마감 날짜</p>
-		<input type="date" name="end">
-		
-		<p>장소</p>
+		<!-- <p>장소</p>
 		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
 		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
 		
 		<button type="button" onclick="checkInput()">글쓰기</button>
-		<input type="submit" class="none">
+		<input type="submit" class="none"> -->
 	</section>
 </form>
 
@@ -131,4 +136,5 @@
 </script>
 	 -->
 </body>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>

@@ -95,5 +95,8 @@
 	</section>
 
 <c:import url="/WEB-INF/views/common/pagingView.jsp"/>
+
+
 </body>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>

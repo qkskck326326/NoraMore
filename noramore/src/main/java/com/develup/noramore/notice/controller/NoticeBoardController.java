@@ -89,6 +89,39 @@ public class NoticeBoardController {
 		return mv;
 	}
 		
+	
+	/*
+	 * //새 공지글 등록 요청 처리용 (파일 업로드 기능 추가)
+	 * 
+	 * @RequestMapping(value="ninsert.do", method=RequestMethod.POST) public String
+	 * noticeInsertMethod(Notice notice, Model model, HttpServletRequest request,
+	 * 
+	 * @RequestParam(name="ofile", required=false) MultipartFile mfile) {
+	 * logger.info("ninsert.do : " + notice);
+	 * 
+	 * //공지사항 첨부파일 저장 폴더 경로 지정 String savePath =
+	 * request.getSession().getServletContext().getRealPath(
+	 * "resources/notice_upfiles");
+	 * 
+	 * //첨부파일이 있을 때 if(!mfile.isEmpty()) { //전송온 파일이름 추출함 String fileName =
+	 * mfile.getOriginalFilename(); String renameFileName = null;
+	 * 
+	 * //저장폴더에는 변경된 이름을 저장 처리함 //파일 이름바꾸기함 : 년월일시분초.확장자 if(fileName != null &&
+	 * fileName.length() > 0) { //바꿀 파일명에 대한 문자열 만들기 renameFileName =
+	 * FileNameChange.change(fileName, "yyyyMMddHHmmss"); logger.info("첨부파일명 확인 : "
+	 * + fileName + ", " + renameFileName); try { //저장 폴더에 파일명 바꾸기 처리
+	 * mfile.transferTo(new File(savePath + "\\" + renameFileName));
+	 * 
+	 * }catch(Exception e) { e.printStackTrace(); model.addAttribute("message",
+	 * "첨부파일 저장 실패!"); return "common/error"; } } //파일명 바꾸기 //notice 객체에 첨부파일 정보 저장
+	 * 처리 notice.setOriginalFilePath(fileName);
+	 * notice.setRenameFilePath(renameFileName); } //첨부파일 있을 때
+	 * 
+	 * if(noticeService.insertNotice(notice) > 0) { //공지글 등록 성공시 목록 보기 페이지로 이동
+	 * return "redirect:nlist.do"; }else { model.addAttribute("message",
+	 * "새 공지글 등록 실패!"); return "common/error"; } }
+	 */
+	
 }
 
 
