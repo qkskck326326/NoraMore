@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.develup.noramore.common.Paging;
+import com.develup.noramore.common.Search;
 import com.develup.noramore.forbidden.model.vo.Forbidden;
 
 @Repository("forbiddenDao")
@@ -34,5 +35,14 @@ public class ForbiddenDao {
 
 	public int deleteForbidden(String fbWord) {
 		return sqlSessionTemplate.delete("forbidden.deleteForbidden", fbWord);
+	}
+
+	public int selectSearchForbiddenCount(String keyword) {
+		return sqlSessionTemplate.selectOne("forbidden.selectSearchForbiddenCount", keyword);
+	}
+
+	public ArrayList<Forbidden> selectSearchForbidden(Search search) {
+		List<Forbidden> list = sqlSessionTemplate.selectList("forbidden.selectSearchForbidden", search);
+		return (ArrayList<Forbidden>)list;
 	}
 }

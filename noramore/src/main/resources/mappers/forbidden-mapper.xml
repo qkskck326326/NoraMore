@@ -28,6 +28,22 @@
 		where rnum between #{ startRow } and #{ endRow }  
 	</select>
 
+	<!-- 금지어 검색 페이징 -->
+	<select id="selectSearchForbiddenCount" parameterType="string" resultType="_int">
+		select count(*) from forbidden where fb_word = #{ fbWord }
+	</select>
+	
+	<!-- 금지어 검색 목록 -->
+
+	<select id="selectSearchForbidden" parameterType="Search" resultMap="resultList">
+		select *
+		from (select rownum rnum, fb_id, fb_word, regist_date
+		     from (select * from forbidden
+		     		where fb_word like '%' || #{ keyword } || '%'
+		           order by fb_id asc))
+		where rnum between #{ startRow } and #{ endRow }  
+	</select>
+
 	<!-- 금지어 등록 -->
 	<insert id="insertForbidden" parameterType="string">
 		insert into forbidden
@@ -39,7 +55,6 @@
 		select count(fb_word) from forbidden
 		where fb_word = #{ fbWord }
 	</select>
-	
 	
 	<delete id="deleteForbidden" parameterType="string">
 		delete from forbidden

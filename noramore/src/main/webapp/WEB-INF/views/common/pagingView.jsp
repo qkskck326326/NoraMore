@@ -55,11 +55,11 @@
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<%-- 다음그룹이 있다면 --%>
-	<c:if test="${ (currentPage + 10) gt startPage and (currentPage + 10) lt maxPage }">
+	<c:if test="${ (currentPage + 10) gt startPage and (currentPage + 10) lt endPage + 10 }">
 		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }">[다음그룹]</a> &nbsp;
 	</c:if>
 	<%--다음그룹이 없다면 --%>
-	<c:if test="${ !((currentPage + 10) gt startPage and (currentPage + 10) lt maxPage) }">
+	<c:if test="${ !((currentPage + 10) gt startPage and (currentPage + 10) lt endPage + 10) }">
 		[다음그룹] &nbsp;
 	</c:if>
 	
@@ -82,7 +82,7 @@
 		[맨처음] &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage gt 1 }">
-		<a href="/noramore/${ urlMapping }?page=1&action=${ action }&keyword=${ keyword }">[맨처음]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=1&action=${ action }&keyword=${ keyword }&limit=${ limit }">[맨처음]</a> &nbsp;
 	</c:if>
 	
 	<%-- 이전 페이지 그룹으로 이동 --%>
@@ -92,6 +92,7 @@
 			<c:param name="page" value="${ startPage - 10 }" />
 			<c:param name="action" value="${ action }" />
 			<c:param name="keyword" value="${ keyword }" />
+			<c:param name="limit" value='${ limit }'/>
 		</c:url>
 		<a href="${ um1 }">[이전그룹]</a> &nbsp;
 	</c:if>
@@ -106,17 +107,17 @@
 			<font color="blue" size="4"><b>${ p }</b></font>
 		</c:if>	
 		<c:if test="${ p ne currentPage }">
-			<a href="/noramore/${ urlMapping }?page=${ p }&action=${ action }&keyword=${ keyword }">${ p }</a>
+			<a href="/noramore/${ urlMapping }?page=${ p }&action=${ action }&keyword=${ keyword }&limit=${ limit }">${ p }</a>
 		</c:if>
 	</c:forEach>	
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<%-- 다음그룹이 있다면 --%>
-	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
-		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }&action=${ action }&keyword=${ keyword }">[다음그룹]</a> &nbsp;
+	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < endPage + 10}">
+		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }&action=${ action }&keyword=${ keyword }&limit=${ limit }">[다음그룹]</a> &nbsp;
 	</c:if>
 	<%-- 다음그룹이 없다면 --%>
-	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
+	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < endPage + 10) }">
 		[다음그룹] &nbsp;
 	</c:if>		
 	
@@ -124,7 +125,7 @@
 		[맨끝] &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage < maxPage }">
-		<a href="/noramore/${ urlMapping }?page=${ maxPage }&action=${ action }&keyword=${ keyword }">[맨끝]</a> &nbsp;
+		<a href="/noramore/${ urlMapping }?page=${ maxPage }&action=${ action }&keyword=${ keyword }&limit=${ limit }">[맨끝]</a> &nbsp;
 	</c:if>
 	
 </div>
@@ -163,11 +164,11 @@
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
 	<%-- 다음그룹이 있다면 --%>
-	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < maxPage }">
+	<c:if test="${ (currentPage + 10) > endPage && (currentPage + 10) < endPage + 10 }">
 		<a href="/noramore/${ urlMapping }?page=${ startPage + 10 }">[다음그룹]</a> &nbsp;
 	</c:if>
 	<%-- 다음그룹이 없다면 --%>
-	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < maxPage) }">
+	<c:if test="${ !((currentPage + 10) > endPage && (currentPage + 10) < endPage + 10) }">
 		[다음그룹] &nbsp;
 	</c:if>	
 	
