@@ -12,9 +12,9 @@
 	    <result property="lastUpdDate" column="LAST_UPD_DT"/>
 	</resultMap>
 
-	<!-- <insert id="insertAppl" parameterType="RecrAppl" resultType="_int">
-		insert into recr_appl 
-	</insert> -->
+	<insert id="insertAppl" parameterType="RecrAppl" >
+		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{RecrAppl.boardId}, #{RecrAppl.memberId}); 
+	</insert>
 
 	
 	<!-- <select id="selectRecrBoard" resultMap="resultRecr">
