@@ -53,6 +53,14 @@ public class MemberController {
 	}
 	
 	
+	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String mypage() {
+	return "/member/mypage";
+	
+	}
+	
+	
 	
 	
 	// 로그인 처리용 메소드 : command 객체 사용
@@ -169,6 +177,9 @@ public class MemberController {
 			out.flush();
 			out.close();
 		}
+		
+		
+		
 }
 
 

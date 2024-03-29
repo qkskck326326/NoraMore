@@ -21,9 +21,7 @@
 		location.href = "enrollPage.do";
 	}
 	
-	function mypage(){	
-		location.href = "my.do";
-	}
+
 </script>
 </head>
 
@@ -48,8 +46,8 @@
 				${ sessionScope.loginMember.memberName } 님. <br>
 					<button class='button'><a href="logout.do">로그아웃</a></button>
 					
-					<c:url var="mypage" value="mypage();">
-						<c:param name="userId" value="${ loginMember.memberID }"></c:param>
+					<c:url var="mypage" value="my.do">
+						<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
 					</c:url> <!--  마이 페이지 들어갈때 자기자신의 정보를 가지고 올 수 있게 함 -->
 					<a href="${ mypage }">My Page</a>
 				</div>
