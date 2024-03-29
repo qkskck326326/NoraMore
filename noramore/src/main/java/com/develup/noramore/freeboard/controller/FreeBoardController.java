@@ -43,7 +43,15 @@ public class FreeBoardController {
 	    return mv;
 	}
 	
-	
+	@RequestMapping("fbdetail.do")
+	public String moveFreeBoardDetail(Model model,
+									@RequestParam("boardId") int boardId) {
+		
+		FreeBoard freeBoard = freeBoardService.selectBoardId(boardId);
+		model.addAttribute("FreeBoard", freeBoard);
+		return "freeboard/freeboardDetailView";
+		
+	}
 	
 	 
 	 

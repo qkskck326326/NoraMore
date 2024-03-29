@@ -13,6 +13,9 @@ public interface FreeBoardService {
 	void insertFreeBoard(FreeBoard freeBoard);
 
 
+	FreeBoard selectBoardId(int boardId);
+
+
 	
 	
 	
