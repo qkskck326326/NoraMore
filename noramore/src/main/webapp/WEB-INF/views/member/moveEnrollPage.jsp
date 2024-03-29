@@ -121,6 +121,21 @@ function dupIDCheck(){
 	});
 	return false;
 }
+
+
+/* function concatenateEmail() {
+    var emailPrefix = document.getElementById("emailBox").value; // 사용자가 입력한 이메일 주소
+    var emailSuffix = document.getElementById("mailSelect").value; // 선택한 이메일 도메인
+
+    // 이메일 주소가 선택되었는지 확인
+    if (emailPrefix !== null && emailSuffix !== "이메일 선택") {
+        var fullEmail = emailPrefix + "@" + emailSuffix; // 전체 이메일 주소
+        return true;
+    } else {
+        alert("이메일 주소를 입력하고 이메일 도메인을 선택하세요.");
+        return false;
+    }
+} */
 	
 	window.onload = function(){
 	//선택한 사진파일 이미지 미리보기 처리
@@ -328,10 +343,11 @@ function dupIDCheck(){
 
     <div class="userInput">
         <h3 class="list">이메일<span id="emailError"></span></h3>
-        <span class="emailInt" id="emailBox"> <input type="text" id="email" maxlength="20" class="input" > 
+        <span class="emailInt" id="emailBox">
+        <input type="text" name="email" maxlength="20" class="input" > 
            <span>   @ </span> 
               <!-- 이메일 택일 -->
-              <select id="mail_Select">
+              <select name= "email2" id="mailSelect" >
                  <option>이메일 선택</option>
                  <option>naver.com</option>
                  <option>gmail.com</option>
@@ -353,6 +369,8 @@ function dupIDCheck(){
 
 	<input type="file" name="photoFilename" id="photoFilename" value="첨부파일"><br>
 	<br>
+	
+	
 	<div>
 	   <h3 class="list">자택주소<span id="addressError"></span></h3>
 	   <div id="address" class="int_id">
@@ -361,11 +379,11 @@ function dupIDCheck(){
        <input type="button" id="addressButton" class="d_form mini" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" readonly>
        </span>
        <br>
-		<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-		<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+		<input type="text" id="sample4_roadAddress" name="road" placeholder="도로명주소">
+		<input type="text" id="sample4_jibunAddress" name="street" placeholder="지번주소">
 		<span id="guide" style="color:#999;display:none"></span><br>
-		<input type="text" id="sample4_detailAddress" placeholder="상세주소">
-		<input type="text" id="sample4_extraAddress" placeholder="참고항목">
+		<input type="text" id="sample4_detailAddress" name="detail" placeholder="상세주소">
+		<input type="text" id="sample4_extraAddress" name="ref" placeholder="참고항목">
 		       
        </div>
     </div>

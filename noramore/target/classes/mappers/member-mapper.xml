@@ -10,6 +10,7 @@
 		<result property="socialId" column="SOCIAL_ID" />
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
+		<result property="address" column="ADDRESS" />
 		<result property="photoFilename" column="PICTURE_FILE" />
 		<result property="resign" column="RESIGN" />
 		<result property="adminYN" column="ADMIN_YN" />
@@ -26,6 +27,7 @@
 		<result property="socialId" column="SOCIAL_ID" />
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
+		<result property="address" column="ADDRESS" />
 		<result property="photoFilename" column="PICTURE_FILE" />
 		<result property="resign" column="RESIGN" />
 		<result property="adminYN" column="ADMIN_YN" />
@@ -44,8 +46,8 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into member 
-		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ socialId }, #{  #{ gender }, #{ email }, 
-		#{address}, #{ photoFilename }, default, default, default, default, default, default)
+		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ socialId },  #{ gender }, #{ email }, 
+				#{ address }, #{ photoFilename }, default, default, default, default, default, default)
 	</insert>
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
