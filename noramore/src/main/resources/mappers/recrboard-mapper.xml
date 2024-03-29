@@ -45,10 +45,14 @@
 		SELECT *
 		FROM (
 		    SELECT rownum rnum,
-		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT,  REPORT_COUNT, MAX_RECR, 
+		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT,  REPORT_COUNT, GENDER_CONDITION , MIN_AGE_CONDITION, MAX_AGE_CONDITION, MAX_RECR, 
 		           NOW_RECR, RECR_STATUS, RECR_START_DATE, RECR_END_DATE, RECR_ORIGINAL_FILENAME, 
 		           RECR_RENAME_FILENAME, RECR_ACT_START_DATE, RECR_ACT_END_DATE, RECR_LOC, 
 		           COMMENT_COUNT, READ_COUNT, REGIST_DATE, LAST_UPD_DATE from recr_board)
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="insertRecrBoard" parameterType="RecrBoard" resultType="_int">
+	
 	</select>
 </mapper>

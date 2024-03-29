@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.develup.noramore.common.Search;
+import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
 @Repository("recrBoardDao")
@@ -31,6 +32,10 @@ public class RecreBoardDao {
 	public ArrayList<RecrBoard> selectSearchList(Search search) {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectSearchList", search);
 		return (ArrayList<RecrBoard>)list;
+	}
+
+	public int insertRecrBoard(RecrBoard recrBoard) {
+		return SqlSessionTemplate.insert("recrboard.insertRecrBoard", recrBoard);
 	}
 	
 }//
