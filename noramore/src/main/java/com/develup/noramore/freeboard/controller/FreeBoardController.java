@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.develup.noramore.freeboard.model.service.FreeBoardService;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
+
 
 @Controller("freeBoardController")
 public class FreeBoardController {
@@ -40,7 +43,15 @@ public class FreeBoardController {
 	    return mv;
 	}
 	
-	
+	@RequestMapping("fbdetail.do")
+	public String moveFreeBoardDetail(Model model,
+									@RequestParam("boardId") int boardId) {
+		
+		FreeBoard freeBoard = freeBoardService.selectBoardId(boardId);
+		model.addAttribute("FreeBoard", freeBoard);
+		return "freeboard/freeboardDetailView";
+		
+	}
 	
 	 
 	 

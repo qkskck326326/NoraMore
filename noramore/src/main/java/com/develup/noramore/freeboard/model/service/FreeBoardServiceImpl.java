@@ -13,15 +13,17 @@ import com.develup.noramore.freeboard.model.vo.FreeBoard;
 @Service("freeBoardService")
 public class FreeBoardServiceImpl implements FreeBoardService{
 	@Autowired
-	SqlSessionTemplate SqlSessionTemplate;
+	SqlSessionTemplate sqlSessionTemplate;
 	
+	@Autowired
+	FreeBoardDao freeBoardDao;
 	
 	
 	
 	
 	@Override
 	public ArrayList<FreeBoard> selectFreeBoard() {
-		List<FreeBoard> list = SqlSessionTemplate.selectList("freeboard.selectFreeBoard");
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectFreeBoard");
 		return (ArrayList<FreeBoard>)list;
 	}
 	
@@ -30,6 +32,14 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 		
 	}
+
+	@Override
+	public FreeBoard selectBoardId(int boardId) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectBoardId(boardId);
+	}
+
+	
 	
 
 	
