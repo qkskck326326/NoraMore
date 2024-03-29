@@ -85,6 +85,7 @@ function validate(){
 	var pwdValue = $('#memberpwd').val();
 	var pwdValue2 = $('#memberpwd2').val();
 	var nameValue = $('#membername').val();
+	var birthValue = $('#birth').val();
 	var sIDValue = $('#socialid').val();
 	var emailValue = $('#emailBox').val();
 	
@@ -103,14 +104,31 @@ function validate(){
 		document.getElementById("memberid").select();
 	    return false;
 	}
-	
+	//이름
 	if(!/^[가-힝]{2,}$/.test(nameValue)){
 		alert("성명 : 한글로 2글자 이상을 넣으세요");
 		document.getElementById("membername").value = "";  
 		document.getElementById("membername").select();
 		return false;
 	}
-        
+	
+	//주민번호
+	if (/^\d+$/.test(birthValue)) {
+	    alert("주민번호 : 숫자로만 입력하세요");
+	    document.getElementById("birth").value = "";  
+		document.getElementById("birth").select();
+	    return false;
+	}
+	
+	if (/^\d+$/.test(sIDValue)) {
+	    alert("주민번호 : 숫자로만 입력하세요");
+	    document.getElementById("socialid").value = "";  
+		document.getElementById("socialid").select();
+	    return false;
+	}
+	
+	
+    //이메일
 	if (!/^[a-z][a-z\d]{5,11}$/.test(emailValue)) {
 	    alert("이메일 : 첫글자는 영문 소문자, 6~12자 입력할 것! ");
 	    document.getElementById("emailBox").value = "";  
@@ -366,9 +384,20 @@ function dupIDCheck(){
 	<div>
 		<h3 class="list">주민번호<span id="socialIdError"></span></h3>
 		<span class="box int_id">
-			<input type="text" name="socialId" id="socialid" class="input" required><br>
+			<input type="text" name="birth" id="birth" class="input" required>
+			<span> - </span>
+			<input type="text" name="socialId" id="socialid" class="input" required>
 		</span>
 	</div>
+	
+	<div>
+		<h3 class="list">나이<span id="age"></span></h3>
+		<span class="box int_id">
+			<input type="number" name="age" id="age" class="input" min="19" required>
+		</span>
+	</div>
+	
+	
 	
 	<div>
 		<h3 class="list">성별</h3>

@@ -8,6 +8,7 @@
 		<result property="memberPWD" column="MEMBER_PWD" />
 		<result property="memberName" column="MEMBER_NAME" />
 		<result property="socialId" column="SOCIAL_ID" />
+		<result property="age" column="AGE" />
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
@@ -25,6 +26,7 @@
 		<result property="memberPWD" column="MEMBER_PWD" />
 		<result property="memberName" column="MEMBER_NAME" />
 		<result property="socialId" column="SOCIAL_ID" />
+		<result property="age" column="AGE" />
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
@@ -46,7 +48,7 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into member 
-		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ socialId },  #{ gender }, #{ email }, 
+		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ socialId }, #{ age },  #{ gender }, #{ email }, 
 				#{ address }, #{ photoFilename }, default, default, default, default, default, default)
 	</insert>
 	

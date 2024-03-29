@@ -113,7 +113,8 @@ public class MemberController {
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
 		public String memberInsertMethod(Member member, 
-										@RequestParam("email2") String email2, 
+										@RequestParam("email2") String email2,
+										@RequestParam("birth") String birth, 
 										@RequestParam("road") String road,
 										@RequestParam("street") String street,
 										@RequestParam("detail") String detail,
@@ -142,6 +143,11 @@ public class MemberController {
 			}
 			
 			
+			//주민번호 합치기
+			if(birth != null && member.getSocialId() != null) {
+				String socialIdConnection = birth + member.getSocialId();
+				member.setSocialId(socialIdConnection);
+			}
 			
 			if(memberService.insertMember(member) > 0) {
 				return "member/moveLoginPage";
