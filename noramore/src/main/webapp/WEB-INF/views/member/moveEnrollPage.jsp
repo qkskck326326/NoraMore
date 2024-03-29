@@ -81,13 +81,13 @@
 
 function validate(){
 
-	var pwdValue = $('#memberPWD').val();
-	var pwdValue2 = $('#memberPWD2').val();
+	var pwdValue = $('#memberpwd').val();
+	var pwdValue2 = $('#memberpwd2').val();
 	
 	if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
 		alert("암호와 암호확인이 일치하지 않습니다. 다시 입력하세요.");
-		document.getElementById("memberPWD2").value = "";  // 두 번째 비밀번호 필드의 값을 비웁니다.
-		document.getElementById("memberPWD").select();  // 첫 번째 비밀번호 필드를 선택합니다.
+		document.getElementById("memberpwd2").value = "";  // 두 번째 비밀번호 필드의 값을 비웁니다.
+		document.getElementById("memberpwd").select();  // 첫 번째 비밀번호 필드를 선택합니다.
 		return false;  //전송 취소함
 	}
 	
@@ -104,41 +104,45 @@ function dupIDCheck(){
 	$.ajax({  //서버에서 값이 돌아와도 새로고침이 되지 않고 현재페이지는 바뀌지 않고 응답만 받음. 비동기 통신.
 		url: "idchk.do",
 		type: "post",
-		data: { memberID: $('#memberID').val() }, 
+		data: { memberID: $('#memberid').val() }, 
 		success: function(data){  //온 결과 값.기본이 text임 
 			console.log("success : " + data);
 			if(data == "ok"){   
 				alert("사용 가능한 아이디입니다.");
-				$('#memberPWD').focus();
+				$('#memberpwd').focus();
 			}else{
 				alert("이미 사용중인 아이디입니다.");
-				$('#memberID').select();
+				$('#memberid').select();
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
 		}
 	});
+	return false;
+}
 	
 	window.onload = function(){
-		//선택한 사진파일 이미지 미리보기 처리
-		var photofile = document.getElementById("photofile");
-		photofile.addEventListener('change', function(event){		
-			const files = event.currentTarget.files;
-		    const file = files[0];
-		    const myphoto = document.getElementById("photo");	    
-		    console.log(file.name);
-		    
-		    const reader = new FileReader();
-	        reader.onload = (e) => {          
-	          myphoto.setAttribute('src', e.target.result);
-	          myphoto.setAttribute('data-file', file.name);
-	        };
-	        reader.readAsDataURL(file);    
-		});
-	}
+	//선택한 사진파일 이미지 미리보기 처리
+	var photofile = document.getElementById("photofile");
+	photofile.addEventListener('change', function(event){		
+		const files = event.currentTarget.files;
+	    const file = files[0];
+	    const myphoto = document.getElementById("photo");	    
+	    console.log(file.name);
+	    
+	    const reader = new FileReader();
+        reader.onload = (e) => {          
+          myphoto.setAttribute('src', e.target.result);
+          myphoto.setAttribute('data-file', file.name);
+        };
+        reader.readAsDataURL(file);    
+	});
+}
 </script>
 
+
+<!-- 
 <script>
     
    //회원가입 유효성검사
@@ -197,7 +201,7 @@ function dupIDCheck(){
           // [ 이메일 입력 유효성검사 ] 
           join.email.onkeydown = function(){ //입력값과 정규식 범위와 같지 않다면
              innerReset(error); // 초기화 메서드 호출
-             var emailLimit = /[0-9a-zA-Z-_.]/; // 정규식 0~9, a~z, A~Z, -, _, .내에서만 입력가능
+             var emailLimit = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // 정규식 0~9, a~z, A~Z, -, _, .내에서만 입력가능
                 if (!emailLimit.test(input[5].value)) {  //입력값과 정규식 범위와 같지 않다면
                    // 이메일의 오류 문구삽입
                    document.getElementById(errorId[5]).innerHTML = " 올바른 형식이 아닙니다. 영문,숫자, (-)(_)(.) 입력만 가능합니다.";
@@ -254,7 +258,7 @@ function dupIDCheck(){
      
 </script>
 
-
+ -->
 
 
 
@@ -285,7 +289,7 @@ function dupIDCheck(){
 	</div>
 	
 	<div id="myphoto">
-		<img src="/first/resources/member_photofiles/preview.jpg" id="photo" 				
+		<img src="/first/resources/member_photofiles/" id="photo" 				
 		style="width:150px;height:160px;border:1px solid navy;display:block;"
 		alt="사진을 드래그 드롭하세요."
 		style="padding:0;margin:0;">
@@ -295,7 +299,7 @@ function dupIDCheck(){
 	<div>
 		<h3 class="list">비밀번호 재확인<span id="pwCheckError"></span></h3>
 		<span class="box int_id">
-			<input type="password" id="memberPWD2" class="input" maxlength="20" required><br>
+			<input type="password" id="memberpwd2" class="input" maxlength="20" required><br>
 		</span>	
 	</div>
 	

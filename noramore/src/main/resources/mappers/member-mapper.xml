@@ -44,12 +44,12 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into member 
-		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ socialId }, #{ gender }, #{ email }, 
-		#{ photoFilename }, default, default, default, default, default, default)
+		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ socialId }, #{  #{ gender }, #{ email }, 
+		#{address}, #{ photoFilename }, default, default, default, default, default, default)
 	</insert>
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
 	<select id="selectCheckId" parameterType="string" resultType="_int">
-		select count(MEMBER_ID) from member where MEMBER_ID = #{ memberID }
+		select count(MEMBER_ID) from member where MEMBER_ID = #{ memberid }
 	</select>
 </mapper>
