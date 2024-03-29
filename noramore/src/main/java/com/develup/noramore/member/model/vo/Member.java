@@ -11,8 +11,9 @@ public class Member implements java.io.Serializable  {
 	private String memberPWD;       //비밀번호
 	private String memberName;      //이름
 	private String socialId;       //주민등록번호
-	private String gender;
+	private String gender;			//성별
 	private String email;          //이메일
+	private String address;
 	private String photoFilename;    //회원사진파일명
 	private String resign;         //회원탈퇴
 	private String adminYN;        //관리자여부
@@ -34,7 +35,7 @@ public class Member implements java.io.Serializable  {
 
 
 	public Member(String memberID, String memberPWD, String memberName, String socialId, String gender, String email,
-			String photoFilename, String resign, String adminYN, String signType, String actLimit, Date registDate,
+			String address, String photoFilename, String resign, String adminYN, String signType, String actLimit, Date registDate,
 			Date modifiedDate) {
 		super();
 		this.memberID = memberID;
@@ -42,6 +43,7 @@ public class Member implements java.io.Serializable  {
 		this.memberName = memberName;
 		this.socialId = socialId;
 		this.email = email;
+		this.address = address;
 		this.photoFilename = photoFilename;
 		this.resign = resign;
 		this.adminYN = adminYN;
@@ -121,6 +123,16 @@ public class Member implements java.io.Serializable  {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 
@@ -214,7 +226,7 @@ public class Member implements java.io.Serializable  {
 	@Override
 	public String toString() {
 		return "Member [memberID=" + memberID + ", memberPWD=" + memberPWD + ", memberName=" + memberName
-				+ ", socialId=" + socialId + ", gender=" + gender + ", email=" + email + ", photoFilename=" + photoFilename + ", resign="
+				+ ", socialId=" + socialId + ", gender=" + gender + ", email=" + email + ", address=" + address + ", photoFilename=" + photoFilename + ", resign="
 				+ resign + ", adminYN=" + adminYN + ", signType=" + signType + ", actLimit=" + actLimit
 				+ ", registDate=" + registDate + ", modifiedDate=" + modifiedDate + "]";
 	}
