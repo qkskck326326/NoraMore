@@ -14,5 +14,7 @@ public interface RecrBoardService {
 	int selectListcount();
 
 	ArrayList<RecrBoard> selectSearchList(Search search);
+
+	int insertRecrBoard(RecrBoard recrBoard);
 	
 }

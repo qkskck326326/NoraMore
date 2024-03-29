@@ -51,4 +51,8 @@
 		           COMMENT_COUNT, READ_COUNT, REGIST_DATE, LAST_UPD_DATE from recr_board)
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
+	
+	<select id="insertRecrBoard" parameterType="RecrBoard" resultType="_int">
+	
+	</select>
 </mapper>

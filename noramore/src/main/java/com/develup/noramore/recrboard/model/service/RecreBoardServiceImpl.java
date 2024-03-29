@@ -34,4 +34,9 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.selectSearchList(search);
 	}
 
+	@Override
+	public int insertRecrBoard(RecrBoard recrBoard) {
+		return recreBoardDao.insertRecrBoard(recrBoard);
+	}
+
 }//

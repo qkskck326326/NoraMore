@@ -32,5 +32,9 @@ public class RecreBoardDao {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectSearchList", search);
 		return (ArrayList<RecrBoard>)list;
 	}
+
+	public int insertRecrBoard(RecrBoard recrBoard) {
+		return SqlSessionTemplate.insert("recrboard.insertRecrBoard", recrBoard);
+	}
 	
 }//
