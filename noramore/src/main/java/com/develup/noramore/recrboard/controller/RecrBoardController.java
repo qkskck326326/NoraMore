@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
-import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
