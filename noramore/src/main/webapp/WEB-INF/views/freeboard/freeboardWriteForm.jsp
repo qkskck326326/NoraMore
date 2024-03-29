@@ -8,6 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--  추가한 부분 -->
+<script type="text/javascript" src="SmartEditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<!-- ***** -->
 <link rel="stylesheet" href="resources/css/style.css">
 		<script type="text/javascript"
 			src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
@@ -27,8 +30,19 @@
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
 		
 		<p>본문</p>
-		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context"></textarea>
-		
+		<!-- <textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context" id="smartEditor"></textarea> -->
+		<!--  추가한 부분 ***************************************** -->
+		<!-- SmartEditor2  -->
+<div class="jsx-2303464893 editor">
+	<div class="fr-box fr-basic fr-top" role="application">
+		<div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;">
+			<textarea name="notice_content" id="smartEditor"
+				style="width: 100%; height: 412px;"></textarea>
+		</div>
+	</div>
+</div>
+
+<!-- ******************************************************************************* -->
 		<p>첨부파일</p>
 		<input type="file" id="file" name="upfile">
 						
@@ -126,3 +140,6 @@
 	 -->
 </body>
 </html>
+
+<!-- SmartEditor2 -->
+<script type="text/javascript" src = "resources/js/notice-write.js"></script>
