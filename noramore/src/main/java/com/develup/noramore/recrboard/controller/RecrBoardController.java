@@ -22,9 +22,12 @@ public class RecrBoardController {
 	
 	@RequestMapping("rblist.do")
 	public ModelAndView selectRecrBoard(ModelAndView mv,
-										@RequestParam(name="Page", required=false) String page) {
+										@RequestParam(name="page", required=false) String page) {
 		//ArrayList<RecrBoard> list = recrBoardService.selectRecrBoard();
 		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
 		int limit = 10;
 		if(page != null) {
 			currentPage = Integer.parseInt(page);

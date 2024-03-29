@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
- 
 
 <!DOCTYPE html>
 <html>
@@ -10,124 +9,137 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+<script type="text/javascript">
+    $(function(){
+        $('input[name="title"]').on('input', function(){
+            var title = $(this).val();
+            if (title == '') {
+                $('#title').text('글 제목*');
+            } else {
+                $('#title').text('글 제목');
+            }
+        });
+
+        $('textarea[name="context"]').on('input', function(){
+            var context = $(this).val();
+            if (context == '') {
+                $('#context').text('본문*');
+            } else {
+                $('#context').text('본문');
+            }
+        });
+
+        $('input[name="start"]').on('input', function(){
+            var start = $(this).val();
+            if (start == '') {
+                $('#sDate').text('활동시작 날짜*');
+            } else {
+                $('#sDate').text('활동시작 날짜');
+            }
+        });
+
+        $('input[name="end"]').on('input', function(){
+            var end = $(this).val();
+            if (end == '') {
+                $('#eDate').text('활동마감 날짜*');
+            } else {
+                $('#eDate').text('활동마감 날짜');
+            }
+            
+            if($('input[name="end"]').val() < $('input[name="start"]').val()){
+            	 alert("종료 날짜를 시작 날짜 이전 날짜로 지정 할 수 없습니다");
+            	 $('input[name="end"]').val(null);
+            }
+        });
+        
+        
+        $('input[name="maxRecr"]').on('input', function(){
+            var maxRecr = $(this).val();
+            if (maxRecr == '') {
+                $('#mr').text('모집인원*');
+            } else {
+                $('#mr').text('모집인원');
+            }
+        });
+    });
+    
+    
+    function checkInput() {
+        var title = $('input[name="title"]').val();
+        var context = $('textarea[name="context"]').val();
+        var start = $('input[name="start"]').val();
+        var end = $('input[name="end"]').val();
+        var maxRecr = $('input[name="maxRecr"]').val();
+
+        if (title.trim() === '') {
+            alert('글 제목을 입력하세요.');
+            return false;
+        }
+        if (context.trim() === '') {
+            alert('본문을 입력하세요.');
+            return false;
+        }
+        if (start.trim() === '') {
+            alert('활동 시작 날짜를 입력하세요.');
+            return false;
+        }
+        if (end.trim() === '') {
+            alert('활동 마감 날짜를 입력하세요.');
+            return false;
+        }
+        if (maxRecr.trim() === '') {
+            alert('모집인원을 입력하세요.');
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+<c:set url="">
+
+</c:set>
 <title>Insert title here</title>
 </head>
 <body>
 	
 		
-    <form action="#" method="post" enctype="multipart/form-data" >
+<form action="#" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
 		<h1>글쓰기</h1>
 		<div class="line"></div>
 		
-		<p>글 제목</p>
-		<input type="text" placeholder="글 제목을 입력하세요." name="title">
+		<p id="title">글 제목*</p>
+		<input  type="text" placeholder="글 제목을 입력하세요." name="title">
 		
-		<p>본문</p>
+		<p id="context">본문*</p>
 		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context"></textarea>
 		
 		<p>첨부파일</p>
-		<input type="file" id="file" name="file">
+		<input type="file" id="file" name="upfile">
 		
 		<div style="margin: 20px">			
-		    <p style="display: inline-block; width: 100px;">활동시작 날짜</p>
-		    <input type="date" name="start" style="display: inline-block; width: 200px;"> 
+		    <p id="sDate" style="display: inline-block; width: 110px;">활동시작 날짜*</p>
+		    <input  type="date" name="start" style="display: inline-block; width: 200px;"> &nbsp;
 				
-		    <p style="display: inline-block; width: 100px;">활동마감 날짜</p>
-		    <input type="date" name="end" style="display: inline-block; width: 200px;">
+		    <p id="eDate" style="display: inline-block; width: 110px;">활동마감 날짜*</p>
+		    <input type="date" name="end" style="display: inline-block;; width: 200px;">
+		    
+		    <p id="mr" style="margin-top: 20;">모집인원*</p>
+		    <input name="maxRecr" type="number">
 		</div>
 		
 		<p>장소</p>
 		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
 		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
 		
-		<button type="button" onclick="checkInput()">글쓰기</button>
+		<button type="submit" onclick="checkInput();">글쓰기</button>
 		<input type="submit" class="none">
 	</section>
 </form>
 
 
-<!-- <script>
-	$("#where").on("click",function(e){
-		new daum.Postcode({
-		    oncomplete: function(data) {
-		        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		        
-		        $("#where").val(data.address);
-		        console.log(data);
-		        console.log(data.address);
-		    }
-		}).open();
-	})
-	
-	document.addEventListener('keydown', function(event) {
-	  if (event.keyCode === 13) {
-	    event.preventDefault();
-	    checkInput();
-	  };
-	}, true);
-	let title = $("input[name='title']");
-	let sub = $("input[name='sub']");
-	let file = $("input[name='file']");
-	let price = $("input[name='price']");
-	let start = $("input[name='start']");
-	let end = $("input[name='end']");
-	let mainlocation = $("input[name='mainlocation']");
-	let sublocation = $("input[name='sublocation']");
-	function checkInput() {
-		if(title.val() == "") {
-			alert("제목란이 비어져있습니다.");
-			title.focus();
-			return;
-		}
-		if(sub.val() == "") {
-			alert("본문이 비어져있습니다.");
-			sub.focus();
-			return;
-		}
-		if(file.val() == "") {
-			alert("사진이 비어져있습니다.");
-			file.focus();
-			return;
-		}
-		if(price.val() == "") {
-			alert("가격이 비어져있습니다.");
-			price.focus();
-			return;
-		}if(mainlocation.val() == "") {
-			alert("주소가 비어져있습니다.");
-			mainlocation.focus();
-			return;
-		}
-		if(sublocation.val() == "") {
-			alert("상세주소가 비어져있습니다.");
-			sublocation.focus();
-			return;
-		}
-		
-		$("input[type='submit']").click();
-	}
-	
-	$("#file").on("change", function(e){
-		var f = e.target.files[0];
-		console.log(f);
-		if(!f.type.match("image*")){ //match도 사용 가능
-			$("#img__preview").val("");
-			alert('이미지만 첨부할 수 있습니다.');
-			return;
-		}
-		var filename = f.name;
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$("#img").attr("src", e.target.result);
-		}
 
-		reader.readAsDataURL(f);
-
-
-	});
-</script>
-	 -->
 </body>
 </html>
