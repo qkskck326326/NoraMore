@@ -96,12 +96,15 @@
     }
 
 </script>
+<c:set url="">
+
+</c:set>
 <title>Insert title here</title>
 </head>
 <body>
 	
 		
-    <form action="#" method="post" enctype="multipart/form-data" >
+<form action="#" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
 		<h1>글쓰기</h1>
@@ -114,7 +117,7 @@
 		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context"></textarea>
 		
 		<p>첨부파일</p>
-		<input type="file" id="file" name="file">
+		<input type="file" id="file" name="upfile">
 		
 		<div style="margin: 20px">			
 		    <p id="sDate" style="display: inline-block; width: 110px;">활동시작 날짜*</p>
@@ -131,7 +134,7 @@
 		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
 		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
 		
-		<button type="button" onclick="checkInput();">글쓰기</button>
+		<button type="submit" onclick="checkInput();">글쓰기</button>
 		<input type="submit" class="none">
 	</section>
 </form>
