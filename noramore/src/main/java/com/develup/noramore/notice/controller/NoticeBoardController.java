@@ -2,11 +2,14 @@ package com.develup.noramore.notice.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.notice.model.service.NoticeBoardService;
@@ -50,8 +53,8 @@ public class NoticeBoardController {
 		//총 페이지 수 계산을 위한 공지글 총갯수 조회
 		int listCount = noticeBoardService.selectListCount();
 		//페이지 관련 항목 계산 처리
-		Paging paging = new Paging(listCount, currentPage, limit, "notice.do");
-		paging.calculate();
+		Paging paging = new Paging(listCount, currentPage, limit, "nlist.do");
+		paging.calculate();				
 		
 		//페이지에 출력할 목록 조회해 옴
 		ArrayList<Notice> list = noticeBoardService.selectList(paging);
@@ -68,4 +71,51 @@ public class NoticeBoardController {
 			return "common/error";
 		}
 	}
+	
+	@RequestMapping("noticedetail.do")
+	public ModelAndView noticeDetailMethod(
+			@RequestParam("no") int noticeno, ModelAndView mv, HttpSession session) {
+		
+		Notice notice = noticeBoardService.selectOne(noticeno);
+		
+		noticeBoardService.updateAddReadCount(noticeno);
+		
+		if(notice != null) {
+			mv.addObject("notice", notice);
+			
+			mv.setViewName("notice/noticedetail");
+		}
+		
+		return mv;
+	}
+		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

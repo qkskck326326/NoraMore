@@ -9,8 +9,9 @@ public interface NoticeBoardService {
 
 
 	int selectListCount();
-
+	Notice selectOne(int noticeNo);
 	ArrayList<Notice> selectList(Paging paging);
+	void updateAddReadCount(int noticeNo);
 	
 
 	
