@@ -5,15 +5,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<c:if test="${!empty requestScope.currentPage}">
+	<c:set var="Page" value="${requestScope.currentPage}" />
+</c:if>
 <!DOCTYPE html >
 <html>
 <head>
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="resources/css/style.css">
+	<link rel="stylesheet" href="resources/css/dropdown.css">
 		<script type="text/javascript"
 			src="/resources/js/jquery-3.7.0.min.js"></script>
 		<title>Insert title here</title>
-		
+
 <script type="text/javascript">
         window.onload = function () {
             var sortingSelect = document.getElementById("sortingSelect");
@@ -34,9 +38,9 @@
             itemSelect.onchange = function () {
                 var selectedOption = itemSelect.value;
                 if (selectedOption === "title") {
-                    sortRecent();
+                    sortTitle();
                 } else if (selectedOption === "author") {
-                    sortViews();
+                    sortAuthor();
             };
 
             function sortRecent() {
@@ -60,6 +64,12 @@
             }
         };
         };
+        
+        
+        function selectCategory(value){
+        	$("#category").text(value).val(value);
+        }
+
     </script>		
 </head>
 <body>
@@ -80,6 +90,13 @@
 		<form action="board.jsp" method="get">
 
 			<div class="position">
+				<p>항목 선택</p>
+    <div class="dropdown">
+        <select id="itemSelect">
+            <option value="title">글제목</option>
+            <option value="author">작성자</option>
+        </select>
+    </div>
 				<p>검색하기</p>
 				<div class="search">
 					<input type="text" name="pos">
@@ -87,7 +104,8 @@
 				</div>
 			</div>
 		</form>
-	<div class="position">
+		
+			<div class="position2">
         <p>정렬 기준</p>
     <div class="dropdown">
         <select id="sortingSelect">
@@ -96,16 +114,24 @@
             <option value="likes">좋아요순</option>
         </select>
     </div>
-    <!-- 띄어쓰기 -->
-    <p>항목 선택</p>
-    <div class="dropdown">
-        <select id="itemSelect">
-            <option value="title">글제목</option>
-            <option value="author">작성자</option>
-        </select>
-    </div>
+    
    	 </div>
-		
+   	     
+   	 
+   	<!-- 추가한 부분 *********************************** -->
+   	
+   	 <div class="dropdown">
+    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
+    <div class="dropdown-content">
+        <a onclick="selectCategory('볼링')">볼링</a>
+        <a onclick="selectCategory('클라이밍')">클라이밍</a>
+        <a onclick="selectCategory('싸이클')">싸이클</a>
+        <a onclick="selectCategory('헬스')">헬스</a>
+        <a onclick="selectCategory('수상레저')">수상레저</a>
+        <a onclick="selectCategory('등산')">등산</a>
+    </div>
+</div>
+		<!-- ****************************************** -->
 		<table>
 			<thead>
 			<tr>
@@ -134,7 +160,11 @@
 			
 
 		</table>
+		<!-- 추가한 부분 **************** -->
+<br>
+<!-- <c:import url="/WEB-INF/views/common/pagingView.jsp"/> -->
 
+<!-- 추가한 부분 **************** -->
 	</section>
 </body>
 </html>
