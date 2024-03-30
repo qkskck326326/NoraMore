@@ -71,10 +71,12 @@ public class FreeBoardController {
 	
 	@RequestMapping("fbdetail.do")
 	public String moveFreeBoardDetail(Model model,
-									@RequestParam("boardId") int boardId) {
+									@RequestParam("boardId") int boardId,
+									@RequestParam("page") String currentPage) {
 		
 		FreeBoard freeBoard = freeBoardService.selectBoardId(boardId);
 		model.addAttribute("FreeBoard", freeBoard);
+		model.addAttribute("page", currentPage);
 		return "freeboard/freeboardDetailView";
 		
 	}
