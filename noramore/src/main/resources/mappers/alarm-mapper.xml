@@ -23,10 +23,10 @@
 
 	<select id="selectList" parameterType="Paging" resultMap="resultList">
 		select *
-		from (select rownum rnum, 
+		from (select rownum rnum,, alarm_id, alarm_kind, reciever_id, sender_id, check_yn, regist_date, member_id, category_id
 		     from (select *
 		     		from alarm
-		     		inner join recr_board on (sender_id = member_id)
+		     		inner join recr_board using (board_id)
 		           order by board_ref desc, board_reply_ref desc,
 		                    board_lev asc, board_reply_seq asc))
 		where rnum between #{ startRow } and #{ endRow }  
