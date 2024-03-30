@@ -80,9 +80,70 @@
 
 
 function validate(){
-
+	
+	var idValue = $('#memberid').val();
 	var pwdValue = $('#memberpwd').val();
 	var pwdValue2 = $('#memberpwd2').val();
+	var nameValue = $('#membername').val();
+	var birthValue = $('#birth').val();
+	var sIDValue = $('#socialid').val();
+	var emailValue = $('#emailBox').val();
+	
+	
+	
+	if (!/^[a-z][a-z\d]{5,11}$/.test(idValue)) {
+	    alert("아이디 : 첫글자는 영문 소문자, 6~12자 입력할 것!");
+	    document.getElementById("memberid").value = "";  
+		document.getElementById("memberid").select();
+	    return false;
+	}
+
+	if (!/\d/.test(idValue)) {
+	    alert("아이디 : 숫자 하나 이상을 포함해야 합니다!");
+	    document.getElementById("memberid").value = "";  
+		document.getElementById("memberid").select();
+	    return false;
+	}
+	//이름
+	if(!/^[가-힝]{2,}$/.test(nameValue)){
+		alert("성명 : 한글로 2글자 이상을 넣으세요");
+		document.getElementById("membername").value = "";  
+		document.getElementById("membername").select();
+		return false;
+	}
+	
+	
+	
+    //이메일
+	if (!/^[a-z][a-z\d]{5,11}$/.test(emailValue)) {
+	    alert("이메일 : 첫글자는 영문소문자를넣어주세요. 숫자도 넣어주세요. 6~12자 입력해주세요 ");
+	    document.getElementById("emailBox").value = "";  
+		document.getElementById("emailBox").select();
+	    return false;
+	}
+    
+	$.ajax({  //서버에서 값이 돌아와도 새로고침이 되지 않고 현재페이지는 바뀌지 않고 응답만 받음. 비동기 통신.
+		url: "emailchk.do",
+		type: "post",
+		data: { email: $('#emailBox').val(), domain: ${ '#mailSelect' }.val() }, 
+		success: function(data){  //온 결과 값.기본이 text임 
+			console.log("success : " + data);
+			/* if(data == "ok"){   
+				return true; */
+			if(data != "ok"){
+				alert("이미 사용중인 이메일입니다.");
+				$('#emailBox').select();
+				return false;
+			}
+	/* 	 }, */
+	/* 	error: function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+	return false; */
+	
+	
+
 	
 	if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
 		alert("암호와 암호확인이 일치하지 않습니다. 다시 입력하세요.");
@@ -91,12 +152,24 @@ function validate(){
 		return false;  //전송 취소함
 	}
 	
+	if (!/^[A-Z][a-z\d]{5,11}[!@#]$/.test(pwdValue)) {
+	    alert("비밀번호 : 첫글자는 영문 대문자, 마지막에 특수문자 넣어주세요. 6~12자 입력할 것!");
+	    document.getElementById("memberpwd").value = "";
+	    document.getElementById("memberpwd2").value = "";
+		document.getElementById("memberpwd").select();
+	    return false;
+	}
+	
+	
+	
 	//아이디의 값 형식이 요구한 대로 작성되었는지 검사
 	//암호의 값 형식이 요구한 대로 작성되었는지 검사
-	//정규표현식(Regular Expression) 사용함
-	
+	//정규표현식(Regular Expression) 사용함	
 	return true;  //전송보냄
 }
+
+
+
 
 function dupIDCheck(){
 	//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함
@@ -137,7 +210,7 @@ function dupIDCheck(){
     }
 } */
 	
-	window.onload = function(){
+/* 	window.onload = function(){
 	//선택한 사진파일 이미지 미리보기 처리
 	var photofile = document.getElementById("photofile");
 	photofile.addEventListener('change', function(event){		
@@ -153,7 +226,7 @@ function dupIDCheck(){
         };
         reader.readAsDataURL(file);    
 	});
-}
+} */
 </script>
 
 
@@ -292,7 +365,7 @@ function dupIDCheck(){
 	<div>
 	<h3 class="list">*아이디<span id="idError"></span></h3>
 		<span class="box int_id" >
-		<input type="text" name="memberID" id="memberid" class="input" maxlength="20" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
+		<input type="text" name="memberID" id="memberid" class="input" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
 		<input type="button" value="중복체크" onclick="return dupIDCheck();">
 	</div>
 		
@@ -321,21 +394,22 @@ function dupIDCheck(){
 	<div>
 		<h3 class="list">성명<span id="nameError"></span></h3>
 		<span class="box int_id">
-			<input type="text" name="memberName" class="input" maxlength="20" required><br>
+			<input type="text" name="memberName" id="membername" class="input" maxlength="20" required><br>
 		</span>
 	</div>
 	
 	<div>
-		<h3 class="list">주민번호<span id="socialIdError"></span></h3>
+		<h3 class="list">생년월일<span id="birthError"></span></h3>
 		<span class="box int_id">
-			<input type="text" name="socialId" class="input" required><br>
-		</span>
+			<input type="date" name="birth" id="birth" class="input" required>
 	</div>
+	
+	
 	
 	<div>
 		<h3 class="list">성별</h3>
 		<span class="box int_id">
-			<input type="radio" name="gender" value="M" id="m" > 남자 &nbsp; 
+			<input type="radio" name="gender" value="M" id="m" checked > 남자 &nbsp; 
 			<input type="radio" name="gender" value="F" id="f" > 여자 
 		</span>
 	</div>
@@ -343,8 +417,8 @@ function dupIDCheck(){
 
     <div class="userInput">
         <h3 class="list">이메일<span id="emailError"></span></h3>
-        <span class="emailInt" id="emailBox">
-        <input type="text" name="email" maxlength="20" class="input" > 
+        <span class="emailInt" >
+        <input type="text" name="email" id="emailBox" maxlength="20" class="input" > 
            <span>   @ </span> 
               <!-- 이메일 택일 -->
               <select name= "email2" id="mailSelect" >

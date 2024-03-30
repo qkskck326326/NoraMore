@@ -7,7 +7,7 @@
 		<id property="memberID" column="MEMBER_ID" />
 		<result property="memberPWD" column="MEMBER_PWD" />
 		<result property="memberName" column="MEMBER_NAME" />
-		<result property="socialId" column="SOCIAL_ID" />
+		<result property="birth" column="BIRTH" />
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
@@ -24,7 +24,7 @@
 		<result property="memberID" column="MEMBER_ID" />
 		<result property="memberPWD" column="MEMBER_PWD" />
 		<result property="memberName" column="MEMBER_NAME" />
-		<result property="socialId" column="SOCIAL_ID" />
+		<result property="birth" column="BIRTH" />
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
@@ -46,12 +46,18 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into member 
-		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ socialId },  #{ gender }, #{ email }, 
+		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
 				#{ address }, #{ photoFilename }, default, default, default, default, default, default)
+				
 	</insert>
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
 	<select id="selectCheckId" parameterType="string" resultType="_int">
 		select count(MEMBER_ID) from member where MEMBER_ID = #{ memberid }
+	</select>
+	
+	<select id="selectCheckEmail" parameterType="string" resultType="_int">
+		select count(EMAIL) from member where Email = #{ email }
+	
 	</select>
 </mapper>
