@@ -98,25 +98,23 @@ public class ForbiddenController {
 
 		 ArrayList<Forbidden> list = forbiddenService.selectSearchForbidden(search);
 		 
-		 if(list != null && list.size() > 0) {
+		 if(list != null && list.size() > 0 && keyword != "") {
 			model.addAttribute("list", list);
 			model.addAttribute("paging", paging);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("action", action);
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("limit", limit);
-		}else {
+		 }else {
 			model.addAttribute("message", keyword + "에 해당하는 검색결과가 없습니다.");
 		}
 		return "forbidden/forbiddenListView";
 	}
 	
+	//금지어 추가시 중복검사
 	@RequestMapping(value="fbchk.do", method=RequestMethod.POST)
 	public void dupCheckIdMethod(@RequestParam("fbWord") String fbWord, 
 			HttpServletResponse response) throws IOException {
-		//메소드 매개변수 영역에서 사용하는 어노테이션 중에
-		//@RequestParam("전송온이름")  자료형 값저장변수명
-		//자료형 값저장변수명 = request.getParameter("전송온이름");  코드와 같음
 		int fbCount = forbiddenService.selectCheckFb(fbWord);
 		
 		String returnStr = null;
@@ -146,7 +144,6 @@ public class ForbiddenController {
 			}else {
 				//중복 상황 제외 실패
 				return "common/error";
-
 		}
 	}
 	

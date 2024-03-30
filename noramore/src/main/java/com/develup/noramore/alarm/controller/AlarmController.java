@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.develup.noramore.alarm.model.service.AlarmService;
@@ -19,8 +20,9 @@ public class AlarmController {
 	
 	
 	//알람 전체 조회
-	@RequestMapping("alarmlist.do")
+	@RequestMapping(value="alarmlist.do", method=RequestMethod.POST)
 	public String alarmPage(
+				@RequestParam("memberID") String memberId,
 				@RequestParam(name="page", required=false) String page,
 				 @RequestParam(name="limit", required=false) String slimit, Model model) {
 		
@@ -35,8 +37,7 @@ public class AlarmController {
 		limit = Integer.parseInt(slimit); //전송받은 한 페이지에 출력할 목록 갯수를 적
 		}
 		
-		//총페이지수 계산을 위해 게시글 전체 갯수 조회해 옴
-		int listCount = alarmService.selectListCount(); //페이징 계산 처리 실행
+		int listCount = alarmService.selectListCount(memberId); //페이징 계산 처리 실행
 		Paging paging = new Paging(listCount, currentPage, limit, "alarmlist.do");
 		paging.calculate();
 		

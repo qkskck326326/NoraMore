@@ -30,8 +30,8 @@ public class AlarmServiceImpl implements AlarmService{
 	}
 
 	@Override
-	public int selectListCount() {
-		return alarmDao.selectListCount();
+	public int selectListCount(String memberId) {
+		return alarmDao.selectListCount(memberId);
 	}
 
 	@Override
