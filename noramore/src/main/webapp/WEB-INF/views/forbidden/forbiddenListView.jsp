@@ -96,7 +96,7 @@ function delFb(fbWord){
 	  <form action="fbinsert.do" class="popup-content" onsubmit="return dupFbCheck();">
 	  	<h4 class="fbenroll">새 금지어 등록</h4><p>
 	    <span class="close" onclick="closePopup();">&times;</span> <!-- 팝업 닫기 버튼 -->
-	    <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord">&nbsp; <!-- 팝업 내부의 input 태그 -->
+	    <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord" maxlength="30">&nbsp; <!-- 팝업 내부의 input 태그 -->
 	    <input id="fbsubmit" type="submit" value="등록">
 	  </form>
 	</div>
@@ -126,7 +126,7 @@ function delFb(fbWord){
 <br>
 <br>
 <br>
-<a href="alarmlist.do"><img src=""></a>
+<a href="alarmlist.do"><img src="resources/images/alarmIcon.png"></a>
 
 
 </body>

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.develup.noramore.alarm.model.service.AlarmService;
+import com.develup.noramore.alarm.model.vo.Alarm;
 import com.develup.noramore.common.Paging;
-import com.develup.noramore.forbidden.model.vo.Forbidden;
 
 @Controller
 public class AlarmController {
@@ -36,12 +36,12 @@ public class AlarmController {
 		}
 		
 		//총페이지수 계산을 위해 게시글 전체 갯수 조회해 옴
-		int listCount = 1; //alarmService.selectListCount(); //페이징 계산 처리 실행
-		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		int listCount = alarmService.selectListCount(); //페이징 계산 처리 실행
+		Paging paging = new Paging(listCount, currentPage, limit, "alarmlist.do");
 		paging.calculate();
 		
 		//출력할 페이지에 대한 목록 조회
-		ArrayList<Forbidden> list = null; // alarmService.selectList(paging);
+		ArrayList<Alarm> list = alarmService.selectList(paging);
 		
 		//받은 결과로 성공/실패 페이지 내보냄
 		if(list != null && list.size() > 0) {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.develup.noramore.alarm.model.dao.AlarmDao;
 import com.develup.noramore.alarm.model.vo.Alarm;
+import com.develup.noramore.common.Paging;
 
 @Service
 public class AlarmServiceImpl implements AlarmService{
@@ -26,5 +27,15 @@ public class AlarmServiceImpl implements AlarmService{
 	@Override
 	public int updateAlarm(Alarm alarm) {
 		return alarmDao.updateAlarm(alarm);
+	}
+
+	@Override
+	public int selectListCount() {
+		return alarmDao.selectListCount();
+	}
+
+	@Override
+	public ArrayList<Alarm> selectList(Paging paging) {
+		return alarmDao.selectList(paging);
 	}
 }
