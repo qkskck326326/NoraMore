@@ -13,7 +13,7 @@
 <title>NoraMore</title>
 <link rel="stylesheet" href="resources/css/style.css">
 <link rel="stylesheet" href="resources/css/dropdown.css">
-<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function rbwriteform(){
 	location.href = 'rbwriteform.do';

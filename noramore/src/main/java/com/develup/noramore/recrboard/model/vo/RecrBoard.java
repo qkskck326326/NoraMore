@@ -12,8 +12,8 @@ public class RecrBoard implements java.io.Serializable {
 	private String context; 			// 모집글 내용
 	private int reportCount; 			// 신고 횟수
 	private String genderCondition;		// 성별 조건
-	private String ageMinCondition;		// 나이 조건(최소)
-	private String ageMaxCondition;		// 나이 조건(최대)
+	private int ageMinCondition;		// 나이 조건(최소)
+	private int ageMaxCondition;		// 나이 조건(최대)
 	private int maxRecr;				// 모집 인원
 	private int nowRecr; 				// 현재 인원
 	private String recrStatus;			// 모집 상태
@@ -34,7 +34,7 @@ public class RecrBoard implements java.io.Serializable {
 	}
 
 	public RecrBoard(int boardId, String memberId, int categoryId, String title, String context, int reportCount,
-			String genderCondition, String ageMinCondition, String ageMaxCondition, int maxRecr, int nowRecr,
+			String genderCondition, int ageMinCondition, int ageMaxCondition, int maxRecr, int nowRecr,
 			String recrStatus, Date recrStartDate, Date recrEndDate, String recrOriginalFilename,
 			String recrRenameFilename, Date recrActStartDate, Date recrActEndDate, String recrLocation,
 			int commentCount, int readCount, Date registrationDate, Date lastUpdateDate) {
@@ -120,19 +120,19 @@ public class RecrBoard implements java.io.Serializable {
 		this.genderCondition = genderCondition;
 	}
 
-	public String getAgeMinCondition() {
+	public int getAgeMinCondition() {
 		return ageMinCondition;
 	}
 
-	public void setAgeMinCondition(String ageMinCondition) {
+	public void setAgeMinCondition(int ageMinCondition) {
 		this.ageMinCondition = ageMinCondition;
 	}
 
-	public String getAgeMaxCondition() {
+	public int getAgeMaxCondition() {
 		return ageMaxCondition;
 	}
 
-	public void setAgeMaxCondition(String ageMaxCondition) {
+	public void setAgeMaxCondition(int ageMaxCondition) {
 		this.ageMaxCondition = ageMaxCondition;
 	}
 
@@ -260,7 +260,7 @@ public class RecrBoard implements java.io.Serializable {
 				+ commentCount + ", readCount=" + readCount + ", registrationDate=" + registrationDate
 				+ ", lastUpdateDate=" + lastUpdateDate + "]";
 	}
-	
+
 	
     
     
