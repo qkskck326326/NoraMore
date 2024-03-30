@@ -4,7 +4,7 @@
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <%-- <c:import url="/WEB-INF/views/common/sideSample.jsp"/> --%>
 <c:if test="${!empty requestScope.currentPage}">
-	<c:set var="Page" value="${requestScope.currentPage}" />
+	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
 <title>NoraMore</title>
 <link rel="stylesheet" href="resources/css/style.css">
 <link rel="stylesheet" href="resources/css/dropdown.css">
-<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function rbwriteform(){
 	location.href = 'rbwriteform.do';

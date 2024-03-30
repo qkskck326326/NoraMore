@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.develup.noramore.common.Search;
-import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
 @Repository("recrBoardDao")
@@ -37,5 +36,12 @@ public class RecreBoardDao {
 	public int insertRecrBoard(RecrBoard recrBoard) {
 		return SqlSessionTemplate.insert("recrboard.insertRecrBoard", recrBoard);
 	}
-	
+
+	public int upNowRecr(int boardId) {
+		return SqlSessionTemplate.update("recrboard.upNowRecr", boardId);
+	}
+
+
+
+
 }//

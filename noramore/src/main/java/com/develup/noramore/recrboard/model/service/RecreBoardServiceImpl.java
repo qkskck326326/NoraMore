@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.develup.noramore.common.Search;
-import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 import com.develup.noramore.recrservice.model.dao.RecreBoardDao;
 
@@ -39,5 +38,12 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 	public int insertRecrBoard(RecrBoard recrBoard) {
 		return recreBoardDao.insertRecrBoard(recrBoard);
 	}
+
+	@Override
+	public int upNowRecr(int boardId) {
+		return recreBoardDao.upNowRecr(boardId);
+	}
+
+
 
 }//

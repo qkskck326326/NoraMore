@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
+import com.develup.noramore.member.model.vo.Member;
 import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
@@ -110,15 +113,25 @@ public class RecrBoardController {
 		  
 		 
 	  }//
-	 
-
 	  
+	  // 파일 다운로드 처리
+	@RequestMapping("rbdown.do")
+	public ModelAndView fileDown(
+			@RequestParam("ofile") String originalFileName, 
+			@RequestParam("rfile") String renameFileName,
+			ModelAndView mv, HttpServletRequest request) {
+		
+		return mv;
+	}
+	
 	// ****************************** 이동용 *********************************
 
 	@RequestMapping("rbdetail.do")
-	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId) {
+	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId,
+										@RequestParam("page") String currentPage) {
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
+		model.addAttribute("page", currentPage);
 		return "recrBoard/RecrBoardDetail";
 	}
 
