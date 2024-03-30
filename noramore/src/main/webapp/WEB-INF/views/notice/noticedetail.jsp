@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
- 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%--  <c:import url = "/WEB-INF/views/common/sideSample.jsp"/> --%>
+ <c:import url = "/WEB-INF/views/common/header.jsp"/>
 
 <!DOCTYPE html>
 <html>
