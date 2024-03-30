@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.dao.FreeBoardDao;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
 
@@ -37,6 +38,18 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public FreeBoard selectBoardId(int boardId) {
 		// TODO Auto-generated method stub
 		return freeBoardDao.selectBoardId(boardId);
+	}
+
+	@Override
+	public int selectListcount() {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectListcount();
+	}
+
+	@Override
+	public ArrayList<FreeBoard> selectSearchList(Search search) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectSearchList(search);
 	}
 
 	

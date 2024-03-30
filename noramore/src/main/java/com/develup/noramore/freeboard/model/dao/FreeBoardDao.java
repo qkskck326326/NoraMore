@@ -1,9 +1,13 @@
 package com.develup.noramore.freeboard.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
 
 @Repository("freeBoardDao")
@@ -16,6 +20,19 @@ public class FreeBoardDao {
 	public FreeBoard selectBoardId(int boardId) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("freeboard.selectBoardId", boardId);
+	}
+
+
+	public int selectListcount() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("freeboard.selectListcount");
+	
+	}
+
+
+	public ArrayList<FreeBoard> selectSearchList(Search search) {
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectSearchList", search);
+		return (ArrayList<FreeBoard>)list;
 	}
 
 	

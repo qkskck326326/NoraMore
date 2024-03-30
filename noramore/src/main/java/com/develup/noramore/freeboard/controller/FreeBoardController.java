@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.develup.noramore.common.Paging;
+import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.service.FreeBoardService;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
 
@@ -22,10 +24,33 @@ public class FreeBoardController {
 	private FreeBoardService freeBoardService;
 	
 	@RequestMapping("freeboardlist.do")
-	public ModelAndView selectFreeBoard(ModelAndView mv) {
-		ArrayList<FreeBoard> list = freeBoardService.selectFreeBoard();
+	public ModelAndView selectFreeBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+		//ArrayList<FreeBoard> list = freeBoardService.selectFreeBoard();
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		
+		int listCount = freeBoardService.selectListcount();
+		
+		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		paging.calculate();
+		
+		Search search = new Search();
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectSearchList(search);
+		
+		
 		mv.addObject("list", list);
 		mv.setViewName("freeboard/freeboardListView");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
 		return mv;
 		
 	}
@@ -42,6 +67,7 @@ public class FreeBoardController {
 	    freeBoardService.insertFreeBoard(freeBoard);
 	    return mv;
 	}
+
 	
 	@RequestMapping("fbdetail.do")
 	public String moveFreeBoardDetail(Model model,
