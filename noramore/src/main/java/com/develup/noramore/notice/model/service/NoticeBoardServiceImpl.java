@@ -34,4 +34,22 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public void updateAddReadCount(int noticeNo) {		
 		noticeBoardDao.addReadCount(noticeNo);		
 	}
+
+	@Override
+	public int insertNotice(Notice notice) {
+		
+		return noticeBoardDao.insertNotice(notice);
+	}
+
+	@Override
+	public int updateNotice(Notice notice) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.updateNotice(notice);
+	}
+
+	@Override
+	public int deleteNotice(int noticeNo) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.deleteNotice(noticeNo);
+	}
 }

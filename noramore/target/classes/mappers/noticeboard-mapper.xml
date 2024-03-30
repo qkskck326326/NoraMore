@@ -37,4 +37,24 @@
 		where BOARD_ID = #{ no }
 	</update>
 	
+	<insert id="insertNotice" parameterType="Notice">
+	insert into notice_board
+	values ((select max(boardId) + 1 from notice_board), 
+				#{title}, sysdate, #{memberId}, #{substance}, 
+				#{originalFilePath}, #{renameFilePath}, default, sysdate, default)	
+	</insert>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
