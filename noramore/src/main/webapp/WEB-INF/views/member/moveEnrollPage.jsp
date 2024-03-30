@@ -113,14 +113,14 @@ function validate(){
 	}
 	
 	//주민번호
-	if (/^\d+$/.test(birthValue)) {
+	if (!/^\d+$/.test(birthValue)) {
 	    alert("주민번호 : 숫자로만 입력하세요");
 	    document.getElementById("birth").value = "";  
 		document.getElementById("birth").select();
 	    return false;
 	}
 	
-	if (/^\d+$/.test(sIDValue)) {
+	if (!/^\d+$/.test(sIDValue)) {
 	    alert("주민번호 : 숫자로만 입력하세요");
 	    document.getElementById("socialid").value = "";  
 		document.getElementById("socialid").select();
@@ -410,7 +410,7 @@ function dupIDCheck(){
 	<div>
 		<h3 class="list">성별</h3>
 		<span class="box int_id">
-			<input type="radio" name="gender" value="M" id="m" > 남자 &nbsp; 
+			<input type="radio" name="gender" value="M" id="m" checked > 남자 &nbsp; 
 			<input type="radio" name="gender" value="F" id="f" > 여자 
 		</span>
 	</div>
