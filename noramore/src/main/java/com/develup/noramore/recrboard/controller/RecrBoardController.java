@@ -114,8 +114,16 @@ public class RecrBoardController {
 		 
 	  }//
 	  
-	  
-	  
+	  // 파일 다운로드 처리
+	@RequestMapping("rbdown.do")
+	public ModelAndView fileDown(
+			@RequestParam("ofile") String originalFileName, 
+			@RequestParam("rfile") String renameFileName,
+			ModelAndView mv, HttpServletRequest request) {
+		
+		return mv;
+	}
+	
 	// ****************************** 이동용 *********************************
 
 	@RequestMapping("rbdetail.do")

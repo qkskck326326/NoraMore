@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${!empty requestScope.currentPage}">
-	<c:set var="Page" value="${requestScope.currentPage}" />
+	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -16,6 +16,9 @@
 <c:url var="reportRecr" value="reportrecr.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
 	<c:param name="memberID" value="${loginMember.memberID}" />
+</c:url>
+<c:url var="rblist" value="rblist.do">
+	<c:param name="page" value="${page}" />
 </c:url>
 <c:set var="currentPage" value="${requestScope.currentPage}" />
 <%-- <c:set var="" value="${}" />
@@ -63,11 +66,11 @@ function checkRecrCondition(){
 
 
 function moveListPage(){
-	location.href = "rblist.do";
+	location.href = "${rblist}";
 }
 
 function report() {
-	location.href = "reportrecr.do";
+	location.href = "reportrecr";
 }
 
 </script>

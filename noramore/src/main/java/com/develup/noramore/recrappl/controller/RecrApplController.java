@@ -20,18 +20,13 @@ public class RecrApplController {
 	  @RequestMapping("insertappl.do")
 	  public String insertAppl(RecrAppl recrAppl, Model model) {  
 		  if(recrApplService.insertAppl(recrAppl) > 0) {
-			  int result = recrBoardService.upNowRecr(recrAppl.getBoardId());
-			  if (result > 0) {
+			 //////////// int result = recrBoardService.upNowRecr(recrAppl.getBoardId());
 				  model.addAttribute("message", "신청이 완료되었습니다.");
-				  return "recrBoard/RecrBoardDetail";
-			  }else {
-				  model.addAttribute("message", "error! 신청 오류가 발생하였습니다.");
-				  return "recrBoard/RecrBoardDetail";
-			  }
+				  return "recrBoard/RecrBoardDetail";			  
 		  }else {
 			  model.addAttribute("message", "error! 신청 오류가 발생하였습니다.");
 			  return "recrBoard/RecrBoardDetail";
 		  }
-	  }
+	  } 
 	  
 }//
