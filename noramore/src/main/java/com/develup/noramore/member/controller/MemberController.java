@@ -94,6 +94,8 @@ public class MemberController {
 		}
 	}
 	
+	
+	
 	//로그아웃 처리용 메소드
 		//요청에 대한 전송방식이 get 이면, method 속성 생략해도 됨, 
 		//method 속성을 생략하면 value 속성도 표기를 생략해도 됨
@@ -110,11 +112,11 @@ public class MemberController {
 			}
 		}
 		
+		
+		
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
 		public String memberInsertMethod(Member member, 
-										@RequestParam("email2") String email2,
-										@RequestParam("birth") String birth, 
 										@RequestParam("road") String road,
 										@RequestParam("street") String street,
 										@RequestParam("detail") String detail,
@@ -129,12 +131,8 @@ public class MemberController {
 			logger.info("pwd length : " + member.getMemberPWD().length());
 			
 			
-			//이메일 입력값과 도메인 합치기
-			if (member.getEmail() != null && !email2.equals("이메일 선택") ) {
-		        String emailConnect = member.getEmail() + "@" + email2; // 전체 이메일 주소
-		        member.setEmail(emailConnect);
-		    } 
 			
+		   
 			
 			//주소 합치기
 			if(road != null && street != null && detail != null) {
@@ -143,26 +141,25 @@ public class MemberController {
 			}
 			
 			
-			//주민번호 합치기
-			if(birth != null && member.getSocialId() != null) {
-				String socialIdConnection = birth + member.getSocialId();
-				member.setSocialId(socialIdConnection);
-			}
-			
 			if(memberService.insertMember(member) > 0) {
 				return "member/moveLoginPage";
 			}else {
 				model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
-				return "common/error";
+				return "member/moveEnrollPage";
 			}
+			
+			
+			
+			
+			
 		}
 		
 		
 		
 		//ajax 통신으로 가입할 아이디 중복 확인 요청 처리용 메소드
 		@RequestMapping(value="idchk.do", method=RequestMethod.POST)
-		public void dupCheckIdMethod(@RequestParam("memberID") String memberid, 
-				HttpServletResponse response) throws IOException {
+		public void dupCheckId(@RequestParam("memberID") String memberid, 
+								HttpServletResponse response) throws IOException {
 			//메소드 매개변수 영역에서 사용하는 어노테이션 중에
 			//@RequestParam("전송온이름")  자료형 값저장변수명
 			//자료형 값저장변수명 = request.getParameter("전송온이름");  코드와 같음
@@ -182,6 +179,39 @@ public class MemberController {
 			out.append(returnStr);
 			out.flush();
 			out.close();
+		}
+		
+		
+		@RequestMapping(value="emailchk.do", method=RequestMethod.POST)
+		public void emailChk(
+								@RequestParam("email") String email, 
+								@RequestParam("email2") String email2,
+								HttpServletResponse response) throws IOException {
+			
+			//이메일 입력값과 도메인 합치기 및 db이메일과 같은지 확인함
+			if (email != null && !email2.equals("이메일 선택") ) {
+		        String emailConnect = email + "@" + email2; // 전체 이메일 주소
+				
+		        
+		        int emailCheck = memberService.selectCheckEmail(emailConnect);
+		        
+		        String returnStr = null;
+				if(emailCheck == 0) {
+					returnStr = "ok";
+				}else {
+					returnStr = "dup";
+				}
+				
+				//response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.append(returnStr);
+				out.flush();
+				out.close();
+			}
+			
+			
+			
 		}
 		
 		

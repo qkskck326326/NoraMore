@@ -112,29 +112,38 @@ function validate(){
 		return false;
 	}
 	
-	//주민번호
-	if (!/^\d+$/.test(birthValue)) {
-	    alert("주민번호 : 숫자로만 입력하세요");
-	    document.getElementById("birth").value = "";  
-		document.getElementById("birth").select();
-	    return false;
-	}
-	
-	if (!/^\d+$/.test(sIDValue)) {
-	    alert("주민번호 : 숫자로만 입력하세요");
-	    document.getElementById("socialid").value = "";  
-		document.getElementById("socialid").select();
-	    return false;
-	}
 	
 	
     //이메일
 	if (!/^[a-z][a-z\d]{5,11}$/.test(emailValue)) {
-	    alert("이메일 : 첫글자는 영문 소문자, 6~12자 입력할 것! ");
+	    alert("이메일 : 첫글자는 영문소문자를넣어주세요. 숫자도 넣어주세요. 6~12자 입력해주세요 ");
 	    document.getElementById("emailBox").value = "";  
 		document.getElementById("emailBox").select();
 	    return false;
 	}
+    
+	$.ajax({  //서버에서 값이 돌아와도 새로고침이 되지 않고 현재페이지는 바뀌지 않고 응답만 받음. 비동기 통신.
+		url: "emailchk.do",
+		type: "post",
+		data: { email: $('#emailBox').val(), domain: ${ '#mailSelect' }.val() }, 
+		success: function(data){  //온 결과 값.기본이 text임 
+			console.log("success : " + data);
+			/* if(data == "ok"){   
+				return true; */
+			if(data != "ok"){
+				alert("이미 사용중인 이메일입니다.");
+				$('#emailBox').select();
+				return false;
+			}
+	/* 	 }, */
+	/* 	error: function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+	return false; */
+	
+	
+
 	
 	if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
 		alert("암호와 암호확인이 일치하지 않습니다. 다시 입력하세요.");
@@ -144,7 +153,7 @@ function validate(){
 	}
 	
 	if (!/^[A-Z][a-z\d]{5,11}[!@#]$/.test(pwdValue)) {
-	    alert("아이디 : 첫글자는 영문 대문자, 마지막에 특수문자 넣어주세요. 6~12자 입력할 것!");
+	    alert("비밀번호 : 첫글자는 영문 대문자, 마지막에 특수문자 넣어주세요. 6~12자 입력할 것!");
 	    document.getElementById("memberpwd").value = "";
 	    document.getElementById("memberpwd2").value = "";
 		document.getElementById("memberpwd").select();
@@ -390,19 +399,9 @@ function dupIDCheck(){
 	</div>
 	
 	<div>
-		<h3 class="list">주민번호<span id="socialIdError"></span></h3>
+		<h3 class="list">생년월일<span id="birthError"></span></h3>
 		<span class="box int_id">
-			<input type="text" name="birth" id="birth" class="input" required>
-			<span> - </span>
-			<input type="text" name="socialId" id="socialid" class="input" required>
-		</span>
-	</div>
-	
-	<div>
-		<h3 class="list">나이<span id="age"></span></h3>
-		<span class="box int_id">
-			<input type="number" name="age" id="age" class="input" min="19" required>
-		</span>
+			<input type="date" name="birth" id="birth" class="input" required>
 	</div>
 	
 	

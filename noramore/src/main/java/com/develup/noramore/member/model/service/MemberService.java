@@ -12,6 +12,9 @@ public interface MemberService {
 
 	int selectCheckId(String memberid);
 
+	int selectCheckEmail(String emailConnect);
+
+
 
 
 }
