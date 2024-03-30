@@ -36,5 +36,12 @@ public class RecreBoardDao {
 	public int insertRecrBoard(RecrBoard recrBoard) {
 		return SqlSessionTemplate.insert("recrboard.insertRecrBoard", recrBoard);
 	}
-	
+
+	public int upNowRecr(int boardId) {
+		return SqlSessionTemplate.update("recrboard.upNowRecr", boardId);
+	}
+
+
+
+
 }//

@@ -115,6 +115,7 @@ public class RecrBoardController {
 	  }//
 	  
 	  
+	  
 	// ****************************** 이동용 *********************************
 
 	@RequestMapping("rbdetail.do")

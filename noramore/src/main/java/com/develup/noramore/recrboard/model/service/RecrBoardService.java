@@ -17,5 +17,8 @@ public interface RecrBoardService {
 
 	int insertRecrBoard(RecrBoard recrBoard);
 
+	int upNowRecr(int boardId);
+
+
 	
 }

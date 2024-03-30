@@ -39,4 +39,11 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.insertRecrBoard(recrBoard);
 	}
 
+	@Override
+	public int upNowRecr(int boardId) {
+		return recreBoardDao.upNowRecr(boardId);
+	}
+
+
+
 }//

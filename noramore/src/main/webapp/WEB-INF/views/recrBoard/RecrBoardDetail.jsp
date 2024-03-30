@@ -43,7 +43,9 @@ function signUp(){
 function checkRecrCondition(){  
 	var maxAge = ${RecrBoard.ageMaxCondition};
 	var minAge = ${RecrBoard.ageMinCondition};
-	var gender = "${RecrBoard.genderCondition}";	
+	var gender = "${RecrBoard.genderCondition}";
+	var maxRecr = ${RecrBoard.maxRecr};
+	var nowRecr = ${RecrBoard.nowRecr};
 	if (${RecrBoard.ageMaxCondition} == 0) {
 		maxAge = "없음";
 	}
@@ -55,7 +57,8 @@ function checkRecrCondition(){
 	if (${ empty RecrBoard.genderCondition}) {
 		gender = "없음";
 	}
-	alert("최소나이제한 : " + minAge + "\n 최대나이제한 : " + maxAge + "\n 성별조건 : " + gender);
+	alert("최소나이제한 : " + minAge + "\n 최대나이제한 : " + maxAge + "\n 성별조건 : " + gender 
+			+ "\n모집현황 : " + nowRecr + "명/" + maxRecr + '명');
 }//
 
 
