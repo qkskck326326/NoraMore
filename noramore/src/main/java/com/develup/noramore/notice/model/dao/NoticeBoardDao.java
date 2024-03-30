@@ -28,12 +28,28 @@ public class NoticeBoardDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("noticeMapper.selectOne",noticeNo);
 	}
-
+	
 	public int addReadCount(int noticeNo) {
 		return sqlSessionTemplate.update("noticeMapper.addReadCount", noticeNo);
 		
 	}
-		
+	
+	//새 공지글 등록
+	public int insertNotice(Notice notice) {
+		return sqlSessionTemplate.insert("noticeMapper.insertNotice", notice);
+	}
+	
+	//공지글 수정
+	public int updateNotice(Notice notice) {
+		return sqlSessionTemplate.update("noticeMapper.updateNotice", notice);
+	}
+	
+	//공지글 삭제
+	public int deleteNotice(int noticeNo) {
+		return sqlSessionTemplate.delete("noticeMapper.deleteNotice", noticeNo);
+	}
+
+	
 }
 
 

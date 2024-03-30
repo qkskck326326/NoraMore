@@ -13,15 +13,16 @@ public class Notice implements java.io.Serializable {
     private int readCount;
     private Date registDt;
     private Date lastUpdDt;
-    
-    
+    private String originalFilePath;
+	private String renameFilePath;
+	
 	public Notice() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-    
+
 	public Notice(int boardId, String memberId, String title, String substance, int readCount, Date registDt,
-			Date lastUpdDt) {
+			Date lastUpdDt, String originalFilePath, String renameFilePath) {
 		super();
 		this.boardId = boardId;
 		this.memberId = memberId;
@@ -30,6 +31,8 @@ public class Notice implements java.io.Serializable {
 		this.readCount = readCount;
 		this.registDt = registDt;
 		this.lastUpdDt = lastUpdDt;
+		this.originalFilePath = originalFilePath;
+		this.renameFilePath = renameFilePath;
 	}
 
 	public int getBoardId() {
@@ -88,11 +91,34 @@ public class Notice implements java.io.Serializable {
 		this.lastUpdDt = lastUpdDt;
 	}
 
+	public String getOriginalFilePath() {
+		return originalFilePath;
+	}
+
+	public void setOriginalFilePath(String originalFilePath) {
+		this.originalFilePath = originalFilePath;
+	}
+
+	public String getRenameFilePath() {
+		return renameFilePath;
+	}
+
+	public void setRenameFilePath(String renameFilePath) {
+		this.renameFilePath = renameFilePath;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [boardId=" + boardId + ", memberId=" + memberId + ", title=" + title + ", substance=" + substance
-				+ ", readCount=" + readCount + ", registDt=" + registDt + ", lastUpdDt=" + lastUpdDt + "]";
-	}   
+				+ ", readCount=" + readCount + ", registDt=" + registDt + ", lastUpdDt=" + lastUpdDt
+				+ ", originalFilePath=" + originalFilePath + ", renameFilePath=" + renameFilePath + "]";
+	}
+    
+    
     
     
 }
