@@ -29,6 +29,12 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectSearchTitle(Search search);
 
 
+	int selectSearchWriterCount(String keyword);
+
+
+	ArrayList<FreeBoard> selectSearchWriter(Search search);
+
+
 	
 	
 	

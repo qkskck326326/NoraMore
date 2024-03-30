@@ -47,6 +47,18 @@ public class FreeBoardDao {
 		return (ArrayList<FreeBoard>)list;
 	}
 
+
+	public int selectSearchWriterCount(String keyword) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("freeboard.selectSearchWriterCount", keyword);
+	}
+
+
+	public ArrayList<FreeBoard> selectSearchWriter(Search search) {
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectSearchWriter", search);
+		return (ArrayList<FreeBoard>)list;
+	}
+
 	
 	
 	

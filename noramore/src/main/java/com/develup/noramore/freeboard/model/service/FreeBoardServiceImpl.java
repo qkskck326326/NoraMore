@@ -64,6 +64,18 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.selectSearchTitle(search);
 	}
 
+	@Override
+	public int selectSearchWriterCount(String keyword) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectSearchWriterCount(keyword);
+	}
+
+	@Override
+	public ArrayList<FreeBoard> selectSearchWriter(Search search) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectSearchWriter(search);
+	}
+
 	
 	
 

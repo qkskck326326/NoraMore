@@ -142,6 +142,67 @@ public class FreeBoardController {
 		
 	}
 			
+	//게시글 작성자 검색용(페이징 처리)
+	
+	@RequestMapping(value = "fbsearchWriter.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView freeBoardSearchWriterMethod(
+		@RequestParam("action") String action,
+		@RequestParam("keyword") String keyword,
+		@RequestParam(name="limit", required=false) String slimit,
+		@RequestParam(name="page", required=false) String page,
+		ModelAndView mv
+			) {
+		//검색결과에 대한 페이징 처리를 위한 페이지 지정
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		if(slimit != null) {
+			limit = Integer.parseInt(slimit);
+		}
+		
+		//검색결과가 적용된 총 페이지 계산을 위한 총 목록 갯수 조회해옴
+		int listCount = freeBoardService.selectSearchWriterCount(keyword);
+		
+		//뷰 페이지에 사용할 페이징 관련 값들 계산 처리
+		Paging paging = new Paging(listCount, currentPage, limit, "fbsearchWriter.do");
+		paging.calculate();
+		
+		//한 페이지에 출력할 검색 결과 적용된 목록 조회
+		Search search = new Search();
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		search.setKeyword(keyword);
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
+		
+		//받은 결과에 따라 성공/실패 페이지 내보내기
+		if(list != null && list.size() > 0) {
+			mv.addObject("list", list);
+			mv.addObject("paging", paging);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("action", action);
+			mv.addObject("keyword", keyword);
+			mv.addObject("limit", limit);
+			mv.setViewName("freeboard/freeboardListView");
+			
+		} else {
+			mv.addObject("message",
+					action + "에 대한 " + keyword + " 검색 결과가 존재하지 않습니다. ");
+			mv.setViewName("common/error");
+		}
+		
+		return mv;
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 			
 	
 	 
