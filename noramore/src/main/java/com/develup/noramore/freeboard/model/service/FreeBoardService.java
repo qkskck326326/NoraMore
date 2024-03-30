@@ -23,6 +23,12 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectSearchList(Search search);
 
 
+	int selectSearchTitleCount(String keyword);
+
+
+	ArrayList<FreeBoard> selectSearchTitle(Search search);
+
+
 	
 	
 	
