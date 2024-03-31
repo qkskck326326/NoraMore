@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="resources/css/style.css"  rel="stylesheet">
+<link href="resources/css/header.css"  rel="stylesheet">
 <script src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <title>noramore</title>
 </head>
@@ -25,17 +25,16 @@ if(session.getAttribute("user") == null){
 			
 		</ul>
 	</nav>
-</header>
+</header>3
 	<%
 }else {
 	UserVO vo = (UserVO)session.getAttribute("user");
 	%> --%>
 	<header>
-	<a href="index.jsp">noramore</a>	
+	<a href="index.jsp">noramore</a>
+	
 	<nav>
 		<ul>
-			<%-- <li><a href="profile.jsp?id=<%= vo.getUserId() %>">
-			<%= vo.getUserName() %></a></li> --%>
 			
 			<li><a href="board.jsp">채팅</a></li>
 			<li><a href="receiveHome.jsp">문의내역</a></li>
@@ -45,6 +44,7 @@ if(session.getAttribute("user") == null){
 		</ul>
 	</nav>
 </header>
+</div>
 <%-- 	<%
 }
 %> --%>
