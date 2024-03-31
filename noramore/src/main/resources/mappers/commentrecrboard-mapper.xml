@@ -20,4 +20,8 @@
     	VALUES (#{boardId}, #{commentId}, #{refCommentId}, #{memberId}, #{context}, #{reportCount}, #{countSubComment}, #{registDate}, #{lastUpdateDate})
 	</insert>
 
+	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
+		select * from comm_recr 
+		where board_id = #{boardId}
+	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.develup.noramore.commentrecrboard.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class CommentRecrBoardDao {
 	}
 	
 	public ArrayList<CommentRecrBoard> selectRecrComment(int boardId) {
-		return null;
+		List<CommentRecrBoard> list = sqlSessionTemplate.selectList("commentrecrboard.selectRecrComment", boardId);
+		return (ArrayList<CommentRecrBoard>)list;
 	}
 	
 }//

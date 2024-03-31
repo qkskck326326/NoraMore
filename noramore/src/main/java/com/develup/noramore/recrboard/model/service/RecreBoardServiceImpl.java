@@ -44,6 +44,11 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.upNowRecr(boardId);
 	}
 
+	@Override
+	public int upCountComment(int boardId) {
+		return recreBoardDao.upCountComment(boardId);
+	}
+
 
 
 }//

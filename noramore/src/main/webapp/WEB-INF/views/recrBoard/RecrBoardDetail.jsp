@@ -16,6 +16,7 @@ function toggleCommentForm() {
     var commentForm = document.getElementById("commentForm");
     if (commentForm.style.display === "none") {
         commentForm.style.display = "block";
+        selectrecrcomment();
     } else {
         commentForm.style.display = "none";
     }
@@ -32,39 +33,57 @@ window.onload = function() {
 	}
 };
 
-function selectrecrcomment(){
-	.ajax({
-		url: "selectrecrcomment.do",
-		type: "post",
-		dataType: "json",
-		success: function(data){
-			console.log("success : " + data);
-			
-			//object --> string
-			var str = JSON.stringify(data);
-			
-			//string --> json
-			var json = JSON.parse(str);
-			
-			values = "";			
-			for(var i in json.list){
-				values += "<tr><td>" + json.nlist[i].no 
-						+ "</td><td><a href='ndetail.do?N=" 
-						+ json.nlist[i].no + "'>"
-						+ decodeURIComponent(json.nlist[i].title).replace(/\+/gi, " ") 
-						+ "</a></td><td>"
-						+ json.nlist[i].date + "</td></tr>";
-			}
-			
-			$('#commentList').html($('#commentList').html() + values);
-			//$('#newnotice').append(values);
-		},
-		error: function(jqXHR, textStatus, errorThrown){
-			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-		}
-	});  //ajax
-	
+function selectrecrcomment() {
+	var boardId = "${RecrBoard.boardId}";
+	$.ajax({
+        url: "selectrecrcomment.do",
+        type: "post",
+        dataType: "json",
+        data: { BoardId: boardId },
+        success: function(data) {
+            // 서버로부터 받은 JSON 데이터를 처리합니다.
+            for (var i = 0; i < data.length; i++) {
+                var comment = data[i];
+                
+                // 각 요소를 하나의 <div>로 감싸줍니다.
+                var commentDiv = $('<div></div>');
+                
+                // memberId를 <p> 태그 안에 넣고, <div> 안에 추가합니다.
+                var memberIdParagraph = $('<p>' + comment.memberId + '</p>');
+                commentDiv.append(memberIdParagraph);
+                
+                // context를 textarea 안에 넣고, <div> 안에 추가합니다.
+                var contextTextarea = $('<textarea readonly>' + comment.context + '</textarea>');
+                commentDiv.append(contextTextarea);
+                
+                // countSubComment가 0 이상인 경우에는 버튼과 함께 추가적인 <div>를 만들어서 넣습니다.
+                if (comment.countSubComment > 0) {
+                    var subCommentButton = $('<button onclick="toggleSubCommentList()">Show Sub Comments</button>');
+                    commentDiv.append(subCommentButton);
+                    
+                    var subCommentListDiv = $('<div name="subCommentList" style="display: none;"></div>');
+                    commentDiv.append(subCommentListDiv);
+                }
+                
+                // lastUpdateDate를 5pt 크기로 <p> 태그 안에 넣고, <div> 안에 추가합니다.
+                var lastUpdateDateParagraph = $('<p style="font-size: 6pt;">' + comment.lastUpdateDate + '</p>');
+                commentDiv.append(lastUpdateDateParagraph);
+                
+                // commentDiv를 commentList에 추가합니다.
+                $('#commentList').append(commentDiv);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+        }
+    });
 }
+
+function toggleSubCommentList() {
+    var subCommentList = $('[name="subCommentList"]');
+    subCommentList.toggle();
+}
+
 </script>
 <style>
 	.container {
@@ -72,7 +91,7 @@ function selectrecrcomment(){
             flex-direction: column;
             align-items: center;
         }
-        .boardRecr-div, .bottom-div {
+        .boardRecr-div, .comment-div {
         	width: 1000px;
             padding: 20px;
             margin: 10px;
@@ -118,7 +137,7 @@ function selectrecrcomment(){
 		    </div>		    
 		</form>
 	</div>
-	<div class="bottom-div">
+	<div class="comment-div">
 		<!-- 댓글 보기 버튼 -->
 		<div id="writeComment">
     		<button class="whiteBtn" onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
@@ -127,7 +146,8 @@ function selectrecrcomment(){
 		<div id="commentForm" style="display: none;">
    		<form action="insertrecrcomment.do" method="post">
    		<input  type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">	
-   		<input  type="hidden" name="boardId" value="${RecrBoard.boardId}">	
+   		<input  type="hidden" name="boardId" value="${RecrBoard.boardId}">
+   		<input  type="hidden" name="page" value="${page}">	
         <textarea name="context" cols="50" rows="5" required></textarea>
         <br>
         <input type="submit" value="댓글 등록">
