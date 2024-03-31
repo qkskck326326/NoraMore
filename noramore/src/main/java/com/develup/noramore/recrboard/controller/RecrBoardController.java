@@ -5,23 +5,20 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
-import com.develup.noramore.member.model.vo.Member;
-import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
@@ -68,13 +65,28 @@ public class RecrBoardController {
 
 	
 	  // 모집테이블 생성
-	  @RequestMapping("insertrb.do") 
+	  @RequestMapping(value="insertrb.do", method=RequestMethod.POST) 
 	  public String insertRecrBoard(RecrBoard recrBoard, HttpServletRequest request, Model model, 
-			  		@RequestParam("memberId") String memberId, 
-			  		@RequestParam(name="upfile", required=false) MultipartFile mfile) {
+			  		@RequestParam(name="upfile", required=false) MultipartFile mfile,
+			  		@RequestParam("maxRecr1") String maxRecr, @RequestParam(name="ageMinCondition1", required=false) String ageMinCondition, 
+			  		@RequestParam(name="ageMaxCondition1", required=false) String ageMaxCondition) {
+		  // input을 number 로 해도 이쪽으로 보낼 때는 String 형태로 넘어와서 취한 조취
+		  if(!ageMaxCondition.isEmpty()) {
+			    recrBoard.setAgeMaxCondition(Integer.parseInt(ageMaxCondition));
+			}
+			if(!ageMinCondition.isEmpty()) {
+			    recrBoard.setAgeMinCondition(Integer.parseInt(ageMinCondition));
+			}
+			if(!maxRecr.isEmpty()) {
+			    recrBoard.setMaxRecr(Integer.parseInt(maxRecr));
+			}
+
+
+		  
+		  
 		  
 		  String savePath = request.getSession().getServletContext().getRealPath("resources/recrboard_upfiles");
-
+		  
 		  if(!mfile.isEmpty()){
 				//전송온 첨부파일명 추출함
 				String fileName = mfile.getOriginalFilename();
@@ -104,7 +116,7 @@ public class RecrBoardController {
 		  
 		  if(recrBoardService.insertRecrBoard(recrBoard) > 0) {
 			  model.addAttribute("message", " 글이 등록되었습니다.");
-			  model.addAttribute("memberId", recrBoard.getMemberId());
+			  model.addAttribute("RecrBoard", recrBoard);
 			  return "recrBoard/RecrBoardDetail"; 
 		  }else{
 			  model.addAttribute("message", " 글 등록에 실패하였습니다.");
