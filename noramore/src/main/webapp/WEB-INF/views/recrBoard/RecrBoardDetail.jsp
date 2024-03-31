@@ -31,6 +31,40 @@ window.onload = function() {
     Alert("${message}");
 	}
 };
+
+function selectrecrcomment(){
+	.ajax({
+		url: "selectrecrcomment.do",
+		type: "post",
+		dataType: "json",
+		success: function(data){
+			console.log("success : " + data);
+			
+			//object --> string
+			var str = JSON.stringify(data);
+			
+			//string --> json
+			var json = JSON.parse(str);
+			
+			values = "";			
+			for(var i in json.list){
+				values += "<tr><td>" + json.nlist[i].no 
+						+ "</td><td><a href='ndetail.do?N=" 
+						+ json.nlist[i].no + "'>"
+						+ decodeURIComponent(json.nlist[i].title).replace(/\+/gi, " ") 
+						+ "</a></td><td>"
+						+ json.nlist[i].date + "</td></tr>";
+			}
+			
+			$('#commentList').html($('#commentList').html() + values);
+			//$('#newnotice').append(values);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});  //ajax
+	
+}
 </script>
 <style>
 	.container {
@@ -85,17 +119,22 @@ window.onload = function() {
 		</form>
 	</div>
 	<div class="bottom-div">
-		<!-- 댓글 등록 버튼 -->
+		<!-- 댓글 보기 버튼 -->
 		<div id="writeComment">
     		<button class="whiteBtn" onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
 		</div>
 		<!-- 댓글 폼 -->
 		<div id="commentForm" style="display: none;">
-   		<form action="addComment.do" method="post">
+   		<form action="insertrecrcomment.do" method="post">
+   		<input  type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">	
+   		<input  type="hidden" name="boardId" value="${RecrBoard.boardId}">	
         <textarea name="context" cols="50" rows="5" required></textarea>
         <br>
         <input type="submit" value="댓글 등록">
     	</form>
+    	<div id="commentList">
+    	
+    	</div>
 		</div>
 	</div>
 </div>
