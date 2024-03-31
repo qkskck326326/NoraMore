@@ -73,6 +73,47 @@
     </script>		
 </head>
 <body>
+
+<%-- 항목별 검색 기능 추가 --%>
+<fieldset id="ss">
+	<legend>검색할 항목을 선택하세요.</legend>
+	<input type="radio" name="item" id="title"> 제목 &nbsp;
+	<input type="radio" name="item" id="writer"> 작성자 &nbsp;	
+</fieldset>
+<br>
+
+<%-- 검색 항목별 값 입력 전송용 폼 만들기 --%>
+<%-- 제목 검색 폼 --%>
+<form id="titleform" class="sform" action="fbsearchTitle.do" method="post">
+	<input type="hidden" name="action" value="title">	
+<fieldset>
+	<legend>검색할 제목을 입력하세요.</legend>
+	<input type="search" name="keyword"> &nbsp;
+	한 페이지에 출력할 목록 갯수 : 
+	<select name="limit">
+		<option value="10" selected>10</option>
+		<option value="15" >15</option>
+		<option value="20" >20</option>
+	</select> &nbsp; 
+	<input type="submit" value="검색">
+</fieldset>
+</form>
+
+<%-- 작성자 검색 폼 --%>
+<form id="writerform" class="sform" action="fbsearchWriter.do" method="post">
+	<input type="hidden" name="action" value="writer">	
+<fieldset>
+	<legend>검색할 작성자를 입력하세요.</legend>
+	<input type="search" name="keyword"> &nbsp;
+	한 페이지에 출력할 목록 갯수 : 
+	<select name="limit">
+		<option value="10" selected>10</option>
+		<option value="15" >15</option>
+		<option value="20" >20</option>
+	</select> &nbsp; 
+	<input type="submit" value="검색">
+</fieldset>
+</form>
 	<section id="board">
 
 		<h1>자유게시판</h1>

@@ -23,6 +23,68 @@
 		select * from free_board
 	</select>
 	
+	<select id="selectBoardId" parameterType="_int" resultMap = "resultfreeList">
+		select * from free_board
+		where board_id = #{boardId}
+	
+	</select>
+	
+	<select id="selectListcount" resultType="_int">
+		select count(*)
+		from free_board
+	</select>
+	
+	<select id="selectSearchList" parameterType="Search" resultMap="resultfreeList">
+		SELECT *
+		FROM (
+		    SELECT rownum rnum,
+		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
+		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
+		           LAST_UPD_DATE from free_board)
+		WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="selectSearchTitleCount" parameterType="string" resultType="_int">
+	
+		select count(*) from free_board
+		where title like '%' || #{ keyword } || '%'
+		
+	
+	</select>
+	
+	<select id="selectSearchTitle" parameterType="Search" resultMap="resultfreeList">
+		select *
+		from (select rownum rnum, BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
+		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
+		           LAST_UPD_DATE
+		     from (select * from free_board
+		     	   where title like '%' || #{ keyword } || '%'
+		          ))
+		where rnum between #{ startRow } and #{ endRow } 
+	</select>
+	
+	<select id="selectSearchWriterCount" parameterType="string" resultType="_int">
+		select count(*) from free_board
+		where MEMBER_ID like '%' || #{ keyword } || '%'
+	</select>
+	
+	<select id="selectSearchWriter" parameterType="Search" resultMap="resultfreeList">
+		select *
+		from (select rownum rnum, BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
+		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
+		           LAST_UPD_DATE
+		     from (select * from free_board
+		     	   where MEMBER_ID like '%' || #{ keyword } || '%'
+		          ))
+		where rnum between #{ startRow } and #{ endRow } 
+	</select>
+	
+	<!-- <insert id="insertFreeBoard" parameterType="FreeBoard">
+		insert into free_board
+		values ((select max(board_id) + 1 from free_board), #{ memberId }, #{ categoryId }, 
+				#{ title }, #{ context }, #{ freeOriginalFileName }, #{freeRenameFileName},
+				default, default, default, default, default)
+	</insert> -->
 
-
+	
 </mapper>

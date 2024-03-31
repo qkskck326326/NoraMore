@@ -23,25 +23,28 @@
     <form action="freeboardinsert.do" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
-		<h1>글쓰기</h1>
-		<div class="line"></div>
+		<!-- <h1>글쓰기</h1>
+		<div class="line"></div> -->
+		
+		<p>작성자</p>
+		<input type="text" name="memberId" readonly value="${ sessionScope.loginMember.memberID }">
 		
 		<p>글 제목</p>
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
 		
 		<p>본문</p>
-		<!-- <textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context" id="smartEditor"></textarea> -->
+		<textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea> 
 		<!--  추가한 부분 ***************************************** -->
-		<!-- SmartEditor2  -->
+		<!-- SmartEditor2  30 70
 <div class="jsx-2303464893 editor">
 	<div class="fr-box fr-basic fr-top" role="application">
 		<div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;">
-			<textarea name="notice_content" id="smartEditor"
+			<textarea name="context" id="smartEditor"
 				style="width: 100%; height: 412px;"></textarea>
 		</div>
 	</div>
 </div>
-
+-->
 <!-- ******************************************************************************* -->
 		<p>첨부파일</p>
 		<input type="file" id="file" name="upfile">
@@ -50,7 +53,7 @@
 		<!-- <button type="button"  onclick="checkInput()"  >글쓰기</button>
 		<input type="submit" class="none"> -->
 		
-		<button type="submit" onclick="checkInput()">글쓰기</button>
+		<button type="submit">글쓰기</button>
 	</section>
 </form>
 
