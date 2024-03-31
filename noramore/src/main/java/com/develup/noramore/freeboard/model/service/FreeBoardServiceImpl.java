@@ -76,6 +76,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.selectSearchWriter(search);
 	}
 
+	@Override
+	public int insertOriginBoard(FreeBoard freeBoard) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.insertOriginBoard(freeBoard);
+	}
+
 	
 	
 

@@ -35,6 +35,9 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectSearchWriter(Search search);
 
 
+	int insertOriginBoard(FreeBoard freeBoard);
+
+
 	
 	
 	

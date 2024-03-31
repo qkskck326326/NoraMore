@@ -59,6 +59,12 @@ public class FreeBoardDao {
 		return (ArrayList<FreeBoard>)list;
 	}
 
+
+	public int insertOriginBoard(FreeBoard freeBoard) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.insert("freeboard.insertOriginBoard", freeBoard);
+	}
+
 	
 	
 	

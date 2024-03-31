@@ -50,7 +50,7 @@
 		<!-- <button type="button"  onclick="checkInput()"  >글쓰기</button>
 		<input type="submit" class="none"> -->
 		
-		<button type="submit" onclick="checkInput()">글쓰기</button>
+		<button type="submit">글쓰기</button>
 	</section>
 </form>
 
