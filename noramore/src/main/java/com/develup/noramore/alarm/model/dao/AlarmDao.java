@@ -28,8 +28,8 @@ public class AlarmDao {
 		return sqlSessionTemplate.update("updateAlarm", alarm);
 	}
 
-	public int selectListCount() {
-		return sqlSessionTemplate.selectOne("alarm.selectListCount");
+	public int selectListCount(String memberId) {
+		return sqlSessionTemplate.selectOne("alarm.selectListCount", memberId);
 	}
 
 	public ArrayList<Alarm> selectList(Paging paging) {

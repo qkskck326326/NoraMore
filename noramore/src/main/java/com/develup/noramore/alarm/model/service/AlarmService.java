@@ -9,6 +9,6 @@ public interface AlarmService {
 	ArrayList<Alarm> selectAlarmList(Alarm alarm);
 	int insertAlarm(Alarm alarm);
 	int updateAlarm(Alarm alarm);
-	int selectListCount();
+	int selectListCount(String memberId);
 	ArrayList<Alarm> selectList(Paging paging);
 }

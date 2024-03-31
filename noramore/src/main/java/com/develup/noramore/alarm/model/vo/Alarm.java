@@ -6,43 +6,35 @@ public class Alarm {
 	
 	private int alarmId;
 	private String alarmKind;
-	private String rBoardId;
-	private String fBoardId;
+	private String BoardId;
 	private String receiverId;
 	private String senderId;
 	private String checkedYN;
 	private Date registDate;
 
-	private String memberId;
 	private String categoryId;
 	private String title;
+	private String commId;
+	private String context;
+	private String ref;
 
 	public Alarm() {
 		super();
 	}
 
-	public Alarm(int alarmId, String alarmKind, String rBoardId, String fBoardId, String receiverId, String senderId,
-			String checkedYN, Date registDate, String memberId, String categoryId, String title) {
+	public Alarm(int alarmId, String alarmKind, String boardId, String receiverId, String senderId, String checkedYN,
+			Date registDate, String categoryId, String title, String commId) {
 		super();
 		this.alarmId = alarmId;
 		this.alarmKind = alarmKind;
-		this.rBoardId = rBoardId;
-		this.fBoardId = fBoardId;
+		BoardId = boardId;
 		this.receiverId = receiverId;
 		this.senderId = senderId;
 		this.checkedYN = checkedYN;
 		this.registDate = registDate;
-		this.memberId = memberId;
 		this.categoryId = categoryId;
 		this.title = title;
-	}
-
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+		this.commId = commId;
 	}
 
 	public int getAlarmId() {
@@ -61,20 +53,12 @@ public class Alarm {
 		this.alarmKind = alarmKind;
 	}
 
-	public String getrBoardId() {
-		return rBoardId;
+	public String getBoardId() {
+		return BoardId;
 	}
 
-	public void setrBoardId(String rBoardId) {
-		this.rBoardId = rBoardId;
-	}
-
-	public String getfBoardId() {
-		return fBoardId;
-	}
-
-	public void setfBoardId(String fBoardId) {
-		this.fBoardId = fBoardId;
+	public void setBoardId(String boardId) {
+		BoardId = boardId;
 	}
 
 	public String getReceiverId() {
@@ -125,14 +109,39 @@ public class Alarm {
 		this.title = title;
 	}
 
-	@Override
-	public String toString() {
-		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", rBoardId=" + rBoardId + ", fBoardId="
-				+ fBoardId + ", receiverId=" + receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN
-				+ ", registDate=" + registDate + ", memberId=" + memberId + ", categoryId=" + categoryId + ", title="
-				+ title + "]";
+	public String getCommId() {
+		return commId;
+	}
+
+	public void setCommId(String commId) {
+		this.commId = commId;
 	}
 
 
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public String getRef() {
+		return ref;
+	}
+
+	public void setRef(String ref) {
+		this.ref = ref;
+	}
+
+	@Override
+	public String toString() {
+		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", BoardId=" + BoardId + ", receiverId="
+				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
+				+ ", categoryId=" + categoryId + ", title=" + title + ", commId=" + commId + ", context=" + context
+				+ ", ref=" + ref + "]";
+	}
 	
+	
+
 }
