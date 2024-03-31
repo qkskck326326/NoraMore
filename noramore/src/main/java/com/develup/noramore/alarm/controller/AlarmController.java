@@ -2,16 +2,20 @@ package com.develup.noramore.alarm.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.develup.noramore.alarm.model.service.AlarmService;
 import com.develup.noramore.alarm.model.vo.Alarm;
 import com.develup.noramore.common.Paging;
+import com.develup.noramore.freeboard.model.vo.FreeBoard;
+import com.develup.noramore.recrappl.model.vo.RecrAppl;
+import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
 @Controller
 public class AlarmController {
@@ -20,9 +24,9 @@ public class AlarmController {
 	
 	
 	//알람 전체 조회
-	@RequestMapping(value="alarmlist.do", method=RequestMethod.POST)
+	@RequestMapping("alarmlist.do")
 	public String alarmPage(
-				@RequestParam("memberID") String memberId,
+				@RequestParam("alarmId") String alarmId,
 				@RequestParam(name="page", required=false) String page,
 				 @RequestParam(name="limit", required=false) String slimit, Model model) {
 		
@@ -37,7 +41,7 @@ public class AlarmController {
 		limit = Integer.parseInt(slimit); //전송받은 한 페이지에 출력할 목록 갯수를 적
 		}
 		
-		int listCount = alarmService.selectListCount(memberId); //페이징 계산 처리 실행
+		int listCount = alarmService.selectListCount(alarmId); //페이징 계산 처리 실행
 		Paging paging = new Paging(listCount, currentPage, limit, "alarmlist.do");
 		paging.calculate();
 		
@@ -59,17 +63,37 @@ public class AlarmController {
 	}
 	
 	
-	//알람 조회
-	
-	public String alarmCheck() {
-		
-		return "";
-	}
-	
-	
 	//알람 생성
-	
-	public String alarmInsert() {
+	@RequestMapping("newalarm.do")
+	public String alarmInsert(
+			@RequestParam("alarmKind") String alarmKind,
+			@RequestParam("boardId") String boardId, 
+			@RequestParam(name="context", required=false) String context,
+			HttpServletRequest request) {
+		
+		Alarm alarm = new Alarm();
+		alarm.setAlarmKind(alarmKind);
+		alarm.setBoardId(boardId);
+		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
+		
+		/*
+		 * //댓글 내용이 10글자 넘어가면 10글자 ... if(context != null && context.length() > 10) {
+		 * alarm.setContext(context.substring(0, 10) + "... "); }else if(context != null
+		 * && context.length() <= 10){ alarm.setContext(context); }
+		 * 
+		 * switch(alarmKind) { case "commentRecrboard" : RecrBoard recrBoard =
+		 * alarmService.selectBoardInfo(alarm);
+		 * alarm.setReceiverId(recrBoard.getMemberId());
+		 * alarm.setTitle(recrBoard.getTitle()); alarmService.insertAlarm(alarm); break;
+		 * case "commentFreeboard" : FreeBoard freeBoard =
+		 * alarmService.selectBoardInfo(alarm);
+		 * alarm.setReceiverId(freeBoard.getMemberId());
+		 * alarm.setTitle(freeBoard.getTitle()); alarmService.insertAlarm(alarm); break;
+		 * case "recrAppl" : RecrAppl recrAppl = alarmService.selectRecrAppl();
+		 * alarm.setReceiverId(recrAppl.getMemberId());
+		 * alarm.setTitle(recrAppl.getTitle()); alarmService.insertAlarm(alarm); break;
+		 * default: return "common/error"; }
+		 */
 		
 		return "";
 	}
