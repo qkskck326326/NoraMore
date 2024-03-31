@@ -21,8 +21,8 @@ public class Member implements java.io.Serializable  {
 	private String actLimit;        //사용제약
 	private Date registDate;       //등록일자 
 	private Date modifiedDate;     //최종수정일자
+	private int memberAuth;        //회원인증
 
-	
 	
 	
 	
@@ -36,7 +36,7 @@ public class Member implements java.io.Serializable  {
 
 	public Member(String memberID, String memberPWD, String memberName, String birth, String gender, String email,
 			String address, String photoFilename, String resign, String adminYN, String signType, String actLimit, Date registDate,
-			Date modifiedDate) {
+			Date modifiedDate, int memberAuth) {
 		super();
 		this.memberID = memberID;
 		this.memberPWD = memberPWD;
@@ -51,6 +51,7 @@ public class Member implements java.io.Serializable  {
 		this.actLimit = actLimit;
 		this.registDate = registDate;
 		this.modifiedDate = modifiedDate;
+		this.memberAuth = memberAuth;
 	}
 
 
@@ -215,9 +216,19 @@ public class Member implements java.io.Serializable  {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
+	
+	public int getMemberAuth() {
+		return memberAuth;
+	}
 
 
 
+	public void setMemberAuth(int memberAuth) {
+		this.memberAuth = memberAuth;
+	}
+
+
+	
 	
 	
 	@Override
@@ -225,7 +236,7 @@ public class Member implements java.io.Serializable  {
 		return "Member [memberID=" + memberID + ", memberPWD=" + memberPWD + ", memberName=" + memberName
 				+ ", birth=" + birth +  ", gender=" + gender + ", email=" + email + ", address=" + address + ", photoFilename=" + photoFilename + ", resign="
 				+ resign + ", adminYN=" + adminYN + ", signType=" + signType + ", actLimit=" + actLimit
-				+ ", registDate=" + registDate + ", modifiedDate=" + modifiedDate + "]";
+				+ ", registDate=" + registDate + ", modifiedDate=" + modifiedDate +  ", memberAuth=" + memberAuth + "]";
 	}
 
 
