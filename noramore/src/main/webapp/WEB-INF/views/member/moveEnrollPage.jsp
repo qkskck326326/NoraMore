@@ -78,6 +78,8 @@
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
 <script type="text/javascript">
 
+	 
+
 
 function validate(){
 	
@@ -88,22 +90,16 @@ function validate(){
 	var birthValue = $('#birth').val();
 	var sIDValue = $('#socialid').val();
 	var emailValue = $('#emailBox').val();
+	var email2Value = $('#emailSelect').val();
 	
 	
 	
-	if (!/^[a-z][a-z\d]{5,11}$/.test(idValue)) {
-	    alert("아이디 : 첫글자는 영문 소문자, 6~12자 입력할 것!");
+	if (!/^[a-z][A-Za-z0-9]{5,11}$/.test(idValue)) {
 	    document.getElementById("memberid").value = "";  
 		document.getElementById("memberid").select();
 	    return false;
 	}
 
-	if (!/\d/.test(idValue)) {
-	    alert("아이디 : 숫자 하나 이상을 포함해야 합니다!");
-	    document.getElementById("memberid").value = "";  
-		document.getElementById("memberid").select();
-	    return false;
-	}
 	//이름
 	if(!/^[가-힝]{2,}$/.test(nameValue)){
 		alert("성명 : 한글로 2글자 이상을 넣으세요");
@@ -114,38 +110,11 @@ function validate(){
 	
 	
 	
-    //이메일
-	if (!/^[a-z][a-z\d]{5,11}$/.test(emailValue)) {
-	    alert("이메일 : 첫글자는 영문소문자를넣어주세요. 숫자도 넣어주세요. 6~12자 입력해주세요 ");
-	    document.getElementById("emailBox").value = "";  
-		document.getElementById("emailBox").select();
-	    return false;
-	}
     
-	$.ajax({  //서버에서 값이 돌아와도 새로고침이 되지 않고 현재페이지는 바뀌지 않고 응답만 받음. 비동기 통신.
-		url: "emailchk.do",
-		type: "post",
-		data: { email: $('#emailBox').val(), domain: ${ '#mailSelect' }.val() }, 
-		success: function(data){  //온 결과 값.기본이 text임 
-			console.log("success : " + data);
-			/* if(data == "ok"){   
-				return true; */
-			if(data != "ok"){
-				alert("이미 사용중인 이메일입니다.");
-				$('#emailBox').select();
-				return false;
-			}
-	/* 	 }, */
-	/* 	error: function(jqXHR, textStatus, errorThrown){
-			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-		}
-	});
-	return false; */
-	
 	
 
 	
-	if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
+	 if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
 		alert("암호와 암호확인이 일치하지 않습니다. 다시 입력하세요.");
 		document.getElementById("memberpwd2").value = "";  // 두 번째 비밀번호 필드의 값을 비웁니다.
 		document.getElementById("memberpwd").select();  // 첫 번째 비밀번호 필드를 선택합니다.
@@ -167,7 +136,7 @@ function validate(){
 	//정규표현식(Regular Expression) 사용함	
 	return true;  //전송보냄
 }
-
+ 
 
 
 
@@ -177,12 +146,14 @@ function dupIDCheck(){
 	$.ajax({  //서버에서 값이 돌아와도 새로고침이 되지 않고 현재페이지는 바뀌지 않고 응답만 받음. 비동기 통신.
 		url: "idchk.do",
 		type: "post",
-		data: { memberID: $('#memberid').val() }, 
+		data: { memberID: $('#memberid').val() },
 		success: function(data){  //온 결과 값.기본이 text임 
 			console.log("success : " + data);
 			if(data == "ok"){   
 				alert("사용 가능한 아이디입니다.");
 				$('#memberpwd').focus();
+				$('#submit_button').attr("disabled", false);
+				$('#memberid').attr("readonly", true);
 			}else{
 				alert("이미 사용중인 아이디입니다.");
 				$('#memberid').select();
@@ -194,22 +165,9 @@ function dupIDCheck(){
 	});
 	return false;
 }
+ 
 
 
-/* function concatenateEmail() {
-    var emailPrefix = document.getElementById("emailBox").value; // 사용자가 입력한 이메일 주소
-    var emailSuffix = document.getElementById("mailSelect").value; // 선택한 이메일 도메인
-
-    // 이메일 주소가 선택되었는지 확인
-    if (emailPrefix !== null && emailSuffix !== "이메일 선택") {
-        var fullEmail = emailPrefix + "@" + emailSuffix; // 전체 이메일 주소
-        return true;
-    } else {
-        alert("이메일 주소를 입력하고 이메일 도메인을 선택하세요.");
-        return false;
-    }
-} */
-	
 /* 	window.onload = function(){
 	//선택한 사진파일 이미지 미리보기 처리
 	var photofile = document.getElementById("photofile");
@@ -367,7 +325,11 @@ function dupIDCheck(){
 		<span class="box int_id" >
 		<input type="text" name="memberID" id="memberid" class="input" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
 		<input type="button" value="중복체크" onclick="return dupIDCheck();">
+		<div class="success-message hide"></div>
+    	<div class="failure-message hide">아이디는 6~12글자이어야 합니다</div>
+    	<div class="failure-message2 hide">첫글자는 영소문자, 영어 또는 숫자만 가능합니다</div>
 	</div>
+	
 		
 	<div>
 		<h3 class="list">*비밀번호<span id="pwError" ></span></h3>
@@ -375,6 +337,7 @@ function dupIDCheck(){
 			<input type="password" name="memberPWD" id="memberpwd" class="input" maxlength="20" required>
 		</span>
 	</div>
+	<div class="strongPassword-message hide">8글자 이상, 첫글자 영대문자, 소문자와 숫자 그리고 특수문자(@$!%*#?&)를 사용하세요</div>
 	
 	<div id="myphoto">
 		<img src="/first/resources/member_photofiles/" id="photo" 				
@@ -389,6 +352,7 @@ function dupIDCheck(){
 		<span class="box int_id">
 			<input type="password" id="memberpwd2" class="input" maxlength="20" required><br>
 		</span>	
+		<div class="mismatch-message hide">비밀번호가 일치하지 않습니다</div>
 	</div>
 	
 	<div>
@@ -419,24 +383,22 @@ function dupIDCheck(){
         <h3 class="list">이메일<span id="emailError"></span></h3>
         <span class="emailInt" >
         <input type="text" name="email" id="emailBox" maxlength="20" class="input" > 
-           <span>   @ </span> 
+           <span> @ </span> 
               <!-- 이메일 택일 -->
               <select name= "email2" id="mailSelect" >
                  <option>이메일 선택</option>
                  <option>naver.com</option>
                  <option>gmail.com</option>
                  <option>daum.net</option>
-                 <option>hanmail.net</option>
                  <option>hotmail.com</option>
                  <option>nate.com</option>
-                 <option>yahoo.co.kr</option>
                  <option>empas.com</option>
                  <option>freechal.com</option>
                  <option>lycos.co.kr</option>
-                 <option>korea.com</option>
                  <option>hanmir.com</option>
                  <option>dreamwiz.com</option>
                  <option>paran.com</option>
+                <!--  <option>직접입력</option> -->
               </select>
         </span>
      </div>
@@ -478,12 +440,125 @@ function dupIDCheck(){
 
 
 <br><br>
-<input type="submit" value="가입하기"> &nbsp;
+<input type="submit" disabled= 'disabled' value="가입하기" id="submit_button"> &nbsp;
 <input type="reset" value="작성취소"> &nbsp;
 <a href="home.do">시작페이지로 이동</a>
+
 
 </form>
 	
 </div>
+
+<script type="text/javascript">
+
+//1. 아이디 입력창 정보 가져오기
+let elInputUsername = document.querySelector('#memberid'); // input#username
+//2. 성공 메시지 정보 가져오기
+let elSuccessMessage = document.querySelector('.success-message'); // div.success-message.hide
+//3. 실패 메시지 정보 가져오기 (글자수 제한 4~12글자)
+let elFailureMessage = document.querySelector('.failure-message'); // div.failure-message.hide
+//4. 실패 메시지2 정보 가져오기 (영어 또는 숫자)
+let elFailureMessageTwo = document.querySelector('.failure-message2'); // div.failure-message2.hide
+
+
+//1. 비밀번호 입력창 정보 가져오기
+let elInputPassword = document.querySelector('#memberpwd'); // input#password
+//2. 비밀번호 확인 입력창 정보 가져오기
+let elInputPasswordRetype = document.querySelector('#memberpwd2'); // input#password-retype
+//3. 실패 메시지 정보 가져오기 (비밀번호 불일치)
+let elMismatchMessage = document.querySelector('.mismatch-message'); // div.mismatch-message.hide
+//4. 실패 메시지 정보 가져오기 (8글자 이상, 영문, 숫자, 특수문자 미사용)
+let elStrongPasswordMessage = document.querySelector('.strongPassword-message'); // div.strongPassword-message.hide
+
+
+function idLength(value) {
+	  return value.length >= 6 && value.length <= 12
+	}
+
+
+function onlyNumberAndEnglish(str) {
+	  return /^[a-z][A-Za-z0-9]*$/.test(str);
+	}
+	
+
+function strongPassword (str) {
+	  return /^[A-Z](?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(str);
+	}
+	
+function isMatch (password1, password2) {
+	  return password1 === password2;
+	}
+	
+elInputUsername.addEventListener('keyup', function(){
+//elInputUsername.onkeyup = function () {
+	console.log("keyup");
+	  // 값을 입력한 경우
+	  if (elInputUsername.value.length !== 0) {
+	    // 영어 또는 숫자 외의 값을 입력했을 경우
+	    if(onlyNumberAndEnglish(elInputUsername.value) === false) {
+	      elSuccessMessage.classList.add('hide');
+	      elFailureMessage.classList.add('hide');
+	      elFailureMessageTwo.classList.remove('hide'); // 영어 또는 숫자만 가능합니다
+	    }
+	    // 글자 수가 4~12글자가 아닐 경우
+	    else if(idLength(elInputUsername.value) === false) {
+	      elSuccessMessage.classList.add('hide'); // 성공 메시지가 가려져야 함
+	      elFailureMessage.classList.remove('hide'); // 아이디는 4~12글자이어야 합니다
+	      elFailureMessageTwo.classList.add('hide'); // 실패 메시지2가 가려져야 함
+	    }
+	    // 조건을 모두 만족할 경우
+	    else if(idLength(elInputUsername.value) || onlyNumberAndEnglish(elInputUsername.value)) {
+	      elSuccessMessage.classList.remove('hide'); // 사용할 수 있는 아이디입니다
+	      elFailureMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+	      elFailureMessageTwo.classList.add('hide'); // 실패 메시지2가 가려져야 함
+	    }
+	  }
+	  // 값을 입력하지 않은 경우 (지웠을 때)
+	  // 모든 메시지를 가린다.
+	  else {
+	    elSuccessMessage.classList.add('hide');
+	    elFailureMessage.classList.add('hide');
+	    elFailureMessageTwo.classList.add('hide');
+	  }
+	});
+	
+	
+elInputPassword.onkeyup = function () {
+
+	  // console.log(elInputPassword.value);
+	  // 값을 입력한 경우
+	  if (elInputPassword.value.length !== 0) {
+	    if(strongPassword(elInputPassword.value)) {
+	      elStrongPasswordMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+	    }
+	    else {
+	      elStrongPasswordMessage.classList.remove('hide'); // 실패 메시지가 보여야 함
+	    }
+	  }
+	  // 값을 입력하지 않은 경우 (지웠을 때)
+	  // 모든 메시지를 가린다.
+	  else {
+	    elStrongPasswordMessage.classList.add('hide');
+	  }
+	};
+	
+	
+	elInputPasswordRetype.onkeyup = function () {
+
+		  // console.log(elInputPasswordRetype.value);
+		  if (elInputPasswordRetype.value.length !== 0) {
+		    if(isMatch(elInputPassword.value, elInputPasswordRetype.value)) {
+		      elMismatchMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+		    }
+		    else {
+		      elMismatchMessage.classList.remove('hide'); // 실패 메시지가 보여야 함
+		    }
+		  }
+		  else {
+		    elMismatchMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+		  }
+		};
+	
+</script>
 </body>
 </html>

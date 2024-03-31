@@ -117,6 +117,7 @@ public class MemberController {
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
 		public String memberInsertMethod(Member member, 
+										@RequestParam("email2") String email2,
 										@RequestParam("road") String road,
 										@RequestParam("street") String street,
 										@RequestParam("detail") String detail,
@@ -131,9 +132,10 @@ public class MemberController {
 			logger.info("pwd length : " + member.getMemberPWD().length());
 			
 			
-			
-		   
-			
+			if (member.getEmail() != null && !email2.equals("이메일 선택") ) {
+			String emailConnect = member.getEmail() + "@" + email2;
+			member.setEmail(emailConnect);
+			}
 			//주소 합치기
 			if(road != null && street != null && detail != null) {
 				String addressAdd = road + street + detail + ref;
@@ -182,37 +184,37 @@ public class MemberController {
 		}
 		
 		
-		@RequestMapping(value="emailchk.do", method=RequestMethod.POST)
-		public void emailChk(
-								@RequestParam("email") String email, 
-								@RequestParam("email2") String email2,
-								HttpServletResponse response) throws IOException {
-			
-			//이메일 입력값과 도메인 합치기 및 db이메일과 같은지 확인함
-			if (email != null && !email2.equals("이메일 선택") ) {
-		        String emailConnect = email + "@" + email2; // 전체 이메일 주소
-				
-		        
-		        int emailCheck = memberService.selectCheckEmail(emailConnect);
-		        
-		        String returnStr = null;
-				if(emailCheck == 0) {
-					returnStr = "ok";
-				}else {
-					returnStr = "dup";
-				}
-				
-				//response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
-				response.setContentType("text/html; charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.append(returnStr);
-				out.flush();
-				out.close();
-			}
-			
-			
-			
-		}
+//		@RequestMapping(value="emailchk.do", method=RequestMethod.POST)
+//		public void emailChk(   Model model,
+//				@RequestParam("email") String email, 
+//								@RequestParam("email2") String email2,
+//								HttpServletResponse response) throws IOException {
+//			
+//			//이메일 입력값과 도메인 합치기 및 db이메일과 같은지 확인함
+//			if (email != null && !email2.equals("이메일 선택") ) {
+//		        String emailConnect = email + "@" + email2; // 전체 이메일 주소
+//				logger.info("이메일 합친거" + emailConnect);
+//		        
+//		        int emailCheck = memberService.selectCheckEmail(emailConnect);
+//		        
+//		        String returnStr = null;
+//				if(emailCheck == 0) {
+//					returnStr = "ok";
+//				}else {
+//					returnStr = "dup";
+//				}
+//				
+//				//response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+//				response.setContentType("text/html; charset=utf-8");
+//				PrintWriter out = response.getWriter();
+//				out.append(returnStr);
+//				out.flush();
+//				out.close();
+//			}
+//			
+//			
+//			
+//		}
 		
 		
 		
