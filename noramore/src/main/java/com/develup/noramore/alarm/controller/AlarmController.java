@@ -26,8 +26,7 @@ public class AlarmController {
 	//알람 전체 조회
 	@RequestMapping("alarmlist.do")
 	public String alarmPage(
-				@RequestParam("alarmId") String alarmId,
-				@RequestParam(name="page", required=false) String page,
+				@RequestParam("alarmId") String alarmId, @RequestParam(name="page", required=false) String page,
 				 @RequestParam(name="limit", required=false) String slimit, Model model) {
 		
 		int currentPage = 1;
@@ -67,8 +66,9 @@ public class AlarmController {
 	@RequestMapping("newalarm.do")
 	public String alarmInsert(
 			@RequestParam("alarmKind") String alarmKind,
-			@RequestParam("boardId") String boardId, 
+			@RequestParam("boardId") String boardId,
 			@RequestParam(name="context", required=false) String context,
+			@RequestParam(name="refcomment", required=false) String ref,
 			HttpServletRequest request) {
 		
 		Alarm alarm = new Alarm();
@@ -76,11 +76,18 @@ public class AlarmController {
 		alarm.setBoardId(boardId);
 		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
 		
+		//댓글 내용이 10글자 넘어가면 10글자 ... 
+		if(context != null && context.length() > 10) {
+			alarm.setContext(context.substring(0, 9) + "... ");
+		}else if(context != null && context.length() <= 9){
+			alarm.setContext(context);
+		}
+		
+		if(ref != null) {
+			alarm.setRef(ref);
+		}
+		
 		/*
-		 * //댓글 내용이 10글자 넘어가면 10글자 ... if(context != null && context.length() > 10) {
-		 * alarm.setContext(context.substring(0, 10) + "... "); }else if(context != null
-		 * && context.length() <= 10){ alarm.setContext(context); }
-		 * 
 		 * switch(alarmKind) { case "commentRecrboard" : RecrBoard recrBoard =
 		 * alarmService.selectBoardInfo(alarm);
 		 * alarm.setReceiverId(recrBoard.getMemberId());
@@ -89,10 +96,9 @@ public class AlarmController {
 		 * alarmService.selectBoardInfo(alarm);
 		 * alarm.setReceiverId(freeBoard.getMemberId());
 		 * alarm.setTitle(freeBoard.getTitle()); alarmService.insertAlarm(alarm); break;
-		 * case "recrAppl" : RecrAppl recrAppl = alarmService.selectRecrAppl();
-		 * alarm.setReceiverId(recrAppl.getMemberId());
-		 * alarm.setTitle(recrAppl.getTitle()); alarmService.insertAlarm(alarm); break;
-		 * default: return "common/error"; }
+		 * case "recrAppl" : RecrBoard rboard = alarmService.selectBoardInfo(alarm);
+		 * alarm.setReceiverId(rboard.getMemberId()); alarmService.insertAlarm(alarm);
+		 * break; default: return "common/error"; }
 		 */
 		
 		return "";

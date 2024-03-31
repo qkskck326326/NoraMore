@@ -16,6 +16,7 @@ public class Alarm {
 	private String title;
 	private String commId;
 	private String context;
+	private String ref;
 
 	public Alarm() {
 		super();
@@ -125,12 +126,20 @@ public class Alarm {
 		this.context = context;
 	}
 
+	public String getRef() {
+		return ref;
+	}
+
+	public void setRef(String ref) {
+		this.ref = ref;
+	}
+
 	@Override
 	public String toString() {
 		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", BoardId=" + BoardId + ", receiverId="
 				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
 				+ ", categoryId=" + categoryId + ", title=" + title + ", commId=" + commId + ", context=" + context
-				+ "]";
+				+ ", ref=" + ref + "]";
 	}
 	
 	
