@@ -40,9 +40,10 @@ public class CommentRecrBoardController {
 		JSONArray jarr = new JSONArray();
 		for(CommentRecrBoard commentRecrBoard : list) {
 			JSONObject job = new JSONObject();
-			
-
-			
+			job.put("memberId", commentRecrBoard.getMemberId());
+			job.put("context", commentRecrBoard.getContext());
+			job.put("countSubComment", commentRecrBoard.getCountSubComment());		
+			job.put("lastUpdateDate", commentRecrBoard.getLastUpdateDate());
 		}
 		
 		return jarr.toJSONString();
