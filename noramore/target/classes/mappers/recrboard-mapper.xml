@@ -55,14 +55,16 @@
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
-	<select id="insertRecrBoard" parameterType="RecrBoard" resultType="_int">
-		INSERT INTO RECR_BOARD 
-		VALUES 
-		( #{RecrBoard.boardId}, #{RecrBoard.memberId}, #{RecrBoard.categoryId}, #{RecrBoard.title}, #{RecrBoard.context}, 
-		0, #{RecrBoard.genderCondition}, #{RecrBoard.ageMinCondition}, #{RecrBoard.ageMaxCondition}, #{RecrBoard.maxRecr}, 
-		0, '모집중', SYSDATE, SYSDATE, #{RecrBoard.recrOriginalFilename}, #{RecrBoard.recrRenameFilename}, 
-		#{RecrBoard.recrActStartDate}, #{RecrBoard.recrActEndDate}, #{RecrBoard.recrLocation}, 0, 0, SYSDATE, SYSDATE )
-	</select>
+	<insert id="insertRecrBoard" parameterType="RecrBoard">
+	    INSERT INTO RECR_BOARD 
+	    VALUES (
+	        board_id_seq.NEXTVAL, 
+	        #{memberId}, #{categoryId}, #{title}, #{context}, 
+	        0, #{genderCondition}, #{ageMinCondition}, #{ageMaxCondition}, #{maxRecr}, 
+	        0, '모집중', SYSDATE, SYSDATE, #{recrOriginalFilename}, #{recrRenameFilename}, 
+	        #{recrActStartDate}, #{recrActEndDate}, #{recrLocation}, 0, 0, SYSDATE, SYSDATE)
+	</insert>
+
 	
 	<update id="upNowRecr" parameterType="_int">
 		UPDATE RECR_BOARD
