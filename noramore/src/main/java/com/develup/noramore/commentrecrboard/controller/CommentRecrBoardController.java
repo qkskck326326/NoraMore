@@ -44,6 +44,8 @@ public class CommentRecrBoardController {
 			job.put("context", commentRecrBoard.getContext());
 			job.put("countSubComment", commentRecrBoard.getCountSubComment());		
 			job.put("lastUpdateDate", commentRecrBoard.getLastUpdateDate());
+			
+			jarr.add(job);
 		}
 		
 		return jarr.toJSONString();
