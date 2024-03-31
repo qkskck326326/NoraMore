@@ -53,11 +53,11 @@
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
 	<select id="selectCheckId" parameterType="string" resultType="_int">
-		select count(MEMBER_ID) from member where MEMBER_ID = #{ memberid }
+		select count(*) from member where MEMBER_ID = #{ memberid }
 	</select>
 	
 	<select id="selectCheckEmail" parameterType="string" resultType="_int">
-		select count(EMAIL) from member where Email = #{ email }
+		select count(*) from member where Email = #{ email }
 	
 	</select>
 </mapper>

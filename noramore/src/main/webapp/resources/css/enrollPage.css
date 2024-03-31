@@ -30,6 +30,11 @@ body{
     
 }
 
+.hide {
+display: none;
+}
+
+
 #entire{
 	position:relative;
 	top: 150px; 
