@@ -43,8 +43,26 @@
 	<!-- 파일업로드용 클래스 등록 : 업로드시 파일 용량 제한 설정도 함께 해야 함 (대략 10메가바이트) -->
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
 		id="multipartResolver">
-		<beans:property name="maxUploadSize" value="10000000" />	
+		<beans:property name="maxUploadSize" value="10000000" />	 
 	</beans:bean>
+	
+	<!-- 회원가입 메일 인증 -->
+   <beans:bean id="mailSender"   class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <beans:property name="host" value="smtp.gmail.com" />
+      <beans:property name="port" value="587" /><!-- 465 or 25 -->
+      <beans:property name="username" value="[구글아이디]" />
+      <beans:property name="password" value="[구글비밀번호]" />
+      <beans:property name="defaultEncoding" value="utf-8" />
+      <beans:property name="javaMailProperties">
+         <beans:props>
+            <beans:prop key="mail.transport.protocol">smtp</beans:prop>
+            <beans:prop key="mail.smtp.auth">true</beans:prop>
+            <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+            <beans:prop key="mail.debug">true</beans:prop>
+      
+         </beans:props>
+      </beans:property>
+   	</beans:bean>
 	
 	<!-- <aop:aspectj-autoproxy proxy-target-class="true" /> -->
 	
