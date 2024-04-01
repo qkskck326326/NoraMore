@@ -18,17 +18,33 @@
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
-		select count(*) from alarm where reciever_Id = #{ memberId }
+		select count(*) from alarm where reciever_Id = #{ memberID }
 	</select>
 
 	<select id="selectList" parameterType="Paging" resultMap="resultList">
 		select *
-		from (select rownum rnum,, alarm_id, alarm_kind, reciever_id, sender_id, check_yn, regist_date, member_id, category_id
-		     from (select *
-		     		from alarm
-		     		inner join recr_board using (board_id)
-		           order by board_ref desc, board_reply_ref desc,
-		                    board_lev asc, board_reply_seq asc))
+		from (select rownum rnum, alarm_id, alarm_kind, board_id, title, context, ref_comment_id, receiver_id, sender_id, checked_yn, regist_date
+				from (select alarm_id, alarm_kind, b.board_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
+                        from alarm a
+                        join comm_free c on (c.comment_id = a.native_id)
+                        join free_board b on (c.board_id = b.board_id)
+                        where alarm_kind = 'COMM_FREE'
+                        and receiver_id = #{ receiverId }
+						union
+                        select alarm_id, alarm_kind, b.board_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
+                        from alarm a
+                        join comm_recr c on (c.comment_id = a.native_id)
+                        join recr_board b on (c.board_id = b.board_id)
+                        where alarm_kind = 'COMM_RECR'
+                        and receiver_id = #{ receiverId }
+						union
+						select alarm_id, alarm_kind, b.board_id, NULL as title, NULL as context, NULL as ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
+						from alarm a
+						join recr_appl  ap on (board_id = native_id)
+						join recr_board b on (ap.board_id = b.board_id)
+						where alarm_kind = 'RECR_APPL'
+						and receiver_id = #{ receiverId }
+						order by checked_YN desc, regist_date desc))
 		where rnum between #{ startRow } and #{ endRow }
 	</select>
 
