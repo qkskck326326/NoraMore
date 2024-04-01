@@ -8,8 +8,8 @@
 <title>로그인 페이지</title>
 <link rel="stylesheet" type="text/css" href="resources/css/loginPage.css" />
 <script type="text/javascript">
-function EnrollPage(){	
-	location.href = "moveEnrollPage.do";
+function enroll(){	
+	location.href = "enrollPage.do";
 }
 
 </script>
@@ -41,7 +41,7 @@ function EnrollPage(){
 		<button class='social_login' id= "google" onclick="">구글로 1초만에 로그인하기</button><br>
 		
 		<div id="enroll">아직도 회원이 아니신가요?</div>
-		<button class='button' onclick="EnrollPage();">회원가입</button><br>
+		<button class='button' onclick="enroll();">회원가입</button><br>
 	
 </div>
 	

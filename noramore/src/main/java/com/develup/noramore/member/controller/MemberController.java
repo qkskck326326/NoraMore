@@ -125,6 +125,7 @@ public class MemberController {
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
 		public String memberInsertMethod(Member member, 
+										RedirectAttributes rttr,
 										@RequestParam("email2") String email2,
 										@RequestParam("road") String road,
 										@RequestParam("street") String street,
@@ -132,6 +133,9 @@ public class MemberController {
 										@RequestParam("ref") String ref,
 										Model model) {
 			logger.info("enroll.do : " + member);
+			
+		
+			
 			
 			
 			//패스워드 암호화 처리
@@ -149,20 +153,18 @@ public class MemberController {
 				String addressAdd = road + street + detail + ref;
 				member.setAddress(addressAdd);
 			}
-			
-			
+
 			if(memberService.insertMember(member) > 0) {
-				return "member/moveLoginPage";
+				rttr.addFlashAttribute("msg", "가입이 완료되었습니다");
+				rttr.addAttribute("memberEmail", member.getEmail());
+				rttr.addAttribute("memberId", member.getMemberID());
+				return  "redirect:registerAuth.do";
 			}else {
 				model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
 				return "member/moveEnrollPage";
 			}
-			
-			
-			
-			
-			
 		}
+		
 		
 		
 		
@@ -191,34 +193,28 @@ public class MemberController {
 			out.close();
 		}
 		
+	
 		
-//		@RequestMapping(value = "/register", method=RequestMethod.POST)
-//		public String register(Member member, RedirectAttributes rttr, Model model)throws Exception{
-//			logger.info("register");
-//			String hashedPw = BCrypt.hashpw(member.getMemberPWD(), BCrypt.gensalt());
-//			member.setMemberPWD(hashedPw);
-//			memberService.register(member);
-//			model.addAttribute("member", member);
-//			
-//			
-//			rttr.addFlashAttribute("msg", "가입이 완료되었습니다");
-//			rttr.addAttribute("memberEmail", member.getEmail());
-//			rttr.addAttribute("memberId", member.getMemberID());
-//			
-//			return "redirect:/member/registerAuth";
-//			
-//			
-//		}
-//		
-//		@RequestMapping(value="registerEmail", method=RequestMethod.GET)
-//		public String emailConfirm(String memberEmail,Model model)throws Exception{
-//			memberService.memberAuth(memberEmail);
-//			model.addAttribute("memberEmail", memberEmail);
-//			
-//			return "/member/registerEmail";
-//		}
+		@RequestMapping(value="registerEmail", method=RequestMethod.GET)
+		public String emailConfirm(String memberEmail,Model model)throws Exception{
+			memberService.memberAuth(memberEmail);
+			model.addAttribute("memberEmail", memberEmail);
+			
+			return "member/registerEmail";
+		}
 		
 		
+		//인증버튼을 이메일로 보낸후에 실행되고 페이지를 띄워줌
+		@RequestMapping(value="registerAuth.do",method= RequestMethod.GET)
+		public String loginView(HttpServletRequest request,Model model,@RequestParam("Email")String email,@RequestParam("memberID")String memberid) throws Exception{
+			logger.info("moveLoginPage");
+			
+			model.addAttribute("Email", email);
+			model.addAttribute("memberID", memberid);
+			
+			
+			return "member/registerAuth";
+		}
 }
 
 
