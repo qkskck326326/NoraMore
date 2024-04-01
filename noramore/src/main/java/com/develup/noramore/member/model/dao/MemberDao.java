@@ -27,34 +27,34 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.selectCheckId", memberid);
 	}
 
-	public int selectCheckEmail(String emailConnect) {
-		return sqlSessionTemplate.selectOne("memberMapper.selectCheckEmail", emailConnect);
-	}
+//	public int selectCheckEmail(String emailConnect) {
+//		return sqlSessionTemplate.selectOne("memberMapper.selectCheckEmail", emailConnect);
+//	}
 	
 
-	public void createAuthKey(String email,String authKey) throws Exception{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("email", email);
-		map.put("authKey", authKey);
-		
-		sqlSessionTemplate.selectOne("memberMapper.createAuthKey", map);
-		
-	}
-	
-
-	public void memberAuth(String email, String key) throws Exception{
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("authKey", key);
-		map.put("memberEmail", email);
-		
-		sqlSessionTemplate.update("memberMapper.memberAuth", email);
-	}
-
-	public void register(Member member) {
-		sqlSessionTemplate.insert("memberMapper.register", member);
-		
-	}
+//	public void createAuthKey(String email,String authKey) throws Exception{
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("email", email);
+//		map.put("authKey", authKey);
+//		
+//		sqlSessionTemplate.selectOne("memberMapper.createAuthKey", map);
+//		
+//	}
+//	
+//
+//	public void memberAuth(String email, String key) throws Exception{
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("authKey", key);
+//		map.put("memberEmail", email);
+//		
+//		sqlSessionTemplate.update("memberMapper.memberAuth", email);
+//	}
+//
+//	public void register(Member member) {
+//		sqlSessionTemplate.insert("memberMapper.register", member);
+//		
+//	}
 
 	
 

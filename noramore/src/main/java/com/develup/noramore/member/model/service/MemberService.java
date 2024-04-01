@@ -12,13 +12,13 @@ public interface MemberService {
 
 	int selectCheckId(String memberid);
 
-	int selectCheckEmail(String emailConnect);
+	//int selectCheckEmail(String emailConnect);
 
-	Member checkLoginBefore(String value) throws Exception;
-	
-	void memberAuth(String memberEmail) throws Exception;
-
-	void register(Member member) throws Exception;
+//	Member checkLoginBefore(String value) throws Exception;
+//	
+//	void memberAuth(String memberEmail) throws Exception;
+//
+//	void register(Member member) throws Exception;
 
 
 }
