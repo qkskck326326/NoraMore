@@ -50,31 +50,34 @@ function selectrecrcomment() {
             for (var i = 0; i < data.length; i++) {
                 var comment = data[i];
                 
-                // 각 요소를 하나의 <div>로 감싸줍니다.
-                var commentDiv = $('<div></div>');
+                // memberId를 숨은 input 요소에 할당합니다.
+                $('#memberId').val(comment.memberId);
                 
-                // memberId를 <p> 태그 안에 넣고, <div> 안에 추가합니다.
-                var memberIdParagraph = $('<p>' + comment.memberId + '</p>');
-                commentDiv.append(memberIdParagraph);
+                // commentId를 숨은 input 요소에 할당합니다.
+                $('#commentId').val(comment.commentId);
                 
-                // context를 textarea 안에 넣고, <div> 안에 추가, 출력
-                var contextTextarea = $('<textarea readonly>' + comment.context + '</textarea>');
-                commentDiv.append(contextTextarea);
+                // context를 textarea 요소에 할당합니다.
+                $('#context').val(comment.context);
                 
-                // countSubComment가 0 이상인 경우에는 버튼을 <div> 안에 넣어서 출력
+                // countSubComment가 1 이상인 경우에만 링크를 표시합니다.
                 if (comment.countSubComment > 0) {
-                    var subCommentButton = $('<button onclick="toggleSubCommentList()">Show Sub Comments</button>');
-                    commentDiv.append(subCommentButton);
-                    
-                    var subCommentListDiv = $('<div name="subCommentList" style="display: none;"></div>');
-                    commentDiv.append(subCommentListDiv);
+                    var subCommentLink = $('<a href="#" onclick="toggleSubCommentList()">더보기</a>');
+                    $('#subCommentContainer').empty().append(subCommentLink);
+                } else {
+                    $('#subCommentContainer').empty(); // countSubComment가 0인 경우 요소를 비웁니다.
                 }
                 
-                // lastUpdateDate를 5pt 크기로 <p> 태그 안에
+                // lastUpdateDate를 <p> 태그에 6pt 크기로 할당합니다.
                 var lastUpdateDateParagraph = $('<p style="font-size: 6pt;">' + comment.lastUpdateDate + '</p>');
-                commentDiv.append(lastUpdateDateParagraph);
+                $('#lastUpdateDateContainer').empty().append(lastUpdateDateParagraph);
                 
-                // commentDiv를 commentList에 추가합니다.
+                // 각 comment를 commentList에 추가합니다.
+                var commentDiv = $('<div></div>');
+                commentDiv.append($('#memberId'));
+                commentDiv.append($('#commentId'));
+                commentDiv.append($('#context'));
+                commentDiv.append($('#subCommentContainer'));
+                commentDiv.append($('#lastUpdateDateContainer'));
                 $('#commentList').append(commentDiv);
             }
         },

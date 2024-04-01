@@ -1,5 +1,6 @@
 package com.develup.noramore.commentrecrboard.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
@@ -39,20 +40,22 @@ public class CommentRecrBoardController {
 		}
 	}//
 	
-	@RequestMapping("selectrecrcomment.do")
+	@RequestMapping(value="selectrecrcomment.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String selectRecrComment(@RequestParam("BoardId") String Id) {
 		int boardId = Integer.parseInt(Id);
 		ArrayList<CommentRecrBoard> list = commentRecrBoardService.selectRecrComment(boardId);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		JSONArray jarr = new JSONArray();
 		for(CommentRecrBoard commentRecrBoard : list) {
 			JSONObject job = new JSONObject();
+			String lud = dateFormat.format(commentRecrBoard.getLastUpdateDate());
 			job.put("memberId", commentRecrBoard.getMemberId());
 			job.put("commentId", commentRecrBoard.getCommentId());
 			job.put("context", commentRecrBoard.getContext());
-			job.put("countSubComment", commentRecrBoard.getCountSubComment());		
-			job.put("lastUpdateDate", commentRecrBoard.getLastUpdateDate());
+			job.put("countSubComment", commentRecrBoard.getCountSubComment());
+			job.put("lastUpdateDate", lud);
 			
 			jarr.add(job);
 		}
