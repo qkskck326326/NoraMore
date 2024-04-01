@@ -41,6 +41,10 @@ public class RecreBoardDao {
 		return SqlSessionTemplate.update("recrboard.upNowRecr", boardId);
 	}
 
+	public int upCountComment(int boardId) {
+		return SqlSessionTemplate.update("recrboard.upCountComment", boardId);
+	}
+
 
 
 
