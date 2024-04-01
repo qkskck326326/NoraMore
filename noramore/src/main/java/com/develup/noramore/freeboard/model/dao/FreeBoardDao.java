@@ -65,6 +65,13 @@ public class FreeBoardDao {
 		return sqlSessionTemplate.insert("freeboard.insertOriginBoard", freeBoard);
 	}
 
+
+	public int updateAddReadCount(int boardId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.update("freeboard.updateAddReadCount", boardId);
+	}
+
+
 	
 	
 	

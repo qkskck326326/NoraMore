@@ -40,6 +40,8 @@ public class FreeBoardController {
 			currentPage = Integer.parseInt(page);
 		}
 		
+		
+		
 		int listCount = freeBoardService.selectListcount();
 		
 		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
@@ -81,9 +83,14 @@ public class FreeBoardController {
 									@RequestParam("boardId") int boardId,
 									@RequestParam("page") String currentPage) {
 		
+		//조회수 1증가 처리
+		freeBoardService.updateAddReadCount(boardId);
+		
 		FreeBoard freeBoard = freeBoardService.selectBoardId(boardId);
+		
 		model.addAttribute("FreeBoard", freeBoard);
 		model.addAttribute("page", currentPage);
+		
 		return "freeboard/freeboardDetailView";
 		
 	}

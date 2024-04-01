@@ -85,6 +85,20 @@
 				#{ title }, #{ context }, #{ freeOriginalFileName }, #{freeRenameFileName},
 				default, default, default, default, default)
 	</insert> -->
+	
+	<insert id="insertOriginBoard" parameterType="FreeBoard">
+		insert into free_board
+		values ((select max(board_id) + 1 from free_board), #{ memberId }, #{ categoryId }, 
+				#{ title }, #{ context }, #{ freeOriginalFileName }, #{freeRenameFileName},
+				default, default, default, sysdate, default)
+	</insert>
+	
+	<update id="updateAddReadCount" parameterType="_int">
+		update free_board
+		set READ_COUNT = READ_COUNT + 1
+		where BOARD_ID = #{ boardId }
+	</update>
+	
 
 	
 </mapper>

@@ -82,6 +82,14 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.insertOriginBoard(freeBoard);
 	}
 
+	@Override
+	public int updateAddReadCount(int boardId) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.updateAddReadCount(boardId);
+	}
+
+	
+
 	
 	
 
