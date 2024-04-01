@@ -8,8 +8,31 @@
 <head>
 <meta charset="UTF-8">
 <title>알림 확인 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
+<style type="text/css">
+.checkedColor{
+ color: rgba(128, 128, 128, 0.5);
+}
+</style>
 <script type="text/javascript" src="/first/resources/js/jquery-3.7.0.min.js"></script>
+<script>
+  var context = "${ a.context }";
+  var clength = context.length;
+  var title = "${ a.title }";
+  var tlength = title.length;
+  
+  if(clength <= 10){
+	  document.write(context)''
+  }else if(clength > 10){
+	  document.write(context.substring(0, 10) + "... ");
+  }
+  
+  if(tlength <= 10){
+	  document.write(context)''
+  }else if(tlength > 10){
+	  document.write(context.substring(0, 10) + "... ");
+  }
 
+</script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
@@ -24,14 +47,52 @@
 			<th>관리</th>
 		</tr>
 		
+		
+		<!-- title, context, senderId 모두 a태그 적용 + a 태그 onclick 시 확인여부 'Y'로 update 요청보내기 -->
 		<c:forEach items="${ requestScope.list }" var="a">
 			<tr>
 				<td>${ a.alarmId }</td>
-				<td>${ a.alarm }</td>
+				
+			    <c:if test="${ a.checkedYN eq 'Y' }">
+			    	<td class="checkedColor">
+			   	</c:if>
+				
+				<c:if test="${ a.alarmKind eq 'COMM_FREE' || a.alarmKind eq 'COMM_RECR'}">
+					<td>
+						<c:if test="${ empty refCommentId }">
+							글 '${ a.title }' 에 새로운 댓글이 달렸습니다.
+							<br>
+							└ '${ a.senderId }' : '${ a.context }' 
+						</c:if>
+						<c:if test="${ !empty refCommentId }">
+							'${ a.senderId }' 님의 답글 : '${ a.context }'
+						</c:if>
+					</td>
+				</c:if>
+				
+				<c:if test="${ a.alarmKind eq 'RECR_APPL' }">
+					<td>
+						'${ a.senderId }' 님께서 모집 '${ a.title }' 에 신청하였습니다.
+					</td>
+				</c:if>
+				
 				<td>${ a.registDate }</td>
-				<td><button class="deletefb" onclick="return delFb('${ f.fbWord }');">삭제</button></td>
+				
+				<c:if test="${ a.checkedYN eq 'Y' }">
+					<td>안 읽음</td>
+				</c:if>
+				<c:if test="${ a.checkedYN eq 'N' }">
+					<td>읽음</td>
+				</c:if>
+				
+			 	<c:if test="${ a.checkedYN eq 'Y' }">
+			    	</td>
+			   	</c:if>
+			   	
 			</tr>
 		</c:forEach>
+		
+
 	</table>
 
 </body>

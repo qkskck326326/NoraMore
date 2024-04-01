@@ -13,21 +13,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.develup.noramore.alarm.model.service.AlarmService;
 import com.develup.noramore.alarm.model.vo.Alarm;
 import com.develup.noramore.common.Paging;
-import com.develup.noramore.freeboard.model.vo.FreeBoard;
 import com.develup.noramore.recrappl.model.vo.RecrAppl;
-import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
 @Controller
 public class AlarmController {
 	@Autowired
 	private AlarmService alarmService;
 	
+	//로그인시 알람종버튼에 알람개수 숫자표시
+	
 	
 	//알람 전체 조회
 	@RequestMapping("alarmlist.do")
 	public String alarmPage(
-				@RequestParam("alarmId") String alarmId, @RequestParam(name="page", required=false) String page,
-				 @RequestParam(name="limit", required=false) String slimit, Model model) {
+				@RequestParam(name="page", required=false) String page,
+				 @RequestParam(name="limit", required=false) String slimit,
+				 HttpServletRequest request, Model model) {
 		
 		int currentPage = 1;
 		if(page != null && page.trim().length() > 0) {
@@ -40,9 +41,13 @@ public class AlarmController {
 		limit = Integer.parseInt(slimit); //전송받은 한 페이지에 출력할 목록 갯수를 적
 		}
 		
-		int listCount = alarmService.selectListCount(alarmId); //페이징 계산 처리 실행
+		int listCount = alarmService.selectListCount((String)request.getSession().getAttribute("memberID")); //페이징 계산 처리 실행
 		Paging paging = new Paging(listCount, currentPage, limit, "alarmlist.do");
 		paging.calculate();
+		
+		Alarm alarm = new Alarm();
+		alarm.setReceiverId((String)request.getSession().getAttribute("memberID"));
+		alarm.setPaging(paging);
 		
 		//출력할 페이지에 대한 목록 조회
 		ArrayList<Alarm> list = alarmService.selectList(paging);
@@ -62,46 +67,66 @@ public class AlarmController {
 	}
 	
 	
-	//알람 생성
-	@RequestMapping("newalarm.do")
-	public String alarmInsert(
+	//(댓글) 알람 생성
+	@RequestMapping("commAlarm.do")
+	public void commAlarmInsert(
 			@RequestParam("alarmKind") String alarmKind,
-			@RequestParam("boardId") String boardId,
-			@RequestParam(name="context", required=false) String context,
-			@RequestParam(name="refcomment", required=false) String ref,
+			@RequestParam("commentId") String NativeId,
 			HttpServletRequest request) {
 		
 		Alarm alarm = new Alarm();
 		alarm.setAlarmKind(alarmKind);
-		alarm.setBoardId(boardId);
+		alarm.setNativeId(NativeId);
 		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
 		
-		//댓글 내용이 10글자 넘어가면 10글자 ... 
-		if(context != null && context.length() > 10) {
-			alarm.setContext(context.substring(0, 9) + "... ");
-		}else if(context != null && context.length() <= 9){
-			alarm.setContext(context);
-		}
+		alarmService.insertAlarm(alarm);
 		
-		if(ref != null) {
-			alarm.setRef(ref);
-		}
+//		//댓글 내용이 10글자 넘어가면 10글자 ... 
+//		if(context != null && context.length() > 10) {
+//			alarm.setContext(context.substring(0, 10) + "... ");
+//		}else if(context != null && context.length() <= 10){
+//			alarm.setContext(context);
+//		}
+//		
+//		switch(alarmKind) {
+//		case "commentRecrboard" : 
+//			RecrBoard recrBoard = alarmService.selectBoardInfo(alarm);
+//			alarm.setReceiverId(recrBoard.getMemberId());
+//			alarm.setTitle(recrBoard.getTitle());
+//			alarmService.insertAlarm(alarm);
+//			break;
+//		case "commentFreeboard" : 
+//			FreeBoard freeBoard = alarmService.selectBoardInfo(alarm);
+//			alarm.setReceiverId(freeBoard.getMemberId());
+//			alarm.setTitle(freeBoard.getTitle());
+//			alarmService.insertAlarm(alarm);
+//			break;
+//		case "recrAppl" : 
+//			RecrAppl recrAppl = alarmService.selectRecrAppl();
+//			alarm.setReceiverId(recrAppl.getMemberId());
+//			alarm.setTitle(recrAppl.getTitle());
+//			alarmService.insertAlarm(alarm);
+//			break;
+//		default:
+//			return "common/error";
+//		}
+  }
+
+	//(댓글) 알람 생성
+	@RequestMapping("applAlarm.do")
+	public void applAlarmInsert(
+			@RequestParam("alarmKind") String alarmKind,
+			RecrAppl recrAppl,
+			HttpServletRequest request) {
 		
-		/*
-		 * switch(alarmKind) { case "commentRecrboard" : RecrBoard recrBoard =
-		 * alarmService.selectBoardInfo(alarm);
-		 * alarm.setReceiverId(recrBoard.getMemberId());
-		 * alarm.setTitle(recrBoard.getTitle()); alarmService.insertAlarm(alarm); break;
-		 * case "commentFreeboard" : FreeBoard freeBoard =
-		 * alarmService.selectBoardInfo(alarm);
-		 * alarm.setReceiverId(freeBoard.getMemberId());
-		 * alarm.setTitle(freeBoard.getTitle()); alarmService.insertAlarm(alarm); break;
-		 * case "recrAppl" : RecrBoard rboard = alarmService.selectBoardInfo(alarm);
-		 * alarm.setReceiverId(rboard.getMemberId()); alarmService.insertAlarm(alarm);
-		 * break; default: return "common/error"; }
-		 */
+		Alarm alarm = new Alarm();
+		alarm.setAlarmKind(alarmKind);
+		alarm.setNativeId(String.valueOf(recrAppl.getBoardId()));
+		// ID로 RECR_BOARD join 조회해서 member_id 를 receiver_id로 입력
+		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
+		//alarm.setReceiverId(selectBoardInfo(alarm.getNativeId()).getMemberID);
 		
-		return "";
+		alarmService.insertAlarm(alarm);
 	}
 	
 	//알람 확인 (y/n 수정)
