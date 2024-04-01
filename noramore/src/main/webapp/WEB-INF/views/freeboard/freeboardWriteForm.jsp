@@ -29,6 +29,9 @@
 		<p>작성자</p>
 		<input type="text" name="memberId" readonly value="${ sessionScope.loginMember.memberID }">
 		
+		<p>카테고리</p>
+		<input type="text" placeholder="카테고리를 입력하세요." name="categoryId">
+		
 		<p>글 제목</p>
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
 		
@@ -53,7 +56,11 @@
 		<!-- <button type="button"  onclick="checkInput()"  >글쓰기</button>
 		<input type="submit" class="none"> -->
 		
-		<button type="submit">글쓰기</button>
+		
+		<button type="submit">글쓰기</button> &nbsp; 
+		<button type="reset">취소</button> &nbsp; 
+		
+		
 	</section>
 </form>
 

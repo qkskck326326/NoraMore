@@ -183,7 +183,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="fl" items="${list}">
+			<c:forEach var="fl" items="${ requestScope.list }">
 	            <c:url var="fbd" value="fbdetail.do">
 					<c:param name="boardId" value="${fl.boardId}" />
 					<c:param name="page" value="${nowpage}" />

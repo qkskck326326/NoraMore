@@ -1,18 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
+  
+<%-- <%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
+
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<!--  
 <c:url var="insertAppl" value="insertApp.do">
 	<c:param name="boardId" value="${FreeBoard.boardId}" />
 	<c:param name="memberID" value="${loginMember.memberID}" />
 </c:url>
+-->
+
+<c:url var="fbdel" value="fbdelete.do">
+	<c:param name="boardNum" value="${ FreeBoard.boardId }" />
+	<c:param name="boardRenameFileName" value="${ FreeBoard.freeRenameFileName }" />
+</c:url>
+
+<c:url var="fbup" value="fbupview.do">
+	<c:param name="boardId" value="${ FreeBoard.boardId }" />
+	<c:param name="page" value="${ currentPage }" />
+</c:url>
+
 <script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+
 <script type="text/javascript">
+
+function requestDelete(){
+	//게시글(원글, 댓글, 대댓글) 삭제 요청 함수
+	location.href = "${ fbdel }";
+}
+
+function moveUpdatePage(){
+	//게시글 (원글, 댓글, 대댓글) 수정 페이지로 이동 처리 함수
+	location.href = "${ fbup }";
+}
 
 </script>
 <title>NoraMore</title>
@@ -42,7 +68,7 @@
 		<p>첨부파일</p>
 			<c:url var="fbdown" value="fbdown.do">
 				<c:param name="ofile" value="${FreeBoard.freeOriginalFileName}"/>
-				<c:param name="ffile" value="${FreeBoard.freeRenameFileName}"/>
+				<c:param name="rfile" value="${FreeBoard.freeRenameFileName}"/>
 			</c:url>
 			<a href="${fbdown}">
 			${FreeBoard.freeOriginalFileName}</a>
@@ -50,7 +76,9 @@
 		<c:if test="${ empty FreeBoard.freeOriginalFileName}">
 			<p>첨부파일 없음</p>
 		</c:if>
-						
+		
+		<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
+		<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;				
 		
 
 	</div>

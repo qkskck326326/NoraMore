@@ -38,6 +38,12 @@ public interface FreeBoardService {
 	int insertOriginBoard(FreeBoard freeBoard);
 
 
+	int updateAddReadCount(int boardId);
+
+
+	
+
+
 	
 	
 	
