@@ -29,7 +29,7 @@
 		     		inner join recr_board using (board_id)
 		           order by board_ref desc, board_reply_ref desc,
 		                    board_lev asc, board_reply_seq asc))
-		where rnum between #{ startRow } and #{ endRow }  
+		where rnum between #{ startRow } and #{ endRow }
 	</select>
 
 </mapper>

@@ -2,39 +2,34 @@ package com.develup.noramore.alarm.model.vo;
 
 import java.sql.Date;
 
+import com.develup.noramore.common.Paging;
+
 public class Alarm {
-	
 	private int alarmId;
 	private String alarmKind;
-	private String BoardId;
+	private String NativeId;
 	private String receiverId;
 	private String senderId;
 	private String checkedYN;
 	private Date registDate;
-
-	private String categoryId;
-	private String title;
-	private String commId;
-	private String context;
-	private String ref;
+	
+	private Paging paging;
 
 	public Alarm() {
 		super();
 	}
 
-	public Alarm(int alarmId, String alarmKind, String boardId, String receiverId, String senderId, String checkedYN,
-			Date registDate, String categoryId, String title, String commId) {
+	public Alarm(int alarmId, String alarmKind, String nativeId, String receiverId, String senderId, String checkedYN,
+			Date registDate, Paging paging) {
 		super();
 		this.alarmId = alarmId;
 		this.alarmKind = alarmKind;
-		BoardId = boardId;
+		NativeId = nativeId;
 		this.receiverId = receiverId;
 		this.senderId = senderId;
 		this.checkedYN = checkedYN;
 		this.registDate = registDate;
-		this.categoryId = categoryId;
-		this.title = title;
-		this.commId = commId;
+		this.paging = paging;
 	}
 
 	public int getAlarmId() {
@@ -53,12 +48,12 @@ public class Alarm {
 		this.alarmKind = alarmKind;
 	}
 
-	public String getBoardId() {
-		return BoardId;
+	public String getNativeId() {
+		return NativeId;
 	}
 
-	public void setBoardId(String boardId) {
-		BoardId = boardId;
+	public void setNativeId(String nativeId) {
+		NativeId = nativeId;
 	}
 
 	public String getReceiverId() {
@@ -93,55 +88,21 @@ public class Alarm {
 		this.registDate = registDate;
 	}
 
-	public String getCategoryId() {
-		return categoryId;
+	public Paging getPaging() {
+		return paging;
 	}
 
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getCommId() {
-		return commId;
-	}
-
-	public void setCommId(String commId) {
-		this.commId = commId;
-	}
-
-
-	public String getContext() {
-		return context;
-	}
-
-	public void setContext(String context) {
-		this.context = context;
-	}
-
-	public String getRef() {
-		return ref;
-	}
-
-	public void setRef(String ref) {
-		this.ref = ref;
+	public void setPaging(Paging paging) {
+		this.paging = paging;
 	}
 
 	@Override
 	public String toString() {
-		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", BoardId=" + BoardId + ", receiverId="
+		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", NativeId=" + NativeId + ", receiverId="
 				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
-				+ ", categoryId=" + categoryId + ", title=" + title + ", commId=" + commId + ", context=" + context
-				+ ", ref=" + ref + "]";
+				+ ", paging=" + paging + "]";
 	}
-	
+
 	
 
 }
