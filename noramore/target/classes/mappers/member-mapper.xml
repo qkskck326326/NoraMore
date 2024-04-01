@@ -18,6 +18,7 @@
 		<result property="actLimit" column="ACT_LIMIT" />
 		<result property="registDate" column="REGIST_DATE" />
 		<result property="modifiedDate" column="MODIFIED_DATE" />
+		<result property="memberAuth" column="MEMBER_AUTH" />
 	</resultMap>
 	
 	<resultMap id="resultList" type="Member">
@@ -35,6 +36,7 @@
 		<result property="actLimit" column="ACT_LIMIT" />
 		<result property="registDate" column="REGIST_DATE" />
 		<result property="modifiedDate" column="MODIFIED_DATE" />
+		<result property="memberAuth" column="MEMBER_AUTH" />
 		
 	</resultMap>
 
@@ -47,7 +49,7 @@
 	<insert id="insertMember" parameterType="Member">
 		insert into member 
 		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
-				#{ address }, #{ photoFilename }, default, default, default, default, default, default)
+				#{ address }, #{ photoFilename }, default, default, default, default, default, default, default)
 				
 	</insert>
 	
@@ -56,13 +58,13 @@
 		select count(*) from member where MEMBER_ID = #{ memberid }
 	</select>
 	
-	<select id="selectCheckEmail" parameterType="string" resultType="_int">
+<!-- 	<select id="selectCheckEmail" parameterType="string" resultType="_int">
 		select count(*) from member where Email = #{ email }
 	
-	</select>
+	</select> -->
 	
 	
-	<insert id="createAuthKey">
+	<!-- <insert id="createAuthKey">
 		insert into MP_MEMBER_AUTH values(#{memberEmail}, #{authKey})
 	</insert>
 
@@ -70,7 +72,7 @@
 		<![CDATA[update MP_MEMBER set MEMBER_AUTH = 1 where (select count(*) from MP_MEMBER_AUTH 
 		where MEMBER_EMAIL = #{memberEmail} AND AUTHKEY = #{authKey}) > 0]]>
 	</update>
-	
+	 -->
 	
 
 </mapper>

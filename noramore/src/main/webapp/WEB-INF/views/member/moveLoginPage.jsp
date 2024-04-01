@@ -28,9 +28,9 @@ function enroll(){
 		<label for="remember-check" id="remember-check">
 	            	  <input type="checkbox" > 아이디 저장하기
 	    </label>
-		<input type="submit" value="로그인">
-		
+		<input type="submit" value="로그인">	
 	</form>
+	
 		<hr>
 		<div id="find">
 		<a href="">아이디찾기</a> / <a href="">비밀번호찾기</a>
