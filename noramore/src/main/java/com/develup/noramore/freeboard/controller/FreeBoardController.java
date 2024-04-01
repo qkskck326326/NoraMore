@@ -298,8 +298,32 @@ public class FreeBoardController {
 		
 		
 	}
+	/*
+	//게시글(원글) 삭제 요청 처리용
+	@RequestMapping("fbdelete.do")
+	public String freeBoardDeleteMethod(
+			FreeBoard freeBoard, Model model, HttpServletRequest request ) {
+		
+		if(freeBoardService.deleteBoard(freeBoard) > 0) {
+			//게시글 삭제 성공시 저장 폴더에 있는 첨부파일도 삭제함
+			if(freeBoard.getFreeRenameFileName() != null) {
+				String savePath = request.getSession().getServletContext().getRealPath(
+						"resources/freeboard_upfiles");
+				//저장 폴더에서 파일 삭제함
+				new File(savePath + "\\" + board.getBoardRenameFileName()).delete();
+				
+			}
+			return "redirect:freeboardlist.do";
+			
+		} else {
+			model.addAttribute("message", freeBoard.getBoardId() + "번 게시글 삭제 실패!");
+			return "common/error";
+		}
+		
+		
+	}
 	
-	
+	*/
 	
 	 
 	 
