@@ -51,45 +51,46 @@ function selectrecrcomment() {
                 var comment = data[i];
                 
                 // memberId를 숨은 input 요소에 할당합니다.
-                $('#memberId').val(comment.memberId);
-                
+                var memberIdInput = $('<input type="hidden" name="memberId" value="' + comment.memberId + '">');
                 // commentId를 숨은 input 요소에 할당합니다.
-                $('#commentId').val(comment.commentId);
-                
+                var commentIdInput = $('<input type="hidden" name="commentId" value="' + comment.commentId + '">');
                 // context를 textarea 요소에 할당합니다.
-                $('#context').val(comment.context);
-                
+                var contextTextarea = $('<textarea readonly>' + comment.context + '</textarea>');
                 // countSubComment가 1 이상인 경우에만 링크를 표시합니다.
                 if (comment.countSubComment > 0) {
                     var subCommentLink = $('<a href="#" onclick="toggleSubCommentList()">더보기</a>');
-                    $('#subCommentContainer').empty().append(subCommentLink);
-                } else {
-                    $('#subCommentContainer').empty(); // countSubComment가 0인 경우 요소를 비웁니다.
+                    $('#subCommentContainer').append(subCommentLink);
                 }
-                
                 // lastUpdateDate를 <p> 태그에 6pt 크기로 할당합니다.
                 var lastUpdateDateParagraph = $('<p style="font-size: 6pt;">' + comment.lastUpdateDate + '</p>');
-                $('#lastUpdateDateContainer').empty().append(lastUpdateDateParagraph);
                 
-                // 각 comment를 commentList에 추가합니다.
-                var commentDiv = $('<div></div>');
-                commentDiv.append($('#memberId'));
-                commentDiv.append($('#commentId'));
-                commentDiv.append($('#context'));
-                commentDiv.append($('#subCommentContainer'));
-                commentDiv.append($('#lastUpdateDateContainer'));
-                $('#commentList').append(commentDiv);
+                // 해당 요소들을 commentList에 추가합니다.
+                $('#commentList').append("<div id='comment_" + i +  " '" + ">");
+                $('#commentList').append(memberIdInput);
+                $('#commentList').append(commentIdInput);
+                $('#commentList').append(contextTextarea);
+                $('#commentList').append(lastUpdateDateParagraph);
+                if(${sessionScope.loginMember.memberID} = comment.memberId){
+                	$('#commentList').append("<button onclick='updatecomment(" + i + ")'>수정하기</button>");	
+                }
+                $('#commentList').append("</div>");
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-        }
+        } 
     });
 }
 
-function toggleSubCommentList() {
-    var subCommentList = $('[name="subCommentList"]');
-    subCommentList.toggle();
+function updatecomment(n) {
+	   // commentList 요소 선택
+    var commentList = document.getElementById("commentList");
+    
+    // n번째 자식 요소 선택
+    var nthChild = commentList.children[n];
+    
+    // 선택한 자식 요소에 HTML 추가
+        nthChild.innerHTML += '<a href="#" onclick="toggleSubCommentList()">더보기</a>';
 }
 
 </script>
@@ -107,6 +108,7 @@ function toggleSubCommentList() {
         }
 </style>
 </head>
+<button onclick="updatecomment()">수정하기</button>
 <body>
 <div class="container">
 	<div class="boardRecr-div">
