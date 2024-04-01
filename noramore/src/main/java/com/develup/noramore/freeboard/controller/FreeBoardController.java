@@ -267,6 +267,40 @@ public class FreeBoardController {
 		
 	}
 	
+	//첨부파일 다운로드 요청 처리용
+	//파일 다운로드 처리용 메소드는 리턴 타입이 ModelAndView로 정해져 있음
+	@RequestMapping("fbdown.do")
+	public ModelAndView freeBoardFileDownMethod(
+			@RequestParam("ofile") String originalFileName,
+			@RequestParam("rfile") String renameFileName,
+			ModelAndView mv, HttpServletRequest request) {
+		
+		//게시글 첨부파일 저장 폴더 지정
+		String savePath = request.getSession().getServletContext().getRealPath(
+				"resources/freeboard_upfiles");
+		
+		//저장 촐더에서 읽을 파일에 대한 File 객체 생성함
+		File readFile = new File(savePath + "\\" + renameFileName);
+		//파일 다운시 브라우저로 내보낼 원래 파일명에 대한 File 객체 생성함
+		File originFile = new File(originalFileName);
+		
+		//스프링에서는 파일다운로드를 처리하는 뷰클래스를 별도로 작성하도록 되어있음
+		//스프링이 제공하는 View 클래스를 상속받은 후손 클래스로 만들어야 함
+		
+		//파일다운로드용 뷰로 전달할 정보 저장 처리
+		mv.setViewName("filedown"); //등록된 파일다운로드용 뷰클래스의 id명
+		mv.addObject("renameFile", readFile);
+		mv.addObject("originFile", originFile);
+		
+		return mv;
+		
+	
+		
+		
+	}
+	
+	
+	
 	 
 	 
 

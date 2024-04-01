@@ -56,7 +56,11 @@
 		<!-- <button type="button"  onclick="checkInput()"  >글쓰기</button>
 		<input type="submit" class="none"> -->
 		
-		<button type="submit">글쓰기</button>
+		
+		<button type="submit">글쓰기</button> &nbsp; 
+		<button type="reset">취소</button> &nbsp; 
+		
+		
 	</section>
 </form>
 
