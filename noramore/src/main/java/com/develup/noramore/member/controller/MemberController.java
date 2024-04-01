@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
@@ -71,6 +73,12 @@ public class MemberController {
 			SessionStatus status, Model model) {   // HttpSession : 세션 자동생성, SessionStatus : 세션 상태 파악, Model : 모델자동 생성
 		logger.info("login.do : " + member.toString());
 
+		if(member.getMemberAuth() == 0) {
+			model.addAttribute("Auth", member.getMemberAuth());
+			return "/member/moveEnrollPage";
+		}
+		
+		
 		// 서비스 메소드로 보내고 결과 받기
 		// Member loginMember = memberService.selectLogin(member); //command 객체 사용
 
@@ -117,6 +125,7 @@ public class MemberController {
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
 		public String memberInsertMethod(Member member, 
+										RedirectAttributes rttr,
 										@RequestParam("email2") String email2,
 										@RequestParam("road") String road,
 										@RequestParam("street") String street,
@@ -124,6 +133,9 @@ public class MemberController {
 										@RequestParam("ref") String ref,
 										Model model) {
 			logger.info("enroll.do : " + member);
+			
+		
+			
 			
 			
 			//패스워드 암호화 처리
@@ -141,20 +153,18 @@ public class MemberController {
 				String addressAdd = road + street + detail + ref;
 				member.setAddress(addressAdd);
 			}
-			
-			
+
 			if(memberService.insertMember(member) > 0) {
-				return "member/moveLoginPage";
+				rttr.addFlashAttribute("msg", "가입이 완료되었습니다");
+				rttr.addAttribute("memberEmail", member.getEmail());
+				rttr.addAttribute("memberId", member.getMemberID());
+				return  "redirect:registerAuth.do";
 			}else {
 				model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
 				return "member/moveEnrollPage";
 			}
-			
-			
-			
-			
-			
 		}
+		
 		
 		
 		
@@ -183,41 +193,28 @@ public class MemberController {
 			out.close();
 		}
 		
+	
 		
-//		@RequestMapping(value="emailchk.do", method=RequestMethod.POST)
-//		public void emailChk(   Model model,
-//				@RequestParam("email") String email, 
-//								@RequestParam("email2") String email2,
-//								HttpServletResponse response) throws IOException {
-//			
-//			//이메일 입력값과 도메인 합치기 및 db이메일과 같은지 확인함
-//			if (email != null && !email2.equals("이메일 선택") ) {
-//		        String emailConnect = email + "@" + email2; // 전체 이메일 주소
-//				logger.info("이메일 합친거" + emailConnect);
-//		        
-//		        int emailCheck = memberService.selectCheckEmail(emailConnect);
-//		        
-//		        String returnStr = null;
-//				if(emailCheck == 0) {
-//					returnStr = "ok";
-//				}else {
-//					returnStr = "dup";
-//				}
-//				
-//				//response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
-//				response.setContentType("text/html; charset=utf-8");
-//				PrintWriter out = response.getWriter();
-//				out.append(returnStr);
-//				out.flush();
-//				out.close();
-//			}
-//			
-//			
-//			
-//		}
+		@RequestMapping(value="registerEmail", method=RequestMethod.GET)
+		public String emailConfirm(String memberEmail,Model model)throws Exception{
+			memberService.memberAuth(memberEmail);
+			model.addAttribute("memberEmail", memberEmail);
+			
+			return "member/registerEmail";
+		}
 		
 		
-		
+		//인증버튼을 이메일로 보낸후에 실행되고 페이지를 띄워줌
+		@RequestMapping(value="registerAuth.do",method= RequestMethod.GET)
+		public String loginView(HttpServletRequest request,Model model,@RequestParam("Email")String email,@RequestParam("memberID")String memberid) throws Exception{
+			logger.info("moveLoginPage");
+			
+			model.addAttribute("Email", email);
+			model.addAttribute("memberID", memberid);
+			
+			
+			return "member/registerAuth";
+		}
 }
 
 
