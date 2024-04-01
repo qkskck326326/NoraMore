@@ -13,14 +13,15 @@ public class Alarm {
 	private String checkedYN;
 	private Date registDate;
 	
-	private Paging paging;
+	private int startRow;
+	private int endRow;
 
 	public Alarm() {
 		super();
 	}
 
 	public Alarm(int alarmId, String alarmKind, String nativeId, String receiverId, String senderId, String checkedYN,
-			Date registDate, Paging paging) {
+			Date registDate, int startRow, int endRow) {
 		super();
 		this.alarmId = alarmId;
 		this.alarmKind = alarmKind;
@@ -29,7 +30,8 @@ public class Alarm {
 		this.senderId = senderId;
 		this.checkedYN = checkedYN;
 		this.registDate = registDate;
-		this.paging = paging;
+		this.startRow = startRow;
+		this.endRow = endRow;
 	}
 
 	public int getAlarmId() {
@@ -88,21 +90,30 @@ public class Alarm {
 		this.registDate = registDate;
 	}
 
-	public Paging getPaging() {
-		return paging;
+	public int getStartRow() {
+		return startRow;
 	}
 
-	public void setPaging(Paging paging) {
-		this.paging = paging;
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getEndRow() {
+		return endRow;
+	}
+
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
 	}
 
 	@Override
 	public String toString() {
 		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", NativeId=" + NativeId + ", receiverId="
 				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
-				+ ", paging=" + paging + "]";
+				+ ", startRow=" + startRow + ", endRow=" + endRow + "]";
 	}
 
+	
 	
 
 }

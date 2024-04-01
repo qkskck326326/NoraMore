@@ -16,24 +16,30 @@ public class AlarmDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	public ArrayList<Alarm> selectAlarmList(Alarm alarm) {
-		List list = sqlSessionTemplate.selectList("selectAlarmList", alarm);
+		List list = sqlSessionTemplate.selectList("alarm.selectAlarmList", alarm);
 		return (ArrayList<Alarm>)list;
 	}
 
-	public int insertAlarm(Alarm alarm) {
-		return sqlSessionTemplate.insert("insertAlarm", alarm);
-	}
+
 
 	public int updateAlarm(Alarm alarm) {
-		return sqlSessionTemplate.update("updateAlarm", alarm);
+		return sqlSessionTemplate.update("alarm.updateAlarm", alarm);
 	}
 
 	public int selectListCount(String memberId) {
 		return sqlSessionTemplate.selectOne("alarm.selectListCount", memberId);
 	}
 
-	public ArrayList<Alarm> selectList(Paging paging) {
-		List list = sqlSessionTemplate.selectList("alarm.selectList", paging);
+	public ArrayList<Alarm> selectList(Alarm alarm) {
+		List list = sqlSessionTemplate.selectList("alarm.selectList", alarm);
 		return (ArrayList)list;
+	}
+
+	public int insertCommAlarm(Alarm alarm) {
+		return sqlSessionTemplate.insert("alarm.insertCommAlarm", alarm);
+	}
+	
+	public int insertApplAlarm(Alarm alarm) {
+		return sqlSessionTemplate.insert("alarm.insertApplAlarm", alarm);
 	}
 }

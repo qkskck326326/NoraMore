@@ -18,10 +18,10 @@
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
-		select count(*) from alarm where reciever_Id = #{ memberID }
+		select count(*) from alarm where receiver_id = #{ memberID }
 	</select>
 
-	<select id="selectList" parameterType="Paging" resultMap="resultList">
+	<select id="selectList" parameterType="Alarm" resultMap="resultList">
 		select *
 		from (select rownum rnum, alarm_id, alarm_kind, board_id, title, context, ref_comment_id, receiver_id, sender_id, checked_yn, regist_date
 				from (select alarm_id, alarm_kind, b.board_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
@@ -40,7 +40,7 @@
 						union
 						select alarm_id, alarm_kind, b.board_id, NULL as title, NULL as context, NULL as ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
 						from alarm a
-						join recr_appl  ap on (board_id = native_id)
+						join recr_appl ap on (board_id = native_id)
 						join recr_board b on (ap.board_id = b.board_id)
 						where alarm_kind = 'RECR_APPL'
 						and receiver_id = #{ receiverId }
@@ -48,4 +48,28 @@
 		where rnum between #{ startRow } and #{ endRow }
 	</select>
 
+
+	<insert id="insertCommAlarm" parameterType="Alarm">
+		insert into alarm
+		values ( select max(alarm_id) + 1 from alarm,  #{ alarmKind }, #{ nativeId },
+				(select member_id
+				from #{ alarmKind }
+				where comment_id = #{ nativeId }), 
+				#{ senderId }, 'N', sysdate)
+	</insert>
+	
+	<insert id="insertApplAlarm" parameterType="Alarm">
+		insert into alarm
+		values ( select max(alarm_id) + 1 from alarm,  #{ alarmKind }, #{ nativeId },
+				(select member_id
+				from #{ alarmKind }
+				where board_id = #{ nativeId }), 
+				#{ senderId }, 'N', sysdate)
+	</insert>
+	
+	<update id="updateAlarm" parameterType="string">
+		update alarm
+		set check_YN = #{ checkedYN }
+		where alarm_id = #{ alarmId }
+	</update>
 </mapper>
