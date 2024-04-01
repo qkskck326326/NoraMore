@@ -34,12 +34,17 @@ window.onload = function() {
 };
 
 function selectrecrcomment() {
-	var boardId = "${RecrBoard.boardId}";
+	var bId
+	if(${!empty RecrBoard.boardId}){
+		bId = "${RecrBoard.boardId}";
+	}else{
+		bId = "${boardId}";
+	}
 	$.ajax({
         url: "selectrecrcomment.do",
         type: "post",
         dataType: "json",
-        data: { BoardId: boardId },
+        data: { BoardId: bId },
         success: function(data) {
             // 서버로부터 받은 JSON 데이터를 처리합니다.
             for (var i = 0; i < data.length; i++) {
@@ -52,11 +57,11 @@ function selectrecrcomment() {
                 var memberIdParagraph = $('<p>' + comment.memberId + '</p>');
                 commentDiv.append(memberIdParagraph);
                 
-                // context를 textarea 안에 넣고, <div> 안에 추가합니다.
+                // context를 textarea 안에 넣고, <div> 안에 추가, 출력
                 var contextTextarea = $('<textarea readonly>' + comment.context + '</textarea>');
                 commentDiv.append(contextTextarea);
                 
-                // countSubComment가 0 이상인 경우에는 버튼과 함께 추가적인 <div>를 만들어서 넣습니다.
+                // countSubComment가 0 이상인 경우에는 버튼을 <div> 안에 넣어서 출력
                 if (comment.countSubComment > 0) {
                     var subCommentButton = $('<button onclick="toggleSubCommentList()">Show Sub Comments</button>');
                     commentDiv.append(subCommentButton);
@@ -65,7 +70,7 @@ function selectrecrcomment() {
                     commentDiv.append(subCommentListDiv);
                 }
                 
-                // lastUpdateDate를 5pt 크기로 <p> 태그 안에 넣고, <div> 안에 추가합니다.
+                // lastUpdateDate를 5pt 크기로 <p> 태그 안에
                 var lastUpdateDateParagraph = $('<p style="font-size: 6pt;">' + comment.lastUpdateDate + '</p>');
                 commentDiv.append(lastUpdateDateParagraph);
                 
@@ -152,9 +157,7 @@ function toggleSubCommentList() {
         <br>
         <input type="submit" value="댓글 등록">
     	</form>
-    	<div id="commentList">
-    	
-    	</div>
+    		<div id="commentList"></div>	
 		</div>
 	</div>
 </div>

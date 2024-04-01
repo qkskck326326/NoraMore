@@ -17,7 +17,7 @@
 	
 	<insert id="insertRecrComment" parameterType="CommentRecrBoard">
 		INSERT INTO COMM_RECR (BOARD_ID, COMMENT_ID, REF_COMMENT_ID, MEMBER_ID, CONTEXT, REPORT_COUNT, COUNT_SUB_COMMENT, REGIST_DATE, LAST_UPDATE_DATE)
-    	VALUES (#{boardId}, #{commentId}, #{refCommentId}, #{memberId}, #{context}, #{reportCount}, #{countSubComment}, #{registDate}, #{lastUpdateDate})
+    	VALUES (#{boardId}, (select max(COMMENT_ID) + 1 from COMM_RECR), #{refCommentId}, #{memberId}, #{context}, #{reportCount}, #{countSubComment}, SYSDATE, SYSDATE)
 	</insert>
 
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
