@@ -28,7 +28,7 @@ public class ChattingController {
     private ChattingService chattingService;
     
     // 채팅 페이지
-    @GetMapping("/chatting")
+    @GetMapping("chattingPage.do")
     public String chatting(@SessionAttribute("loginMember") Member loginMember, Model model) {
         
         // 현재 개설되어 있는 채팅방 목록 불러오기
@@ -52,14 +52,14 @@ public class ChattingController {
     }
     
     // 채팅방 입장(없으면 생성)
-    @GetMapping("/chatting/enter")
+    @GetMapping("chattingEnter.do")
     @ResponseBody
     public int chattingEnter(int targetNo, @SessionAttribute("loginMember") Member loginMember) {
      
-        Map map = new HashMap<String, String>();
+        Map<String, Object> map = new HashMap<String, Object>();
         
         map.put("targetNo", targetNo);
-        map.put("loginMemberNo", loginMember.getMemberID());
+        map.put("loginMemberID", loginMember.getMemberID());
         
         int chattingNo = chattingService.checkChattingNo(map);
         
@@ -72,23 +72,23 @@ public class ChattingController {
     }
     
     // 채팅방 목록 조회
-    @GetMapping(value="/chatting/roomList", produces="application/json; charset=UTF-8")
+    @GetMapping(value="roomList.do", produces="application/json; charset=UTF-8")
     @ResponseBody
     public List<ChattingRoom> selectRoomList(@SessionAttribute("loginMember") Member loginMember) {
        return chattingService.selectRoomList(loginMember.getMemberID());
     }
     
     // 채팅 읽음 표시
-    @PutMapping("/chatting/updateReadFlag")
+    @PutMapping("updateReadFlag.do")
     @ResponseBody
-    public int updateReadFlag(@RequestBody Map paramMap) {
+    public int updateReadFlag(@RequestBody Map<String, Object> paramMap) {
         return chattingService.updateReadFlag(paramMap);
     }
     
     // 채팅방 번호에 해당하는 메시지 목록 조회
-    @GetMapping(value="/chatting/selectMessage", produces="application/json; charset=UTF-8")
+    @GetMapping(value="selectMessage.do", produces="application/json; charset=UTF-8")
     @ResponseBody
-    public List<Message> selectMessageList(@RequestParam Map paramMap) {
+    public List<Message> selectMessageList(@RequestParam Map<String, Object> paramMap) {
         return chattingService.selectMessageList(paramMap);
     }
     

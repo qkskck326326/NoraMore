@@ -113,7 +113,7 @@
    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
    <script>
       // 로그인한 회원 번호
-      const loginMemberNo = "${loginMember.memberNo}";
+      const loginMemberID = "${loginMember.memberID}";
    </script>
 
    <script src="/resources/js/chatting/chatting.js"></script>

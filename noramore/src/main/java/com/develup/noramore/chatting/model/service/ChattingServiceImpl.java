@@ -26,12 +26,12 @@ public class ChattingServiceImpl implements ChattingService{
     }
     
     @Override
-    public int checkChattingNo(Map<String, Integer> map) {
+    public int checkChattingNo(Map<String, Object> map) {
         return chattingDao.checkChattingNo(map);
     }
 
     @Override
-    public int createChattingRoom(Map<String, Integer> map) {
+    public int createChattingRoom(Map<String, Object> map) {
         return chattingDao.createChattingRoom(map);
     }
 

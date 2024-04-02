@@ -23,11 +23,11 @@ public class ChattingDao {
         return sqlSession.selectList("chattingMapper.selectRoomList", memberID);
     }
 
-    public int checkChattingNo(Map<String, Integer> map) {
+    public int checkChattingNo(Map<String, Object> map) {
         return sqlSession.selectOne("chattingMapper.checkChattingNo", map);
     }
 
-    public int createChattingRoom(Map<String, Integer> map) {
+    public int createChattingRoom(Map<String, Object> map) {
         int result = sqlSession.insert("chattingMapper.createChattingRoom", map);
         int chattingNo = 0;
         if(result > 0)  chattingNo = (int)map.get("chattingNo");
