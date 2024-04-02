@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.develup.noramore.alarm.model.service.AlarmService;
 import com.develup.noramore.alarm.model.vo.Alarm;
 import com.develup.noramore.common.Paging;
+import com.develup.noramore.member.model.vo.Member;
 import com.develup.noramore.recrappl.model.vo.RecrAppl;
 
 @Controller
@@ -50,12 +51,14 @@ public class AlarmController {
 		limit = Integer.parseInt(slimit); //전송받은 한 페이지에 출력할 목록 갯수를 적
 		}
 		
-		int listCount = alarmService.selectListCount((String)request.getSession().getAttribute("memberID")); //페이징 계산 처리 실행
+		Member member = (Member)request.getSession().getAttribute("loginMember");
+		
+		int listCount = alarmService.selectListCount(member.getMemberID()); //페이징 계산 처리 실행
 		Paging paging = new Paging(listCount, currentPage, limit, "alarmlist.do");
 		paging.calculate();
 		
 		Alarm alarm = new Alarm();
-		alarm.setReceiverId((String)request.getSession().getAttribute("memberID"));
+		alarm.setReceiverId(member.getMemberID());
 		alarm.setStartRow(paging.getStartRow());
 		alarm.setEndRow(paging.getEndRow());
 		

@@ -15,7 +15,7 @@
 </style>
 <script type="text/javascript" src="/first/resources/js/jquery-3.7.0.min.js"></script>
 <script>
-  var context = "${ a.context }";
+/*   var context = "${ a.context }";
   var clength = context.length;
   var title = "${ a.title }";
   var tlength = title.length;
@@ -30,21 +30,22 @@
 	  document.write(context)''
   }else if(tlength > 10){
 	  document.write(context.substring(0, 10) + "... ");
-  }
+  } */
 
 </script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
+<br><br><br><br><br><br>
 <h2 class="title">알람</h2>
 <br>
 
 	<table class="table" align="center" border="1" cellspacing="0" width="700">
 		<tr>
 			<th>번호</th>
-			<th>금지어</th>
-			<th>등록일자</th>
-			<th>관리</th>
+			<th>내 용</th>
+			<th>발신일</th>
+			<th>상 태</th>
 		</tr>
 		
 		
@@ -64,7 +65,7 @@
 							<br>
 							└ '${ a.senderId }' : '${ a.context }' 
 						</c:if>
-						<c:if test="${ !empty refCommentId }">
+						<c:if test="${ !empty a.refCommentId }">
 							'${ a.senderId }' 님의 답글 : '${ a.context }'
 						</c:if>
 					</td>
@@ -79,10 +80,10 @@
 				<td>${ a.registDate }</td>
 				
 				<c:if test="${ a.checkedYN eq 'Y' }">
-					<td>안 읽음</td>
+					<td>읽음</td>
 				</c:if>
 				<c:if test="${ a.checkedYN eq 'N' }">
-					<td>읽음</td>
+					<td>안 읽음</td>
 				</c:if>
 				
 			 	<c:if test="${ a.checkedYN eq 'Y' }">
