@@ -188,13 +188,11 @@ public class MemberController {
 		public String emailAuth(String email) {
 			
 			logger.info("전달 받은 이메일 주소 : " + email);
-
-			
 			
 			//난수의 범위 111111 ~ 999999 (6자리 난수)
 			Random random = new Random();
 			int checkNum = random.nextInt(888888)+111111;
-		
+			
 			//이메일 보낼 양식
 			String setFrom = "noramore12@naver.com"; //2단계 인증 x, 메일 설정에서 POP/IMAP 사용 설정에서 POP/SMTP 사용함으로 설정o
 			String toMail = email;
@@ -216,19 +214,13 @@ public class MemberController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		
-			
+			JSONArray jarr = new JSONArray();
 			JSONObject checkObject = new JSONObject();
 			checkObject.put("code", checkNum);
 			
+		
 			logger.info("랜덤숫자 : " + checkNum);
 			return checkObject.toJSONString();
-			
-			
-				
-			
-		
-			
 		}
 }
 

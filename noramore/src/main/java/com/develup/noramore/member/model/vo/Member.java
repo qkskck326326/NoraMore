@@ -10,7 +10,7 @@ public class Member implements java.io.Serializable  {
 	private String memberID;      //회원아이디
 	private String memberPWD;       //비밀번호
 	private String memberName;      //이름
-	private String birth;       //생년월일
+	private Date birth;       //생년월일
 	private String gender;			//성별
 	private String email;          //이메일
 	private String address;        //주소
@@ -34,7 +34,7 @@ public class Member implements java.io.Serializable  {
 
 
 
-	public Member(String memberID, String memberPWD, String memberName, String birth, String gender, String email,
+	public Member(String memberID, String memberPWD, String memberName, Date birth, String gender, String email,
 			String address, String photoFilename, String resign, String adminYN, String signType, String actLimit, Date registDate,
 			Date modifiedDate, int memberAuth) {
 		super();
@@ -93,11 +93,11 @@ public class Member implements java.io.Serializable  {
 
 
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 

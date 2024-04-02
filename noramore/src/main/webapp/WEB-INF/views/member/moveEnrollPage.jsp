@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입페이지</title>
-<script src="./06-timer.js" defer></script>
-    <link rel="stylesheet" href="./06-timer.css" />
+
 <link rel="stylesheet" type="text/css" href="resources/css/enrollPage.css" />
 
 
@@ -288,14 +287,11 @@ function dupIDCheck(){
 	     <div>
 	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email">
 	    	<div style="display: block; text-align: right;">
-	      		<input type="button" value="인증하기"  class="btn btn-primary" id="emailAuth">
+	      		<input type="button" value="인증하기" class="btn btn-primary" id="emailAuth">
 	    	</div>
 	    	
 	  		<input class="form-control" placeholder="인증 코드 6자리를 입력해주세요." maxlength="6" disabled="disabled" name="authCode" id="authCode" type="text" autofocus>
-	  		<<!-- span class="target__time">
-	            <span id="remaining__min">3</span> :
-	            <span id="remaining__sec">00</span>
-	          </span>-->
+	  	
 	          <span id="timer"> </span>
 	          <button class="complete__target" id="complete" disabled="disabled" >인증완료</button>
 	     </div> 
@@ -341,7 +337,7 @@ function dupIDCheck(){
 
 
 <br><br>
-<input type="submit"  value="가입하기"   class="btn btn-lg btn-success btn-block" id="registerBtn"> &nbsp;
+<input type="submit"  value="가입하기"  disabled = "disabled" class="btn btn-lg btn-success btn-block" id="registerBtn"> &nbsp;
 <!-- id="submit_button" -->
 <input type="reset" value="작성취소"> &nbsp;
 <a href="home.do">시작페이지로 이동</a>
@@ -349,7 +345,7 @@ function dupIDCheck(){
 
 </form>
 
-<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
+
 <script type="text/javascript">
 
 
@@ -371,18 +367,19 @@ $("#emailAuth").click(function() {
     	success : function(result) {
     		console.log("result : " + result);
     		
+    		var strCode = JSON.stringify(result);
     		
-	    		var strCode = JSON.stringify(result);
-	    		
-	    		var json = JSON.parse(strCode);
-	    		
-	    		codeNum = json.code;
-	    		
-	    		$("#authCode").attr("disabled", false); 
-	    		
-	    		alert("인증 코드가 입력하신 이메일로 전송 되었습니다.");
-	    		
-    		}
+    		var json = JSON.parse(strCode);
+    		
+    		codeNum = json.code;
+    		
+    		
+    		$("#authCode").attr("disabled", false); 
+    		
+    		/*  $("#authCode").prop("disabled", false); */
+    	
+    		alert("인증 코드가 입력하신 이메일로 전송 되었습니다.");
+    		
     		
    		}
     }); //End Ajax
@@ -439,55 +436,44 @@ $("#complete").on("click", function() {
 	return false;
 });
 
-/*  
-$("#email").on("keyup", function() {
-	var inputEmail = $("#email").val();
-	if(inputEmail != null ){
 
-		$("#complete").attr("disabled", false); 
-	}
-}); */ 
-
-//--이메일 인증 타이머--------------------------------------------------------------------------
+</script>
 
 
-let timerInterval; // 타이머 인터벌을 저장할 변수
+<script type="text/javascript">
 
-// 버튼 클릭 이벤트에 함수 바인딩
-document.getElementById("emailAuth").addEventListener("click", function() {
-    // 이전에 생성된 타이머 제거
-    clearInterval(timerInterval);
-    
-    // 3분 타이머 시작
-    startTimer();
-});
+//-------------------------타이머-----
 
-// 3분 타이머 시작하는 함수
-function startTimer() {
-    let duration = 180; // 3분을 초로 설정
-    updateTimer(duration); // 타이머 업데이트
-    
-    // 1초마다 타이머 감소
-    timerInterval = setInterval(function() {
-        duration--;
-        updateTimer(duration); // 남은 시간 업데이트
-        
-        if (duration <= 0) {
-            clearInterval(timerInterval); // 타이머 정지
-            document.getElementById("timer").innerHTML = "시간이 만료되었습니다."; // 만료 메시지 표시
+
+let timer;
+        let timeLeft = 180; // 3분 = 180초
+
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if (timeLeft >= 0) {
+                    document.getElementById("timer").innerText = formatTime(timeLeft);
+                    timeLeft--;
+                } else {
+                    clearInterval(timer);
+                    document.getElementById("timer").innerText = "시간이 만료되었습니다.";
+                }
+            }, 1000);
         }
-    }, 1000);
-}
 
-// 타이머 표시 업데이트 함수
-function updateTimer(duration) {
-    const minutes = Math.floor(duration / 60); // 분 계산
-    const seconds = duration % 60; // 초 계산
-    document.getElementById("timer").innerHTML = minutes + "분 " + seconds + "초 남음"; // 타이머 업데이트
-}
- </script>
- </div>
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`; // 이 부분은 출력이 되어야 합니다.
+        }
 
+        document.getElementById("emailAuth").addEventListener("click", function() {
+            timeLeft = 180; // 3분으로 다시 초기화
+            document.getElementById("timer").innerText = formatTime(timeLeft); // 타이머 표시 초기화
+            startTimer();
+        });
+</script>
+</div>
 
 
 <script type="text/javascript">
@@ -601,5 +587,6 @@ elInputPassword.onkeyup = function () {
 		};
 	
 </script>
+
 </body>
 </html>
