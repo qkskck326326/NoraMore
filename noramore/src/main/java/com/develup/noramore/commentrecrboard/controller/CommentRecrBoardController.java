@@ -61,7 +61,7 @@ public class CommentRecrBoardController {
 	
 	//댓글 삭제
 	@RequestMapping("deletecomment.do")
-	public String deletecomment(@RequestParam("page") int page, CommentRecrBoard commentRecrBoard, Model model) {
+	public String deletecomment(@RequestParam(name="page") int page, CommentRecrBoard commentRecrBoard, Model model) {
 		if(commentRecrBoardService.deletecomment(commentRecrBoard) > 0) {
 			model.addAttribute("page", page);
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());

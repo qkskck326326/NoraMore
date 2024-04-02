@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${!empty requestScope.currentPage}">
-    <c:set var="page" value="${requestScope.currentPage}" />
+	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>NoraMore</title>
-<script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+<c:url var="insertappl" value="insertappl.do">
+	<c:param name="boardId" value="${RecrBoard.recrOriginalFilename}" />
+	<c:param name="memberId" value="${RecrBoard.recrRenameFilename}" />
+	<c:param name="RecrBoard" value="${RecrBoard}" />
+	<c:param name="Member" value="${loginMember}" />
+</c:url>
+<link rel="stylesheet" href="resources/css/style.css">
+<script type="text/javascript"
+	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function toggleCommentForm() {
     var commentForm = document.getElementById("commentForm");
@@ -115,16 +123,16 @@ function checkRecrCondition(){
 	var minCon;
 	var maxCon;
 	var genderCon;
-	if(${RecrBoard.ageMinCondition eq 0}){
+	if("${RecrBoard.ageMinCondition}" === "0"){
 		minCon = "없음";
 	}else{
-		mincon = ${RecrBoard.ageMinCondition}
+		minCon = "${RecrBoard.ageMinCondition}"
 	}
 	
-	if(${RecrBoard.ageMaxCondition eq 0}){
+	if("${RecrBoard.ageMaxCondition}" === "0"){
 		maxCon = "없음";
 	}else{
-		mincon = ${RecrBoard.ageMaxCondition}
+		maxCon = "${RecrBoard.ageMaxCondition}"
 	}
 	
 	if(${empty RecrBoard.genderCondition}){
@@ -142,85 +150,87 @@ function checkRecrCondition(){
 	alert(con);
 }
 
+function insertappl(){
+	location.href = "insertappl";
+}//
+
 </script>
 <style>
-	.container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .boardRecr-div, .comment-div {
-        	width: 1000px;
-            padding: 20px;
-            margin: 10px;
-            border: 1px solid #ccc;
-        }
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.boardRecr-div, .comment-div {
+	width: 1000px;
+	padding: 20px;
+	margin: 10px;
+	border: 1px solid #ccc;
+}
 </style>
 </head>
 <button onclick="updatecomment()">수정하기</button>
 <body>
-<div class="container">
-	<div class="boardRecr-div">
-		<form action="#" method="post" enctype="multipart/form-data">
-		    <div id="write" style="margin-bottom: 20px;">
-		        <h1 style="text-align: left;">${RecrBoard.title}</h1>
-		        <div class="line"></div>
-		        <div style="text-align: left; margin-bottom: 10px;">
-		            <button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
-		            <button class="whiteBtn" style="float: right; background-color:pink; color:black;"
-		                    onclick="report(); return false;">신고하기
-		            </button>
-		            <button class="whiteBtn" style="float: right; margin-right:10px;" onclick="signUp(); return false;">모집신청
-		            </button>
-		            <button class="whiteBtn" style="float: right; margin-right:10px;"
-		                    onclick="checkRecrCondition(); return false;">모집조건
-		            </button>
-		        </div>
-		        <textarea cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
-		        <div>
-		            <p>첨부파일:</p>
-		            <c:if test="${ !empty RecrBoard.recrOriginalFilename}">
-		                <c:url var="rbdown" value="rbdown.do">
-		                    <c:param name="ofile" value="${RecrBoard.recrOriginalFilename}"/>
-		                    <c:param name="rfile" value="${RecrBoard.recrRenameFilename}"/>
-		                </c:url>
-		                <a href="${rbdown}">${RecrBoard.recrOriginalFilename}</a>
-		            </c:if>
-		            <c:if test="${ empty RecrBoard.recrOriginalFilename}">
-		                <p>첨부파일 없음</p>
-		            </c:if>
-		        </div>
-		        <p>시작 날짜 : ${RecrBoard.recrStartDate}</p>
-		        <p>마감 날짜 : ${RecrBoard.recrEndDate}</p>
-		        <p>장소 : ${RecrBoard.recrLocation}</p>
-		    </div>		    
-		</form>
-	</div>
-	<div class="comment-div">
-		<!-- 댓글 보기 버튼 -->
-		<div id="writeComment">
-    		<button class="whiteBtn" onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
+	<div class="container">
+		<div class="boardRecr-div">
+			<form action="#" method="post" enctype="multipart/form-data">
+				<div id="write" style="margin-bottom: 20px;">
+					<h1 style="text-align: left;">${RecrBoard.title}</h1>
+					<div class="line"></div>
+					<div style="text-align: left; margin-bottom: 10px;">
+						<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
+						<button class="whiteBtn"
+							style="float: right; background-color: pink; color: black;"
+							onclick="report(); return false;">신고하기</button>
+						<button class="whiteBtn" style="float: right; margin-right: 10px;"
+							onclick="insertappl(); return false;">모집신청</button>
+						<button class="whiteBtn" style="float: right; margin-right: 10px;"
+							onclick="checkRecrCondition(); return false;">모집조건</button>
+					</div>
+					<textarea cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
+					<div>
+						<p>첨부파일:</p>
+						<c:if test="${ !empty RecrBoard.recrOriginalFilename}">
+							<c:url var="rbdown" value="rbdown.do">
+								<c:param name="ofile" value="${RecrBoard.recrOriginalFilename}" />
+								<c:param name="rfile" value="${RecrBoard.recrRenameFilename}" />
+							</c:url>
+							<a href="${rbdown}">${RecrBoard.recrOriginalFilename}</a>
+						</c:if>
+						<c:if test="${ empty RecrBoard.recrOriginalFilename}">
+							<p>첨부파일 없음</p>
+						</c:if>
+					</div>
+					<p>시작 날짜 : ${RecrBoard.recrStartDate}</p>
+					<p>마감 날짜 : ${RecrBoard.recrEndDate}</p>
+					<p>장소 : ${RecrBoard.recrLocation}</p>
+				</div>
+			</form>
 		</div>
-		<!-- 댓글 폼 -->
-		<div id="commentForm" style="display: none;">
-   		<form action="insertrecrcomment.do" method="post">
-   		<input  type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">	
-   		<input  type="hidden" name="boardId" value="${RecrBoard.boardId}">
-   		<input  type="hidden" name="page" value="${page}">
-        <textarea name="context" cols="50" rows="5" required></textarea>
-        <br>
-        <input type="submit" value="댓글 등록">
-    	</form>
-    		<div id="commentList"></div>	
+		<div class="comment-div">
+			<!-- 댓글 보기 버튼 -->
+			<div id="writeComment">
+				<button class="whiteBtn"
+					onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
+			</div>
+			<!-- 댓글 폼 -->
+			<div id="commentForm" style="display: none;">
+				<form action="insertrecrcomment.do" method="post">
+					<input type="hidden" name="memberId"
+						value="${sessionScope.loginMember.memberID}"> <input
+						type="hidden" name="boardId" value="${RecrBoard.boardId}">
+					<input type="hidden" name="page" value="${page}">
+					<textarea name="context" cols="50" rows="5" required></textarea>
+					<br> <input type="submit" value="댓글 등록">
+				</form>
+				<div id="commentList"></div>
+			</div>
 		</div>
+
+		<div class="comment-list"></div>
+
 	</div>
-	
-	<div class="comment-list">
-		
-	
-	</div>
-	
-</div>
 
 </body>
 </html>

@@ -69,7 +69,7 @@ public class RecrBoardController {
 	  public String insertRecrBoard(RecrBoard recrBoard, HttpServletRequest request, Model model, 
 			  		@RequestParam(name="upfile", required=false) MultipartFile mfile,
 			  		@RequestParam("maxRecr1") String maxRecr, @RequestParam(name="ageMinCondition1", required=false) String ageMinCondition, 
-			  		@RequestParam(name="ageMaxCondition1", required=false) String ageMaxCondition) {
+			  		@RequestParam(name="ageMaxCondition1", required=false) String ageMaxCondition, @RequestParam("page") String page) {
 		  // input을 number 로 해도 이쪽으로 보낼 때는 String 형태로 넘어와서 취한 조취
 		  if(!ageMaxCondition.isEmpty()) {
 			    recrBoard.setAgeMaxCondition(Integer.parseInt(ageMaxCondition));
@@ -80,7 +80,7 @@ public class RecrBoardController {
 			if(!maxRecr.isEmpty()) {
 			    recrBoard.setMaxRecr(Integer.parseInt(maxRecr));
 			}
-
+			
 
 		  
 		  
@@ -117,10 +117,11 @@ public class RecrBoardController {
 		  if(recrBoardService.insertRecrBoard(recrBoard) > 0) {
 			  model.addAttribute("message", " 글이 등록되었습니다.");
 			  model.addAttribute("RecrBoard", recrBoard);
-			  return "recrBoard/RecrBoardDetail"; 
+			  model.addAttribute("page", page);
+			  return "redirect:rblist.do";
 		  }else{
 			  model.addAttribute("message", " 글 등록에 실패하였습니다.");
-			  return "recerBoarad/RecrBoardList";
+			  return "redirect:rblist.do";
 		  }
 		  
 		 
@@ -137,18 +138,21 @@ public class RecrBoardController {
 	}
 	
 	// ****************************** 이동용 *********************************
-
+	
+	// 자세히 보기 페이지로 이동
 	@RequestMapping("rbdetail.do")
 	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId,
-										@RequestParam("page") String currentPage) {
+										@RequestParam(name="page", required=false) String currentPage) {
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
 		model.addAttribute("page", currentPage);
 		return "recrBoard/RecrBoardDetail";
 	}
-
+	
+	// 글 작성 폼으로 이동
 	@RequestMapping("rbwriteform.do")
-	public String moveRecrBoardWriteForm() {
+	public String moveRecrBoardWriteForm(@RequestParam("page") String page, Model model) {
+		model.addAttribute("page", page);
 		return "recrBoard/RecrBoardWriteForm";
 	}
 

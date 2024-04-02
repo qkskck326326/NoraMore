@@ -29,7 +29,6 @@
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
 		select * from comm_recr 
 		where board_id = #{boardId} 
-		and REF_COMMENT_ID = 0
 	</select>
 		
 	<select id="selectRecrCocomment" resultMap="CommentResultMap">

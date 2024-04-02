@@ -16,7 +16,7 @@
 <script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function rbwriteform(){
-	location.href = 'rbwriteform.do';
+	location.href = 'rbwriteform.do?page=' + ${page};
 }
 
 function selectCategory(value){
@@ -29,7 +29,7 @@ function selectCategory(value){
 
 	<h1>모집게시판 전체 목록</h1>
 	
-	<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="rbwriteform()">글 작성</button>
+	
 	<div class="dropdown">
     <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
     <div class="dropdown-content">
@@ -67,6 +67,7 @@ function selectCategory(value){
         </tbody>
     </table>
 <br>
+<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="rbwriteform()">글 작성</button>
 <c:import url="/WEB-INF/views/common/pagingView.jsp"/>
 </body>
 </html>
