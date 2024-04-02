@@ -38,13 +38,13 @@
 		<p>글 제목</p>
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
 		<p>작성자 : 
-		<input type="text" name="memberId" readonly 
+		<input type="text" name="memberID" readonly 
 		value="${ sessionScope.loginMember.memberID }"></p>
 		<p>본문</p>
 		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="substance"></textarea>
 		
 		<p>첨부파일</p>
-		<input type="file" id="file" name="file">
+		<input type="file" id="file" name="ofile">
 		
 		<button class="blueBtn" onclick="checkInput()">작성</button>
 		<input type="submit" class="none">			

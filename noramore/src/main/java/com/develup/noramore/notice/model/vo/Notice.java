@@ -7,7 +7,7 @@ public class Notice implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int boardId;
-    private String memberId;
+    private String memberID;
     private String title;
     private String substance;
     private int readCount;
@@ -21,11 +21,11 @@ public class Notice implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Notice(int boardId, String memberId, String title, String substance, int readCount, Date registDt,
+	public Notice(int boardId, String memberID, String title, String substance, int readCount, Date registDt,
 			Date lastUpdDt, String originalFilePath, String renameFilePath) {
 		super();
 		this.boardId = boardId;
-		this.memberId = memberId;
+		this.memberID = memberID;
 		this.title = title;
 		this.substance = substance;
 		this.readCount = readCount;
@@ -43,12 +43,12 @@ public class Notice implements java.io.Serializable {
 		this.boardId = boardId;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getmemberID() {
+		return memberID;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setmemberID(String memberID) {
+		this.memberID = memberID;
 	}
 
 	public String getTitle() {
@@ -113,7 +113,7 @@ public class Notice implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Notice [boardId=" + boardId + ", memberId=" + memberId + ", title=" + title + ", substance=" + substance
+		return "Notice [boardId=" + boardId + ", memberID=" + memberID + ", title=" + title + ", substance=" + substance
 				+ ", readCount=" + readCount + ", registDt=" + registDt + ", lastUpdDt=" + lastUpdDt
 				+ ", originalFilePath=" + originalFilePath + ", renameFilePath=" + renameFilePath + "]";
 	}

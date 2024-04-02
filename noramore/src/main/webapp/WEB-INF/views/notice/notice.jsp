@@ -85,7 +85,7 @@
 					<td align="right">
 					<a href="${ pageContext.servletContext.contextPath }/noticedetail.do?no=${ n.boardId }">
 					${ n.title }</td>
-					<td align="right">${ n.memberId }</td>
+					<td align="right">${ n.memberID }</td>
 					<td align="right">${ n.readCount }</td>
 					<td align="center"><fmt:formatDate value="${ n.registDt }"
 							pattern="yyyy-MM-dd" />
