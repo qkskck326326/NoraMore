@@ -94,6 +94,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.deleteBoard(freeBoard);
 	}
 
+	@Override
+	public int updateOrigin(FreeBoard freeBoard) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.updateOrigin(freeBoard);
+	}
+
 	
 
 	

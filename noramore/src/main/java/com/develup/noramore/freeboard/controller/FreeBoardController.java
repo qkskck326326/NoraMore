@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,9 @@ import com.develup.noramore.freeboard.model.vo.FreeBoard;
 @Controller("freeBoardController")
 public class FreeBoardController {
 	
+	//이 클래스에서 메소드 안의 요청과 반환값들의 결과 출력 확인을 위한 로그 객체 생성
+	private static final Logger logger = LoggerFactory.getLogger(FreeBoardController.class);
+		
 	
 	@Autowired
 	private FreeBoardService freeBoardService;
@@ -61,6 +66,80 @@ public class FreeBoardController {
 		return mv;
 		
 	}
+	//원글 수정처리용
+	@RequestMapping(value = "freeboardoriginupdate.do", method=RequestMethod.POST)
+	public String freeBoardoriginUpdateMethod(
+			FreeBoard freeBoard, HttpServletRequest request,
+			@RequestParam(name="page", required =false) String page,
+			@RequestParam(name="deleteFlag", required=false) String delFlag,
+			@RequestParam(name="upfile", required=false) MultipartFile mfile, Model model) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		//게시글 원글 첨부파일 저장 폴더 경로 지정
+		String savePath = request.getSession().getServletContext().getRealPath(
+				"resources/freeboard_upfiles");
+		
+		//첨부파일이 변경되었을 때의 처리 ------------------
+		//1. 원래 첨부파일이 있는데, '파일삭제'를 선택한 경우
+		//2. 원래 첨부파일이 있는데, 새로운 파일이 업로드된 경우 (첨부파일 변경)
+		if(freeBoard.getFreeOriginalFileName() != null &&
+				((delFlag != null && delFlag.equals("yes")) || !mfile.isEmpty())) {
+			//저장 폴더에서 이전 파일을 삭제함
+			new File(savePath + "\\" + freeBoard.getFreeRenameFileName()).delete();
+			//board 안의 파일정보도 제거함
+			freeBoard.setFreeOriginalFileName(null);
+			freeBoard.setFreeRenameFileName(null);
+			
+		}
+		
+		//3. 새로운 첨부파일이 업로드된 경우
+		if(!mfile.isEmpty()) {
+			//전송온 첨부파일명 추출함
+			String fileName = mfile.getOriginalFilename();
+			String renameFileName = null;
+			
+			//저장 촐더에는 변경된 파일이름으로 파일을 저장함
+			//파일 이름 바꾸기함 => 년월일시분초.확장자
+			if(fileName != null && fileName.length() > 0) {
+				//바꿀 파일명에 대한 문자열 포맷 만들기
+				renameFileName = FileNameChange.change(fileName, "yyyyMMddHHmmss");
+				logger.info("첨부 파일명 변경 확인 : " + fileName + ", " + renameFileName);
+				
+				try {
+					//지정한 저장 폴더에 파일명 바꾸기 처리함
+					mfile.transferTo(new File(savePath + "\\" + renameFileName));
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					model.addAttribute("message", "첨부 파일 저장 실패!");
+					return "common/error";
+				
+			
+			} 
+				
+		} //파일명 바꾸기
+		//freeboard에 첨부파일 정보 저장 처리
+		freeBoard.setFreeOriginalFileName(fileName);
+		freeBoard.setFreeRenameFileName(renameFileName);
+		
+	} //첨부파일 있을 때
+	
+	if(freeBoardService.updateOrigin(freeBoard) > 0) {
+		//댓글과 대댓글 수정 성공시 다시 상세보기가 보여지게 처리
+		model.addAttribute("boardId", freeBoard.getBoardId());
+		model.addAttribute("page", currentPage);
+		
+		return  "redirect:fbdetail.do";
+		
+	} else {
+		model.addAttribute("message", freeBoard.getBoardId() + "번 글 수정 실패!");
+		return "common/error";
+		
+	}
+}
 	
 	@RequestMapping("freeboardwrite.do")
 	public String selectWriteFreeBoard() {

@@ -44,6 +44,9 @@ public interface FreeBoardService {
 	int deleteBoard(FreeBoard freeBoard);
 
 
+	int updateOrigin(FreeBoard freeBoard);
+
+
 	
 
 
