@@ -23,5 +23,9 @@ public class CommentRecrBoardDao {
 		List<CommentRecrBoard> list = sqlSessionTemplate.selectList("commentrecrboard.selectRecrComment", boardId);
 		return (ArrayList<CommentRecrBoard>)list;
 	}
+
+	public void upcountcocoment(CommentRecrBoard commentRecrBoard) {
+		sqlSessionTemplate.update("commentrecrboard.upcountcocoment", commentRecrBoard);
+	}
 	
 }//

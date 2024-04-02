@@ -10,4 +10,8 @@ public interface CommentRecrBoardService {
 
 	ArrayList<CommentRecrBoard> selectRecrComment(int boardId);
 
+	void upcountcocoment(CommentRecrBoard commentRecrBoard);
+
+	ArrayList<CommentRecrBoard> selectRecrCocomment(CommentRecrBoard commentRecrBoard);
+
 }

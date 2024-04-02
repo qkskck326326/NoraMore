@@ -22,5 +22,18 @@ public class CommentRecrBoardServiceImpl implements CommentRecrBoardService{
 	public ArrayList<CommentRecrBoard> selectRecrComment(int boardId) {
 		return commentRecrBoardDao.selectRecrComment(boardId);
 	}
+
+	@Override
+	public void upcountcocoment(CommentRecrBoard commentRecrBoard) {
+		commentRecrBoardDao.upcountcocoment(commentRecrBoard);
+	}
+
+	@Override
+	public ArrayList<CommentRecrBoard> selectRecrCocomment(CommentRecrBoard commentRecrBoard) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 }//

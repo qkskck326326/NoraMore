@@ -33,6 +33,43 @@ window.onload = function() {
 	}
 };
 
+var cocoment = `
+    <div id="cocomment">
+        <form id="cocommentForm" action="insertrecrcocomment.do" method="post" style="display: none;">
+            <input type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">    
+            <input type="hidden" name="boardId" value="${RecrBoard.boardId}">
+            <input type="hidden" name="refCommentId" id="refCommentId" value=""> <!-- 대댓글의 경우 참조하는 댓글 ID를 여기에 설정 -->
+            <input type="hidden" name="page" value="${page}">    
+            <textarea name="context" cols="50" rows="5" required></textarea>
+            <br>
+            <input type="submit" value="댓글 등록">
+        </form>
+        <div id="commentList"></div>    
+    </div>
+`; 
+
+function toggleCocommentForm(button) {
+    // 클릭된 버튼의 부모 요소를 찾습니다.
+    var parentElement = button.parentNode;
+    
+    // 부모 요소 내에서 id가 "cocomment"인 요소를 찾습니다.
+    var cocommentElement = parentElement.querySelector("#cocomment");
+    
+    if (cocommentElement) {
+        // "cocomment" 요소 내부에서 id가 "cocommentForm"인 요소를 찾습니다.
+        var cocommentFormElement = cocommentElement.querySelector("#cocommentForm");
+        var refCommentId = cocommentFormElement.querySelector("#refCommentId");
+        var commentIdValue = refCommentId.parentElement.parentElement.parentElement.querySelector("#commentId").value;
+        refCommentId.value = commentIdValue;
+        
+        if (cocommentFormElement) {
+            // cocommentForm의 스타일을 변경합니다.
+            cocommentFormElement.style.display = "block";
+        }
+    }
+}
+
+
 function selectrecrcomment() {
 	var bId
 	if(${!empty RecrBoard.boardId}){
@@ -51,46 +88,78 @@ function selectrecrcomment() {
                 var comment = data[i];
                 
                 // memberId를 숨은 input 요소에 할당합니다.
-                $('#memberId').val(comment.memberId);
-                
+                var memberIdInput = $('<input type="hidden" name="memberId" value="' + comment.memberId + '">');
                 // commentId를 숨은 input 요소에 할당합니다.
-                $('#commentId').val(comment.commentId);
-                
+                var commentIdInput = $('<input type="hidden" id="commentId" name="commentId" value="' + comment.commentId + '">');
                 // context를 textarea 요소에 할당합니다.
-                $('#context').val(comment.context);
-                
+                var contextTextarea = $('<textarea readonly>' + comment.context + '</textarea>');
                 // countSubComment가 1 이상인 경우에만 링크를 표시합니다.
                 if (comment.countSubComment > 0) {
                     var subCommentLink = $('<a href="#" onclick="toggleSubCommentList()">더보기</a>');
-                    $('#subCommentContainer').empty().append(subCommentLink);
-                } else {
-                    $('#subCommentContainer').empty(); // countSubComment가 0인 경우 요소를 비웁니다.
+                    $('#subCommentContainer').append(subCommentLink);
                 }
-                
                 // lastUpdateDate를 <p> 태그에 6pt 크기로 할당합니다.
-                var lastUpdateDateParagraph = $('<p style="font-size: 6pt;">' + comment.lastUpdateDate + '</p>');
-                $('#lastUpdateDateContainer').empty().append(lastUpdateDateParagraph);
+                var lastUpdateDateParagraph = $('<p style="font-size: 8pt;">' + "작성자: " + comment.memberId + "&nbsp;&nbsp;작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
                 
-                // 각 comment를 commentList에 추가합니다.
-                var commentDiv = $('<div></div>');
-                commentDiv.append($('#memberId'));
-                commentDiv.append($('#commentId'));
-                commentDiv.append($('#context'));
-                commentDiv.append($('#subCommentContainer'));
-                commentDiv.append($('#lastUpdateDateContainer'));
-                $('#commentList').append(commentDiv);
+                // 해당 요소들을 commentList에 추가합니다.
+                $('#commentList').append("<div style='margin-bottom: 20px;' id='comment_" + i +  " '" + ">");
+                $('#commentList').append(memberIdInput);
+                $('#commentList').append(commentIdInput);
+                $('#commentList').append(lastUpdateDateParagraph); 
+                $('#commentList').append(contextTextarea); 
+                $('#commentList').append("<button onclick='toggleCocommentForm(this)'>대댓글 달기</button>");
+                if(${sessionScope.loginMember.memberID} = comment.memberId){
+                	$('#commentList').append("<button onclick='updatecomment(this)'>수정</button>");	
+                	$('#commentList').append("<button onclick='deletecomment(this)'>삭제</button>");	
+                }
+                $('#commentList').append(cocoment);
+                $('#commentList').append("<a style='clore: blue;' href='#' data-commentId=" + comment.commentId + " id='showcocoment'>대댓글(" + comment.countSubComment + ")개</a>");
+                $('#commentList').append("</div>");
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-        }
+        } 
     });
 }
 
-function toggleSubCommentList() {
-    var subCommentList = $('[name="subCommentList"]');
-    subCommentList.toggle();
+function updatecomment(n) {
+	   // commentList 요소 선택
+    var commentList = document.getElementById("commentList");
+    
+    // n번째 자식 요소 선택
+    var nthChild = commentList.children[n];
+    
+    var cId = nthChild.children[3];
+    
+    // 선택한 자식 요소에 HTML 추가
+        nthChild.innerHTML += '<a href="#" onclick="toggleSubCommentList()">더보기</a>';
 }
+
+$(document).ready(function() {
+
+	  // 대댓글 링크를 클릭할 때
+	  $('showcocoment').click(function(event) {
+	    event.preventDefault(); // 기본 동작 방지
+	    
+	    // 클릭된 링크의 commentId 가져오기
+	    var commentId = $(this).data('commentId');
+	    
+	    // Ajax를 통해 정보를 가져오는 요청 보내기
+	    $.ajax({
+	      url: 'selectcocoment.do',
+	      method: 'POST',
+	      data: { refCommentId: commentId, boardId: ${RecrBoard.boardId} },
+	      success: function(data) {
+	 			alert("전달 완료");
+	        
+	      },
+	      error: function(xhr, status, error) {
+	        console.error('Error:', error);
+	      }
+	    });
+	  });
+	});
 
 </script>
 <style>
@@ -107,6 +176,7 @@ function toggleSubCommentList() {
         }
 </style>
 </head>
+<button onclick="updatecomment()">수정하기</button>
 <body>
 <div class="container">
 	<div class="boardRecr-div">
@@ -164,6 +234,25 @@ function toggleSubCommentList() {
 		</div>
 	</div>
 </div>
+
+
+<%-- 	<!-- 대댓글 폼 -->
+		<div id="cocommentForm">
+   		<form action="insertrecrcocomment.do" method="post">
+   		<input  type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">	
+   		<input  type="hidden" name="boardId" value="${RecrBoard.boardId}">
+   		<input  type="hidden" name="refCommentId" value="변수">
+   		<input  type="hidden" name="page" value="${page}">	
+        <textarea name="context" cols="50" rows="5" required></textarea>
+        <br>
+        <input type="submit" value="댓글 등록">
+    	</form>
+    		<div id="commentList"></div>	
+		</div> --%>
+
+<!-- 대댓글 폼 -->
+		
+
 
 </body>
 </html>
