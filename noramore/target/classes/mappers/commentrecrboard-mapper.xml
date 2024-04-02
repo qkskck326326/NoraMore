@@ -19,11 +19,23 @@
 		INSERT INTO COMM_RECR (BOARD_ID, COMMENT_ID, REF_COMMENT_ID, MEMBER_ID, CONTEXT, REPORT_COUNT, COUNT_SUB_COMMENT, REGIST_DATE, LAST_UPDATE_DATE)
     	VALUES (#{boardId}, (select max(COMMENT_ID) + 1 from COMM_RECR), #{refCommentId}, #{memberId}, #{context}, #{reportCount}, #{countSubComment}, SYSDATE, SYSDATE)
 	</insert>
+	
+	<delete id="deletecomment">
+		delete from COMM_RECR 
+		where COMMENT_ID = #{commentId} 
+		and BOARD_ID = #{boardId} 
+	</delete>
 
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
 		select * from comm_recr 
 		where board_id = #{boardId} 
 		and REF_COMMENT_ID = 0
+	</select>
+		
+	<select id="selectRecrCocomment" resultMap="CommentResultMap">
+		select * from comm_recr 
+		where board_id = #{boardId} 
+		and REF_COMMENT_ID = #{refCommentId} 
 	</select>
 	
 	<update id="upcountcocoment" parameterType="CommentRecrBoard">

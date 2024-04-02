@@ -27,5 +27,14 @@ public class CommentRecrBoardDao {
 	public void upcountcocoment(CommentRecrBoard commentRecrBoard) {
 		sqlSessionTemplate.update("commentrecrboard.upcountcocoment", commentRecrBoard);
 	}
+
+	public ArrayList<CommentRecrBoard> selectRecrCocomment(CommentRecrBoard commentRecrBoard) {
+		List<CommentRecrBoard> list = sqlSessionTemplate.selectList("commentrecrboard.selectRecrCocomment", commentRecrBoard);
+		return (ArrayList<CommentRecrBoard>)list;
+	}
+
+	public int deletecomment(CommentRecrBoard commentRecrBoard) {
+		return sqlSessionTemplate.delete("commentrecrboard.deletecomment", commentRecrBoard);
+	}
 	
 }//

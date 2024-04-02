@@ -30,8 +30,12 @@ public class CommentRecrBoardServiceImpl implements CommentRecrBoardService{
 
 	@Override
 	public ArrayList<CommentRecrBoard> selectRecrCocomment(CommentRecrBoard commentRecrBoard) {
-		// TODO Auto-generated method stub
-		return null;
+		return commentRecrBoardDao.selectRecrCocomment(commentRecrBoard);
+	}
+
+	@Override
+	public int deletecomment(CommentRecrBoard commentRecrBoard) {
+		return commentRecrBoardDao.deletecomment(commentRecrBoard);
 	}
 
 

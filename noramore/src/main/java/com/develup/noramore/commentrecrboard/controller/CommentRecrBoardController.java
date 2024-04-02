@@ -59,6 +59,22 @@ public class CommentRecrBoardController {
 		}
 	}//
 	
+	//댓글 삭제
+	@RequestMapping("deletecomment.do")
+	public String deletecomment(@RequestParam("page") int page, CommentRecrBoard commentRecrBoard, Model model) {
+		if(commentRecrBoardService.deletecomment(commentRecrBoard) > 0) {
+			model.addAttribute("page", page);
+			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			return "redirect:rbdetail.do";
+		}else {
+			model.addAttribute("message", "error! 댓글 삭제에 실패하였습니다.");
+			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("page", page);
+			return "redirect:rbdetail.do";
+		}
+		
+	}//
+	
 	// 댓글 출력
 	@RequestMapping(value="selectrecrcomment.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -83,6 +99,7 @@ public class CommentRecrBoardController {
 		return jarr.toJSONString();
 	}//
 	
+	// 대댓글 출력
 	@RequestMapping(value="selectrecrcocomment.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String selectRecrCocomment(CommentRecrBoard commentRecrBoard) {
@@ -93,6 +110,7 @@ public class CommentRecrBoardController {
 		for(CommentRecrBoard commentRecr : list) {
 			JSONObject job = new JSONObject();
 			String lud = dateFormat.format(commentRecr.getLastUpdateDate());
+			job.put("rci", commentRecr.getRefCommentId());
 			job.put("memberId", commentRecr.getMemberId());
 			job.put("context", commentRecr.getContext());
 			job.put("lastUpdateDate", lud);
