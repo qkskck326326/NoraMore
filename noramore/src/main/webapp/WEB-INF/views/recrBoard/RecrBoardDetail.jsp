@@ -33,6 +33,43 @@ window.onload = function() {
 	}
 };
 
+var cocoment = `
+    <div id="cocomment">
+        <form id="cocommentForm" action="insertrecrcocomment.do" method="post" style="display: none;">
+            <input type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">    
+            <input type="hidden" name="boardId" value="${RecrBoard.boardId}">
+            <input type="hidden" name="refCommentId" id="refCommentId" value=""> <!-- 대댓글의 경우 참조하는 댓글 ID를 여기에 설정 -->
+            <input type="hidden" name="page" value="${page}">    
+            <textarea name="context" cols="50" rows="5" required></textarea>
+            <br>
+            <input type="submit" value="댓글 등록">
+        </form>
+        <div id="commentList"></div>    
+    </div>
+`; 
+
+function toggleCocommentForm(button) {
+    // 클릭된 버튼의 부모 요소를 찾습니다.
+    var parentElement = button.parentNode;
+    
+    // 부모 요소 내에서 id가 "cocomment"인 요소를 찾습니다.
+    var cocommentElement = parentElement.querySelector("#cocomment");
+    
+    if (cocommentElement) {
+        // "cocomment" 요소 내부에서 id가 "cocommentForm"인 요소를 찾습니다.
+        var cocommentFormElement = cocommentElement.querySelector("#cocommentForm");
+        var refCommentId = cocommentFormElement.querySelector("#refCommentId");
+        var commentIdValue = refCommentId.parentElement.parentElement.parentElement.querySelector("#commentId").value;
+        refCommentId.value = commentIdValue;
+        
+        if (cocommentFormElement) {
+            // cocommentForm의 스타일을 변경합니다.
+            cocommentFormElement.style.display = "block";
+        }
+    }
+}
+
+
 function selectrecrcomment() {
 	var bId
 	if(${!empty RecrBoard.boardId}){
@@ -53,7 +90,7 @@ function selectrecrcomment() {
                 // memberId를 숨은 input 요소에 할당합니다.
                 var memberIdInput = $('<input type="hidden" name="memberId" value="' + comment.memberId + '">');
                 // commentId를 숨은 input 요소에 할당합니다.
-                var commentIdInput = $('<input type="hidden" name="commentId" value="' + comment.commentId + '">');
+                var commentIdInput = $('<input type="hidden" id="commentId" name="commentId" value="' + comment.commentId + '">');
                 // context를 textarea 요소에 할당합니다.
                 var contextTextarea = $('<textarea readonly>' + comment.context + '</textarea>');
                 // countSubComment가 1 이상인 경우에만 링크를 표시합니다.
@@ -69,10 +106,12 @@ function selectrecrcomment() {
                 $('#commentList').append(memberIdInput);
                 $('#commentList').append(commentIdInput);
                 $('#commentList').append(contextTextarea);
-                $('#commentList').append(lastUpdateDateParagraph);
+                $('#commentList').append(lastUpdateDateParagraph); 
+                $('#commentList').append("<button onclick='toggleCocommentForm(this)'>대댓글 달기</button>");
                 if(${sessionScope.loginMember.memberID} = comment.memberId){
-                	$('#commentList').append("<button onclick='updatecomment(" + i + ")'>수정하기</button>");	
+                	$('#commentList').append("<button onclick='updatecomment(" + i + ")'>수정</button>");	
                 }
+                $('#commentList').append(cocoment);
                 $('#commentList').append("</div>");
             }
         },
@@ -88,6 +127,8 @@ function updatecomment(n) {
     
     // n번째 자식 요소 선택
     var nthChild = commentList.children[n];
+    
+    var cId = nthChild.children[3];
     
     // 선택한 자식 요소에 HTML 추가
         nthChild.innerHTML += '<a href="#" onclick="toggleSubCommentList()">더보기</a>';
@@ -166,6 +207,25 @@ function updatecomment(n) {
 		</div>
 	</div>
 </div>
+
+
+<%-- 	<!-- 대댓글 폼 -->
+		<div id="cocommentForm">
+   		<form action="insertrecrcocomment.do" method="post">
+   		<input  type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">	
+   		<input  type="hidden" name="boardId" value="${RecrBoard.boardId}">
+   		<input  type="hidden" name="refCommentId" value="변수">
+   		<input  type="hidden" name="page" value="${page}">	
+        <textarea name="context" cols="50" rows="5" required></textarea>
+        <br>
+        <input type="submit" value="댓글 등록">
+    	</form>
+    		<div id="commentList"></div>	
+		</div> --%>
+
+<!-- 대댓글 폼 -->
+		
+
 
 </body>
 </html>
