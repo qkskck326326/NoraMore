@@ -100,6 +100,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.updateOrigin(freeBoard);
 	}
 
+	@Override
+	public FreeBoard selectBoard(int boardId) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectBoard(boardId);
+	}
+
 	
 
 	

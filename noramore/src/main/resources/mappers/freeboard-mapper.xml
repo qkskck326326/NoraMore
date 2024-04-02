@@ -79,6 +79,13 @@
 		where rnum between #{ startRow } and #{ endRow } 
 	</select>
 	
+	<select id="selectBoard" parameterType="_int" resultMap="resultfreeList">
+		select * from free_board
+		where BOARD_ID = #{ boardId }
+	</select>
+	
+	
+	
 	<!-- <insert id="insertFreeBoard" parameterType="FreeBoard">
 		insert into free_board
 		values ((select max(board_id) + 1 from free_board), #{ memberId }, #{ categoryId }, 

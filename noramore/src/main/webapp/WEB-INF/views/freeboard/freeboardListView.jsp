@@ -112,7 +112,9 @@
 		<option value="20" >20</option>
 	</select> &nbsp; 
 	<input type="submit" value="검색">
+	
 </fieldset>
+
 </form>
 	<section id="board">
 
@@ -128,6 +130,7 @@
 		}
 		%>
 		<button onclick="location.href='freeboardwrite.do';" class="blueBtn">글쓰기</button>
+		<!--  <button onclick="location.href='freeboardwrite.do';" class="blueBtn">글쓰기</button>-->
 		<form action="board.jsp" method="get">
 
 			<div class="position">
