@@ -7,8 +7,12 @@ import com.develup.noramore.common.Paging;
 
 public interface AlarmService {
 	ArrayList<Alarm> selectAlarmList(Alarm alarm);
-	int insertAlarm(Alarm alarm);
+
 	int updateAlarm(Alarm alarm);
 	int selectListCount(String memberId);
-	ArrayList<Alarm> selectList(Paging paging);
+	ArrayList<Alarm> selectList(Alarm alarm);
+	int insertCommAlarm(Alarm alarm);
+	int insertApplAlarm(Alarm alarm);
+	int selectNewCount(String attribute);
+	int insertCommRefAlarm(Alarm alarm);
 }

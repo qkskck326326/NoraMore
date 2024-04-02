@@ -21,6 +21,15 @@ public class AlarmController {
 	private AlarmService alarmService;
 	
 	//로그인시 알람종버튼에 알람개수 숫자표시
+	@RequestMapping("alarmbell.do")
+	public String alarmBell(HttpServletRequest request, Model model){
+		int listCount = alarmService.selectNewCount((String)request.getSession().getAttribute("memberID"));
+		
+		if(listCount > 0) {
+			model.addAttribute("listCount", listCount);
+		}
+		return "";
+	}
 	
 	
 	//알람 전체 조회
@@ -47,10 +56,11 @@ public class AlarmController {
 		
 		Alarm alarm = new Alarm();
 		alarm.setReceiverId((String)request.getSession().getAttribute("memberID"));
-		alarm.setPaging(paging);
+		alarm.setStartRow(paging.getStartRow());
+		alarm.setEndRow(paging.getEndRow());
 		
 		//출력할 페이지에 대한 목록 조회
-		ArrayList<Alarm> list = alarmService.selectList(paging);
+		ArrayList<Alarm> list = alarmService.selectList(alarm);
 		
 		//받은 결과로 성공/실패 페이지 내보냄
 		if(list != null && list.size() > 0) {
@@ -58,7 +68,7 @@ public class AlarmController {
 			model.addAttribute("paging", paging);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("limit", limit);
-		
+			
 			return "alarm/alarmListView";
 		}else {
 			model.addAttribute("message", currentPage + " 페이지 목록 조회 실패!");
@@ -67,52 +77,34 @@ public class AlarmController {
 	}
 	
 	
-	//(댓글) 알람 생성
+	//(댓글) 알람 생성 : 댓글 작성시 테이블명, 댓글ID 보내줄 것
 	@RequestMapping("commAlarm.do")
 	public void commAlarmInsert(
 			@RequestParam("alarmKind") String alarmKind,
-			@RequestParam("commentId") String NativeId,
+			@RequestParam("commentId") String commentId,
+			@RequestParam(name="boardId", required=false) int boardId,
+			@RequestParam(name="refCommentId", required=false) String refCommentId,
 			HttpServletRequest request) {
 		
 		Alarm alarm = new Alarm();
-		alarm.setAlarmKind(alarmKind);
-		alarm.setNativeId(NativeId);
+
+		alarm.setNativeId(commentId);
 		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
 		
-		alarmService.insertAlarm(alarm);
 		
-//		//댓글 내용이 10글자 넘어가면 10글자 ... 
-//		if(context != null && context.length() > 10) {
-//			alarm.setContext(context.substring(0, 10) + "... ");
-//		}else if(context != null && context.length() <= 10){
-//			alarm.setContext(context);
-//		}
-//		
-//		switch(alarmKind) {
-//		case "commentRecrboard" : 
-//			RecrBoard recrBoard = alarmService.selectBoardInfo(alarm);
-//			alarm.setReceiverId(recrBoard.getMemberId());
-//			alarm.setTitle(recrBoard.getTitle());
-//			alarmService.insertAlarm(alarm);
-//			break;
-//		case "commentFreeboard" : 
-//			FreeBoard freeBoard = alarmService.selectBoardInfo(alarm);
-//			alarm.setReceiverId(freeBoard.getMemberId());
-//			alarm.setTitle(freeBoard.getTitle());
-//			alarmService.insertAlarm(alarm);
-//			break;
-//		case "recrAppl" : 
-//			RecrAppl recrAppl = alarmService.selectRecrAppl();
-//			alarm.setReceiverId(recrAppl.getMemberId());
-//			alarm.setTitle(recrAppl.getTitle());
-//			alarmService.insertAlarm(alarm);
-//			break;
-//		default:
-//			return "common/error";
-//		}
+		if(refCommentId != null) {							//상위댓글에 대한 대댓글이면
+			alarm.setAlarmKind(alarmKind);
+			alarm.setRefCommentId(refCommentId);		//상위댓글id(상위 댓글 작성자 id select 목적)
+			alarmService.insertCommAlarm(alarm);
+		}else if(refCommentId == null) {										//원글에 대한 댓글이면
+			alarm.setAlarmKind(alarmKind.substring(5) + "_BOARD");		// (RECR || FREE)_BOARD
+			alarm.setBoardId(boardId);											//원글 번호(작성자 id select 목적)
+			alarmService.insertCommRefAlarm(alarm);
+		}
+
   }
 
-	//(댓글) 알람 생성
+	//(신청) 알람 생성 : 신청시 테이블명, 신청정보 요청과 함께 보내줄 것
 	@RequestMapping("applAlarm.do")
 	public void applAlarmInsert(
 			@RequestParam("alarmKind") String alarmKind,
@@ -122,23 +114,24 @@ public class AlarmController {
 		Alarm alarm = new Alarm();
 		alarm.setAlarmKind(alarmKind);
 		alarm.setNativeId(String.valueOf(recrAppl.getBoardId()));
-		// ID로 RECR_BOARD join 조회해서 member_id 를 receiver_id로 입력
 		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
-		//alarm.setReceiverId(selectBoardInfo(alarm.getNativeId()).getMemberID);
 		
-		alarmService.insertAlarm(alarm);
+		alarmService.insertApplAlarm(alarm);
 	}
 	
 	//알람 확인 (y/n 수정)
-	
-	public String alarmRecieve() {
+	@RequestMapping("alarmCheck.do")
+	public void alarmChecked(
+			@RequestParam("check") String check,
+			@RequestParam("alarmId") int alarmId) {
+		Alarm alarm = new Alarm();
+		alarm.setAlarmId(alarmId);
 		
-		return "";
+		if(check != null) {
+			alarm.setCheckedYN("Y");
+		}
+		
+		alarmService.updateAlarm(alarm);
 	}
-	
-	
-	
-	
-	
-	
+
 }

@@ -19,10 +19,7 @@ public class AlarmServiceImpl implements AlarmService{
 		return alarmDao.selectAlarmList(alarm);
 	}
 
-	@Override
-	public int insertAlarm(Alarm alarm) {
-		return alarmDao.insertAlarm(alarm);
-	}
+
 
 	@Override
 	public int updateAlarm(Alarm alarm) {
@@ -35,7 +32,33 @@ public class AlarmServiceImpl implements AlarmService{
 	}
 
 	@Override
-	public ArrayList<Alarm> selectList(Paging paging) {
-		return alarmDao.selectList(paging);
+	public ArrayList<Alarm> selectList(Alarm alarm) {
+		return alarmDao.selectList(alarm);
 	}
+
+	@Override
+	public int insertCommAlarm(Alarm alarm) {
+		return alarmDao.insertCommAlarm(alarm);
+	}
+	
+	@Override
+	public int insertCommRefAlarm(Alarm alarm) {
+		return alarmDao.insertCommRefAlarm(alarm);
+	}
+	
+	@Override
+	public int insertApplAlarm(Alarm alarm) {
+
+		return alarmDao.insertApplAlarm(alarm);
+	}
+
+
+
+	@Override
+	public int selectNewCount(String memberId) {
+		return alarmDao.selecdtNewCount(memberId);
+	}
+
+
+
 }

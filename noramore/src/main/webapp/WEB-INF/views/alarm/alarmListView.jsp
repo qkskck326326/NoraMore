@@ -59,7 +59,7 @@
 				
 				<c:if test="${ a.alarmKind eq 'COMM_FREE' || a.alarmKind eq 'COMM_RECR'}">
 					<td>
-						<c:if test="${ empty refCommentId }">
+						<c:if test="${ empty a.refCommentId }">
 							글 '${ a.title }' 에 새로운 댓글이 달렸습니다.
 							<br>
 							└ '${ a.senderId }' : '${ a.context }' 

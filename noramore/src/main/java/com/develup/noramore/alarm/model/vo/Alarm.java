@@ -13,14 +13,20 @@ public class Alarm {
 	private String checkedYN;
 	private Date registDate;
 	
-	private Paging paging;
+	private int boardId;
+	private String title;
+	private String context;
+	private String refCommentId;
+	private int startRow;
+	private int endRow;
 
 	public Alarm() {
 		super();
 	}
 
 	public Alarm(int alarmId, String alarmKind, String nativeId, String receiverId, String senderId, String checkedYN,
-			Date registDate, Paging paging) {
+			Date registDate, int boardId, String title, String context, String refCommentId, int startRow,
+			int endRow) {
 		super();
 		this.alarmId = alarmId;
 		this.alarmKind = alarmKind;
@@ -29,7 +35,12 @@ public class Alarm {
 		this.senderId = senderId;
 		this.checkedYN = checkedYN;
 		this.registDate = registDate;
-		this.paging = paging;
+		this.boardId = boardId;
+		this.title = title;
+		this.context = context;
+		this.refCommentId = refCommentId;
+		this.startRow = startRow;
+		this.endRow = endRow;
 	}
 
 	public int getAlarmId() {
@@ -88,21 +99,63 @@ public class Alarm {
 		this.registDate = registDate;
 	}
 
-	public Paging getPaging() {
-		return paging;
+	public int getBoardId() {
+		return boardId;
 	}
 
-	public void setPaging(Paging paging) {
-		this.paging = paging;
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	public String getRefCommentId() {
+		return refCommentId;
+	}
+
+	public void setRefCommentId(String refCommentId) {
+		this.refCommentId = refCommentId;
+	}
+
+	public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getEndRow() {
+		return endRow;
+	}
+
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
 	}
 
 	@Override
 	public String toString() {
 		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", NativeId=" + NativeId + ", receiverId="
 				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
-				+ ", paging=" + paging + "]";
+				+ ", boardId=" + boardId + ", title=" + title + ", context=" + context + ", refCommentId="
+				+ refCommentId + ", startRow=" + startRow + ", endRow=" + endRow + "]";
 	}
 
+	
 	
 
 }
