@@ -99,19 +99,20 @@ function selectrecrcomment() {
                     $('#subCommentContainer').append(subCommentLink);
                 }
                 // lastUpdateDate를 <p> 태그에 6pt 크기로 할당합니다.
-                var lastUpdateDateParagraph = $('<p style="font-size: 6pt;">' + comment.lastUpdateDate + '</p>');
+                var lastUpdateDateParagraph = $('<p style="font-size: 8pt;">' + "작성자: " + comment.memberId + "&nbsp;&nbsp;작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
                 
                 // 해당 요소들을 commentList에 추가합니다.
-                $('#commentList').append("<div id='comment_" + i +  " '" + ">");
+                $('#commentList').append("<div style='margin-bottom: 20px;' id='comment_" + i +  " '" + ">");
                 $('#commentList').append(memberIdInput);
                 $('#commentList').append(commentIdInput);
-                $('#commentList').append(contextTextarea);
                 $('#commentList').append(lastUpdateDateParagraph); 
+                $('#commentList').append(contextTextarea); 
                 $('#commentList').append("<button onclick='toggleCocommentForm(this)'>대댓글 달기</button>");
                 if(${sessionScope.loginMember.memberID} = comment.memberId){
                 	$('#commentList').append("<button onclick='updatecomment(" + i + ")'>수정</button>");	
                 }
                 $('#commentList').append(cocoment);
+                $('#commentList').append("<a style='clore: blue;' id='showcocoment'>대댓글(" + comment.countSubComment + ")개</a>");
                 $('#commentList').append("</div>");
             }
         },

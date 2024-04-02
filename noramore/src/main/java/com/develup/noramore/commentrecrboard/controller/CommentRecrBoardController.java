@@ -46,6 +46,7 @@ public class CommentRecrBoardController {
 	public String insertRecrCocoment(CommentRecrBoard commentRecrBoard, Model model, @RequestParam("page") String page) {
 		if(commentRecrBoardService.insertRecrComment(commentRecrBoard) > 0 &&
 				recrBoardService.upCountComment(commentRecrBoard.getBoardId()) > 0) {
+			commentRecrBoardService.upcountcocoment(commentRecrBoard);
 			model.addAttribute("message", "대댓글이 등록되었습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);

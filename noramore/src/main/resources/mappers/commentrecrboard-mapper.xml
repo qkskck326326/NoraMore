@@ -22,6 +22,14 @@
 
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
 		select * from comm_recr 
-		where board_id = #{boardId}
+		where board_id = #{boardId} 
+		and REF_COMMENT_ID = 0
 	</select>
+	
+	<update id="upcountcocoment" parameterType="CommentRecrBoard">
+		UPDATE COMM_RECR 
+		SET COUNT_SUB_COMMENT = COUNT_SUB_COMMENT + 1 
+		where BOARD_ID = #{boardId}
+		and COMMENT_ID = #{refCommentId} 
+	</update>
 </mapper>

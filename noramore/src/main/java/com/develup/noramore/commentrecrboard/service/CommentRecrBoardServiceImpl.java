@@ -22,5 +22,12 @@ public class CommentRecrBoardServiceImpl implements CommentRecrBoardService{
 	public ArrayList<CommentRecrBoard> selectRecrComment(int boardId) {
 		return commentRecrBoardDao.selectRecrComment(boardId);
 	}
+
+	@Override
+	public void upcountcocoment(CommentRecrBoard commentRecrBoard) {
+		commentRecrBoardDao.upcountcocoment(commentRecrBoard);
+	}
+
+
 	
 }//
