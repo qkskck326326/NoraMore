@@ -7,17 +7,18 @@
 	<resultMap type="Alarm" id="resultList">
 		<id property="alarmId" column="ALARM_ID"/>
 		<result property="alarmKind" column="ALARM_KIND"/>
-		<result property="boardId" column="BOARD_ID"/>
-		<result property="title" column="TITLE"/>
-		<result property="context" column="CONTEXT"/>
-		<result property="refCommentId" column="REF_COMMENT_ID"/>
 		<result property="receiverId" column="RECEIVER_ID"/>
 		<result property="senderId" column="SENDER_ID"/>
 		<result property="checkedYN" column="CHECKED_YN"/>
 		<result property="registDate" column="REGIST_DATE"/>
+
+		<result property="boardId" column="BOARD_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="context" column="CONTEXT"/>
+		<result property="refCommentId" column="REF_COMMENT_ID"/>
 	</resultMap>
 
-	<select id="selectListCount" resultType="_int">
+	<select id="selectListCount" parameterType="string" resultType="_int">
 		select count(*) from alarm where receiver_id = #{ memberID }
 	</select>
 
