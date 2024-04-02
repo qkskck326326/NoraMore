@@ -109,10 +109,11 @@ function selectrecrcomment() {
                 $('#commentList').append(contextTextarea); 
                 $('#commentList').append("<button onclick='toggleCocommentForm(this)'>대댓글 달기</button>");
                 if(${sessionScope.loginMember.memberID} = comment.memberId){
-                	$('#commentList').append("<button onclick='updatecomment(" + i + ")'>수정</button>");	
+                	$('#commentList').append("<button onclick='updatecomment(this)'>수정</button>");	
+                	$('#commentList').append("<button onclick='deletecomment(this)'>삭제</button>");	
                 }
                 $('#commentList').append(cocoment);
-                $('#commentList').append("<a style='clore: blue;' id='showcocoment'>대댓글(" + comment.countSubComment + ")개</a>");
+                $('#commentList').append("<a style='clore: blue;' href='#' data-commentId=" + comment.commentId + " id='showcocoment'>대댓글(" + comment.countSubComment + ")개</a>");
                 $('#commentList').append("</div>");
             }
         },
@@ -134,6 +135,31 @@ function updatecomment(n) {
     // 선택한 자식 요소에 HTML 추가
         nthChild.innerHTML += '<a href="#" onclick="toggleSubCommentList()">더보기</a>';
 }
+
+$(document).ready(function() {
+
+	  // 대댓글 링크를 클릭할 때
+	  $('showcocoment').click(function(event) {
+	    event.preventDefault(); // 기본 동작 방지
+	    
+	    // 클릭된 링크의 commentId 가져오기
+	    var commentId = $(this).data('commentId');
+	    
+	    // Ajax를 통해 정보를 가져오는 요청 보내기
+	    $.ajax({
+	      url: 'selectcocoment.do',
+	      method: 'POST',
+	      data: { refCommentId: commentId, boardId: ${RecrBoard.boardId} },
+	      success: function(data) {
+	 			alert("전달 완료");
+	        
+	      },
+	      error: function(xhr, status, error) {
+	        console.error('Error:', error);
+	      }
+	    });
+	  });
+	});
 
 </script>
 <style>

@@ -59,6 +59,7 @@ public class CommentRecrBoardController {
 		}
 	}//
 	
+	// 댓글 출력
 	@RequestMapping(value="selectrecrcomment.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String selectRecrComment(@RequestParam("BoardId") String Id) {
@@ -74,6 +75,26 @@ public class CommentRecrBoardController {
 			job.put("commentId", commentRecrBoard.getCommentId());
 			job.put("context", commentRecrBoard.getContext());
 			job.put("countSubComment", commentRecrBoard.getCountSubComment());
+			job.put("lastUpdateDate", lud);
+			
+			jarr.add(job);
+		}
+		
+		return jarr.toJSONString();
+	}//
+	
+	@RequestMapping(value="selectrecrcocomment.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String selectRecrCocomment(CommentRecrBoard commentRecrBoard) {
+		ArrayList<CommentRecrBoard> list = commentRecrBoardService.selectRecrCocomment(commentRecrBoard);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		JSONArray jarr = new JSONArray();
+		for(CommentRecrBoard commentRecr : list) {
+			JSONObject job = new JSONObject();
+			String lud = dateFormat.format(commentRecr.getLastUpdateDate());
+			job.put("memberId", commentRecr.getMemberId());
+			job.put("context", commentRecr.getContext());
 			job.put("lastUpdateDate", lud);
 			
 			jarr.add(job);
