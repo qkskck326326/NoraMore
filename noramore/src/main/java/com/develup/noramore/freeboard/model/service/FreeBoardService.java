@@ -49,7 +49,7 @@ public interface FreeBoardService {
 
 	FreeBoard selectBoard(int boardId);
 
-
+	
 	
 
 

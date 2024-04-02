@@ -50,6 +50,8 @@ function moveUpdatePage(){
     div {
     	margin-bottom: 20px;
     }
+    
+    
 </style>
 </head>
 <body>
@@ -82,7 +84,7 @@ function moveUpdatePage(){
 		<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
 		<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;				
 		
-
+		
 	</div>
 </form>
 
