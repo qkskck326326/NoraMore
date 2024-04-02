@@ -1,49 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%--  <c:import url = "/WEB-INF/views/common/sideSample.jsp"/> --%>
- <c:import url = "/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/sideSample.jsp" />
+<c:import url="/WEB-INF/views/common/header.jsp" />
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
-		<script type="text/javascript"
-			src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+<script type="text/javascript"
+	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <title>Insert title here</title>
+
+<c:url var="nup" value="nmoveup.do">
+	<c:param name="noticeno" value="${ notice.noticeNo }" />
+</c:url>
+
+<c:url var="nd" value="ndelete.do">
+	<c:param name="noticeno" value="${ notice.noticeNo }" />
+	<c:param name="rfile" value="${ notice.renameFilePath }" />
+</c:url>
+
+
+<!-- button 기능들  -->
+<script>
+    function updateNotice() {
+        // 수정 페이지로 이동하는 코드
+        window.location.href = 'update.do';
+    }
+    function requestDelete(){
+    	location.href = "${nd}";
+    }
+    function goToList() {
+        // 목록 페이지로 이동하는 코드
+        window.location.href = 'nlist.do';
+    }
+</script>
 </head>
 <body>
 	<br>
-	<tr>
-    <th colspan="2">
-        <button class="blueBtn" style="float: right; margin-right: 30px; 
-        margin-left: 10px" onclick="javascript:history.go(-1);">삭제</button>
-        <button class="whiteBtn" style="float: right;" 
-        onclick="javascript:history.go(-1);">목록</button>
-    </th>
-	</tr>
-    <form action="writeOk.jsp" method="post" enctype="multipart/form-data" >
+
+
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
-		<h1 align="center">${ notice.boardId } 번 공지글 상세보기</h1>
+		<h1 align="center">${ notice.boardId }번공지글상세보기</h1>
 		<div class="line"></div>
 		<br>
-		
-		<p><span style="float: left;">글 제목 : ${ notice.title }</span>
-		<span style="float: right;">작성자 : ${ notice.memberId }</span></p>	 
+		<table>
+			<tr>
+				<th colspan="2">
+					<button class="blueBtn"
+						style="float: right; margin-right: 30px; margin-left: 10px;"
+						onclick="requestDelete(); return false;">삭제</button>
+					<button class="blueBtn" style="float: right; margin-left: 10px;"
+						onclick="updateNotice();">수정</button>
+					<button class="whiteBtn" style="float: right;"
+						onclick="goToList();">목록</button>
+				</th>
+			</tr>
+		</table>
 		<br>
-		<br>
+
+
+		<p>
+			<span style="float: left;">글 제목 : ${ notice.title }</span> <span
+				style="float: right;">작성자 : ${ notice.memberId }</span>
+		</p>
+		<br> <br>
 		<p>작성일</p>
-		<h3>${ notice.registDt }</h3>		
+		<h3>${ notice.registDt }</h3>
 		<br>
 		<p>내용</p>
 		<textarea rows="30" cols="70" name="sub" readonly>${ notice.substance }</textarea>
-		
+
 		<p>첨부파일</p>
 		<input type="file" id="file" name="file">
-			
-		
+
+
 		<!-- <p>장소</p>
 		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
 		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
@@ -51,10 +85,10 @@
 		<button type="button" onclick="checkInput()">글쓰기</button>
 		<input type="submit" class="none"> -->
 	</section>
-</form>
+	</form>
 
 
-<!-- <script>
+	<!-- <script>
 	$("#where").on("click",function(e){
 		new daum.Postcode({
 		    oncomplete: function(data) {
