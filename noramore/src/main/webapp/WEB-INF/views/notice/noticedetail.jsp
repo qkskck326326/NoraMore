@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:import url="/WEB-INF/views/common/sideSample.jsp" />
 <c:import url="/WEB-INF/views/common/header.jsp" />
 
@@ -13,29 +15,33 @@
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <title>Insert title here</title>
 
-<c:url var="nup" value="nmoveup.do">
-	<c:param name="noticeno" value="${ notice.noticeNo }" />
-</c:url>
 
 <c:url var="nd" value="ndelete.do">
-	<c:param name="noticeno" value="${ notice.noticeNo }" />
+	<c:param name="boardId" value="${ notice.boardId }" />
 	<c:param name="rfile" value="${ notice.renameFilePath }" />
 </c:url>
-
+<c:url var="nup" value="nmoveup.do">
+	<c:param name="boardId" value="${ notice.boardId }" />
+</c:url>
 
 <!-- button 기능들  -->
 <script>
-    function updateNotice() {
-        // 수정 페이지로 이동하는 코드
-        window.location.href = 'update.do';
-    }
-    function requestDelete(){
-    	location.href = "${nd}";
-    }
-    function goToList() {
-        // 목록 페이지로 이동하는 코드
-        window.location.href = 'nlist.do';
-    }
+	function moveUpdatePage() {
+		// 수정 페이지로 이동하는 코드
+		/* var form = document.createElement('form');
+		form.method = 'POST';
+		form.action = '${nu}';
+		document.body.appendChild(form);
+		form.submit(); */
+		location.href = "${nup}";
+	}
+	function requestDelete() {
+		location.href = "${nd}";
+	}
+	function goToList() {
+		// 목록 페이지로 이동하는 코드
+		window.location.href = 'nlist.do';
+	}
 </script>
 </head>
 <body>
@@ -54,7 +60,7 @@
 						style="float: right; margin-right: 30px; margin-left: 10px;"
 						onclick="requestDelete(); return false;">삭제</button>
 					<button class="blueBtn" style="float: right; margin-left: 10px;"
-						onclick="updateNotice();">수정</button>
+						onclick="moveUpdatePage(); return false;">수정</button>
 					<button class="whiteBtn" style="float: right;"
 						onclick="goToList();">목록</button>
 				</th>
@@ -65,7 +71,7 @@
 
 		<p>
 			<span style="float: left;">글 제목 : ${ notice.title }</span> <span
-				style="float: right;">작성자 : ${ notice.memberId }</span>
+				style="float: right;">작성자 : ${ notice.memberID }</span>
 		</p>
 		<br> <br>
 		<p>작성일</p>
@@ -75,7 +81,13 @@
 		<textarea rows="30" cols="70" name="sub" readonly>${ notice.substance }</textarea>
 
 		<p>첨부파일</p>
-		<input type="file" id="file" name="file">
+		<td><c:if test="${ !empty notice.originalFilePath }">
+				<c:url var="nfd" value="nfdown.do">
+					<c:param name="ofile" value="${notice.originalFilePath }" />
+					<c:param name="rfile" value="${notice.renameFilePath }" />
+				</c:url>
+				<a href="${ nfd }">${notice.originalFilePath }</a>
+			</c:if> <c:if test="${ empty notice.originalFilePath }">&nbsp;	</c:if></td>
 
 
 		<!-- <p>장소</p>

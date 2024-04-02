@@ -35,12 +35,54 @@ public class NoticeBoardController {
 		return "notice/noticewrite";
 	}//
 
+	// 공지글 수정페이지로 이동 처리용
+	@RequestMapping("nmoveup.do")
+	public ModelAndView moveUpdatePage(@RequestParam("boardId") int boardId, ModelAndView mv) {
+		// 수정페이지에 출력할 공지글 조회해 옴
+		Notice notice = noticeBoardService.selectOne(boardId);
+
+		if (notice != null) {
+			mv.addObject("notice", notice);
+			mv.setViewName("notice/noticeupdate");
+		} else {
+			mv.addObject("message", boardId + "번 공지글 수정페이지로 이동 실패!");
+			mv.setViewName("common/error");
+		}
+
+		return mv;
+	}
+
 	@RequestMapping("notice.do")
 	public String selectNoticeBoard() {
 
 		return "notice/notice";
 	}
 
+	//첨부파일 다운로드 요청 처리용
+		@RequestMapping("nfdown.do")
+		public ModelAndView fileDownMethod(
+				ModelAndView mv, HttpServletRequest request, 
+				@RequestParam("ofile") String originalFileName,
+				@RequestParam("rfile") String renameFileName) {
+			//파일 다운 메소드는 리턴 타입이 ModelAndView 로 정해져 있음
+			
+			//공지사항 첨부파일 저장 폴더 경로 지정
+			String savePath = request.getSession().getServletContext().getRealPath(
+					"resources/notice_upfiles");
+			
+			//저장 폴더에서 읽을 파일에 대한 파일 객체 생성함
+			File renameFile = new File(savePath + "\\" + renameFileName);
+			//파일 다운시 브라우저 내보낼 원래 파일이름에 대한 파일 객체 생성함
+			File originFile = new File(originalFileName);
+			
+			//파일 다운로드용 뷰로 전달할 정보 저장 처리
+			mv.setViewName("filedown");   //등록된 파일다운로드용 뷰클래스의 id명
+			mv.addObject("renameFile", renameFile);
+			mv.addObject("originFile", originFile);
+			
+			return mv;
+		}
+	
 	@RequestMapping("nlist.do")
 	public String noticeListMethod(@RequestParam(name = "page", required = false) String page,
 			@RequestParam(name = "limit", required = false) String slimit, Model model) {
@@ -78,11 +120,11 @@ public class NoticeBoardController {
 	}
 
 	@RequestMapping("noticedetail.do")
-	public ModelAndView noticeDetailMethod(@RequestParam("no") int noticeno, ModelAndView mv, HttpSession session) {
+	public ModelAndView noticeDetailMethod(@RequestParam("no") int boarId, ModelAndView mv, HttpSession session) {
 
-		Notice notice = noticeBoardService.selectOne(noticeno);
+		Notice notice = noticeBoardService.selectOne(boarId);
 
-		noticeBoardService.updateAddReadCount(noticeno);
+		noticeBoardService.updateAddReadCount(boarId);
 
 		if (notice != null) {
 			mv.addObject("notice", notice);
@@ -100,8 +142,8 @@ public class NoticeBoardController {
 			@RequestParam(name = "ofile", required = false) MultipartFile mfile) {
 		logger.info("ninsert.do : " + notice);
 
-		if (notice.getMemberId() == null) {
-			notice.setMemberId("guest");
+		if (notice.getmemberID() == null) {
+			notice.setmemberID("guest");
 		}
 
 		// 공지사항 첨부파일 저장 폴더 경로 지정
@@ -152,27 +194,85 @@ public class NoticeBoardController {
 			return "common/error";
 		}
 	}
-	
-	//공지글 삭제 요청 처리용
+
+	// 공지글 삭제 요청 처리용
 	@RequestMapping("ndelete.do")
-	public String noticeDeleteMethod(
-			@RequestParam("noticeno") int noticeno,
-			@RequestParam(name="rfile", required=false) String renameFileName,
-			HttpServletRequest request, Model model) {
-		
-		if(noticeBoardService.deleteNotice(noticeno) > 0) {
-			//공지글 삭제 성공시 저장 폴더에 있는 첨부파일도 삭제함
-			if(renameFileName != null) {
-				//공지사항 첨부파일 저장 폴더 경로 지정
-				String savePath = request.getSession().getServletContext().getRealPath(
-						"resources/notice_upfiles");
-				//저장 폴더에서 파일 삭제함
+	public String noticeDeleteMethod(@RequestParam("boardId") int boardId,
+			@RequestParam(name = "rfile", required = false) String renameFileName, HttpServletRequest request,
+			Model model) {
+
+		if (noticeBoardService.deleteNotice(boardId) > 0) {
+			// 공지글 삭제 성공시 저장 폴더에 있는 첨부파일도 삭제함
+			if (renameFileName != null) {
+				// 공지사항 첨부파일 저장 폴더 경로 지정
+				String savePath = request.getSession().getServletContext().getRealPath("resources/notice_upfiles");
+				// 저장 폴더에서 파일 삭제함
 				new File(savePath + "\\" + renameFileName).delete();
 			}
-			
+
 			return "redirect:nlist.do";
-		}else {
-			model.addAttribute("message", noticeno + "번 공지 삭제 실패!");
+		} else {
+			model.addAttribute("message", boardId + "번 공지 삭제 실패!");
+			return "common/error";
+		}
+	}
+
+	@RequestMapping(value = "nupdate.do", method = RequestMethod.POST)
+	public String noticeUpdateMethod(Notice notice, Model model, HttpServletRequest request,
+			@RequestParam(name = "deleteFlag", required = false) String delFlag,
+			@RequestParam(name = "upfile", required = false) MultipartFile mfile) {
+		// notice 객체가 null이면 처리하지 않고 진행
+		if (notice == null) {
+			model.addAttribute("message", "공지 정보를 가져올 수 없습니다.");
+			return "common/error";
+		}
+
+		// 공지사항 첨부파일 저장 폴더 경로 지정
+		String savePath = request.getSession().getServletContext().getRealPath("resources/notice_upfiles");
+
+		// 첨부파일이 변경된 경우의 처리 --------------------------------------------------------
+		// 원래 첨부파일이 있는데 '파일삭제'를 선택한 경우
+		// 또는 원래 첨부파일이 있는데 새로운 첨부파일이 업로드된 경우
+		if (notice.getOriginalFilePath() != null && (delFlag != null && delFlag.equals("yes"))
+				|| mfile != null && !mfile.isEmpty()) {
+			// 저장 폴더에서 파일 삭제함
+			new File(savePath + "\\" + notice.getRenameFilePath()).delete();
+			// notice 안의 파일정보도 제거함
+			notice.setOriginalFilePath(null);
+			notice.setRenameFilePath(null);
+		}
+
+		// 새로운 첨부파일이 있을 때 (공지글 첨부파일은 1개임)
+		if (mfile != null && !mfile.isEmpty()) {
+			// 전송온 파일이름 추출함
+			String fileName = mfile.getOriginalFilename();
+			String renameFileName = null;
+
+			// 저장폴더에는 변경된 이름을 저장 처리함
+			// 파일 이름바꾸기함 : 년월일시분초.확장자
+			if (fileName != null && fileName.length() > 0) {
+				// 바꿀 파일명에 대한 문자열 만들기
+				renameFileName = FileNameChange.change(fileName, "yyyyMMddHHmmss");
+				try {
+					// 저장 폴더에 파일명 바꾸기 처리
+					mfile.transferTo(new File(savePath + "\\" + renameFileName));
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					model.addAttribute("message", "첨부파일 저장 실패!");
+					return "common/error";
+				}
+			} // 파일명 바꾸기
+				// notice 객체에 첨부파일 정보 저장 처리
+			notice.setOriginalFilePath(fileName);
+			notice.setRenameFilePath(renameFileName);
+		} // 첨부파일 있을 때
+
+		if (noticeBoardService.updateNotice(notice) > 0) {
+			// 공지글 수정 성공시 목록 보기 페이지로 이동
+			return "redirect:nlist.do";
+		} else {
+			model.addAttribute("message", notice.getBoardId() + "번 공지 수정 실패!");
 			return "common/error";
 		}
 	}
