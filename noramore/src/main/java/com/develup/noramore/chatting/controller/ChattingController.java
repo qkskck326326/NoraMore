@@ -43,7 +43,7 @@ public class ChattingController {
     @ResponseBody
     public List<Member> selectTarget(String query, @SessionAttribute("loginMember") Member loginMember){
     
-       Map map = new HashMap<>();
+       Map<String, Object>map = new HashMap<String, Object>();
        
        map.put("memberNo", loginMember.getMemberID());
        map.put("query", query);
