@@ -5,6 +5,8 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +18,14 @@
 </c:url>
 -->
 
-<c:url var="fbdel" value="fbdelete.do">
-	<c:param name="boardNum" value="${ FreeBoard.boardId }" />
-	<c:param name="boardRenameFileName" value="${ FreeBoard.freeRenameFileName }" />
+<c:url var="fbdel" value="freeboarddelete.do">
+	<c:param name="boardId" value="${ FreeBoard.boardId }"/>
+	<c:param name="freeRenameFileName" value="${ FreeBoard.freeRenameFileName }"/>
 </c:url>
 
 <c:url var="fbup" value="fbupview.do">
-	<c:param name="boardId" value="${ FreeBoard.boardId }" />
-	<c:param name="page" value="${ currentPage }" />
+	<c:param name="boardId" value="${ FreeBoard.boardId }"/>
+	<c:param name="page" value="${ currentPage }"/>
 </c:url>
 
 <script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>

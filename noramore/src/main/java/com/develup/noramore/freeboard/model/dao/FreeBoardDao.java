@@ -72,6 +72,18 @@ public class FreeBoardDao {
 	}
 
 
+	public int deleteBoard(FreeBoard freeBoard) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.delete("freeboard.deleteBoard", freeBoard);
+	}
+
+
+	public int updateOrigin(FreeBoard freeBoard) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("freeboard.updateOrigin", freeBoard);
+	}
+
+
 	
 	
 	
