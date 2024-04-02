@@ -1,8 +1,12 @@
 package com.develup.noramore.member.controller;
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,15 +14,17 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
@@ -32,7 +38,7 @@ public class MemberController {
 	
 
 	@Autowired
-	private MemberService memberService; 
+	private MemberService memberService;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder; // spring-security.xml에서의 id를 가져다 변수 명으로 사용
@@ -65,39 +71,26 @@ public class MemberController {
 	
 	
 	
-	// 로그인 처리용 메소드 : command 객체 사용
-	// 서버로 전송 온 parameter 값을 저장하는 객체를 command 객체라고 함
-	// (loginPage.jsp) input 태그의 name 속성의 이름과 vo 객체의 필드명이 같으면 자동으로 command 객체가 값을 받음
-	@RequestMapping(value = "login.do", method = RequestMethod.POST) // post방식으로 보냄
-	public String loginMethod(Member member, HttpSession session, // 자동으로 입력값이 저장됨 //코드가 간략화됨
+	//로그인 처리용
+	@RequestMapping(value = "login.do", method = RequestMethod.POST) 
+	public String loginMethod(Member member, HttpSession session, 
 			SessionStatus status, Model model) {   // HttpSession : 세션 자동생성, SessionStatus : 세션 상태 파악, Model : 모델자동 생성
 		logger.info("login.do : " + member.toString());
 
-//		if(member.getMemberAuth() == 0) {
-//			model.addAttribute("Auth", member.getMemberAuth());
-//			return "/member/moveEnrollPage";
-//		}
 		
-		
-		// 서비스 메소드로 보내고 결과 받기
-		// Member loginMember = memberService.selectLogin(member); //command 객체 사용
 
-		// 암호화 처리된 패스워드 일치 조회는 select 해 온 값으로 비교함
-		// 전달온 회원 아이디로 먼저 회원정보를 조회해 옴
+
+
 		Member loginMember = memberService.selectMember(member.getMemberID());
 		
-		
-		// 조회해 온 회원 정보가 있고, 회원의 암호화된 패스워드와 뷰에서 전달받은 패스워드를 비교함
-		// matches(전달받은 암호 글자, 암호화된 패스워드)
+
 		if (loginMember != null && this.bcryptPasswordEncoder.matches(member.getMemberPWD(), loginMember.getMemberPWD())) {
 			session.setAttribute("loginMember", loginMember); // 세션이름에 loginMember을 저장함
 			status.setComplete(); // 로그인 성공 요청결과로 HttpStatus code 200 보냄
 			return "common/home";
 		} else {
 			model.addAttribute("message", "로그인 실패! 아이디나 암호를 다시 확인하세요. 또는 로그인 제한된 회원입니다. 관리자에게 문의하세요."); // addAttribute(속성명, 속성값)
-			// message : error페이지에서 message이름으로 모델객체를 보내면 값을 읽음
-			// 컨트롤러에서 뷰로 데이터를 전달하는 데 사용됨. 주로 뷰에 표시할 데이터를 저장하고 전달하는 데에 사용
-			/* model.addAllAttributes(null) */
+		
 			return "common/moveLoginPage";
 		}
 	}
@@ -105,8 +98,7 @@ public class MemberController {
 	
 	
 	//로그아웃 처리용 메소드
-		//요청에 대한 전송방식이 get 이면, method 속성 생략해도 됨, 
-		//method 속성을 생략하면 value 속성도 표기를 생략해도 됨
+	
 		@RequestMapping("logout.do")
 		public String logoutMethod(HttpServletRequest request, Model model) {
 			HttpSession session = request.getSession(false);
@@ -122,18 +114,18 @@ public class MemberController {
 		
 		
 		
+		
+		
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
 		public String memberInsertMethod(Member member, 
-										RedirectAttributes rttr,
-										@RequestParam("email2") String email2,
+				/* @RequestParam("email2") String email2, */
 										@RequestParam("road") String road,
 										@RequestParam("street") String street,
 										@RequestParam("detail") String detail,
 										@RequestParam("ref") String ref,
-										Model model) {
+										Model model) throws Exception {
 			logger.info("enroll.do : " + member);
-			
 
 			//패스워드 암호화 처리
 			member.setMemberPWD(bcryptPasswordEncoder.encode(member.getMemberPWD()));
@@ -141,22 +133,18 @@ public class MemberController {
 			logger.info("pwd length : " + member.getMemberPWD().length());
 			
 			
-			if (member.getEmail() != null && !email2.equals("이메일 선택") ) {
-			String emailConnect = member.getEmail() + "@" + email2;
-			member.setEmail(emailConnect);
-			}
+//			if (member.getEmail() != null && !email2.equals("이메일 선택") ) {
+//			String emailConnect = member.getEmail() + "@" + email2;
+//			member.setEmail(emailConnect); 
+//			}
 			//주소 합치기
 			if(road != null && street != null && detail != null) {
 				String addressAdd = road + street + detail + ref;
 				member.setAddress(addressAdd);
 			}
-
-			if(memberService.insertMember(member) > 0) {
-//				rttr.addFlashAttribute("msg", "가입이 완료되었습니다");
-//				rttr.addAttribute("memberEmail", member.getEmail());
-//				rttr.addAttribute("memberId", member.getMemberID());
-//				return  "redirect:registerAuth.do";
-				return "member/moveLoginPage";
+			
+			if(memberService.insertMember(member) > 0 ) {
+				 return "member/moveLoginPage"; 
 			}else {
 				model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
 				return "member/moveEnrollPage";
@@ -170,9 +158,6 @@ public class MemberController {
 		@RequestMapping(value="idchk.do", method=RequestMethod.POST)
 		public void dupCheckId(@RequestParam("memberID") String memberid, 
 								HttpServletResponse response) throws IOException {
-			//메소드 매개변수 영역에서 사용하는 어노테이션 중에
-			//@RequestParam("전송온이름")  자료형 값저장변수명
-			//자료형 값저장변수명 = request.getParameter("전송온이름");  코드와 같음
 			
 			int idCount = memberService.selectCheckId(memberid);
 			
@@ -191,28 +176,47 @@ public class MemberController {
 			out.close();
 		}
 		
-	
 		
-//		@RequestMapping(value="registerEmail", method=RequestMethod.GET)
-//		public String emailConfirm(String memberEmail,Model model)throws Exception{
-//			memberService.memberAuth(memberEmail);
-//			model.addAttribute("memberEmail", memberEmail);
-//			
-//			return "member/registerEmail";
-//		}
-//		
-//		
-//		//인증버튼을 이메일로 보낸후에 실행되고 페이지를 띄워줌
-//		@RequestMapping(value="registerAuth.do",method= RequestMethod.GET)
-//		public String loginView(HttpServletRequest request,Model model,@RequestParam("Email")String email,@RequestParam("memberID")String memberid) throws Exception{
-//			logger.info("moveLoginPage");
-//			
-//			model.addAttribute("Email", email);
-//			model.addAttribute("memberID", memberid);
-//			
-//			
-//			return "member/registerAuth";
-//		}
+		@Autowired
+		JavaMailSenderImpl mailSender;
+
+		//이메일 인증
+		@PostMapping("emailAuth.do")
+		@ResponseBody
+		public int emailAuth(String email) {
+			
+			logger.info("전달 받은 이메일 주소 : " + email);
+			
+			//난수의 범위 111111 ~ 999999 (6자리 난수)
+			Random random = new Random();
+			int checkNum = random.nextInt(888888)+111111;
+			
+			//이메일 보낼 양식
+			String setFrom = "noramore12@naver.com"; //2단계 인증 x, 메일 설정에서 POP/IMAP 사용 설정에서 POP/SMTP 사용함으로 설정o
+			String toMail = email;
+			String title = "회원가입 인증 이메일 입니다.";
+			String content = "인증 코드는 " + checkNum + " 입니다." +
+							 "<br>" +
+							 "해당 인증 코드를 인증 코드 확인란에 기입하여 주세요.";
+			
+			System.out.println("메일 내용 : " + content + "보낸에메일 : " + setFrom);
+			try {
+				MimeMessage message = mailSender.createMimeMessage(); //Spring에서 제공하는 mail API
+	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	            helper.setFrom(setFrom);
+	            helper.setTo(toMail);
+	            helper.setSubject(title);
+	            helper.setText(content, true);
+	            mailSender.send(message);
+	            logger.info("랜덤숫자!!! : " + checkNum);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			logger.info("랜덤숫자 : " + checkNum);
+			return checkNum;
+		}
 }
 
 

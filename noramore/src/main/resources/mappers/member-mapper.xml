@@ -18,7 +18,10 @@
 		<result property="actLimit" column="ACT_LIMIT" />
 		<result property="registDate" column="REGIST_DATE" />
 		<result property="modifiedDate" column="MODIFIED_DATE" />
+
 	</resultMap>
+	
+	
 	
 	<resultMap id="resultList" type="Member">
 		<result property="memberID" column="MEMBER_ID" />
@@ -35,8 +38,14 @@
 		<result property="actLimit" column="ACT_LIMIT" />
 		<result property="registDate" column="REGIST_DATE" />
 		<result property="modifiedDate" column="MODIFIED_DATE" />
-		
+
 	</resultMap>
+	
+
+	
+	
+	
+	
 
 	<!-- 로그인용 쿼리 -->
 	<select id="selectMember" parameterType="string" resultMap="resultMember">
@@ -60,17 +69,6 @@
 		select count(*) from member where Email = #{ email }
 	
 	</select>
-	
-	
-	<insert id="createAuthKey">
-		insert into MP_MEMBER_AUTH values(#{memberEmail}, #{authKey})
-	</insert>
-
-	<update id="memberAuth">
-		<![CDATA[update MP_MEMBER set MEMBER_AUTH = 1 where (select count(*) from MP_MEMBER_AUTH 
-		where MEMBER_EMAIL = #{memberEmail} AND AUTHKEY = #{authKey}) > 0]]>
-	</update>
-	
 	
 
 </mapper>
