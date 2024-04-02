@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입페이지</title>
+<script src="./06-timer.js" defer></script>
+    <link rel="stylesheet" href="./06-timer.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/enrollPage.css" />
 
 
@@ -88,9 +90,6 @@ function validate(){
 	var pwdValue2 = $('#memberpwd2').val();
 	var nameValue = $('#membername').val();
 	var birthValue = $('#birth').val();
-	var sIDValue = $('#socialid').val();
-	var emailValue = $('#emailBox').val();
-	var email2Value = $('#emailSelect').val();
 	
 	
 	
@@ -131,6 +130,7 @@ function validate(){
 	
 	
 	
+	
 	//아이디의 값 형식이 요구한 대로 작성되었는지 검사
 	//암호의 값 형식이 요구한 대로 작성되었는지 검사
 	//정규표현식(Regular Expression) 사용함	
@@ -142,7 +142,6 @@ function validate(){
 
 function dupIDCheck(){
 	//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함
-	
 	$.ajax({  
 		url: "idchk.do",
 		type: "post",
@@ -152,6 +151,7 @@ function dupIDCheck(){
 			if(data == "ok"){   
 				alert("사용 가능한 아이디입니다.");
 				 $('#memberpwd').focus();
+				$("registerBtn").attr("disabled", false);
 				$('#memberid').attr("readonly", true); 
 			}else{
 				alert("이미 사용중인 아이디입니다.");
@@ -163,6 +163,7 @@ function dupIDCheck(){
 		}
 	});
 	return false;
+	
 }
  
 
@@ -187,27 +188,11 @@ function dupIDCheck(){
 
 
 
-
-
-
-
-
-
 </script>
-
-
-
-
-
 </head>
 <body>
 
-
-
-
-
-
-<div id="entire">
+<div id="entire" class="container">
 <h1 align="center">회원가입</h1>
 <br>
 <!-- 사진파일 첨부시 enctype="multipart/form-data" 속성 추가함 -->
@@ -300,12 +285,22 @@ function dupIDCheck(){
      </div> -->
      
      <div class="form-group">
-  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email" autofocus>
-    	<div style="display: block; text-align: right;">
-      		<input type="button" value="인증하기" class="btn btn-primary" id="emailAuth">
-    	</div>
-  		<input class="form-control" placeholder="인증 코드 6자리를 입력해주세요." maxlength="6"  name="authCode" id="authCode" type="text" autofocus><!-- disabled="disabled" -->
-  		<span id="emailAuthWarn"></span>
+	     <div>
+	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email">
+	    	<div style="display: block; text-align: right;">
+	      		<input type="button" value="인증하기"  class="btn btn-primary" id="emailAuth">
+	    	</div>
+	    	
+	  		<input class="form-control" placeholder="인증 코드 6자리를 입력해주세요." maxlength="6" disabled="disabled" name="authCode" id="authCode" type="text" autofocus>
+	  		<<!-- span class="target__time">
+	            <span id="remaining__min">3</span> :
+	            <span id="remaining__sec">00</span>
+	          </span>-->
+	          <span id="timer"> </span>
+	          <button class="complete__target" id="complete" disabled="disabled" >인증완료</button>
+	     </div> 
+	      
+  		<div id="emailAuthWarn"></div>
 	</div>
 
 
@@ -346,7 +341,7 @@ function dupIDCheck(){
 
 
 <br><br>
-<input type="submit"  value="가입하기" class="btn btn-lg btn-success btn-block" id="registerBtn"> &nbsp;
+<input type="submit"  value="가입하기"   class="btn btn-lg btn-success btn-block" id="registerBtn"> &nbsp;
 <!-- id="submit_button" -->
 <input type="reset" value="작성취소"> &nbsp;
 <a href="home.do">시작페이지로 이동</a>
@@ -354,8 +349,13 @@ function dupIDCheck(){
 
 </form>
 
- <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
 <script type="text/javascript">
+
+
+var codeNum = null;
+
+
 //인증하기 버튼을 눌렀을 때 동작
 $("#emailAuth").click(function() {
 	const email = $("#email").val(); //사용자가 입력한 이메일 값 얻어오기
@@ -370,44 +370,123 @@ $("#emailAuth").click(function() {
     	dataType : 'json',
     	success : function(result) {
     		console.log("result : " + result);
-    		$("#authCode").attr("disabled", false); 
-    		 $("#authCode").prop("disabled", false);
-    		code = result;
-    		alert("인증 코드가 입력하신 이메일로 전송 되었습니다.");
+    		
+    		
+	    		var strCode = JSON.stringify(result);
+	    		
+	    		var json = JSON.parse(strCode);
+	    		
+	    		codeNum = json.code;
+	    		
+	    		$("#authCode").attr("disabled", false); 
+	    		
+	    		alert("인증 코드가 입력하신 이메일로 전송 되었습니다.");
+	    		
+    		}
+    		
    		}
     }); //End Ajax
 });
-</script>
 
 
-
-
-	
-</div>
-
-
-<script type="text/javascript">
 //인증 코드 비교
-$("#authCode").on("focusout", function() {
-	const inputCode = $("#authCode").val(); //인증번호 입력 칸에 작성한 내용 가져오기
+$("#authCode").on("keyup", function() {
+	
+	var inputCode = $("#authCode").val(); //인증번호 입력 칸에 작성한 내용 가져오기
 	
 	console.log("입력코드 : " + inputCode);
-	console.log("인증코드 : " + code);
+	console.log("인증코드 : " + codeNum);
 		
-	if(Number(inputCode) === code){
+	
+	
+	if(inputCode == codeNum){
     	$("#emailAuthWarn").html('인증번호가 일치합니다.');
     	$("#emailAuthWarn").css('color', 'green');
-		$('#emailAuth').attr('disabled', true);
-		$('#email').attr('readonly', true);
-		$("#registerBtn").attr("disabled", false);
+		$('#emailAuth').attr('disabled', true);  //인증하기 버튼 비활성화
+		$('#email').attr('readonly', true);  //이메일 읽기전용으로 변환
+		$("#complete").attr("disabled", false); 
+		
+
 	}else{
     	$("#emailAuthWarn").html('인증번호가 불일치 합니다. 다시 확인해주세요!');
     	$("#emailAuthWarn").css('color', 'red');
     	$("#registerBtn").attr("disabled", true);
+    	$("#complete").attr("disabled", true); 
+    
 	}
+	
+	return false;
 });
-</script>
 
+//인증완료 클릭 시 
+$("#complete").on("click", function() {
+	var inputCode = $("#authCode").val();
+	
+	if(inputCode == codeNum){
+		$("#emailAuthWarn").html('인증이 완료되었습니다.');
+		$("#emailAuthWarn").css('color', 'green');
+		$("#registerBtn").attr("disabled", false); 
+		$("#complete").attr("disabled", true); 
+
+	}else{
+		$("#emailAuthWarn").html('인증번호가 불일치 합니다. 다시 확인해주세요!');
+		$("#emailAuthWarn").css('color', 'red');
+		$("#emailAuth").attr("disabled", false); 
+		
+	
+	}
+	
+	return false;
+});
+
+/*  
+$("#email").on("keyup", function() {
+	var inputEmail = $("#email").val();
+	if(inputEmail != null ){
+
+		$("#complete").attr("disabled", false); 
+	}
+}); */ 
+
+//--이메일 인증 타이머--------------------------------------------------------------------------
+
+
+let timerInterval; // 타이머 인터벌을 저장할 변수
+
+// 버튼 클릭 이벤트에 함수 바인딩
+document.getElementById("emailAuth").addEventListener("click", function() {
+    // 이전에 생성된 타이머 제거
+    clearInterval(timerInterval);
+    
+    // 3분 타이머 시작
+    startTimer();
+});
+
+// 3분 타이머 시작하는 함수
+function startTimer() {
+    let duration = 180; // 3분을 초로 설정
+    updateTimer(duration); // 타이머 업데이트
+    
+    // 1초마다 타이머 감소
+    timerInterval = setInterval(function() {
+        duration--;
+        updateTimer(duration); // 남은 시간 업데이트
+        
+        if (duration <= 0) {
+            clearInterval(timerInterval); // 타이머 정지
+            document.getElementById("timer").innerHTML = "시간이 만료되었습니다."; // 만료 메시지 표시
+        }
+    }, 1000);
+}
+
+// 타이머 표시 업데이트 함수
+function updateTimer(duration) {
+    const minutes = Math.floor(duration / 60); // 분 계산
+    const seconds = duration % 60; // 초 계산
+    document.getElementById("timer").innerHTML = minutes + "분 " + seconds + "초 남음"; // 타이머 업데이트
+}
+ </script>
+ </div>
 
 
 
