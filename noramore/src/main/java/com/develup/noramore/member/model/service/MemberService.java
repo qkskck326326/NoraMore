@@ -14,11 +14,8 @@ public interface MemberService {
 
 	int selectCheckEmail(String emailConnect);
 
-	Member checkLoginBefore(String value) throws Exception;
-	
-	void memberAuth(String memberEmail) throws Exception;
 
-	void register(Member member) throws Exception;
+	
 
 
 }

@@ -31,24 +31,5 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.selectCheckEmail", emailConnect);
 	}
 	
-
-	public void createAuthKey(String email,String authKey) throws Exception{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("email", email);
-		map.put("authKey", authKey);
-		
-		sqlSessionTemplate.selectOne("memberMapper.createAuthKey", map);
-		
-	}
-	
-
-	public void memberAuth(String memberEmail) throws Exception{
-		sqlSessionTemplate.update("memberMapper.memberAuth", memberEmail);
-	}
-
-	public void register(Member member) {
-		sqlSessionTemplate.insert("memberMapper.insertMember", member);
-		
-	}
 }
 

@@ -143,17 +143,16 @@ function validate(){
 function dupIDCheck(){
 	//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함
 	
-	$.ajax({  //서버에서 값이 돌아와도 새로고침이 되지 않고 현재페이지는 바뀌지 않고 응답만 받음. 비동기 통신.
+	$.ajax({  
 		url: "idchk.do",
 		type: "post",
 		data: { memberID: $('#memberid').val() },
-		success: function(data){  //온 결과 값.기본이 text임 
+		success: function(data){ 
 			console.log("success : " + data);
 			if(data == "ok"){   
 				alert("사용 가능한 아이디입니다.");
-				$('#memberpwd').focus();
-				$('#submit_button').attr("disabled", false);
-				$('#memberid').attr("readonly", true);
+				 $('#memberpwd').focus();
+				$('#memberid').attr("readonly", true); 
 			}else{
 				alert("이미 사용중인 아이디입니다.");
 				$('#memberid').select();
@@ -167,8 +166,8 @@ function dupIDCheck(){
 }
  
 
-
-/* 	window.onload = function(){
+/* 
+ 	window.onload = function(){
 	//선택한 사진파일 이미지 미리보기 처리
 	var photofile = document.getElementById("photofile");
 	photofile.addEventListener('change', function(event){		
@@ -183,134 +182,31 @@ function dupIDCheck(){
           myphoto.setAttribute('data-file', file.name);
         };
         reader.readAsDataURL(file);    
-	});
+	}); 
 } */
+
+
+
+
+
+
+
+
+
 </script>
 
-
-<!-- 
-<script>
-    
-   //회원가입 유효성검사
- // 자원을 화면에 로드하게 되면 수행할 동작(==function)
- window.onload = function() {
-       var join = document.limit; //form데이터를 모두 join변수에 저장
-       
-       // 유효성검사할 부분을 class로 부여했기에 input class 태그를 모두 input에 저장 가져옴
-       // 이때 input 한 태그당 배열 인덱스로 받는다.
-       var input = document.querySelectorAll('.input');
-
-       // 오류 문구 //errorId : span의 id들(각 요소마다 나타낼 오류를 표시하기 위함)
-       // error : class list의 하위 span을 모두 불러냄(일괄 처리를 위함 - 반복문)
-       var errorId = [ "idError", "pwError", "pwCheckError", "nameError", "phoneNumError", "emailError" ];
-       var error = document.querySelectorAll('.list > span');
-    
-       
-       // 오류문구 초기화 메서드
-       // 오류 표시 후, 사용자가 올바르게 수정을 하면 텍스트가 사라지는 모습을 구현
-       function innerReset(error){
-          for (var i = 0; i < error.length; i++) {
-             error[i].innerHTML = "";
-          }
-       }
-
-       // 초기화 메서드 호출
-       innerReset(error);
-
-       // [ ID 입력문자 유효성검사 ] 
-      limit.memberid.onkeydown = function(){
-          innerReset(error); // 초기화 메서드 호출
-          var idLimit = /^[a-zA-Z0-9-_]{5,20}$/; //정규식 5~20자 (a~z, A~Z, 0~9, -, _만 입력가능)
-          if (!idLimit.test(input[0].value)) { //입력값과 정규식 범위와 같지 않다면
-             // id의 오류 문구삽입
-             document.getElementById(errorId[0]).innerHTML = "5~20자의 영문 소대문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.";
-
-          }
-       }
-       // [ PW 입력문자 유효성검사 ]
-       limit.memberPWD.onkeydown = function(){
-          innerReset(error); // 초기화 메서드 호출
-          var pwLimit = /^[a-zA-Z0-9~!@#$%^&*()_-]{10,20}$/; //정규식(a~z, A~Z, 0~9, ~!@#$%^&*()_- 만 입력가능)
-          if (!pwLimit.test(input[1].value)) { //입력값과 정규식 범위와 같지 않다면
-             // pw의 오류 문구삽입
-             document.getElementById(errorId[1]).innerHTML = " 10~20자의 영문 소대문자, 숫자와 특수기호 '~!@#$%^&*()_-'만 사용 가능합니다.";
-          }   
-       }
-       // [ PW 재확인 입력문자 초기화 ]
-       //비밀번호 동일여부는 submit 버튼 클릭시 검사해줄 예정
-       limit.memberPWD2.onkeydown = function(){
-          // pw의 오류 문구삽입
-          innerReset(error);// 오류문구 초기화   
-       }
-       
-          
-          // [ 이메일 입력 유효성검사 ] 
-          join.email.onkeydown = function(){ //입력값과 정규식 범위와 같지 않다면
-             innerReset(error); // 초기화 메서드 호출
-             var emailLimit = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // 정규식 0~9, a~z, A~Z, -, _, .내에서만 입력가능
-                if (!emailLimit.test(input[5].value)) {  //입력값과 정규식 범위와 같지 않다면
-                   // 이메일의 오류 문구삽입
-                   document.getElementById(errorId[5]).innerHTML = " 올바른 형식이 아닙니다. 영문,숫자, (-)(_)(.) 입력만 가능합니다.";
-                }
-             }
-
-          
-          
-          
-         
-       //**************************************************************************
-   //submit 실행시 수행할 동작
-     limit.onsubmit = function() { //limit에서 submit이 실행된다면 수행할 함수           
-        var errorStr = [ " 아이디를", " 비밀번호를", " 비밀번호 확인을", " 성함을", " 휴대폰번호를", " 이메일을" ];
-        
-        innerReset(error); // 오류문구 초기화
-        
-        // [ input 공백확인 ]
-        for (var i = 0; i < input.length - 1; i++) { // -1 == submit제외 
-           if (!input[i].value) { 
-              document.getElementById(errorId[i]).innerHTML = errorStr[i]+ " 입력해 주세요.";
-              input[i].focus(); // 포커스 이동
-              return false; // 종료 (포커스 이동유지를 위해 false 종료)
-           }
-        }        
-        
-       // [ input 공백확인 ]
-       for (var i = 0; i < input.length - 1; i++) { // -1 == submit제외 
-          if (!input[i].value) { 
-             document.getElementById(errorId[i]).innerHTML = errorStr[i]+ " 입력해 주세요.";
-             input[i].focus(); // 포커스 이동
-             return false; // 종료 (포커스 이동유지를 위해 false 종료)
-          }
-       }  
-
-    // [주소 input 공백확인]
-        {//지역변수 스코프 조정(address) -일회성사용
-          var inputAddress = document.querySelectorAll('.addressCheck');
-          for(var i = 0; i < inputAddress.length; i++){
-             //console.log(inputAddress[i]);
-             if(!inputAddress[i].value){
-                document.getElementById("addressError").innerHTML = " 주소 혹은 상세주소를 입력해주세요.";
-                return false;   
-             }
-          }
-       } 
-
-
-
-
-
-
-
-     
-</script>
-
- -->
 
 
 
 
 </head>
 <body>
+
+
+
+
+
+
 <div id="entire">
 <h1 align="center">회원가입</h1>
 <br>
@@ -343,7 +239,7 @@ function dupIDCheck(){
 		<img src="/first/resources/member_photofiles/" id="photo" 				
 		style="width:150px;height:160px;border:1px solid navy;display:block;"
 		alt="사진을 드래그 드롭하세요."
-		style="padding:0;margin:0;">
+		style="padding:0; margin:0;"> 
 	</div>
 	<br>
 	
@@ -379,12 +275,12 @@ function dupIDCheck(){
 	</div>
 	<br>
 
-    <div class="userInput">
+    <!-- <div class="userInput">
         <h3 class="list">이메일<span id="emailError"></span></h3>
         <span class="emailInt" >
         <input type="text" name="email" id="emailBox" maxlength="20" class="input" > 
            <span> @ </span> 
-              <!-- 이메일 택일 -->
+              이메일 택일
               <select name= "email2" id="mailSelect" >
                  <option>이메일 선택</option>
                  <option>naver.com</option>
@@ -398,10 +294,20 @@ function dupIDCheck(){
                  <option>hanmir.com</option>
                  <option>dreamwiz.com</option>
                  <option>paran.com</option>
-                <!--  <option>직접입력</option> -->
+                 <option>직접입력</option>
               </select>
         </span>
-     </div>
+     </div> -->
+     
+     <div class="form-group">
+  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email" autofocus>
+    	<div style="display: block; text-align: right;">
+      		<input type="button" value="인증하기" class="btn btn-primary" id="emailAuth">
+    	</div>
+  		<input class="form-control" placeholder="인증 코드 6자리를 입력해주세요." maxlength="6"  name="authCode" id="authCode" type="text" autofocus><!-- disabled="disabled" -->
+  		<span id="emailAuthWarn"></span>
+	</div>
+
 
 	<input type="file" name="photoFilename" id="photoFilename" value="첨부파일"><br>
 	<br>
@@ -440,14 +346,70 @@ function dupIDCheck(){
 
 
 <br><br>
-<input type="submit" disabled= 'disabled' value="가입하기" id="submit_button"> &nbsp;
+<input type="submit"  value="가입하기" class="btn btn-lg btn-success btn-block" id="registerBtn"> &nbsp;
+<!-- id="submit_button" -->
 <input type="reset" value="작성취소"> &nbsp;
 <a href="home.do">시작페이지로 이동</a>
 
 
 </form>
+
+ <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
+<script type="text/javascript">
+//인증하기 버튼을 눌렀을 때 동작
+$("#emailAuth").click(function() {
+	const email = $("#email").val(); //사용자가 입력한 이메일 값 얻어오기
+		
+	//Ajax로 전송
+    $.ajax({
+    	url : 'emailAuth.do',
+    	data : {
+    		email : email
+    	},
+    	type : 'POST',
+    	dataType : 'json',
+    	success : function(result) {
+    		console.log("result : " + result);
+    		$("#authCode").attr("disabled", false); 
+    		 $("#authCode").prop("disabled", false);
+    		code = result;
+    		alert("인증 코드가 입력하신 이메일로 전송 되었습니다.");
+   		}
+    }); //End Ajax
+});
+</script>
+
+
+
+
 	
 </div>
+
+
+<script type="text/javascript">
+//인증 코드 비교
+$("#authCode").on("focusout", function() {
+	const inputCode = $("#authCode").val(); //인증번호 입력 칸에 작성한 내용 가져오기
+	
+	console.log("입력코드 : " + inputCode);
+	console.log("인증코드 : " + code);
+		
+	if(Number(inputCode) === code){
+    	$("#emailAuthWarn").html('인증번호가 일치합니다.');
+    	$("#emailAuthWarn").css('color', 'green');
+		$('#emailAuth').attr('disabled', true);
+		$('#email').attr('readonly', true);
+		$("#registerBtn").attr("disabled", false);
+	}else{
+    	$("#emailAuthWarn").html('인증번호가 불일치 합니다. 다시 확인해주세요!');
+    	$("#emailAuthWarn").css('color', 'red');
+    	$("#registerBtn").attr("disabled", true);
+	}
+});
+</script>
+
+
+
 
 <script type="text/javascript">
 

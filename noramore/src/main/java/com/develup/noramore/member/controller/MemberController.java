@@ -1,8 +1,12 @@
 package com.develup.noramore.member.controller;
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,15 +14,17 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
@@ -72,11 +78,7 @@ public class MemberController {
 		logger.info("login.do : " + member.toString());
 
 		
-//		if(member.getMemberAuth() == 0) {
-//			model.addAttribute("Auth", member.getMemberAuth());
-//			return "member/registerReady";
-//		}
-		
+
 
 
 		Member loginMember = memberService.selectMember(member.getMemberID());
@@ -117,8 +119,7 @@ public class MemberController {
 		//회원 가입 요청 처리용 메소드
 		@RequestMapping(value="enroll.do", method=RequestMethod.POST)
 		public String memberInsertMethod(Member member, 
-										RedirectAttributes rttr,
-										@RequestParam("email2") String email2,
+				/* @RequestParam("email2") String email2, */
 										@RequestParam("road") String road,
 										@RequestParam("street") String street,
 										@RequestParam("detail") String detail,
@@ -132,24 +133,18 @@ public class MemberController {
 			logger.info("pwd length : " + member.getMemberPWD().length());
 			
 			
-			if (member.getEmail() != null && !email2.equals("이메일 선택") ) {
-			String emailConnect = member.getEmail() + "@" + email2;
-			member.setEmail(emailConnect);
-			}
+//			if (member.getEmail() != null && !email2.equals("이메일 선택") ) {
+//			String emailConnect = member.getEmail() + "@" + email2;
+//			member.setEmail(emailConnect); 
+//			}
 			//주소 합치기
 			if(road != null && street != null && detail != null) {
 				String addressAdd = road + street + detail + ref;
 				member.setAddress(addressAdd);
 			}
-			memberService.register(member);
+			
 			if(memberService.insertMember(member) > 0 ) {
-				rttr.addFlashAttribute("msg", "가입이 완료되었습니다");
-				rttr.addAttribute("email", member.getEmail());    
-				rttr.addAttribute("memberID", member.getMemberID());
-				
-				
-				return  "redirect:registerAuth.do";
-				/* return "member/moveLoginPage"; */
+				 return "member/moveLoginPage"; 
 			}else {
 				model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
 				return "member/moveEnrollPage";
@@ -163,9 +158,6 @@ public class MemberController {
 		@RequestMapping(value="idchk.do", method=RequestMethod.POST)
 		public void dupCheckId(@RequestParam("memberID") String memberid, 
 								HttpServletResponse response) throws IOException {
-			//메소드 매개변수 영역에서 사용하는 어노테이션 중에
-			//@RequestParam("전송온이름")  자료형 값저장변수명
-			//자료형 값저장변수명 = request.getParameter("전송온이름");  코드와 같음
 			
 			int idCount = memberService.selectCheckId(memberid);
 			
@@ -184,30 +176,46 @@ public class MemberController {
 			out.close();
 		}
 		
-	
 		
-		@RequestMapping(value="registerEmail", method=RequestMethod.GET)
-		public String emailConfirm(String email,Model model)throws Exception{
-			memberService.memberAuth(email);
-			model.addAttribute("memberEmail", email);
+		@Autowired
+		JavaMailSenderImpl mailSender;
+
+		//이메일 인증
+		@PostMapping("emailAuth.do")
+		@ResponseBody
+		public int emailAuth(String email) {
 			
-			return "member/registerEmail";
-		}
-		
-		
-		//인증버튼을 이메일로 보낸후에 실행되고 페이지를 띄워줌 >> 이메일에서 확인을 클릭해 주세요
-		@RequestMapping(value="/registerAuth.do",method= RequestMethod.GET)
-		public String loginView(HttpServletRequest request,Model model,
-				@RequestParam("email")String email,   //요청이 온 키값 이름과 매개변수 값 이름이 같아야 함
-				@RequestParam("memberID")String memberid) throws Exception{
+			logger.info("전달 받은 이메일 주소 : " + email);
 			
-			logger.info("moveLoginPage");
+			//난수의 범위 111111 ~ 999999 (6자리 난수)
+			Random random = new Random();
+			int checkNum = random.nextInt(888888)+111111;
+			
+			//이메일 보낼 양식
+			String setFrom = "noramore12@naver.com"; //2단계 인증 x, 메일 설정에서 POP/IMAP 사용 설정에서 POP/SMTP 사용함으로 설정o
+			String toMail = email;
+			String title = "회원가입 인증 이메일 입니다.";
+			String content = "인증 코드는 " + checkNum + " 입니다." +
+							 "<br>" +
+							 "해당 인증 코드를 인증 코드 확인란에 기입하여 주세요.";
+			
+			System.out.println("메일 내용 : " + content + "보낸에메일 : " + setFrom);
+			try {
+				MimeMessage message = mailSender.createMimeMessage(); //Spring에서 제공하는 mail API
+	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	            helper.setFrom(setFrom);
+	            helper.setTo(toMail);
+	            helper.setSubject(title);
+	            helper.setText(content, true);
+	            mailSender.send(message);
+	            logger.info("랜덤숫자!!! : " + checkNum);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			
-			model.addAttribute("email", email);
-			model.addAttribute("memberID", memberid);
-	
-			return "member/registerAuth";
+			logger.info("랜덤숫자 : " + checkNum);
+			return checkNum;
 		}
 }
 

@@ -23,7 +23,7 @@ public class Member implements java.io.Serializable  {
 	private Date modifiedDate;     //최종수정일자
 	private int memberAuth;        //회원인증
 
-	
+
 	
 	
 	
