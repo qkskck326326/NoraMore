@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -183,14 +185,16 @@ public class MemberController {
 		//이메일 인증
 		@PostMapping("emailAuth.do")
 		@ResponseBody
-		public int emailAuth(String email) {
+		public String emailAuth(String email) {
 			
 			logger.info("전달 받은 이메일 주소 : " + email);
+
+			
 			
 			//난수의 범위 111111 ~ 999999 (6자리 난수)
 			Random random = new Random();
 			int checkNum = random.nextInt(888888)+111111;
-			
+		
 			//이메일 보낼 양식
 			String setFrom = "noramore12@naver.com"; //2단계 인증 x, 메일 설정에서 POP/IMAP 사용 설정에서 POP/SMTP 사용함으로 설정o
 			String toMail = email;
@@ -212,10 +216,19 @@ public class MemberController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		
 			
+			JSONObject checkObject = new JSONObject();
+			checkObject.put("code", checkNum);
 			
 			logger.info("랜덤숫자 : " + checkNum);
-			return checkNum;
+			return checkObject.toJSONString();
+			
+			
+				
+			
+		
+			
 		}
 }
 
