@@ -97,6 +97,10 @@
 	transform: translate(-50%);
 }
 
+th, td {
+	text-align:center;	
+}
+
 /* 텍스트 필드 스타일링 */
 #fbtext {
   padding: 10px; /* 내부 여백 */
