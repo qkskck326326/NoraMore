@@ -10,9 +10,7 @@
    
     <title>채팅 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 
-    <link rel="stylesheet" href="/resources/css/main-style.css">
-    <link rel="stylesheet" href="/resources/css/board/boardDetail-style.css">
-   <link rel="stylesheet" href="/resources/css/chatting/chatting-style.css">
+   <link rel="stylesheet" href="/resources/css/chatting/chatting.css">
 
     <script src="https://kit.fontawesome.com/a2e8ca0ae3.js" crossorigin="anonymous"></script>
 </head>
@@ -20,10 +18,10 @@
 <body>
    <main>
 
-      <jsp:include page="../common/header.jsp"></jsp:include>
+<%--       <jsp:include page="../common/header.jsp"></jsp:include> --%>
 
-      <button id="addTarget">추가</button>
-
+<!--       <button id="addTarget">추가</button> -->
+<%-- 
       <div id="addTargetPopupLayer" class="popup-layer-close">  
          <span id="closeBtn">&times</span>
 
@@ -32,7 +30,7 @@
          </div>
 
          <ul id="resultArea">
-            <%-- <li class="result-row" data-id="1">
+            <li class="result-row" data-id="1">
                <img class="result-row-img" src="/resources/images/user.png">
                <span> <mark>유저</mark>일</span>
             </li>
@@ -41,10 +39,10 @@
                <span><mark>유저</mark>이</span>
             </li>
 
-            <li class="result-row">일치하는 회원이 없습니다</li> --%>
+            <li class="result-row">일치하는 회원이 없습니다</li>
          </ul>
       </div>
-   
+    --%>
       <div class="chatting-area">
          <ul class="chatting-list">
             <c:forEach var="room" items="${roomList}">
