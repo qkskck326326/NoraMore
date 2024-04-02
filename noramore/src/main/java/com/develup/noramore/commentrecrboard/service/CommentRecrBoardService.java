@@ -14,4 +14,6 @@ public interface CommentRecrBoardService {
 
 	ArrayList<CommentRecrBoard> selectRecrCocomment(CommentRecrBoard commentRecrBoard);
 
+	int deletecomment(CommentRecrBoard commentRecrBoard);
+
 }
