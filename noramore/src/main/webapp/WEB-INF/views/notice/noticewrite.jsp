@@ -26,6 +26,7 @@
 	<br>
 	<br>
 	
+</script>
 <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> -->
 		
     <form action="ninsert.do" method="post" enctype="multipart/form-data">
@@ -36,7 +37,9 @@
 		<br>
 		<p>글 제목</p>
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
-		
+		<p>작성자 : 
+		<input type="text" name="memberId" readonly 
+		value="${ sessionScope.loginMember.memberID }"></p>
 		<p>본문</p>
 		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="substance"></textarea>
 		

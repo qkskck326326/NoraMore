@@ -15,7 +15,7 @@ public class Notice implements java.io.Serializable {
     private Date lastUpdDt;
     private String originalFilePath;
 	private String renameFilePath;
-	
+		
 	public Notice() {
 		super();
 		// TODO Auto-generated constructor stub

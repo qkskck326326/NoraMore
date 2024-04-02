@@ -124,31 +124,32 @@ body {
 }
 
 .side-bar {
-	z-index : 3;
-	position: fixed;
-	min-height: 100vh;
-	width: 150px;
-	background-color: #2065bb; 
-	overflow: hidden;
-	transition: .5s;
+    z-index: 3;
+    position: fixed;
+    top: 70px; /* 헤더의 높이만큼 아래로 내림 */
+    min-height: calc(100vh - 70px); /* 브라우저 높이에서 헤더의 높이를 뺌 */
+    width: 150px;
+    background-color: #2065bb; 
+    overflow: hidden;
+    transition: .5s;
 }
 
 .side-bar ul>li>a {
-	display: block;
-	color: white;
-	font-size: 1.2rem;
-	padding: 10px 20px;
-	white-space: nowrap;
+    display: block;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    white-space: nowrap;
 }
 
-.side-bar>ul>li>a>span:first-child {
-	position: relative;
-	display: inline-block;
-	border: 5px solid white;
-	border-radius: 50%;
-	width: 3rem;
-	height: 3rem;
-	margin-right: 15px;
+.side-bar ul>li>a>span:first-child {
+    position: relative;
+    display: inline-block;
+    border: 5px solid white;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 15px;
 }
 
 .side-bar>ul>li>a>span:last-child {

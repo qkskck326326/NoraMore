@@ -1,74 +1,108 @@
 @charset "UTF-8";
 
-/* 헤더 */
-header {
-  width: 100%;
-  height: 70px; 
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0px 10px 10px -10px rgba(0,0,0,0.2);
-  padding: 0 50px;
-  top: 0;
-  background-color: #35353500;
-  z-index: 3; /* 헤더가 사이드바 위로 올라가도록 설정 */
+/* 공통 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #000;
+    font-family: 'ELAND_Choice_M';
 }
 
-header > a {
-  font-size: 32px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-family: 'SF_IceLemon';
-  color: #15bef5;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
+ul {
+    list-style: none;
+}
+
+/* 헤더 스타일 */
+#header {
+    display: flex;
+    justify-content: space-between; /* 요소 사이의 간격을 최대화하여 양쪽 끝에 배치합니다. */
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background-color: #ffffff;
+    color: white;
+    z-index: 1000;
+    padding: 10px 50px;
+    box-shadow: 0px 10px 10px -10px rgba(0, 0, 0, 0.2);
+}
+
+.header-left {
+    flex: 1; /* 왼쪽 요소가 가능한 최대 공간을 차지하도록 설정합니다. */
+}
+
+.header-right {
+    margin-left: auto; /* 오른쪽 요소가 왼쪽으로부터 최대한 멀리 배치됩니다. */
+}
+
+#header a {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: 'SF_IceLemon';
+    color: #15bef5;
+}
+
+#header nav ul {
+    display: flex;
+    align-items: center;
+    padding-left: 0; /* 기본적인 리스트 스타일을 제거합니다. */
+}
+
+#header nav ul li {
+    margin-left: 20px;
+}
+
+#header nav ul li a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 26px;
+    font-family: 'ELAND_Choice_M';
+}
+
+#header nav ul li:hover a {
+    color: #007bff;
+}
+
+/* 버튼 스타일 */
 button.whiteBtn {
-  border: 1px solid #15bef5;
-  background-color: #fff;
-  color: #15bef5;
-  border-radius: 7px;
-  padding: 10px 22px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: .5s;
-  font-weight: bold;
+    font-weight: bold;
+    border: 1px solid #15bef5 ;
+    background-color: #fff;
+    color: #15bef5 ;
+    border-radius: 7px;
+    padding: 10px 22px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .5s;
 }
 
 button.whiteBtn:hover {
-  background-color: #15bef5;
-  color: #fff;
+    background-color: #15bef5 ;
+    color: #fff;
 }
 
 button.blueBtn {
-  font-weight: bold;
-  border: 1px solid #15bef5;
-  background-color: #15bef5;
-  color: #fff;
-  border-radius: 7px;
-  padding: 10px 22px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: .5s;
+    font-weight: bold;
+    border: 1px solid #15bef5 ;
+    background-color: #15bef5;
+    color: #fff ;
+    border-radius: 7px;
+    padding: 10px 22px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .5s;
 }
 
 button.blueBtn:hover {
-  background-color: #fff;
-  color: #15bef5;
-}
-
-button.redBtn {
-  font-weight: bold;
-  border: 1px solid #15bef5;
-  background-color: #15bef5;
-  color: #fff;
-  border-radius: 7px;
-  padding: 10px 22px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: .5s;
-}
-
-button.redBtn:hover {
-  background-color: #fff;
-  color: #15bef5;
+    background-color: #fff ;
+    color: #15bef5;
 }
