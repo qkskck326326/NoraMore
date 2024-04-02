@@ -21,6 +21,15 @@ public class AlarmController {
 	private AlarmService alarmService;
 	
 	//로그인시 알람종버튼에 알람개수 숫자표시
+	@RequestMapping("alarmbell.do")
+	public String alarmBell(HttpServletRequest request, Model model){
+		int listCount = alarmService.selectNewCount((String)request.getSession().getAttribute("memberID"));
+		
+		if(listCount > 0) {
+			model.addAttribute("listCount", listCount);
+		}
+		return "";
+	}
 	
 	
 	//알람 전체 조회
@@ -73,15 +82,26 @@ public class AlarmController {
 	public void commAlarmInsert(
 			@RequestParam("alarmKind") String alarmKind,
 			@RequestParam("commentId") String commentId,
+			@RequestParam(name="boardId", required=false) int boardId,
+			@RequestParam(name="refCommentId", required=false) String refCommentId,
 			HttpServletRequest request) {
 		
 		Alarm alarm = new Alarm();
-		alarm.setAlarmKind(alarmKind);
+
 		alarm.setNativeId(commentId);
 		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
 		
-		alarmService.insertCommAlarm(alarm);
 		
+		if(refCommentId != null) {							//상위댓글에 대한 대댓글이면
+			alarm.setAlarmKind(alarmKind);
+			alarm.setRefCommentId(refCommentId);		//상위댓글id(상위 댓글 작성자 id select 목적)
+			alarmService.insertCommAlarm(alarm);
+		}else if(refCommentId == null) {										//원글에 대한 댓글이면
+			alarm.setAlarmKind(alarmKind.substring(5) + "_BOARD");		// (RECR || FREE)_BOARD
+			alarm.setBoardId(boardId);											//원글 번호(작성자 id select 목적)
+			alarmService.insertCommRefAlarm(alarm);
+		}
+
   }
 
 	//(신청) 알람 생성 : 신청시 테이블명, 신청정보 요청과 함께 보내줄 것
@@ -113,10 +133,5 @@ public class AlarmController {
 		
 		alarmService.updateAlarm(alarm);
 	}
-	
-	
-	
-	
-	
-	
+
 }

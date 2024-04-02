@@ -42,8 +42,23 @@ public class AlarmServiceImpl implements AlarmService{
 	}
 	
 	@Override
+	public int insertCommRefAlarm(Alarm alarm) {
+		return alarmDao.insertCommRefAlarm(alarm);
+	}
+	
+	@Override
 	public int insertApplAlarm(Alarm alarm) {
 
 		return alarmDao.insertApplAlarm(alarm);
 	}
+
+
+
+	@Override
+	public int selectNewCount(String memberId) {
+		return alarmDao.selecdtNewCount(memberId);
+	}
+
+
+
 }

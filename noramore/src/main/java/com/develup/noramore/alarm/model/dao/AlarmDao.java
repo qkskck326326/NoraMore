@@ -39,7 +39,19 @@ public class AlarmDao {
 		return sqlSessionTemplate.insert("alarm.insertCommAlarm", alarm);
 	}
 	
+	public int insertCommRefAlarm(Alarm alarm) {
+		return sqlSessionTemplate.insert("alarm.insertCommRefAlarm", alarm);
+	}
+	
 	public int insertApplAlarm(Alarm alarm) {
 		return sqlSessionTemplate.insert("alarm.insertApplAlarm", alarm);
 	}
+
+	public int selecdtNewCount(String memberId) {
+		return sqlSessionTemplate.selectOne("alarm.selectNewCount", memberId);
+	}
+
+
+
+
 }

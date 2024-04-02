@@ -5,16 +5,16 @@
 <mapper namespace="alarm">
 
 	<resultMap type="Alarm" id="resultList">
-		<id property="alarmId" column="alarm_id"/>
+		<id property="alarmId" column="ALARM_ID"/>
 		<result property="alarmKind" column="ALARM_KIND"/>
+		<result property="boardId" column="BOARD_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="context" column="CONTEXT"/>
+		<result property="refCommentId" column="REF_COMMENT_ID"/>
 		<result property="receiverId" column="RECEIVER_ID"/>
 		<result property="senderId" column="SENDER_ID"/>
 		<result property="checkedYN" column="CHECKED_YN"/>
 		<result property="registDate" column="REGIST_DATE"/>
-		
-		<result property="memberId" column="MEMBER_ID"/>
-		<result property="categoryId" column="CATEGORY_ID"/>
-		<result property="title" column="TITLE"/>
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
@@ -29,6 +29,7 @@
                         join comm_free c on (c.comment_id = a.native_id)
                         join free_board b on (c.board_id = b.board_id)
                         where alarm_kind = 'COMM_FREE'
+                        or alarm_kind = 'FREE_BOARD'
                         and receiver_id = #{ receiverId }
 						union
                         select alarm_id, alarm_kind, b.board_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
@@ -36,6 +37,7 @@
                         join comm_recr c on (c.comment_id = a.native_id)
                         join recr_board b on (c.board_id = b.board_id)
                         where alarm_kind = 'COMM_RECR'
+                        or alarm_kind = 'RECR_BOARD'
                         and receiver_id = #{ receiverId }
 						union
 						select alarm_id, alarm_kind, b.board_id, NULL as title, NULL as context, NULL as ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
@@ -48,13 +50,30 @@
 		where rnum between #{ startRow } and #{ endRow }
 	</select>
 
-
+	<select id="selectNewCount" parameterType="string" resultType="_int">
+		select count(*) from alarm
+		where receiver_id = #{ memberID }
+		and checked_YN = 'N'
+	</select>
+	
+	
 	<insert id="insertCommAlarm" parameterType="Alarm">
 		insert into alarm
 		values ( select max(alarm_id) + 1 from alarm,  #{ alarmKind }, #{ nativeId },
 				(select member_id
 				from #{ alarmKind }
-				where comment_id = #{ nativeId }), 
+				where board_id = #{ boardId }
+				and member_id != #{ senderId } ), 
+				#{ senderId }, 'N', sysdate)
+	</insert>
+
+	<insert id="insertCommRefAlarm" parameterType="Alarm">
+			insert into alarm
+			values ( select max(alarm_id) + 1 from alarm,  #{ alarmKind }, #{ nativeId },
+				(select member_id
+				from #{ alarmKind }
+				where comment_id = #{ refCommentId }
+				and member_id != #{ senderId } ), 
 				#{ senderId }, 'N', sysdate)
 	</insert>
 	
@@ -66,7 +85,7 @@
 				where board_id = #{ nativeId }), 
 				#{ senderId }, 'N', sysdate)
 	</insert>
-	
+
 	<update id="updateAlarm" parameterType="string">
 		update alarm
 		set check_YN = #{ checkedYN }

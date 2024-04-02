@@ -13,4 +13,6 @@ public interface AlarmService {
 	ArrayList<Alarm> selectList(Alarm alarm);
 	int insertCommAlarm(Alarm alarm);
 	int insertApplAlarm(Alarm alarm);
+	int selectNewCount(String attribute);
+	int insertCommRefAlarm(Alarm alarm);
 }
