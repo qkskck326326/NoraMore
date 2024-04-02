@@ -88,6 +88,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.updateAddReadCount(boardId);
 	}
 
+	@Override
+	public int deleteBoard(FreeBoard freeBoard) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.deleteBoard(freeBoard);
+	}
+
 	
 
 	

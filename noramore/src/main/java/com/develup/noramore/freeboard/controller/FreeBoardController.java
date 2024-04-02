@@ -77,7 +77,7 @@ public class FreeBoardController {
 	}
 
 */
-	
+	//게시글 상세보기 요청 처리용
 	@RequestMapping("fbdetail.do")
 	public String moveFreeBoardDetail(Model model,
 									@RequestParam("boardId") int boardId,
@@ -298,9 +298,9 @@ public class FreeBoardController {
 		
 		
 	}
-	/*
+	
 	//게시글(원글) 삭제 요청 처리용
-	@RequestMapping("fbdelete.do")
+	@RequestMapping("freeboarddelete.do")
 	public String freeBoardDeleteMethod(
 			FreeBoard freeBoard, Model model, HttpServletRequest request ) {
 		
@@ -310,7 +310,7 @@ public class FreeBoardController {
 				String savePath = request.getSession().getServletContext().getRealPath(
 						"resources/freeboard_upfiles");
 				//저장 폴더에서 파일 삭제함
-				new File(savePath + "\\" + board.getBoardRenameFileName()).delete();
+				new File(savePath + "\\" + freeBoard.getFreeRenameFileName()).delete();
 				
 			}
 			return "redirect:freeboardlist.do";
@@ -323,7 +323,7 @@ public class FreeBoardController {
 		
 	}
 	
-	*/
+	
 	
 	 
 	 

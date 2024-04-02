@@ -41,6 +41,9 @@ public interface FreeBoardService {
 	int updateAddReadCount(int boardId);
 
 
+	int deleteBoard(FreeBoard freeBoard);
+
+
 	
 
 

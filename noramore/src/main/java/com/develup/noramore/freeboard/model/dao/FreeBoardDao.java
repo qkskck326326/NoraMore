@@ -72,6 +72,12 @@ public class FreeBoardDao {
 	}
 
 
+	public int deleteBoard(FreeBoard freeBoard) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.delete("freeboard.deleteBoard", freeBoard);
+	}
+
+
 	
 	
 	
