@@ -79,6 +79,13 @@
 		where rnum between #{ startRow } and #{ endRow } 
 	</select>
 	
+	<select id="selectBoard" parameterType="_int" resultMap="resultfreeList">
+		select * from free_board
+		where BOARD_ID = #{ boardId }
+	</select>
+	
+	
+	
 	<!-- <insert id="insertFreeBoard" parameterType="FreeBoard">
 		insert into free_board
 		values ((select max(board_id) + 1 from free_board), #{ memberId }, #{ categoryId }, 
@@ -119,6 +126,14 @@
 		where BOARD_ID = #{ boardId }
 	</update>
 	
-	
+	<update id="upCountComment" parameterType="_int">
+	UPDATE FREE_BOARD
+	SET COMMENT_COUNT = (
+	    SELECT COUNT(*)
+	    FROM COMM_FREE
+	    WHERE BOARD_ID = #{boardId}
+	)
+	WHERE BOARD_ID = #{boardId}
+	</update>
 	
 </mapper>

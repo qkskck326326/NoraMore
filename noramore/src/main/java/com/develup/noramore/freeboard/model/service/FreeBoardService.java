@@ -47,6 +47,9 @@ public interface FreeBoardService {
 	int updateOrigin(FreeBoard freeBoard);
 
 
+	FreeBoard selectBoard(int boardId);
+
+	
 	
 
 

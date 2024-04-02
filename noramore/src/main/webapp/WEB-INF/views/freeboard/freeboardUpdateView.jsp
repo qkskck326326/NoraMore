@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="currentPage" value="${ requestScope.page }" />
@@ -29,26 +29,31 @@
 </head>
 <body>
 <form action="freeboardoriginupdate.do" method="post" enctype="multipart/form-data" >
-	<input type="hidden" name="boardId" value="${ FreeBoard.boardId }">
+	<input type="hidden" name="boardId" value="${ freeBoard.boardId }">
 	<input type="hidden" name="page" value="${ currentPage }">
-	<input type="hidden" name="freeOriginalFileName" value="${ FreeBoard.freeOriginalFileName }">
-	<input type="hidden" name="freeRenameFileName" value="${ FreeBoard.freeRenameFileName }">
+	<input type="hidden" name="freeOriginalFileName" value="${ freeBoard.freeOriginalFileName }">
+	<input type="hidden" name="freeRenameFileName" value="${ freeBoard.freeRenameFileName }">
 	
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<div id="write">
-		<h1 style="text-align: left;">${FreeBoard.title}</h1>
+		<!-- <h1 style="text-align: left;">${freeBoard.title}</h1> -->
+		<th>제 목</th>
+		<td><input type="text" name="title" size="50" value="${ freeBoard.title }"></td>
+		
 		<div class="line"></div>
 		
-
-		<textarea cols="30" rows="40" name="freeboardcontext">${FreeBoard.context}</textarea>
+		<th>내 용</th>
+		<td><textarea rows="5" cols="50" name="context">${ freeBoard.context }</textarea></td>
+		<!-- <textarea cols="30" rows="40" name="context">${freeBoard.context}</textarea> -->
 		
 		<p>첨부파일</p>
-		<c:if test="${ !empty FreeBoard.freeOriginalFileName }">
-		${ FreeBoard.freeOriginalFileName } &nbsp; 
+		<c:if test="${ !empty freeBoard.freeOriginalFileName }">
+		
+		${ freeBoard.freeOriginalFileName } &nbsp; 
 			<input type="checkbox" name="deleteFlag" value="yes"> 파일삭제 <br>
 			변경 : <input type="file" name="upfile">
 		</c:if>
-		<c:if test="${ empty FreeBoard.freeOriginalFileName }">
+		<c:if test="${ empty freeBoard.freeOriginalFileName }">
 			첨부된 파일 없음 <br>
 			추가 : <input type="file" name="upfile">
 		</c:if>			

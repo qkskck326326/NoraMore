@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 
 @Service("commentFreeBoardSevice")
 public class CommentFreeBoardServiceImpl implements CommentFreeBoardService {
-
+	
 }

@@ -84,6 +84,12 @@ public class FreeBoardDao {
 	}
 
 
+	public FreeBoard selectBoard(int boardId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("freeboard.selectBoard", boardId);
+	}
+
+
 	
 	
 	

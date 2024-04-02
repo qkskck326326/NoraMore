@@ -66,6 +66,45 @@ public class FreeBoardController {
 		return mv;
 		
 	}
+	
+	//게시글(원글) 수정페이지로 이동 처리용
+	@RequestMapping("fbupview.do")
+	public String moveFreeBoardUpdatePage(
+			@RequestParam("boardId") int boardId,
+			@RequestParam("page") String page, Model model) {
+		
+	//수정 페이지에 전달해서 출력할 board 정보 조회함
+	FreeBoard freeBoard = freeBoardService.selectBoard(boardId);
+	
+	int currentPage = 1;
+	/* 아직 DetailView에 페이지 처리가 안된듯 ( 이 코드 있으면 에러뜸)
+	if(page != null) {
+		currentPage = Integer.parseInt(page);
+	}
+	logger.info("메시지"+boardId+page);
+	*/
+	if(freeBoard != null) {
+		model.addAttribute("freeBoard", freeBoard);
+		model.addAttribute("page", currentPage);
+		
+		return "freeboard/freeboardUpdateView";
+	} else {
+		model.addAttribute("message", boardId + "번 게시글 수정페이지로 이동 실패!");
+		return "common/error";
+	}
+	
+	
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 	//원글 수정처리용
 	@RequestMapping(value = "freeboardoriginupdate.do", method=RequestMethod.POST)
 	public String freeBoardoriginUpdateMethod(
@@ -75,9 +114,12 @@ public class FreeBoardController {
 			@RequestParam(name="upfile", required=false) MultipartFile mfile, Model model) {
 		
 		int currentPage = 1;
+		/*
 		if(page != null) {
 			currentPage = Integer.parseInt(page);
 		}
+		*/
+		
 		//게시글 원글 첨부파일 저장 폴더 경로 지정
 		String savePath = request.getSession().getServletContext().getRealPath(
 				"resources/freeboard_upfiles");
@@ -101,7 +143,7 @@ public class FreeBoardController {
 			String fileName = mfile.getOriginalFilename();
 			String renameFileName = null;
 			
-			//저장 촐더에는 변경된 파일이름으로 파일을 저장함
+			//저장 폴더에는 변경된 파일이름으로 파일을 저장함
 			//파일 이름 바꾸기함 => 년월일시분초.확장자
 			if(fileName != null && fileName.length() > 0) {
 				//바꿀 파일명에 대한 문자열 포맷 만들기
@@ -139,6 +181,11 @@ public class FreeBoardController {
 		return "common/error";
 		
 	}
+	
+	
+	
+		
+		
 }
 	
 	@RequestMapping("freeboardwrite.do")
@@ -156,7 +203,7 @@ public class FreeBoardController {
 	}
 
 */
-	//게시글 상세보기 요청 처리용
+	//게시글 상세보기 요청 처리용 (이동용)
 	@RequestMapping("fbdetail.do")
 	public String moveFreeBoardDetail(Model model,
 									@RequestParam("boardId") int boardId,
