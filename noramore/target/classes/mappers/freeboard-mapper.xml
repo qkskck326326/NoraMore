@@ -126,14 +126,6 @@
 		where BOARD_ID = #{ boardId }
 	</update>
 	
-	<update id="upCountComment" parameterType="_int">
-	UPDATE FREE_BOARD
-	SET COMMENT_COUNT = (
-	    SELECT COUNT(*)
-	    FROM COMM_FREE
-	    WHERE BOARD_ID = #{boardId}
-	)
-	WHERE BOARD_ID = #{boardId}
-	</update>
+	
 	
 </mapper>
