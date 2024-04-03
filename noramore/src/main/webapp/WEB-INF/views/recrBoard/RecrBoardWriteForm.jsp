@@ -11,105 +11,101 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
 <script type="text/javascript">
-    $(function(){
-        $('input[name="title"]').on('input', function(){
-            var title = $(this).val();
-            if (title == '') {
-                $('#title').text('글 제목*');
-            } else {
-                $('#title').text('글 제목');
-            }
-        });
-
-        $('textarea[name="context"]').on('input', function(){
-            var context = $(this).val();
-            if (context == '') {
-                $('#context').text('본문*');
-            } else {
-                $('#context').text('본문');
-            }
-        });
-
-        $('input[name="start"]').on('input', function(){
-            var start = $(this).val();
-            if (start == '') {
-                $('#sDate').text('활동시작 날짜*');
-            } else {
-                $('#sDate').text('활동시작 날짜');
-            }
-        });
-
-        $('input[name="end"]').on('input', function(){
-            var end = $(this).val();
-            if (end == '') {
-                $('#eDate').text('활동마감 날짜*');
-            } else {
-                $('#eDate').text('활동마감 날짜');
-            }
-            
-            if($('input[name="end"]').val() < $('input[name="start"]').val()){
-            	 alert("종료 날짜를 시작 날짜 이전 날짜로 지정 할 수 없습니다");
-            	 $('input[name="end"]').val(null);
-            }
-        });
-        
-        
-        $('input[name="maxRecr"]').on('input', function(){
-            var maxRecr = $(this).val();
-            if (maxRecr == '') {
-                $('#mr').text('모집인원*');
-            } else {
-                $('#mr').text('모집인원');
-            }
-        });
-        
-        
-        function validateInput() {
-            var title = $('input[name="title"]').val();
-            var context = $('textarea[name="context"]').val();
-            var start = $('input[name="start"]').val();
-            var end = $('input[name="end"]').val();
-            var maxRecr = $('input[name="maxRecr1"]').val();
-            var ageMinCondition = $('input[name="ageMinCondition1"]').val();
-            var ageMaxCondition = $('input[name="ageMaxCondition1"]').val();
-            
-            if (title.trim() === '') {
-                alert('글 제목을 입력하세요.');
-                return false;
-            }
-            if (context.trim() === '') {
-                alert('본문을 입력하세요.');
-                return false;
-            }
-            if (start.trim() === '') {
-                alert('활동 시작 날짜를 입력하세요.');
-                return false;
-            }
-            if (end.trim() === '') {
-                alert('활동 마감 날짜를 입력하세요.');
-                return false;
-            }
-            if (maxRecr.trim() === '') {
-                alert('모집인원을 입력하세요.');
-                return false;
-            }
-            // 추가적인 입력 필드의 유효성 검사를 수행할 수 있습니다.
-            
-            return true;
+$(function(){
+    $('input[name="title"]').on('input', function(){
+        var title = $(this).val();
+        if (title == '') {
+            $('#title').text('글 제목*');
+        } else {
+            $('#title').text('글 제목');
         }
+    });
 
-        // 폼 제출 시 입력 값 검증
-        $('form').submit(function() {
-            return validateInput();
-        });
-    
+    $('textarea[name="context"]').on('input', function(){
+        var context = $(this).val();
+        if (context == '') {
+            $('#context').text('본문*');
+        } else {
+            $('#context').text('본문');
+        }
+    });
+
+    $('input[name="recrActStartDate"]').on('input', function(){
+        var start = $(this).val();
+        if (start == '') {
+            $('#sDate').text('활동시작 날짜*');
+        } else {
+            $('#sDate').text('활동시작 날짜');
+        }
+    });
+
+    $('input[name="recrActEndDate"]').on('input', function(){
+        var end = $(this).val();
+        if (end == '') {
+            $('#eDate').text('활동마감 날짜*');
+        } else {
+            $('#eDate').text('활동마감 날짜');
+        }
         
+        if($('input[name="recrActEndDate"]').val() < $('input[name="recrActStartDate"]').val()){
+        	 alert("종료 날짜를 시작 날짜 이전 날짜로 지정 할 수 없습니다");
+        	 $('input[name="recrActEndDate"]').val(null);
+        }
     });
     
     
+    $('input[name="maxRecr1"]').on('input', function(){
+        var maxRecr = $(this).val();
+        if (maxRecr == '') {
+            $('#mr').text('모집인원*');
+        } else {
+            $('#mr').text('모집인원');
+        }
+    });
+    
+    
+    function validateInput() {
+        var title = $('input[name="title"]').val();
+        var context = $('textarea[name="context"]').val();
+        var start = $('input[name="recrActStartDate"]').val();
+        var end = $('input[name="recrActEndDate"]').val();
+        var maxRecr = $('input[name="maxRecr1"]').val();
+        var ageMinCondition = $('input[name="ageMinCondition1"]').val();
+        var ageMaxCondition = $('input[name="ageMaxCondition1"]').val();
+        
+        if (title.trim() === '') {
+            alert('글 제목을 입력하세요.');
+            return false;
+        }
+        if (context.trim() === '') {
+            alert('본문을 입력하세요.');
+            return false;
+        }
+        if (start.trim() === '') {
+            alert('활동 시작 날짜를 입력하세요.');
+            return false;
+        }
+        if (end.trim() === '') {
+            alert('활동 마감 날짜를 입력하세요.');
+            return false;
+        }
+        if (maxRecr.trim() === '') {
+            alert('모집인원을 입력하세요.');
+            return false;
+        }
+        // 추가적인 입력 필드의 유효성 검사를 수행할 수 있습니다.
+        
+        return true;
+    }
 
+    // 폼 제출 시 입력 값 검증
+    $('form').submit(function() {
+        return validateInput();
+    });
 
-  
+    
+});
+
 </script>
 
 <title>Insert title here</title>

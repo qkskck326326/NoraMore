@@ -65,11 +65,28 @@
 	        #{recrActStartDate}, #{recrActEndDate}, #{recrLocation}, 0, 0, SYSDATE, SYSDATE)
 	</insert>
 
+	<update id="updateBoard" parameterType="RecrBoard">
+	    UPDATE RECR_BOARD 
+	    SET TITLE = #{title}, 
+	    CONTEXT = #{context}, 
+	    GENDER_CONDITION = #{genderCondition}, 
+	    MIN_AGE_CONDITION = #{ageMinCondition}, 
+	    MAX_AGE_CONDITION = #{ageMaxCondition}, 
+	    max_recr = #{maxRecr}, 
+	    recr_original_filename = #{recrOriginalFilename}, 
+	    recr_rename_filename = #{recrRenameFilename}, 
+	    recr_act_start_date = #{recrActStartDate}, 
+	    recr_act_end_date = #{recrActEndDate}, 
+	    RECR_LOC = #{recrLocation}, 
+	    LAST_UPD_DATE = DEFAULT 
+	    WHERE BOARD_ID = #{boardId} 
+	</update>
+
 	
 	<update id="upNowRecr" parameterType="_int">
 		UPDATE RECR_BOARD
 		SET NOW_RECR = NOW_RECR + 1
-		WHERE BOARD_ID = #{boardId};
+		WHERE BOARD_ID = #{boardId}
 	</update>
 	
 	<update id="upCountComment" parameterType="_int">

@@ -17,6 +17,9 @@
 <c:url var="updateBoard" value="updateboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
 </c:url>
+<c:url var="rblist" value="rblist.do">
+	<c:param name="page" value="${page}" />
+</c:url>
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
@@ -121,7 +124,7 @@ function selectrecrcomment() {
 
 
 function moveListPage(){
-	location.href = "rblist.do?page=${page}";
+	location.href = "${rblist}";
 }
 
 function closecocoment(button) {
