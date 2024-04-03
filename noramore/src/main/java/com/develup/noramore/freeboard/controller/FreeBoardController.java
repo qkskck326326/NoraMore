@@ -35,13 +35,20 @@ public class FreeBoardController {
 	
 	//게시글 목록 보기 요청 처리용
 	@RequestMapping("freeboardlist.do")
-	public ModelAndView selectFreeBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page,
+	public ModelAndView selectFreeBoard(ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page,
 			@RequestParam(name = "limit", required = false) String slimit) {
 		//ArrayList<FreeBoard> list = freeBoardService.selectFreeBoard();
 		int currentPage = 1;
+		/*
 		if(page != null) {
 			currentPage = Integer.parseInt(page);
 		}
+		*/
+		if(page != null && page.trim().length() > 0) {
+			currentPage = Integer.parseInt(page);
+		}
+		
 		int limit = 10;
 		if(slimit != null && slimit.trim().length() > 0) {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
@@ -55,7 +62,7 @@ public class FreeBoardController {
 		
 		int listCount = freeBoardService.selectListcount();
 		
-		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		Paging paging = new Paging(listCount, currentPage, limit, "freeboardlist.do");
 		paging.calculate();
 		
 		Search search = new Search();
@@ -363,7 +370,7 @@ public class FreeBoardController {
 		
 		int listCount = freeBoardService.selectListcount();
 		
-		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		Paging paging = new Paging(listCount, currentPage, limit, "freeviewslist.do");
 		paging.calculate();
 		
 		Search search = new Search();
@@ -402,7 +409,7 @@ public class FreeBoardController {
 		
 		int listCount = freeBoardService.selectListcount();
 		
-		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		Paging paging = new Paging(listCount, currentPage, limit, "freerecentlist.do");
 		paging.calculate();
 		
 		Search search = new Search();
