@@ -398,7 +398,7 @@ public class FreeBoardController {
 	
 	// 최신순 구현
 	
-	@RequestMapping(value = "freerecentlist.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping("freerecentlist.do")
 	public ModelAndView freeBoardSearchRecentMethod(
 		@RequestParam(name="page", required=false) String page,
 		@RequestParam(name = "limit", required = false) String slimit,
@@ -408,14 +408,14 @@ public class FreeBoardController {
 		if(page != null && page.trim().length() > 0) {
 			currentPage = Integer.parseInt(page);
 		}
+
 		int limit = 10;
 		if(slimit != null && slimit.trim().length() > 0) {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
 		}
+
 		
-		
-		
-		int listCount = freeBoardService.selectListcount();
+		int listCount = freeBoardService.selectRecentListCount();
 		
 		Paging paging = new Paging(listCount, currentPage, limit, "freerecentlist.do");
 		paging.calculate();

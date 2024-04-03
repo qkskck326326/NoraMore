@@ -59,6 +59,9 @@ public interface FreeBoardService {
 	int selectViewsListCount();
 
 
+	int selectRecentListCount();
+
+
 	
 
 

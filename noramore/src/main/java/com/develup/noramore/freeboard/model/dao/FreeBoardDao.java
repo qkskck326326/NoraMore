@@ -106,6 +106,11 @@ public class FreeBoardDao {
 		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectViewsList", search);
 		return (ArrayList<FreeBoard>)list;
 	}
+	
+	public int selectRecentListCount() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount");
+	}
 
 	
 	
