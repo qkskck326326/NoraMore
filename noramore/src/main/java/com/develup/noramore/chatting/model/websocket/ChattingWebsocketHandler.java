@@ -81,7 +81,7 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
                 // 로그인된 회원 정보 중 회원 번호 얻어오기
                 logger.debug("loginMemberID : " + loginMemberID);
                 
-                // 로그인 상태인 회원 중 targetNo가 일치하는 회원에게 메시지 전달
+                // 로그인 상태인 회원 중 targetId가 일치하는 회원에게 메시지 전달
                 if(loginMemberID == msg.getTargetId() || loginMemberID == msg.getSenderId()) {
                     
                     s.sendMessage(new TextMessage(new Gson().toJson(msg)));

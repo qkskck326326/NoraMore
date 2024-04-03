@@ -5,21 +5,46 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-<!--     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-   
-    <title>채팅 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="resources/css/chatting.css">
 
-   <link rel="stylesheet" href="/resources/css/chatting/chatting.css">
+<title>채팅 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 
-    <script src="https://kit.fontawesome.com/a2e8ca0ae3.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a2e8ca0ae3.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
+<br><br><br><br><br><br>
 
    <main>
 
+
+      <button id="addTarget">추가</button>
+
+      <div id="addTargetPopupLayer" class="popup-layer-close">  
+         <span id="closeBtn">&times</span>
+
+         <div class="target-input-area">
+            <input type="search" id="targetInput" placeholder="아이디를 입력하세요" autocomplete="off">
+         </div>
+
+         <ul id="resultArea">
+            <%-- <li class="result-row" data-id="1">
+               <img class="result-row-img" src="/resources/images/user.png">
+               <span> <mark>유저</mark>일</span>
+            </li>
+            <li class="result-row"  data-id="2">
+               <img class="result-row-img" src="/resources/images/user.png">
+               <span><mark>유저</mark>이</span>
+            </li>
+
+            <li class="result-row">일치하는 회원이 없습니다</li> --%>
+         </ul>
+      </div>
+      
+      
       <div class="chatting-area">
          <ul class="chatting-list">
             <c:forEach var="room" items="${roomList}">
@@ -30,7 +55,7 @@
                         <img class="list-profile" src="${room.targetProfile}">
                      </c:if>
                      <c:if test="${empty room.targetProfile}">
-                        <img class="list-profile" src="/resources/images/user.png">
+                        <img class="list-profile" src="resources/images/user.png">
                      </c:if>
                   </div>
                   <div class="item-body">
@@ -41,9 +66,9 @@
                      <div>
                         <p class="recent-message">${room.lastMessage}</p>
 
-                        <c:if test="${room.notReadCount > 0}">
+<%--                         <c:if test="${room.notReadCount > 0}">
                            <p class="not-read-count">${room.notReadCount}</p>
-                        </c:if>
+                        </c:if> --%>
                      </div>
                   </div>
                </li>
@@ -89,8 +114,7 @@
    <script>
       // 로그인한 회원 번호
       const loginMemberID = "${loginMember.memberID}";
-   </script>
-
-   <script src="/resources/js/chatting.js"></script>
+	</script>
+	<script type="text/javascript" src="resources/js/chatting.js"/>
 </body>
 </html>

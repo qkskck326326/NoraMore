@@ -38,7 +38,19 @@ public class ChattingController {
         return "chatting/chatting";
     }
     
-
+    // 채팅 상대 검색
+    @GetMapping(value="selectTarget.do", produces="application/json; charset=UTF-8")
+    @ResponseBody
+    public List<Member> selectTarget(String query, @SessionAttribute("loginMember") Member loginMember){
+    
+       Map<String, Object> map = new HashMap<>();
+       
+       map.put("memberID", loginMember.getMemberID());
+       map.put("query", query);
+       
+       return chattingService.selectTarget(map);
+    }
+    
     // 채팅방 입장(없으면 생성)
     @GetMapping("chattingEnter.do")
     @ResponseBody

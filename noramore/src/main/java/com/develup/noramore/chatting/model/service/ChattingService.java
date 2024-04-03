@@ -10,7 +10,7 @@ import com.develup.noramore.member.model.vo.Member;
 
 public interface ChattingService {
     
-    List<ChattingRoom> selectRoomList(String string);
+    List<ChattingRoom> selectRoomList(String memberID);
 
     int checkChattingNo(Map<String, Object> map);
 
@@ -21,6 +21,8 @@ public interface ChattingService {
     int updateReadFlag(Map<String, Object> paramMap);
 
     List<Message> selectMessageList(Map<String, Object> paramMap);
+
+	List<Member> selectTarget(Map<String, Object> map);
 
 
 }

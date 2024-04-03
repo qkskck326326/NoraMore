@@ -10,7 +10,7 @@
 <link href="resources/css/forbiddenPage.css"  rel="stylesheet">
 <title>금지어관리 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 <!-- JavaScript 코드 -->
-<script type="text/javascript" src="/first/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 
 // 팝업 열기 함수

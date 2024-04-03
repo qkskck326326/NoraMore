@@ -46,4 +46,8 @@ public class ChattingDao {
     public List<Message> selectMessageList(int chattingNo) {
        return sqlSession.selectList("chatting.selectMessageList", chattingNo);
     }
+
+	public List<Member> selectTarget(Map<String, Object> map) {
+		return sqlSession.selectList("chatting.selectTarget", map);
+	}
 }

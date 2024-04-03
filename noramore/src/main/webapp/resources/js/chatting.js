@@ -14,6 +14,82 @@ let selectTargetName; // 대상의 이름
 let selectTargetProfile; // 대상의 프로필
 
 
+// 검색 팝업 레이어 열기
+addTarget.addEventListener("click", e => {
+   addTargetPopupLayer.classList.toggle("popup-layer-close");
+   targetInput.focus();
+});
+
+
+// 검색 팝업 레이어 닫기
+closeBtn.addEventListener("click", e => {
+   addTargetPopupLayer.classList.toggle("popup-layer-close");
+   resultArea.innerHTML = "";
+});
+
+
+// 사용자 검색(ajax)
+targetInput.addEventListener("input", e => {
+
+   const query = e.target.value.trim();
+
+   // 입력된 값이 없을 때
+   if(query.length == 0){
+      resultArea.innerHTML = ""; // 이전 검색 결과 비우기
+      return;
+   }
+
+
+   // 입력된 값이 있을 때
+   if(query.length > 0){
+      fetch("selectTarget.do?query="+query)
+      .then(resp => resp.json())
+      .then(list => {
+         //console.log(list);
+
+         resultArea.innerHTML = ""; // 이전 검색 결과 비우기
+
+         if(list.length == 0){
+            const li = document.createElement("li");
+            li.classList.add("result-row");
+            li.innerText = "일치하는 회원이 없습니다";
+            resultArea.append(li);
+         }
+
+         for(let member of list){
+            // li요소 생성(한 행을 감싸는 요소)
+            const li = document.createElement("li");
+            li.classList.add("result-row");
+            li.setAttribute("data-id", member.memberID);
+
+            // 프로필 이미지 요소
+            const img = document.createElement("img");
+            img.classList.add("result-row-img");
+            
+            // 프로필 이미지 여부에 따른 src 속성 선택
+            if(member.photoFilename == null) img.setAttribute("src", "resources/images/user.png");
+            else   img.setAttribute("src", member.photoFilename);
+
+            let nickname = member.memberID;
+            let email = member.memberEmail;
+
+            const span = document.createElement("span");
+            span.innerHTML = `${nickname} ${email}`.replace(query, `<mark>${query}</mark>`);
+
+            // 요소 조립(화면에 추가)
+            li.append(img, span);
+            resultArea.append(li);
+
+            // li요소에 클릭 시 채팅방에 입장하는 이벤트 추가
+            li.addEventListener('click', chattingEnter);
+         }
+
+      })
+      .catch(err => console.log(err) );
+   }
+});
+
+
 // 채팅방 입장 또는 선택 함수
 function chattingEnter(e){
    console.log(e.target); // 실제 클릭된 요소
@@ -21,7 +97,7 @@ function chattingEnter(e){
 
    const targetId = e.currentTarget.getAttribute("data-id");
 
-   fetch("/chatting/enter?targetId="+targetId)
+   fetch("chattingEnter.do?targetId="+targetId)
    .then(resp => resp.text())
    .then(chattingNo => {
       console.log(chattingNo);
@@ -54,7 +130,7 @@ function chattingEnter(e){
 // 비동기로 채팅방 목록 조회
 function selectRoomList(){
 
-   fetch("/chatting/roomList")
+   fetch("roomList.do")
    .then(resp => resp.json())
    .then(roomList => {
       console.log(roomList);
@@ -130,7 +206,7 @@ function selectRoomList(){
 
             // 현재 채팅방을 보고 있는 경우
             // 비동기로 해당 채팅방 메시지를 읽음으로 표시
-            fetch("/chatting/updateReadFlag",{
+            fetch("updateReadFlag.do",{
                method : "PUT",
                headers : {"Content-Type": "application/json"},
                body : JSON.stringify({"chattingNo" : selectChattingNo, "memberID" : loginMemberID})
@@ -195,7 +271,7 @@ function roomListAddEvent(){
 // 비동기로 메시지 목록을 조회하는 함수
 function selectChattingFn() {
 
-   fetch("/chatting/selectMessage?"+`chattingNo=${selectChattingNo}&memberID	=${loginMemberID}`)
+   fetch("selectMessage.do?"+`chattingNo=${selectChattingNo}&memberID	=${loginMemberID}`)
    .then(resp => resp.json())
    .then(messageList => {
       console.log(messageList);
