@@ -256,7 +256,7 @@ function updateBoard(){
 			</div>
 		</div>
 
-		<div class="comment-list" style='display: none;'></div>
+		<div class="comment-list" style='display: none; text-align: left;'></div>
 
 	</div>
 
