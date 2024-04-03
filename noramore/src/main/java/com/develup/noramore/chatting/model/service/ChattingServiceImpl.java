@@ -60,5 +60,11 @@ public class ChattingServiceImpl implements ChattingService{
         return messageList;
     }
 
+    // 채팅 상대 검색
+   @Override
+   public List<Member> selectTarget(Map<String, Object> map) {
+      return chattingDao.selectTarget(map);
+   }
+
     
 }

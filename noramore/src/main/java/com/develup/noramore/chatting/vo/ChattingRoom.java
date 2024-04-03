@@ -53,7 +53,7 @@ public class ChattingRoom {
 	public void setTargetProfile(String targetProfile) {
 		this.targetProfile = targetProfile;
 	}
-	public int getIdtReadCount() {
+	public int getNotReadCount() {
 		return notReadCount;
 	}
 	public void setNotReadCount(int notReadCount) {
