@@ -134,6 +134,13 @@
 		where BOARD_ID = #{ boardId }
 	</update>
 	
+	<update id="incrementReportCount" >
+		update free_board
+		set REPORT_COUNT = REPORT_COUNT + 1
+		where BOARD_ID = #{ boardId }
+	</update>
+	
+	
 	<delete id="deleteBoard" parameterType="FreeBoard">
 		delete from free_board
 		where BOARD_ID = #{ boardId }

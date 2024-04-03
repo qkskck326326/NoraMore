@@ -112,6 +112,17 @@ public class FreeBoardDao {
 		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount");
 	}
 
+
+	public void incrementReportCount(int boardId) {
+		sqlSessionTemplate.update("freeboard.incrementReportCount", boardId);
+		
+	}
+
+
+	
+
+	
+
 	
 	
 
