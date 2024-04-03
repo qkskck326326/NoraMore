@@ -58,7 +58,7 @@
 	<insert id="insertRecrBoard" parameterType="RecrBoard">
 	    INSERT INTO RECR_BOARD 
 	    VALUES (
-	        board_id_seq.NEXTVAL, 
+	        NVL((select max(board_id) from RECR_BOARD), 0) + 1, 
 	        #{memberId}, #{categoryId}, #{title}, #{context}, 
 	        0, #{genderCondition}, #{ageMinCondition}, #{ageMaxCondition}, #{maxRecr}, 
 	        0, '모집중', SYSDATE, SYSDATE, #{recrOriginalFilename}, #{recrRenameFilename}, 

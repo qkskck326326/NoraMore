@@ -62,20 +62,6 @@ window.onload = function() {
 	}
 };
 
-var cocoment = `
-    <div id="cocomment">
-        <form id="cocommentForm" action="insertrecrcocomment.do" method="post" style="display: none;">
-            <input type="hidden" name="memberId" value="${sessionScope.loginMember.memberID}">    
-            <input type="hidden" name="boardId" value="${RecrBoard.boardId}">
-            <input type="hidden" name="refCommentId" id="refCommentId" value=""> <!-- 대댓글의 경우 참조하는 댓글 ID를 여기에 설정 -->
-            <input type="hidden" name="page" value="${page}">    
-            <textarea name="context" cols="50" rows="5" required></textarea>
-            <br>
-            <input type="submit" value="댓글 등록">
-        </form>
-        <div id="commentList"></div>    
-    </div>
-`; 
 
 
 
@@ -101,13 +87,36 @@ function selectrecrcomment() {
                 var contextTextarea = $('<textarea rows="5" cols="20" readonly>' + comment.context + '</textarea>');
                 var lastUpdateDateParagraph = $('<p style="font-size: 8pt;">' + "작성자ID : " + comment.memberId + "&nbsp;&nbsp;&nbsp; 작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
 
-                
-                var commentDiv = $("<div id='commentForm' style='text-align: left; margin-bottom: 15px;'>");
+                if(comment.refCommentId == 0){
+                	var commentDiv = $("<div id='commentForm'>");
+                }else{
+                	var commentDiv = $("<div id='cocommentForm' style='left-margin: 100px;'>");
+                }
                 commentDiv.append(memberIdInput);
                 commentDiv.append(commentIdInput);
                 commentDiv.append(contextTextarea);
                 commentDiv.append(lastUpdateDateParagraph);
-
+                commentDiv.append("<button class='info-button' data-id='${commentId}'>수정하기</button>");
+                commentDiv.append("<button class='info-button' data-id='${commentId}'>삭제하기</button>");
+                var refCommentId1 = parseInt(comment.commentId);
+                console.log(refCommentId1);
+                
+                if(comment.refCommentId == 0){
+                commentDiv.append('<div id="cocomment">' +
+                	    '<form id="cocommentForm" action="insertrecrcomment.do" method="post">' +
+                	    '<input type="hidden" name="memberId" value="' + "${sessionScope.loginMember.memberID}" + '">' +
+                	    '<input type="hidden" name="boardId" value="' + "${RecrBoard.boardId}" + '">' +
+                	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
+                	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
+                	    '<textarea name="context" cols="50" rows="5" required></textarea>' +
+                	    '<br>' +
+                	    '<input type="submit" value="댓글 등록">' +
+                	    '</form>' +
+                	    '<div id="commentList"></div>' +
+                	    '</div>');
+                }
+                
+                
                 $('.comment-list').append(commentDiv);
             }
             
@@ -194,6 +203,26 @@ function updateBoard(){
 	padding: 20px;
 	margin: 10px;
 	border: 1px solid #ccc;
+	margin-left: 10px;
+}
+
+.comment-list {
+	width: 1000px;
+	padding: 20px;
+    margin: 10px;
+    margin-left: 10px;
+    /*margin-left: '.boardRecr-div'와 동일한 값;  '.boardRecr-div'의 왼쪽 여백과 일치하도록 이 값을 조정하세요 */
+}
+
+#commentForm {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+#cocommentForm {
+    text-align: left;
+    margin-bottom: 15px;
+    margin-left: 100px;
 }
 </style>
 </head>
@@ -234,7 +263,10 @@ function updateBoard(){
 					<p>장소 : ${RecrBoard.recrLocation}</p>
 				</div>
 			</form>
+			
 			<button class="whiteBtn" onclick="updateBoard()">수정하기</button>
+			<button class="whiteBtn" onclick="deleteBoard()">삭제하기</button>
+			
 		</div>
 		<div class="comment-div">
 			<!-- 댓글 보기 버튼 -->
@@ -259,6 +291,21 @@ function updateBoard(){
 		<div class="comment-list" style='display: none; text-align: left;'></div>
 
 	</div>
+
+	<%-- var writecocomentform = `
+                    <div id="cocomment">
+                        <form id="cocommentForm" action="insertrecrcomment.do" method='post'>
+                            <input type="hidden" name="memberId" value='"${sessionScope.loginMember.memberID}"'>    
+                            <input type="hidden" name="boardId" value="${RecrBoard.boardId}">
+                            <input type="hidden" name="refCommentId1" value="${comment.commentId}"> 
+                            <input type="hidden" name="page" value="${page}">    
+                            <textarea name="context" cols="50" rows="5" required></textarea>
+                            <br>
+                            <input type="submit" value="댓글 등록">
+                        </form>
+                        <div id="commentList"></div>    
+                    </div>
+                `;  --%>
 
 </body>
 </html>

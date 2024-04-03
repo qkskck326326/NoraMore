@@ -16,9 +16,10 @@
 	</resultMap>
 	
 	<insert id="insertRecrComment" parameterType="CommentRecrBoard">
-		INSERT INTO COMM_RECR (BOARD_ID, COMMENT_ID, REF_COMMENT_ID, MEMBER_ID, CONTEXT, REPORT_COUNT, COUNT_SUB_COMMENT, REGIST_DATE, LAST_UPDATE_DATE)
-    	VALUES (#{boardId}, (select max(COMMENT_ID) + 1 from COMM_RECR), #{refCommentId}, #{memberId}, #{context}, #{reportCount}, #{countSubComment}, SYSDATE, SYSDATE)
+    	INSERT INTO COMM_RECR (BOARD_ID, COMMENT_ID, REF_COMMENT_ID, MEMBER_ID, CONTEXT, REPORT_COUNT, COUNT_SUB_COMMENT, REGIST_DATE, LAST_UPDATE_DATE)
+    	VALUES (#{boardId}, NVL((SELECT MAX(COMMENT_ID) FROM COMM_RECR), 0) + 1, #{refCommentId}, #{memberId}, #{context}, #{reportCount}, #{countSubComment}, SYSDATE, SYSDATE)
 	</insert>
+
 	
 	<delete id="deletecomment">
 		delete from COMM_RECR 
@@ -27,9 +28,12 @@
 	</delete>
 
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
-		select * from comm_recr 
-		where board_id = #{boardId} 
-		and REF_COMMENT_ID = 0
+		SELECT *
+		FROM comm_recr
+		WHERE BOARD_ID = #{boardId}
+		START WITH REF_COMMENT_ID = 0
+		CONNECT BY PRIOR COMMENT_ID = REF_COMMENT_ID
+		ORDER SIBLINGS BY COMMENT_ID
 	</select>
 		
 	<select id="selectRecrCocomment" resultMap="CommentResultMap">
