@@ -89,6 +89,7 @@ function validate(){
 	var pwdValue2 = $('#memberpwd2').val();
 	var nameValue = $('#membername').val();
 	var birthValue = $('#birth').val();
+
 	
 	
 	
@@ -258,42 +259,19 @@ function dupIDCheck(){
 		</span>
 	</div>
 	<br>
-
-    <!-- <div class="userInput">
-        <h3 class="list">이메일<span id="emailError"></span></h3>
-        <span class="emailInt" >
-        <input type="text" name="email" id="emailBox" maxlength="20" class="input" > 
-           <span> @ </span> 
-              이메일 택일
-              <select name= "email2" id="mailSelect" >
-                 <option>이메일 선택</option>
-                 <option>naver.com</option>
-                 <option>gmail.com</option>
-                 <option>daum.net</option>
-                 <option>hotmail.com</option>
-                 <option>nate.com</option>
-                 <option>empas.com</option>
-                 <option>freechal.com</option>
-                 <option>lycos.co.kr</option>
-                 <option>hanmir.com</option>
-                 <option>dreamwiz.com</option>
-                 <option>paran.com</option>
-                 <option>직접입력</option>
-              </select>
-        </span>
-     </div> -->
      
      <div class="form-group">
 	     <div>
 	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email">
-	    	<div style="display: block; text-align: right;">
-	      		<input type="button" value="인증하기" class="btn btn-primary" id="emailAuth">
-	    	</div>
-	    	
-	  		<input class="form-control" placeholder="인증 코드 6자리를 입력해주세요." maxlength="6" disabled="disabled" name="authCode" id="authCode" type="text" autofocus>
+	      		<input type="button" value="인증번호 받기" class="btn btn-primary" id="emailAuth">
+
+	    	<div>
+	  			<input class="form-control" placeholder="인증 코드 6자리" maxlength="6" disabled="disabled" name="authCode" id="authCode" type="text" autofocus>
 	  	
-	          <span id="timer"> </span>
+	          	<label for="Timer">남은 시간:</label>
+ 				<input id="Timer" type="text" value="" width= "20px" readonly/>
 	          <button class="complete__target" id="complete" disabled="disabled" >인증완료</button>
+	     	</div>
 	     </div> 
 	      
   		<div id="emailAuthWarn"></div>
@@ -424,6 +402,7 @@ $("#complete").on("click", function() {
 		$("#emailAuthWarn").css('color', 'green');
 		$("#registerBtn").attr("disabled", false); 
 		$("#complete").attr("disabled", true); 
+		 clearInterval(PlAYTIME);
 
 	}else{
 		$("#emailAuthWarn").html('인증번호가 불일치 합니다. 다시 확인해주세요!');
@@ -445,33 +424,40 @@ $("#complete").on("click", function() {
 //-------------------------타이머-----
 
 
-let timer;
-        let timeLeft = 180; // 3분 = 180초
 
-        function startTimer() {
-            clearInterval(timer);
-            timer = setInterval(() => {
-                if (timeLeft >= 0) {
-                    document.getElementById("timer").innerText = formatTime(timeLeft);
-                    timeLeft--;
-                } else {
-                    clearInterval(timer);
-                    document.getElementById("timer").innerText = "시간이 만료되었습니다.";
-                }
-            }, 1000);
+let time = 180000;
+let min = 3;
+let sec = 60;
+let PlAYTIME;
+
+Timer.value = min + ":" + '00';
+$("#emailAuth").on("click", function () {
+    time = 180000; // 클릭할 때마다 타이머 초기화
+    min = 3;
+    sec = 60;
+    clearInterval(PlAYTIME); // 기존 타이머 정지
+    PlAYTIME = setInterval(function () {
+        time = time - 1000; // 1초씩 줄어듦
+        min = time / (60 * 1000); // 초를 분으로 나눠준다.
+
+        if (time <= 0) {
+            clearInterval(PlAYTIME); // 타이머 정지
+            Timer.value = "만료되었습니다";
+        } else {
+            if (sec > 0) { // sec=60 에서 1씩 빼서 출력해준다.
+                sec = sec - 1;
+                Timer.value = Math.floor(min) + ':' + sec; // 실수로 계산되기 때문에 소숫점 아래를 버리고 출력해준다.
+            }
+            if (sec === 0) {
+                // 0에서 -1을 하면 -59가 출력된다.
+                // 그래서 0이 되면 바로 sec을 60으로 돌려주고 value에는 0을 출력하도록 해준다.
+                sec = 60;
+                Timer.value = Math.floor(min) + ':' + '00'
+            }
         }
 
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`; // 이 부분은 출력이 되어야 합니다.
-        }
-
-        document.getElementById("emailAuth").addEventListener("click", function() {
-            timeLeft = 180; // 3분으로 다시 초기화
-            document.getElementById("timer").innerText = formatTime(timeLeft); // 타이머 표시 초기화
-            startTimer();
-        });
+    }, 1000); // 1초마다 
+});
 </script>
 </div>
 

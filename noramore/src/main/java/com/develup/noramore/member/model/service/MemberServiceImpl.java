@@ -34,8 +34,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int selectCheckEmail(String emailConnect) {
-		return memberDao.selectCheckEmail(emailConnect);
+	public int selectCheckEmail(String email) {
+		return memberDao.selectCheckEmail(email);
 	}
 	
 	

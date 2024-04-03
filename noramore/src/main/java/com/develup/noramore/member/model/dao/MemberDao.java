@@ -27,8 +27,8 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.selectCheckId", memberid);
 	}
 
-	public int selectCheckEmail(String emailConnect) {
-		return sqlSessionTemplate.selectOne("memberMapper.selectCheckEmail", emailConnect);
+	public int selectCheckEmail(String email) {
+		return sqlSessionTemplate.selectOne("memberMapper.selectCheckEmail", email);
 	}
 	
 }

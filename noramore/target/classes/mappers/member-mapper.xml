@@ -11,7 +11,7 @@
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
-		<result property="photoFilename" column="PICTURE_FILE" />
+		<result property="photoFilename" column="PHOTOFILE_NAME" />
 		<result property="resign" column="RESIGN" />
 		<result property="adminYN" column="ADMIN_YN" />
 		<result property="signType" column="SIGNTYPE" />
@@ -31,7 +31,7 @@
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
-		<result property="photoFilename" column="PICTURE_FILE" />
+		<result property="photoFilename" column="PHOTOFILE_NAME" />
 		<result property="resign" column="RESIGN" />
 		<result property="adminYN" column="ADMIN_YN" />
 		<result property="signType" column="SIGNTYPE" />
@@ -65,8 +65,9 @@
 		select count(*) from member where MEMBER_ID = #{ memberid }
 	</select>
 	
+	<!--  회원가입시 이메일 중복 여부 검사용 쿼리 -->
 	<select id="selectCheckEmail" parameterType="string" resultType="_int">
-		select count(*) from member where Email = #{ email }
+		select count(*) from member where EMAIL = #{ email }
 	
 	</select>
 	
