@@ -24,7 +24,8 @@ public class AlarmController {
 	//로그인시 알람종버튼에 알람개수 숫자표시
 	@RequestMapping("alarmbell.do")
 	public String alarmBell(HttpServletRequest request, Model model){
-		int listCount = alarmService.selectNewCount((String)request.getSession().getAttribute("memberID"));
+		Member member = (Member)request.getSession().getAttribute("loginMember");
+		int listCount = alarmService.selectNewCount(member.getMemberID());
 		
 		if(listCount > 0) {
 			model.addAttribute("listCount", listCount);
@@ -88,11 +89,11 @@ public class AlarmController {
 			@RequestParam(name="boardId", required=false) int boardId,
 			@RequestParam(name="refCommentId", required=false) String refCommentId,
 			HttpServletRequest request) {
-		
+		Member member = (Member)request.getSession().getAttribute("loginMember");
 		Alarm alarm = new Alarm();
 
 		alarm.setNativeId(commentId);
-		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
+		alarm.setSenderId(member.getMemberID());
 		
 		
 		if(refCommentId != null) {							//상위댓글에 대한 대댓글이면
@@ -113,11 +114,11 @@ public class AlarmController {
 			@RequestParam("alarmKind") String alarmKind,
 			RecrAppl recrAppl,
 			HttpServletRequest request) {
-		
+		Member member = (Member)request.getSession().getAttribute("loginMember");
 		Alarm alarm = new Alarm();
 		alarm.setAlarmKind(alarmKind);
 		alarm.setNativeId(String.valueOf(recrAppl.getBoardId()));
-		alarm.setSenderId((String)request.getSession().getAttribute("memberID"));
+		alarm.setSenderId(member.getMemberID());
 		
 		alarmService.insertApplAlarm(alarm);
 	}

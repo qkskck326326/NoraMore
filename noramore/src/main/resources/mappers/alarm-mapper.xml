@@ -47,7 +47,7 @@
 						join recr_board b on (ap.board_id = b.board_id)
 						where alarm_kind = 'RECR_APPL'
 						and receiver_id = #{ receiverId }
-						order by checked_YN desc, regist_date desc, alarm_id desc))
+						order by checked_YN asc, regist_date desc, alarm_id desc))
 		where rnum between #{ startRow } and #{ endRow }
 	</select>
 

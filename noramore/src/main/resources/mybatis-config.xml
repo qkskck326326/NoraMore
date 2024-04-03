@@ -27,6 +27,9 @@
 		<typeAlias type="com.develup.noramore.common.Paging" alias="Paging" />
 		<typeAlias type="com.develup.noramore.common.Search" alias="Search" />
 		<typeAlias type="com.develup.noramore.recrappl.model.vo.RecrAppl" alias="RecrAppl" />
+		<typeAlias type="com.develup.noramore.chatting.vo.ChattingRoom" alias="ChattingRoom" />
+		<typeAlias type="com.develup.noramore.chatting.vo.Message" alias="Message" />
+		
 	</typeAliases>
 	  
 	<mappers>
@@ -42,5 +45,6 @@
 		<mapper resource="mappers/recrboard-mapper.xml" />
 		<mapper resource="mappers/recrappl-mapper.xml" />
 		<mapper resource="mappers/alarm-mapper.xml" />
+		<mapper resource="mappers/chatting-mapper.xml" />
 	</mappers>
 </configuration>

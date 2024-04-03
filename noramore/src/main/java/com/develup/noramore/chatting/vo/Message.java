@@ -4,8 +4,8 @@ public class Message {
     private int messageNo; // 메시지 번호
     private String messageContent; // 메시지 내용
     private String readFlag; // 읽음 여부
-    private int senderNo; // 보낸 회원 번호
-    private int targetNo; // 받는 회원 번호
+    private String senderId; // 보낸 회원 아이디
+    private String targetId; // 받는 회원 아이디
     private int chattingNo; // 채팅방 번호
     private String sendTime; // 메시지 보낸 시간
     
@@ -13,14 +13,14 @@ public class Message {
 		super();
 	}
 
-	public Message(int messageNo, String messageContent, String readFlag, int senderNo, int targetNo, int chattingNo,
+	public Message(int messageNo, String messageContent, String readFlag, String senderId, String targetId, int chattingNo,
 			String sendTime) {
 		super();
 		this.messageNo = messageNo;
 		this.messageContent = messageContent;
 		this.readFlag = readFlag;
-		this.senderNo = senderNo;
-		this.targetNo = targetNo;
+		this.senderId = senderId;
+		this.targetId = targetId;
 		this.chattingNo = chattingNo;
 		this.sendTime = sendTime;
 	}
@@ -49,20 +49,20 @@ public class Message {
 		this.readFlag = readFlag;
 	}
 
-	public int getSenderNo() {
-		return senderNo;
+	public String getSenderId() {
+		return senderId;
 	}
 
-	public void setSenderNo(int senderNo) {
-		this.senderNo = senderNo;
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
 	}
 
-	public int getTargetNo() {
-		return targetNo;
+	public String getTargetId() {
+		return targetId;
 	}
 
-	public void setTargetNo(int targetNo) {
-		this.targetNo = targetNo;
+	public void setTargetNo(String targetId) {
+		this.targetId = targetId;
 	}
 
 	public int getChattingNo() {
@@ -84,7 +84,7 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [messageNo=" + messageNo + ", messageContent=" + messageContent + ", readFlag=" + readFlag
-				+ ", senderNo=" + senderNo + ", targetNo=" + targetNo + ", chattingNo=" + chattingNo + ", sendTime="
+				+ ", senderId=" + senderId + ", targetId=" + targetId + ", chattingNo=" + chattingNo + ", sendTime="
 				+ sendTime + "]";
 	}
     

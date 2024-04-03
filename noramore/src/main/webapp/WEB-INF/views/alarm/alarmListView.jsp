@@ -8,11 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>알림 확인 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
-<style type="text/css">
-.checkedColor{
- color: rgba(128, 128, 128, 0.5);
-}
-</style>
+
 <script type="text/javascript" src="/first/resources/js/jquery-3.7.0.min.js"></script>
 <script>
 /*   var context = "${ a.context }";
@@ -55,13 +51,13 @@
 				<td>${ a.alarmId }</td>
 				
 			    <c:if test="${ a.checkedYN eq 'Y' }">
-			    	<td class="checkedColor">
+			    	<div class="checkedColor">
 			   	</c:if>
 				
 				<c:if test="${ a.alarmKind eq 'COMM_FREE' || a.alarmKind eq 'COMM_RECR'}">
 					<td>
 						<c:if test="${ empty a.refCommentId }">
-							글 '${ a.title }' 에 새로운 댓글이 달렸습니다.
+							글 <a href="/noramore/rbdetail.do?boardId=${ a.boardId }&page=1">'${ a.title }'</a> 에 새로운 댓글이 달렸습니다.
 							<br>
 							└ '${ a.senderId }' : '${ a.context }' 
 						</c:if>
@@ -73,7 +69,7 @@
 				
 				<c:if test="${ a.alarmKind eq 'RECR_APPL' }">
 					<td>
-						'${ a.senderId }' 님께서 모집 '${ a.title }' 에 신청하였습니다.
+						'${ a.senderId }' 님께서 모집 <a href="/noramore/rbdetail.do?boardId=${ a.boardId }&page=1">'${ a.title }'</a> 에 신청하였습니다.
 					</td>
 				</c:if>
 				
@@ -87,14 +83,29 @@
 				</c:if>
 				
 			 	<c:if test="${ a.checkedYN eq 'Y' }">
-			    	</td>
+			    	</div>
 			   	</c:if>
 			   	
 			</tr>
 		</c:forEach>
-		
 
 	</table>
+<style type="text/css">
 
+.checkedColor{
+ color: rgba(128, 128, 128, 0.5);
+}
+
+a {
+	color: #0174DF;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.checkedColor {
+    background-color: #f0f0f0; /* 읽음 상태 배경색 */
+}
+
+</style>
 </body>
 </html>

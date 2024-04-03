@@ -19,9 +19,9 @@ function chattingEnter(e){
    console.log(e.target); // 실제 클릭된 요소
    console.log(e.currentTarget); // 이벤트 리스트가 설정된 요소
 
-   const targetNo = e.currentTarget.getAttribute("data-id");
+   const targetId = e.currentTarget.getAttribute("data-id");
 
-   fetch("/chatting/enter?targetNo="+targetNo)
+   fetch("/chatting/enter?targetId="+targetId)
    .then(resp => resp.text())
    .then(chattingNo => {
       console.log(chattingNo);
@@ -70,7 +70,7 @@ function selectRoomList(){
          const li = document.createElement("li");
          li.classList.add("chatting-item");
          li.setAttribute("chat-no", room.chattingNo);
-         li.setAttribute("target-no", room.targetNo);
+         li.setAttribute("target-id", room.targetId);
 
          if(room.chattingNo == selectChattingNo){
             li.classList.add("select");
@@ -133,7 +133,7 @@ function selectRoomList(){
             fetch("/chatting/updateReadFlag",{
                method : "PUT",
                headers : {"Content-Type": "application/json"},
-               body : JSON.stringify({"chattingNo" : selectChattingNo, "memberNo" : loginMemberNo})
+               body : JSON.stringify({"chattingNo" : selectChattingNo, "memberID" : loginMemberID})
             })
             .then(resp => resp.text())
             .then(result => console.log(result))
@@ -170,7 +170,7 @@ function roomListAddEvent(){
         
          // 전역변수에 채팅방 번호, 상대 번호, 상태 프로필, 상대 이름 저장
          selectChattingNo = item.getAttribute("chat-no");
-         selectTargetNo = item.getAttribute("target-no");
+         selectTargetId = item.getAttribute("target-id");
 
          selectTargetProfile = item.children[0].children[0].getAttribute("src");
          selectTargetName = item.children[1].children[0].children[0].innerText;
@@ -195,7 +195,7 @@ function roomListAddEvent(){
 // 비동기로 메시지 목록을 조회하는 함수
 function selectChattingFn() {
 
-   fetch("/chatting/selectMessage?"+`chattingNo=${selectChattingNo}&memberNo=${loginMemberNo}`)
+   fetch("/chatting/selectMessage?"+`chattingNo=${selectChattingNo}&memberID	=${loginMemberID}`)
    .then(resp => resp.json())
    .then(messageList => {
       console.log(messageList);
@@ -221,7 +221,7 @@ function selectChattingFn() {
          p.innerHTML = msg.messageContent; // br 태그 해석을 위해 innerHTML
 
          // 내가 작성한 메시지인 경우
-         if(loginMemberNo == msg.senderNo){ 
+         if(loginMemberID == msg.senderId){ 
             li.classList.add("my-chat");
             
             li.append(span, p);
@@ -267,7 +267,7 @@ function selectChattingFn() {
 // /chattingSock 이라는 요청 주소로 통신할 수 있는 WebSocket 객체 생성
 let chattingSock;
 
-if(loginMemberNo != ""){
+if(loginMemberID != ""){
    chattingSock = new SockJS("/chattingSock");
 }
 
@@ -284,8 +284,8 @@ const sendMessage = () => {
      
    } else {
       var obj = {
-         "senderNo": loginMemberNo,
-         "targetNo": selectTargetNo,
+         "senderId": loginMemberID,
+         "targetId": selectTargetId,
          "chattingNo": selectChattingNo,
          "messageContent": inputChatting.value,
       };
@@ -337,7 +337,7 @@ chattingSock.onmessage = function(e) {
       p.innerHTML = msg.messageContent; // br 태그 해석을 위해 innerHTML
    
       // 내가 작성한 메시지인 경우
-      if(loginMemberNo == msg.senderNo){ 
+      if(loginMemberID == msg.senderId){ 
          li.classList.add("my-chat");
          
          li.append(span, p);
