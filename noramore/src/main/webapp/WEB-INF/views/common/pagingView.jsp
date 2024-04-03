@@ -23,7 +23,7 @@
 <body>
 <%-- 목록 페이징 처리 : 검색 목록이 아닌 경우 --%>
 <c:if test="${ empty action }">
-<div style="text-align:center;align-items:center;">
+<div class = "pagingview" style="text-align:center;">
 	<%-- 첫 페이지로 이동 --%>	
 	<c:if test="${ currentPage eq 1 }">
 		<img src="resources/images/firstPage.jpg" width="13" height="13"> &nbsp;
