@@ -127,17 +127,51 @@ public class RecrBoardController {
 		 
 	  }//
 	  
+	 // 모집 테이블 수정
+	 @RequestMapping(value="updaterb.do", method=RequestMethod.POST) 
+	 public String updateRecrBoard(RecrBoard recrBoard, HttpServletRequest request, Model model, 
+		  		@RequestParam(name="upfile", required=false) MultipartFile mfile,
+		  		@RequestParam("maxRecr1") String maxRecr, @RequestParam(name="ageMinCondition1", required=false) String ageMinCondition, 
+		  		@RequestParam(name="ageMaxCondition1", required=false) String ageMaxCondition, @RequestParam("page") String page) {
+		
+		 
+		 
+		 
+		 
+		 return "";
+	  }//
+	  
+	  
 	  // 파일 다운로드 처리
 	@RequestMapping("rbdown.do")
 	public ModelAndView fileDown(
 			@RequestParam("ofile") String originalFileName, 
 			@RequestParam("rfile") String renameFileName,
 			ModelAndView mv, HttpServletRequest request) {
+		String savePath = request.getSession().getServletContext().getRealPath("resources/recrboard_upfiles");
 		
+		File readFile = new File(savePath + File.separator + renameFileName);
+		
+
+		File originFile = new File(originalFileName);
+
+		mv.setViewName("filedown");
+		mv.addObject("renameFile", readFile);
+		mv.addObject("originFile", originFile);
 		return mv;
 	}
 	
 	// ****************************** 이동용 *********************************
+	
+	// 글 수정 페이지로 이동
+	@RequestMapping("updateboard.do")
+	public String moveUpdateBoard(@RequestParam("boardId") String boardID, Model model) {
+		int boardId = Integer.parseInt(boardID);
+		
+		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
+		model.addAttribute("RecrBoard", recrBoard);
+		return "recrBoard/RecrBoardUpdateForm";
+	}
 	
 	// 자세히 보기 페이지로 이동
 	@RequestMapping("rbdetail.do")
@@ -156,6 +190,8 @@ public class RecrBoardController {
 		return "recrBoard/RecrBoardWriteForm";
 	}
 
+	
+	
 //	Board board, Model model, HttpServletRequest request, 
 //	@RequestParam(name="upfile", required=false) MultipartFile mfile
 

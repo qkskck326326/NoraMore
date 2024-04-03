@@ -11,22 +11,39 @@
 <meta charset="UTF-8">
 <title>NoraMore</title>
 <c:url var="insertappl" value="insertappl.do">
-	<c:param name="boardId" value="${RecrBoard.recrOriginalFilename}" />
-	<c:param name="memberId" value="${RecrBoard.recrRenameFilename}" />
 	<c:param name="RecrBoard" value="${RecrBoard}" />
 	<c:param name="Member" value="${loginMember}" />
+</c:url>
+<c:url var="updateBoard" value="updateboard.do">
+	<c:param name="boardId" value="${RecrBoard.boardId}" />
 </c:url>
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function toggleCommentForm() {
-    var commentForm = document.getElementById("commentForm");
-    if (commentForm.style.display === "none") {
-        commentForm.style.display = "block";
-        selectrecrcomment();
+    // writecommentForm 요소를 선택
+    var writecommentForm = document.getElementById("writecommentForm");
+    
+    // writecommentForm의 display 속성 값을 확인하여 표시되어 있는지 여부를 확인
+    if (writecommentForm.style.display === "none") {
+        // 표시되어 있지 않다면 보이도록 설정
+        writecommentForm.style.display = "block";
     } else {
-        commentForm.style.display = "none";
+        // 표시되어 있다면 숨김
+        writecommentForm.style.display = "none";
+    }
+    
+    // comment-list 요소를 선택
+    var commentList = document.querySelector(".comment-list");
+    
+    // comment-list의 display 속성 값을 확인하여 표시되어 있는지 여부를 확인
+    if (commentList.style.display === "none") {
+        // 표시되어 있지 않다면 보이도록 설정
+        commentList.style.display = "block";
+    } else {
+        // 표시되어 있다면 숨김
+        commentList.style.display = "none";
     }
 }
 
@@ -36,6 +53,7 @@ function Alert(message) {
 
 // 페이지 로딩 시 alert 창 띄우기
 window.onload = function() {
+	selectrecrcomment()
 	if(${!empty message}){
     Alert("${message}");
 	}
@@ -71,7 +89,7 @@ function selectrecrcomment() {
         dataType: "json",
         data: { BoardId: bId },
         success: function(data) {
-            // 받은 JSON 데이터를 처리하여 HTML에 추가하는 작업 수행
+        	
             for (var i = 0; i < data.length; i++) {
                 var comment = data[i];
                 
@@ -80,8 +98,8 @@ function selectrecrcomment() {
                 var contextTextarea = $('<textarea rows="5" cols="20" readonly>' + comment.context + '</textarea>');
                 var lastUpdateDateParagraph = $('<p style="font-size: 8pt;">' + "작성자ID : " + comment.memberId + "&nbsp;&nbsp;&nbsp; 작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
 
-                // 각 댓글을 새로운 div로 감싸지 않고, 하나의 div에 모든 요소를 추가합니다.
-                var commentDiv = $("<div style='text-align: left;'>");
+                
+                var commentDiv = $("<div id='commentForm' style='text-align: left; margin-bottom: 15px;'>");
                 commentDiv.append(memberIdInput);
                 commentDiv.append(commentIdInput);
                 commentDiv.append(contextTextarea);
@@ -89,6 +107,8 @@ function selectrecrcomment() {
 
                 $('.comment-list').append(commentDiv);
             }
+            
+            
         },
         error: function(xhr, status, error) {
             console.error("Error occurred:", error);
@@ -151,8 +171,12 @@ function checkRecrCondition(){
 }
 
 function insertappl(){
-	location.href = "insertappl";
+	location.href = "${insertappl}";
 }//
+
+function updateBoard(){
+	location.href = "${updateBoard}";
+}
 
 </script>
 <style>
@@ -207,6 +231,7 @@ function insertappl(){
 					<p>장소 : ${RecrBoard.recrLocation}</p>
 				</div>
 			</form>
+			<button class="whiteBtn" onclick="updateBoard()">수정하기</button>
 		</div>
 		<div class="comment-div">
 			<!-- 댓글 보기 버튼 -->
@@ -214,8 +239,8 @@ function insertappl(){
 				<button class="whiteBtn"
 					onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
 			</div>
-			<!-- 댓글 폼 -->
-			<div id="commentForm" style="display: none;">
+			<!-- 댓글 작성 폼 -->
+			<div id="writecommentForm" style="display: none;">
 				<form action="insertrecrcomment.do" method="post">
 					<input type="hidden" name="memberId"
 						value="${sessionScope.loginMember.memberID}"> <input
@@ -228,7 +253,7 @@ function insertappl(){
 			</div>
 		</div>
 
-		<div class="comment-list"></div>
+		<div class="comment-list" style='display: none;'></div>
 
 	</div>
 
