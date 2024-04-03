@@ -91,33 +91,37 @@ div {
 
 	<!--************************* 댓글/대댓글 추가한 부분 ************************************ -->
 	
-	<h2>댓글</h2>
-    <ul>
-        <c:forEach var="comment" items="${comments}">
-            <li>
-                ${comment.content}
-                <form action="addReply.do" method="post">
-                    <input type="hidden" name="parentId" value="${comment.id}" />
-                    <textarea name="content" placeholder="대댓글을 작성하세요"></textarea>
-                    <input type="submit" value="등록" />
-                </form>
-                <ul>
-                    <c:forEach var="reply" items="${comment.replies}">
-                        <li>${reply.content}</li>
-                    </c:forEach>
-                </ul>
-            </li>
-        </c:forEach>
-    </ul>
-    
-    <h2>새로운 댓글 작성</h2>
-    <form action="addComment.do" method="post">
-        <textarea name="content" placeholder="댓글을 작성하세요"></textarea>
-        <input type="submit" value="등록" />
-    </form>
-	
-	
-	
+	<h1>댓글 목록</h1>
+
+<c:forEach var="comment" items="${comments}">
+    <div>
+        <p>작성자</p> 
+        <input type="text" name="memberId" readonly value="${ sessionScope.loginMember.memberID }">
+        <p>내용: ${comment.context}</p>
+        <p>등록일자: ${comment.registDate}</p>
+        <!-- 댓글의 답글 출력 -->
+        <ul>
+            <c:forEach var="reply" items="${comment.replies}">
+                <li>${reply.memberId}님의 답글: ${reply.context}</li>
+            </c:forEach>
+        </ul>
+        <!-- 답글 작성 폼 -->
+        <form action="/addFreeReply" method="post">
+            <input type="hidden" name="parentId" value="${comment.commentId}" />
+            <input type="text" name="replyContent" placeholder="답글을 작성하세요" />
+            <input type="submit" value="등록" />
+        </form>
+    </div>
+</c:forEach>
+
+<h2>새로운 댓글 작성</h2>
+<form action="/addFreeComment" method="post">
+     <p>작성자</p> 
+        <input type="text" name="memberId" readonly value="${ sessionScope.loginMember.memberID }">
+    <br>
+    <textarea name="context" placeholder="댓글 내용을 입력하세요"></textarea><br>
+    <input type="submit" value="댓글 작성" />
+</form>
 	
 	
 	

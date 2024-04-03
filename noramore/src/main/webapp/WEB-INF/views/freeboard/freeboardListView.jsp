@@ -72,6 +72,10 @@
     function selectCategory(value){
         $("#category").text(value).val(value);
     }
+    
+    function selectCategory(value){
+    	$("#category").text(value).val(value);
+    }
 </script>
 
 </head>
