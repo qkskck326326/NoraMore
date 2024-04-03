@@ -90,13 +90,7 @@
 			</c:if> <c:if test="${ empty notice.originalFilePath }">&nbsp;	</c:if></td>
 
 
-		<!-- <p>장소</p>
-		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
-		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
-		
-		<button type="button" onclick="checkInput()">글쓰기</button>
-		<input type="submit" class="none"> -->
-	</section>
+		</section>
 	</form>
 
 

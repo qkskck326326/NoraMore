@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    --%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
+<c:import url="/WEB-INF/views/common/header.jsp" />
 <%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
 <!DOCTYPE html >
 <html>
@@ -40,7 +41,7 @@
 <body>
 	<section id="board">
 
-		<h1>게시판</h1>
+		<h1>QnA</h1>
 		<div class="line"></div>
 		<%
 		if (request.getParameter("pos") != null) {
@@ -67,10 +68,22 @@
 				<th>No</th>
 				<th>제목</th>
 				<th>작성자</th>
+				<th>내용</th>
 				<th>조회수</th>
-				<th>작성자</th>
+				<th>작성일</th>
 			</tr>
-
+			<c:forEach items="${ requestScope.list }" var="q">
+				<tr>
+					<td align="right">${ q.boardId }</td>
+					<td align="right"><a
+						href="${ pageContext.servletContext.contextPath }/qnadetail.do?no=${ q.boardId }">
+							${ q.title }</a></td>
+					<td align="right">${ q.memberID }</td>
+					<td align="right">${ q.substance }</td>					
+					<td align="right">${ q.readCount }</td>
+					<td align="center"><fmt:formatDate value="${ q.registDt }"
+							pattern="yyyy-MM-dd" /></td>
+			</c:forEach>
 		</table>
 
 	</section>

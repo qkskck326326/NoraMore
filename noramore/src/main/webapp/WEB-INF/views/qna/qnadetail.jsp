@@ -16,7 +16,7 @@
 <title>Insert title here</title>
 
 
-<c:url var="nd" value="ndelete.do">
+<c:url var="qd" value="qdelete.do">
 	<c:param name="boardId" value="${ qna.boardId }" />
 	<c:param name="rfile" value="${ qna.renameFilePath }" />
 </c:url>
@@ -70,32 +70,25 @@
 
 
 		<p>
-			<span style="float: left;">글 제목 : ${ notice.title }</span> <span
-				style="float: right;">작성자 : ${ notice.memberID }</span>
+			<span style="float: left;">글 제목 : ${ qna.title }</span> <span
+				style="float: right;">작성자 : ${ qna.memberID }</span>
 		</p>
 		<br> <br>
 		<p>작성일</p>
-		<h3>${ notice.registDt }</h3>
+		<h3>${ qna.registDt }</h3>
 		<br>
 		<p>내용</p>
-		<textarea rows="30" cols="70" name="sub" readonly>${ notice.substance }</textarea>
+		<textarea rows="30" cols="70" name="sub" readonly>${ qna.substance }</textarea>
 
 		<p>첨부파일</p>
-		<td><c:if test="${ !empty notice.originalFilePath }">
+		<td><c:if test="${ !empty qna.originalFilePath }">
 				<c:url var="nfd" value="nfdown.do">
-					<c:param name="ofile" value="${notice.originalFilePath }" />
-					<c:param name="rfile" value="${notice.renameFilePath }" />
+					<c:param name="ofile" value="${qna.originalFilePath }" />
+					<c:param name="rfile" value="${qna.renameFilePath }" />
 				</c:url>
-				<a href="${ nfd }">${notice.originalFilePath }</a>
-			</c:if> <c:if test="${ empty notice.originalFilePath }">&nbsp;	</c:if></td>
-
-
-		<!-- <p>장소</p>
-		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
-		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
-		
-		<button type="button" onclick="checkInput()">글쓰기</button>
-		<input type="submit" class="none"> -->
+				<a href="${ qfd }">${qna.originalFilePath }</a>
+			</c:if> <c:if test="${ empty qna.originalFilePath }">&nbsp;	</c:if></td>
+	
 	</section>
 	</form>
 

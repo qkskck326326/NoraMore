@@ -1,54 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
-<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
- 
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
-		<script type="text/javascript"
-			src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+<script type="text/javascript"
+	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-	
-<!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> -->
-		
-    <form action="writeOk.jsp" method="post" enctype="multipart/form-data" >
-	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
-	<section id="write">
-		<h1>글쓰기</h1>
-		<div class="line"></div>
-		
-		<p>글 제목</p>
-		<input type="text" placeholder="글 제목을 입력하세요." name="title">
-		
-		<p>본문</p>
-		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="sub"></textarea>
-		
-		<p>첨부파일</p>
-		<input type="file" id="file" name="file">
-						
-		<p>시작 날짜</p>
-		<input type="date" name="start"> 
-		
-		<p>마감 날짜</p>
-		<input type="date" name="end">
-		
-		<p>장소</p>
-		<input type="text" placeholder="주소를 입력해주세요" id="where" name="mainlocation" readonly>
-		<input type="text" placeholder="상세주소를 입력해주세요"  name="sublocation">
-		
-		<button type="button" onclick="checkInput()">글쓰기</button>
-		<input type="submit" class="none">
-	</section>
-</form>
+	<br>
+	<tr>
+		<th colspan="2">
+			<button class="blueBtn"
+				style="float: right; margin-right: 30px; margin-left: 10px"
+				onclick="javascript:history.go(-1);">취소</button>
+			<button class="whiteBtn" style="float: right;"
+				onclick="javascript:history.go(-1);">목록</button>
+		</th>
+	</tr>
+	<br>
+	<br>
+	<form action="qinsert.do" method="post" enctype="multipart/form-data">
+		<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
+		<section id="write">
+			<h1>글쓰기</h1>
+			<div class="line"></div>
+			<br>
+			<p>글 제목</p>
+			<input type="text" placeholder="글 제목을 입력하세요." name="title">
+			<p>
+				작성자 : <input type="text" name="memberID" readonly
+					value="${ sessionScope.loginMember.memberID }">
+			</p>
+			<p>본문</p>
+			<textarea rows="30" cols="70" placeholder="본문을 입력하세요."
+				name="substance"></textarea>
+
+			<p>첨부파일</p>
+			<input type="file" id="file" name="ofile">
+
+			<button class="blueBtn" onclick="checkInput()">작성</button>
+			<input type="submit" class="none">
+		</section>
+	</form>
 
 
-<!-- <script>
+	<!-- <script>
 	$("#where").on("click",function(e){
 		new daum.Postcode({
 		    oncomplete: function(data) {
@@ -130,4 +133,5 @@
 </script>
 	 -->
 </body>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>

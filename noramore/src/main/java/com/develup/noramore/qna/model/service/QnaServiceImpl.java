@@ -24,7 +24,7 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public Qna selectOne(int boardID) {
 		// TODO Auto-generated method stub
-		return qnaDao.selectOne();
+		return qnaDao.selectOne(boardID);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public void updateAddReadCount(int boardID) {
 		// TODO Auto-generated method stub
-		qnaDao.updateAddReadCount(boardID);
+		qnaDao.addReadCount(boardID);
 	}
 
 	@Override
