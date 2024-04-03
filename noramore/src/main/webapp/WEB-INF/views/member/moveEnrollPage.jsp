@@ -93,8 +93,8 @@ function validate(){
 	
 	
 	
-	if (!/^[a-z][A-Za-z0-9]{5,11}$/.test(idValue)) {
-	    document.getElementById("memberid").value = "";  
+	if (!/^[a-z][A-Za-z0-9]{5,11}$/.test(dmemberid)){
+		document.getElementById("memberid").value = "";
 		document.getElementById("memberid").select();
 	    return false;
 	}
@@ -139,6 +139,8 @@ function validate(){
  
 
 
+	
+	
 
 function dupIDCheck(){
 	//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함

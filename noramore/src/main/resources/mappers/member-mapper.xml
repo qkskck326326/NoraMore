@@ -57,7 +57,7 @@
 		insert into member 
 		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
 				#{ address }, #{ photoFilename }, default, default, default, default, default, default)
-				
+		where MEMBER_ID != #{ memberID }
 	</insert>
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
@@ -69,6 +69,11 @@
 	<select id="selectCheckEmail" parameterType="string" resultType="_int">
 		select count(*) from member where EMAIL = #{ email }
 	
+	</select>
+	
+	<select id="selectFindId" parameterType="Member" resultMap="resultMember">
+		select * from member 
+		where EMAIL = #{ email } AND MEMBER_NAME = #{ memberName }
 	</select>
 	
 
