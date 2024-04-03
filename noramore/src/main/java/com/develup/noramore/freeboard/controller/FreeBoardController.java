@@ -79,7 +79,9 @@ public class FreeBoardController {
 		return mv;
 		
 	}
+
 	
+
 	//게시글(원글) 수정페이지로 이동 처리용
 	@RequestMapping("fbupview.do")
 	public String moveFreeBoardUpdatePage(
@@ -355,8 +357,8 @@ public class FreeBoardController {
 	
 	// 조회순 구현
 	
-	@RequestMapping(value = "freeviewslist.do", method= {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView freeBoardSearchViewsMethod(
+	@RequestMapping("freeviewslist.do")
+	public ModelAndView selectViewFreeBoard(
 		@RequestParam(name="page", required=false) String page,
 		@RequestParam(name = "limit", required = false) String slimit,
 		ModelAndView mv
@@ -365,6 +367,7 @@ public class FreeBoardController {
 		if(page != null && page.trim().length() > 0) {
 			currentPage = Integer.parseInt(page);
 		}
+
 		int limit = 10;
 		if(slimit != null && slimit.trim().length() > 0) {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
@@ -387,6 +390,7 @@ public class FreeBoardController {
 		mv.setViewName("freeboard/freeboardListView");
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
+		mv.addObject("limit", limit);
 		return mv;
 	
 	}
@@ -427,6 +431,7 @@ public class FreeBoardController {
 		mv.setViewName("freeboard/freeboardListView");
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
+		mv.addObject("limit", limit);
 		
 		return mv;
 	

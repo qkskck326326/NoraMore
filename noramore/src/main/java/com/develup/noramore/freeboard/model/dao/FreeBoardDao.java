@@ -96,6 +96,18 @@ public class FreeBoardDao {
 	}
 
 
+	public ArrayList<FreeBoard> selectRecentList(Search search) {
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectRecentList", search);
+		return (ArrayList<FreeBoard>)list;
+	}
+
+
+	public ArrayList<FreeBoard> selectViewsList(Search search) {
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectViewsList", search);
+		return (ArrayList<FreeBoard>)list;
+	}
+
+	
 	
 
 
