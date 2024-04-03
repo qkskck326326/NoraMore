@@ -377,7 +377,45 @@ public class FreeBoardController {
 	}
 	
 	
+	// 최신순 구현
 	
+	@RequestMapping(value = "freerecentlist.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView freeBoardSearchRecentMethod(
+		@RequestParam(name="page", required=false) String page,
+		ModelAndView mv
+			) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		
+		
+		
+		int listCount = freeBoardService.selectListcount();
+		
+		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		paging.calculate();
+		
+		Search search = new Search();
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectRecentList(search);
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("freeboard/freeboardListView");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		
+		return mv;
+	
+	}
+		
 	
 	
 			

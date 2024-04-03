@@ -52,6 +52,12 @@ public interface FreeBoardService {
 
 	ArrayList<FreeBoard> selectViewsList(Search search);
 
+
+	ArrayList<FreeBoard> selectRecentList(Search search);
+
+
+	
+
 	
 	
 

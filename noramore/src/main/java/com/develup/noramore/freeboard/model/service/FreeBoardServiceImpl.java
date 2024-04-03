@@ -112,6 +112,14 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return (ArrayList<FreeBoard>)list;
 	}
 
+	@Override
+	public ArrayList<FreeBoard> selectRecentList(Search search) {
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectRecentList");
+		return (ArrayList<FreeBoard>)list;
+	}
+
+	
+
 	
 	
 	
