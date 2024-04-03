@@ -87,7 +87,62 @@ function moveUpdatePage(){
 		
 	</div>
 </form>
+<!-- 추가한 부분(댓글, 대댓글) **************** -->	
+<h1 align="center">댓글 | 대댓글 등록 페이지</h1>
+<br>
 
+<form action="fbreply.do" method="post">
+	<input type="hidden" name="bnum" value="${ requestScope.bnum }">
+	<input type="hidden" name="page" value="${ requestScope.currentPage }">
+
+<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
+	<tr>
+		<th>제 목</th>
+		<td><input type="text" name="boardTitle" size="50"></td>
+	</tr>
+	<tr>
+		<th>작성자</th>
+		<td><input type="text" name="boardWriter" readonly value="${ sessionScope.loginMember.memberID }"></td>
+	</tr>	
+	<tr>
+		<th>내 용</th>
+		<td><textarea rows="5" cols="50" name="boardContent"></textarea></td>
+	</tr>
+	<tr>
+		<th colspan="2">
+			<input type="submit" value="등록하기"> &nbsp; 
+			<input type="reset" value="작성취소"> &nbsp;
+		</th>		
+	</tr>
+</table>
+</form>	
+
+<!-- ********추가한 부분  댓글 추가한 거 확인********** 수정해야됨 띄우는 부분을 모르겠음-->
+<table>
+			<thead>
+			<tr>
+				<th>글번호</th>
+				<th>제목</th>
+				<th>작성자ID</th>
+			</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="flreply" items="${ requestScope.list }">
+                <tr>
+                    <td>${flreply.boardId}</td>
+                    <td><a href="${fbd}">${flreply.title}</a></td>
+                    <td>${flreply.memberId}</td>
+                </tr>
+            </c:forEach>	
+				
+			
+			</tbody>
+			
+
+		</table>
+
+<!-- ****************** -->
+<!-- ************************* -->
 
 <!-- <script>
 	$("#where").on("click",function(e){

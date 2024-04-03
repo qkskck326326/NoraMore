@@ -34,6 +34,14 @@
 		from free_board
 	</select>
 	
+	<select id="selectViewsList" resultMap="resultfreeList">
+		select * from free_board order by READ_COUNT desc
+	</select>
+	
+	<select id="selectRecentList" resultMap="resultfreeList">
+		select * from free_board order by REGIST_DATE desc
+	</select>
+	
 	<select id="selectSearchList" parameterType="Search" resultMap="resultfreeList">
 		SELECT *
 		FROM (
@@ -126,14 +134,6 @@
 		where BOARD_ID = #{ boardId }
 	</update>
 	
-	<update id="upCountComment" parameterType="_int">
-	UPDATE FREE_BOARD
-	SET COMMENT_COUNT = (
-	    SELECT COUNT(*)
-	    FROM COMM_FREE
-	    WHERE BOARD_ID = #{boardId}
-	)
-	WHERE BOARD_ID = #{boardId}
-	</update>
+	
 	
 </mapper>

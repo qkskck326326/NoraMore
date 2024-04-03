@@ -33,23 +33,36 @@ public class FreeBoardController {
 	@Autowired
 	private FreeBoardService freeBoardService;
 	
+	//게시글 목록 보기 요청 처리용
 	@RequestMapping("freeboardlist.do")
-	public ModelAndView selectFreeBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView selectFreeBoard(ModelAndView mv,
+			@RequestParam(name = "page", required = false) String page,
+			@RequestParam(name = "limit", required = false) String slimit) {
 		//ArrayList<FreeBoard> list = freeBoardService.selectFreeBoard();
 		int currentPage = 1;
+		/*
 		if(page != null) {
 			currentPage = Integer.parseInt(page);
 		}
-		int limit = 10;
-		if (page != null) {
+		*/
+		if(page != null && page.trim().length() > 0) {
 			currentPage = Integer.parseInt(page);
 		}
 		
+		int limit = 10;
+		if(slimit != null && slimit.trim().length() > 0) {
+			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
+		}
+		/*
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		*/
 		
 		
 		int listCount = freeBoardService.selectListcount();
 		
-		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		Paging paging = new Paging(listCount, currentPage, limit, "freeboardlist.do");
 		paging.calculate();
 		
 		Search search = new Search();
@@ -336,6 +349,87 @@ public class FreeBoardController {
 		
 	
 	}
+	
+	// 조회순 구현
+	
+	@RequestMapping(value = "freeviewslist.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView freeBoardSearchViewsMethod(
+		@RequestParam(name="page", required=false) String page,
+		ModelAndView mv
+			) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		
+		
+		
+		int listCount = freeBoardService.selectListcount();
+		
+		Paging paging = new Paging(listCount, currentPage, limit, "freeviewslist.do");
+		paging.calculate();
+		
+		Search search = new Search();
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectViewsList(search);
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("freeboard/freeboardListView");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		return mv;
+	
+	}
+	
+	
+	// 최신순 구현
+	
+	@RequestMapping(value = "freerecentlist.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView freeBoardSearchRecentMethod(
+		@RequestParam(name="page", required=false) String page,
+		ModelAndView mv
+			) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		
+		
+		
+		int listCount = freeBoardService.selectListcount();
+		
+		Paging paging = new Paging(listCount, currentPage, limit, "freerecentlist.do");
+		paging.calculate();
+		
+		Search search = new Search();
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectRecentList(search);
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("freeboard/freeboardListView");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		
+		return mv;
+	
+	}
+		
+	
+	
 			
 	//새 게시글 등록 요청 처리용 (첨부파일 업로드 기능 추가)
 	
