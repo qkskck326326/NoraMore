@@ -48,7 +48,7 @@
 
 	<insert id="insertNotice" parameterType="Notice">
 		insert into notice_board
-		values ((select max(board_Id) + 1 from notice_board),
+		values (NVL((select max(board_Id) ,0)+ 1 from notice_board),
 		#{memberID},
 		#{title}, #{substance}, default, SYSDATE ,SYSDATE ,
 		#{originalFilePath}, #{renameFilePath})

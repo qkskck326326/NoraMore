@@ -2,7 +2,88 @@
 <!DOCTYPE mapper PUBLIC
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="qnaboard">
+<mapper namespace="qnaMapper">
 
+	<resultMap type="Qna" id="resultQna">
+		<result property="boardId" column="BOARD_ID" />
+		<result property="memberID" column="MEMBER_ID" />
+		<result property="title" column="TITLE" />
+		<result property="substance" column="SUBSTANCE" />
+		<result property="readCount" column="READ_COUNT" />
+		<result property="registDt" column="REGIST_DT" />
+		<result property="lastUpdDt" column="LAST_UPD_DT" />
+		<result property="originalFilePath" column="ORIGINAL_FILENAME" />
+		<result property="renameFilePath" column="RENAME_FILENAME" />
+	</resultMap>
+
+	<select id="selectListCount" resultType="_int">
+		select count(*) from
+		qna_board
+	</select>
+
+	<select id="selectOne" parameterType="_int"
+		resultMap="resultQna">
+		select * from qna_board where BOARD_ID = #{ id }
+	</select>
+
+	<select id="selectList" parameterType="Paging"
+		resultMap="resultQna">
+		select *
+		from (select rownum rnum, board_id, member_id,
+		title,
+		substance, read_count, regist_dt, last_upd_dt
+		from (select * from
+		qna_board
+		order by regist_dt desc, board_id desc))
+		where rnum between
+		#{
+		startRow } and #{ endRow }
+	</select>
+
+	<update id="addReadCount" parameterType="_int">
+		update qna_board
+		set
+		READ_COUNT = READ_COUNT + 1
+		where BOARD_ID = #{ no }
+	</update>
+
+	<insert id="insertQna" parameterType="Qna">
+		insert into qna_board
+		(BOARD_ID, MEMBER_ID, TITLE, SUBSTANCE, READ_COUNT, REPORT_COUNT,
+		REGIST_DT, LAST_UPD_DT, ORIGINAL_FILENAME, RENAME_FILENAME)
+		values ((select NVL(max(BOARD_ID), 0) + 1 from qna_board),
+		#{memberID}, #{title}, #{substance}, 0, 0,
+		SYSDATE, SYSDATE, #{originalFilePath}, #{renameFilePath})
+	</insert>
+
+	<delete id="deleteQna" parameterType="_int">
+		delete from qna_board
+		where
+		board_ID = #{ no }
+	</delete>
+
+	<update id="updateQna" parameterType="Qna">
+		UPDATE qna_board
+		SET title = #{title},
+		member_ID = #{memberID},
+		substance = #{substance},
+		LAST_UPD_DT = sysdate,
+		ORIGINAL_FILENAME =
+		<if test="originalFilePath == null">
+			null
+		</if>
+		<if test="originalFilePath != null">
+			#{originalFilePath}
+		</if>
+		,
+		RENAME_FILENAME =
+		<if test="renameFilePath == null">
+			null
+		</if>
+		<if test="renameFilePath != null">
+			#{renameFilePath}
+		</if>
+		WHERE board_id = #{boardId}
+	</update>
 
 </mapper>

@@ -318,6 +318,7 @@ td {
 }
 
 #write {
+	height : 100vh;
 	position: relative;
 	top: 70px;
 	width: 80%;
