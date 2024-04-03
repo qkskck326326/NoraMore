@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 <link rel="stylesheet" href="resources/css/chatting.css">
-
 <title>채팅 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 
 <script src="https://kit.fontawesome.com/a2e8ca0ae3.js" crossorigin="anonymous"></script>
@@ -51,7 +51,7 @@
 
                <li class="chatting-item" chat-no="${room.chattingNo}" target-id="${room.targetId}">
                   <div class="item-header">
-                     <c:if test="${not empty room.targetProfile}">
+                     <c:if test="${ !empty room.targetProfile}">
                         <img class="list-profile" src="${room.targetProfile}">
                      </c:if>
                      <c:if test="${empty room.targetProfile}">
@@ -66,9 +66,9 @@
                      <div>
                         <p class="recent-message">${room.lastMessage}</p>
 
-<%--                         <c:if test="${room.notReadCount > 0}">
+                        <c:if test="${ !empty room.notReadCount }">
                            <p class="not-read-count">${room.notReadCount}</p>
-                        </c:if> --%>
+                        </c:if>
                      </div>
                   </div>
                </li>
@@ -111,10 +111,10 @@
    <!--------------------------------------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ---------------------------------------------->
    
    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+   <script type="text/javascript" src="resources/js/chatting.js"></script>
    <script>
       // 로그인한 회원 번호
       const loginMemberID = "${loginMember.memberID}";
 	</script>
-	<script type="text/javascript" src="resources/js/chatting.js"/>
 </body>
 </html>

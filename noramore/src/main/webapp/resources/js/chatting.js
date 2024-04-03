@@ -1,3 +1,4 @@
+
 const addTarget = document.querySelector("#addTarget"); // 추가 버튼
 
 const addTargetPopupLayer = document.querySelector("#addTargetPopupLayer"); // 팝업 레이어
@@ -342,9 +343,9 @@ function selectChattingFn() {
 // 로그인이 되어 있을 경우에만
 // /chattingSock 이라는 요청 주소로 통신할 수 있는 WebSocket 객체 생성
 let chattingSock;
-
-if(loginMemberID != ""){
-   chattingSock = new SockJS("/chattingSock");
+let loginMemberID = "${loginMember.memberID}";
+if(loginMemberID != null){
+   const chattingSock = new WebSocket("ws://localhost:8080/chattingSock");
 }
 
 
