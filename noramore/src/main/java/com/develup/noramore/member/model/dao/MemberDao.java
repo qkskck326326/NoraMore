@@ -35,6 +35,14 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.selectFindId", member);
 	}
 
+	public int updatePw(Member member) {
+		return sqlSessionTemplate.selectOne("memberMapper.updatePw", member);
+	}
+
+	public Member selectOriginPw(String memberid) {
+		return sqlSessionTemplate.selectOne("memberMapper.selectOriginPw", memberid);
+	}
+
 	
 	
 }

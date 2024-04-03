@@ -57,7 +57,6 @@
 		insert into member 
 		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
 				#{ address }, #{ photoFilename }, default, default, default, default, default, default)
-		where MEMBER_ID != #{ memberID }
 	</insert>
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
@@ -76,5 +75,21 @@
 		where EMAIL = #{ email } AND MEMBER_NAME = #{ memberName }
 	</select>
 	
+	
+	
+	
+	<!-- 비밀번호 재설정 --> 
+	<update id="updatePw" parameterType="Member">
+		update member 
+		set MEMBER_PWD = #{ memberPWD } 
+		where MEMBER_ID = #{ memeberID }
+	</update>
+	
+	<!-- 기존 비밀번호 -->
+	<select id="selectOriginPw" parameterType="String" resultMap="resultMember">
+		select *
+		from member
+		where MEMBER_ID = #{ memberID }
+	</select>
 
 </mapper>

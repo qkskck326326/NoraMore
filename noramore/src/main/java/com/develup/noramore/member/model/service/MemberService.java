@@ -16,6 +16,10 @@ public interface MemberService {
 
 	Member selectFindId(Member member);
 
+	int updatePw(Member member);
+
+	Member selectOriginPw(String memberid);
+
 
 	
 
