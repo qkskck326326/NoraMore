@@ -26,7 +26,11 @@ public class CommentRecrBoardController {
 
 	// 댓글 달기
 	@RequestMapping(value = "insertrecrcomment.do", method = RequestMethod.POST)
-	public String insertRecrComment(CommentRecrBoard commentRecrBoard, Model model, @RequestParam("page") String page) {
+	public String insertRecrComment(CommentRecrBoard commentRecrBoard, Model model, @RequestParam("page") String page, 
+									@RequestParam("refCommentId1") String refCommentId1) {
+		System.out.println("들어온 값" + refCommentId1);
+		int refCommentId = Integer.parseInt(refCommentId1);
+		commentRecrBoard.setRefCommentId(refCommentId);
 		if (commentRecrBoardService.insertRecrComment(commentRecrBoard) > 0
 				&& recrBoardService.upCountComment(commentRecrBoard.getBoardId()) > 0) {
 			model.addAttribute("message", "댓글이 등록되었습니다.");
@@ -92,6 +96,7 @@ public class CommentRecrBoardController {
 			job.put("commentId", commentRecrBoard.getCommentId());
 			job.put("context", commentRecrBoard.getContext());
 			job.put("countSubComment", commentRecrBoard.getCountSubComment());
+			job.put("refCommentId", commentRecrBoard.getRefCommentId());
 			job.put("lastUpdateDate", lud);
 
 			jarr.add(job);

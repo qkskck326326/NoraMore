@@ -21,6 +21,8 @@ public interface RecrBoardService {
 
 	int upCountComment(int boardId);
 
+	int updateBoard(RecrBoard recrBoard);
+
 
 
 	
