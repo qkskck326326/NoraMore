@@ -42,6 +42,13 @@
 		//게시글 (원글, 댓글, 대댓글) 수정 페이지로 이동 처리 함수
 		location.href = "${ fbup }";
 	}
+	
+	function report() {
+        // 신고 횟수 증가
+        reportCount++;
+        // 증가된 신고 횟수를 버튼에 반영
+        document.getElementById("reportCountDisplay").innerText = reportCount;
+    }
 </script>
 <title>NoraMore</title>
 
