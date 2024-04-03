@@ -108,15 +108,30 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 	@Override
 	public ArrayList<FreeBoard> selectViewsList(Search search) {
-		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectViewsList");
-		return (ArrayList<FreeBoard>)list;
+		return freeBoardDao.selectViewsList(search);
 	}
 
 	@Override
 	public ArrayList<FreeBoard> selectRecentList(Search search) {
-		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectRecentList");
-		return (ArrayList<FreeBoard>)list;
+		
+		return freeBoardDao.selectRecentList(search);
 	}
+	
+	
+
+	@Override
+	public int selectViewsListCount() {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectViewsListCount();
+	}
+
+	@Override
+	public int selectRecentListCount() {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectRecentListCount();
+	}
+
+	
 
 	
 

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-  
+	pageEncoding="UTF-8"%>
+
 <%-- <%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!DOCTYPE html>
@@ -19,132 +19,116 @@
 -->
 
 <c:url var="fbdel" value="freeboarddelete.do">
-	<c:param name="boardId" value="${ FreeBoard.boardId }"/>
-	<c:param name="freeRenameFileName" value="${ FreeBoard.freeRenameFileName }"/>
+	<c:param name="boardId" value="${ FreeBoard.boardId }" />
+	<c:param name="freeRenameFileName"
+		value="${ FreeBoard.freeRenameFileName }" />
 </c:url>
 
 <c:url var="fbup" value="fbupview.do">
-	<c:param name="boardId" value="${ FreeBoard.boardId }"/>
-	<c:param name="page" value="${ currentPage }"/>
+	<c:param name="boardId" value="${ FreeBoard.boardId }" />
+	<c:param name="page" value="${ currentPage }" />
 </c:url>
 
-<script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript"
+	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 
 <script type="text/javascript">
+	function requestDelete() {
+		//게시글(원글, 댓글, 대댓글) 삭제 요청 함수
+		location.href = "${ fbdel }";
+	}
 
-function requestDelete(){
-	//게시글(원글, 댓글, 대댓글) 삭제 요청 함수
-	location.href = "${ fbdel }";
-}
-
-function moveUpdatePage(){
-	//게시글 (원글, 댓글, 대댓글) 수정 페이지로 이동 처리 함수
-	location.href = "${ fbup }";
-}
-
+	function moveUpdatePage() {
+		//게시글 (원글, 댓글, 대댓글) 수정 페이지로 이동 처리 함수
+		location.href = "${ fbup }";
+	}
 </script>
 <title>NoraMore</title>
 
 
 <style>
-    div {
-    	margin-bottom: 20px;
-    }
-    
-    
+div {
+	margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
-<form action="freeboardlist.do" method="post" enctype="multipart/form-data" >
-	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
-	<div id="write">
-		<h1 style="text-align: left;">${FreeBoard.title}</h1>
-		<div class="line"></div>
-		<div>
-			<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
-			<button style="float: right; background-color:pink; color:black;" class="whiteBtn" onclick="report(); return false;">신고하기</button>
-			
+	<form action="freeboardlist.do" method="post"
+		enctype="multipart/form-data">
+		<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
+		<div id="write">
+			<h1 style="text-align: left;">${FreeBoard.title}</h1>
+			<div class="line"></div>
+			<div>
+				<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
+				<button style="float: right; background-color: pink; color: black;"
+					class="whiteBtn" onclick="report(); return false;">신고하기</button>
+
+			</div>
+
+			<textarea cols="30" rows="40" readonly>${FreeBoard.context}</textarea>
+
+			<c:if test="${ !empty FreeBoard.freeOriginalFileName}">
+				<p>첨부파일</p>
+				<c:url var="fbdown" value="fbdown.do">
+					<c:param name="ofile" value="${FreeBoard.freeOriginalFileName}" />
+					<c:param name="rfile" value="${FreeBoard.freeRenameFileName}" />
+				</c:url>
+				<a href="${fbdown}"> ${FreeBoard.freeOriginalFileName}</a>
+			</c:if>
+			<c:if test="${ empty FreeBoard.freeOriginalFileName}">
+				<p>첨부파일 없음</p>
+			</c:if>
+
+			<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button>
+			&nbsp;
+			<button onclick="requestDelete(); return false;">글삭제</button>
+			&nbsp;
+
+
 		</div>
+	</form>
 
-		<textarea cols="30" rows="40" readonly>${FreeBoard.context}</textarea>
-		
-		<c:if test="${ !empty FreeBoard.freeOriginalFileName}">
-		<p>첨부파일</p>
-			<c:url var="fbdown" value="fbdown.do">
-				<c:param name="ofile" value="${FreeBoard.freeOriginalFileName}"/>
-				<c:param name="rfile" value="${FreeBoard.freeRenameFileName}"/>
-			</c:url>
-			<a href="${fbdown}">
-			${FreeBoard.freeOriginalFileName}</a>
-		</c:if>
-		<c:if test="${ empty FreeBoard.freeOriginalFileName}">
-			<p>첨부파일 없음</p>
-		</c:if>
-		
-		<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
-		<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;				
-		
-		
-	</div>
+	<!--************************* 댓글/대댓글 추가한 부분 ************************************ -->
+	
+	<h1>댓글 목록</h1>
+
+<c:forEach var="comment" items="${comments}">
+    <div>
+        <p>작성자</p> 
+        <input type="text" name="memberId" readonly value="${ sessionScope.loginMember.memberID }">
+        <p>내용: ${comment.context}</p>
+        <p>등록일자: ${comment.registDate}</p>
+        <!-- 댓글의 답글 출력 -->
+        <ul>
+            <c:forEach var="reply" items="${comment.replies}">
+                <li>${reply.memberId}님의 답글: ${reply.context}</li>
+            </c:forEach>
+        </ul>
+        <!-- 답글 작성 폼 -->
+        <form action="/addFreeReply" method="post">
+            <input type="hidden" name="parentId" value="${comment.commentId}" />
+            <input type="text" name="replyContent" placeholder="답글을 작성하세요" />
+            <input type="submit" value="등록" />
+        </form>
+    </div>
+</c:forEach>
+
+<h2>새로운 댓글 작성</h2>
+<form action="/addFreeComment" method="post">
+     <p>작성자</p> 
+        <input type="text" name="memberId" readonly value="${ sessionScope.loginMember.memberID }">
+    <br>
+    <textarea name="context" placeholder="댓글 내용을 입력하세요"></textarea><br>
+    <input type="submit" value="댓글 작성" />
 </form>
-<!-- 추가한 부분(댓글, 대댓글) **************** -->	
-<h1 align="center">댓글 | 대댓글 등록 페이지</h1>
-<br>
+	
+	
+	
+	
+	<!-- ******************************************************************* -->
 
-<form action="fbreply.do" method="post">
-	<input type="hidden" name="bnum" value="${ requestScope.bnum }">
-	<input type="hidden" name="page" value="${ requestScope.currentPage }">
-
-<table align="center" width="500" border="1" cellspacing="0" cellpadding="5">
-	<tr>
-		<th>제 목</th>
-		<td><input type="text" name="boardTitle" size="50"></td>
-	</tr>
-	<tr>
-		<th>작성자</th>
-		<td><input type="text" name="boardWriter" readonly value="${ sessionScope.loginMember.memberID }"></td>
-	</tr>	
-	<tr>
-		<th>내 용</th>
-		<td><textarea rows="5" cols="50" name="boardContent"></textarea></td>
-	</tr>
-	<tr>
-		<th colspan="2">
-			<input type="submit" value="등록하기"> &nbsp; 
-			<input type="reset" value="작성취소"> &nbsp;
-		</th>		
-	</tr>
-</table>
-</form>	
-
-<!-- ********추가한 부분  댓글 추가한 거 확인********** 수정해야됨 띄우는 부분을 모르겠음-->
-<table>
-			<thead>
-			<tr>
-				<th>글번호</th>
-				<th>제목</th>
-				<th>작성자ID</th>
-			</tr>
-			</thead>
-			<tbody>
-			<c:forEach var="flreply" items="${ requestScope.list }">
-                <tr>
-                    <td>${flreply.boardId}</td>
-                    <td><a href="${fbd}">${flreply.title}</a></td>
-                    <td>${flreply.memberId}</td>
-                </tr>
-            </c:forEach>	
-				
-			
-			</tbody>
-			
-
-		</table>
-
-<!-- ****************** -->
-<!-- ************************* -->
-
-<!-- <script>
+		<!-- <script>
 	$("#where").on("click",function(e){
 		new daum.Postcode({
 		    oncomplete: function(data) {
