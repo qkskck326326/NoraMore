@@ -96,8 +96,8 @@ function selectrecrcomment() {
                 commentDiv.append(commentIdInput);
                 commentDiv.append(contextTextarea);
                 commentDiv.append(lastUpdateDateParagraph);
-                commentDiv.append("<button class='info-button' data-id='${commentId}'>수정하기</button>");
-                commentDiv.append("<button class='info-button' data-id='${commentId}'>삭제하기</button>");
+                commentDiv.append("<button class='info-button' data-id='${commentId}' onclick='updatecomment()'>수정하기</button>");
+                commentDiv.append("<button class='info-button' data-id='${commentId}' onclick='deletecomment()'>삭제하기</button>");
                 var refCommentId1 = parseInt(comment.commentId);
                 console.log(refCommentId1);
                 
