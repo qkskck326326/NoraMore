@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>로그인 페이지</title>
 <link rel="stylesheet" type="text/css" href="resources/css/loginPage.css" />
+
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function enroll(){	
 	location.href = "enrollPage.do";
@@ -33,7 +35,7 @@ function enroll(){
 	
 		<hr>
 		<div id="find">
-		<a href="">아이디찾기</a> / <a href="">비밀번호찾기</a>
+		<a href="findIDPage.do">아이디찾기</a> / <a href="findPWPage.do">비밀번호찾기</a>
 		</div>
 		
 		<button class='social_login' id= "kakao" onclick="">카카오로 1초만에 로그인하기</button><br>

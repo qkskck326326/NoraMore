@@ -62,6 +62,20 @@ public class MemberController {
 	
 	}
 	
+	@RequestMapping(value = "findIDPage.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String findIDPage() {
+	return "/member/findIDPage";
+	
+	}
+	
+	@RequestMapping(value = "findPWPage.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String findPWPage() {
+	return "/member/findPWPage";
+	
+	}
+	
 	
 	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
@@ -179,6 +193,30 @@ public class MemberController {
 		}
 		
 		
+		
+		//ajax 통신으로 가입할 이메일 중복 확인 요청 처리용 메소드
+				@RequestMapping(value="emailchk.do", method=RequestMethod.POST)
+				public void dupCheckEmail(@RequestParam("email") String email, 
+										HttpServletResponse response) throws IOException {
+					
+					int idCount = memberService.selectCheckEmail(email);
+					
+					String returnStr = null;
+					if(idCount == 0) {
+						returnStr = "ok";
+					}else {
+						returnStr = "dup";
+					}
+					
+					//response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+					response.setContentType("text/html; charset=utf-8");
+					PrintWriter out = response.getWriter();
+					out.append(returnStr);
+					out.flush();
+					out.close();
+				}
+		
+		
 		@Autowired
 		JavaMailSenderImpl mailSender;
 
@@ -188,13 +226,11 @@ public class MemberController {
 		public String emailAuth(String email) {
 			
 			logger.info("전달 받은 이메일 주소 : " + email);
-
-			
 			
 			//난수의 범위 111111 ~ 999999 (6자리 난수)
 			Random random = new Random();
 			int checkNum = random.nextInt(888888)+111111;
-		
+			
 			//이메일 보낼 양식
 			String setFrom = "noramore12@naver.com"; //2단계 인증 x, 메일 설정에서 POP/IMAP 사용 설정에서 POP/SMTP 사용함으로 설정o
 			String toMail = email;
@@ -216,20 +252,61 @@ public class MemberController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		
-			
+			JSONArray jarr = new JSONArray();
 			JSONObject checkObject = new JSONObject();
 			checkObject.put("code", checkNum);
 			
+		
 			logger.info("랜덤숫자 : " + checkNum);
 			return checkObject.toJSONString();
-			
-			
-				
-			
-		
-			
 		}
+		
+		
+		
+		//이메일 인증
+				@PostMapping("emailAuth2.do")
+				@ResponseBody
+				public String emailAuth2(String email) {
+					
+					logger.info("전달 받은 이메일 주소 : " + email);
+					
+					//난수의 범위 111111 ~ 999999 (6자리 난수)
+					Random random = new Random();
+					int checkNum = random.nextInt(888888)+111111;
+					
+					//이메일 보낼 양식
+					String setFrom = "noramore12@naver.com"; //2단계 인증 x, 메일 설정에서 POP/IMAP 사용 설정에서 POP/SMTP 사용함으로 설정o
+					String toMail = email;
+					String title = "회원가입 인증 이메일 입니다.";
+					String content = "인증 코드는 " + checkNum + " 입니다." +
+									 "<br>" +
+									 "해당 인증 코드를 인증 코드 확인란에 기입하여 주세요.";
+					
+					System.out.println("메일 내용 : " + content + "보낸에메일 : " + setFrom);
+					try {
+						MimeMessage message = mailSender.createMimeMessage(); //Spring에서 제공하는 mail API
+			            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			            helper.setFrom(setFrom);
+			            helper.setTo(toMail);
+			            helper.setSubject(title);
+			            helper.setText(content, true);
+			            mailSender.send(message);
+			            logger.info("랜덤숫자!!! : " + checkNum);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					JSONArray jarr = new JSONArray();
+					JSONObject checkObject = new JSONObject();
+					checkObject.put("code", checkNum);
+					
+				
+					logger.info("랜덤숫자 : " + checkNum);
+					return checkObject.toJSONString();
+				}
+		
+		
+		
+		
 }
 
 

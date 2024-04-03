@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입페이지</title>
-<script src="./06-timer.js" defer></script>
-    <link rel="stylesheet" href="./06-timer.css" />
+
 <link rel="stylesheet" type="text/css" href="resources/css/enrollPage.css" />
 
 
@@ -90,6 +89,7 @@ function validate(){
 	var pwdValue2 = $('#memberpwd2').val();
 	var nameValue = $('#membername').val();
 	var birthValue = $('#birth').val();
+
 	
 	
 	
@@ -259,45 +259,19 @@ function dupIDCheck(){
 		</span>
 	</div>
 	<br>
-
-    <!-- <div class="userInput">
-        <h3 class="list">이메일<span id="emailError"></span></h3>
-        <span class="emailInt" >
-        <input type="text" name="email" id="emailBox" maxlength="20" class="input" > 
-           <span> @ </span> 
-              이메일 택일
-              <select name= "email2" id="mailSelect" >
-                 <option>이메일 선택</option>
-                 <option>naver.com</option>
-                 <option>gmail.com</option>
-                 <option>daum.net</option>
-                 <option>hotmail.com</option>
-                 <option>nate.com</option>
-                 <option>empas.com</option>
-                 <option>freechal.com</option>
-                 <option>lycos.co.kr</option>
-                 <option>hanmir.com</option>
-                 <option>dreamwiz.com</option>
-                 <option>paran.com</option>
-                 <option>직접입력</option>
-              </select>
-        </span>
-     </div> -->
      
      <div class="form-group">
 	     <div>
 	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email">
-	    	<div style="display: block; text-align: right;">
-	      		<input type="button" value="인증하기"  class="btn btn-primary" id="emailAuth">
-	    	</div>
-	    	
-	  		<input class="form-control" placeholder="인증 코드 6자리를 입력해주세요." maxlength="6" disabled="disabled" name="authCode" id="authCode" type="text" autofocus>
-	  		<<!-- span class="target__time">
-	            <span id="remaining__min">3</span> :
-	            <span id="remaining__sec">00</span>
-	          </span>-->
-	          <span id="timer"> </span>
+	      		<input type="button" value="인증번호 받기" class="btn btn-primary" id="emailAuth">
+
+	    	<div>
+	  			<input class="form-control" placeholder="인증 코드 6자리" maxlength="6" disabled="disabled" name="authCode" id="authCode" type="text" autofocus>
+	  	
+	          	<label for="Timer">남은 시간:</label>
+ 				<input id="Timer" type="text" value="" width= "20px" readonly/>
 	          <button class="complete__target" id="complete" disabled="disabled" >인증완료</button>
+	     	</div>
 	     </div> 
 	      
   		<div id="emailAuthWarn"></div>
@@ -341,7 +315,7 @@ function dupIDCheck(){
 
 
 <br><br>
-<input type="submit"  value="가입하기"   class="btn btn-lg btn-success btn-block" id="registerBtn"> &nbsp;
+<input type="submit"  value="가입하기"  disabled = "disabled" class="btn btn-lg btn-success btn-block" id="registerBtn"> &nbsp;
 <!-- id="submit_button" -->
 <input type="reset" value="작성취소"> &nbsp;
 <a href="home.do">시작페이지로 이동</a>
@@ -349,7 +323,7 @@ function dupIDCheck(){
 
 </form>
 
-<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
+
 <script type="text/javascript">
 
 
@@ -371,18 +345,19 @@ $("#emailAuth").click(function() {
     	success : function(result) {
     		console.log("result : " + result);
     		
+    		var strCode = JSON.stringify(result);
     		
-	    		var strCode = JSON.stringify(result);
-	    		
-	    		var json = JSON.parse(strCode);
-	    		
-	    		codeNum = json.code;
-	    		
-	    		$("#authCode").attr("disabled", false); 
-	    		
-	    		alert("인증 코드가 입력하신 이메일로 전송 되었습니다.");
-	    		
-    		}
+    		var json = JSON.parse(strCode);
+    		
+    		codeNum = json.code;
+    		
+    		
+    		$("#authCode").attr("disabled", false); 
+    		
+    		/*  $("#authCode").prop("disabled", false); */
+    	
+    		alert("인증 코드가 입력하신 이메일로 전송 되었습니다.");
+    		
     		
    		}
     }); //End Ajax
@@ -427,6 +402,7 @@ $("#complete").on("click", function() {
 		$("#emailAuthWarn").css('color', 'green');
 		$("#registerBtn").attr("disabled", false); 
 		$("#complete").attr("disabled", true); 
+		 clearInterval(PlAYTIME);
 
 	}else{
 		$("#emailAuthWarn").html('인증번호가 불일치 합니다. 다시 확인해주세요!');
@@ -439,55 +415,51 @@ $("#complete").on("click", function() {
 	return false;
 });
 
-/*  
-$("#email").on("keyup", function() {
-	var inputEmail = $("#email").val();
-	if(inputEmail != null ){
 
-		$("#complete").attr("disabled", false); 
-	}
-}); */ 
-
-//--이메일 인증 타이머--------------------------------------------------------------------------
+</script>
 
 
-let timerInterval; // 타이머 인터벌을 저장할 변수
+<script type="text/javascript">
 
-// 버튼 클릭 이벤트에 함수 바인딩
-document.getElementById("emailAuth").addEventListener("click", function() {
-    // 이전에 생성된 타이머 제거
-    clearInterval(timerInterval);
-    
-    // 3분 타이머 시작
-    startTimer();
-});
+//-------------------------타이머-----
 
-// 3분 타이머 시작하는 함수
-function startTimer() {
-    let duration = 180; // 3분을 초로 설정
-    updateTimer(duration); // 타이머 업데이트
-    
-    // 1초마다 타이머 감소
-    timerInterval = setInterval(function() {
-        duration--;
-        updateTimer(duration); // 남은 시간 업데이트
-        
-        if (duration <= 0) {
-            clearInterval(timerInterval); // 타이머 정지
-            document.getElementById("timer").innerHTML = "시간이 만료되었습니다."; // 만료 메시지 표시
+
+
+let time = 180000;
+let min = 3;
+let sec = 60;
+let PlAYTIME;
+
+Timer.value = min + ":" + '00';
+$("#emailAuth").on("click", function () {
+    time = 180000; // 클릭할 때마다 타이머 초기화
+    min = 3;
+    sec = 60;
+    clearInterval(PlAYTIME); // 기존 타이머 정지
+    PlAYTIME = setInterval(function () {
+        time = time - 1000; // 1초씩 줄어듦
+        min = time / (60 * 1000); // 초를 분으로 나눠준다.
+
+        if (time <= 0) {
+            clearInterval(PlAYTIME); // 타이머 정지
+            Timer.value = "만료되었습니다";
+        } else {
+            if (sec > 0) { // sec=60 에서 1씩 빼서 출력해준다.
+                sec = sec - 1;
+                Timer.value = Math.floor(min) + ':' + sec; // 실수로 계산되기 때문에 소숫점 아래를 버리고 출력해준다.
+            }
+            if (sec === 0) {
+                // 0에서 -1을 하면 -59가 출력된다.
+                // 그래서 0이 되면 바로 sec을 60으로 돌려주고 value에는 0을 출력하도록 해준다.
+                sec = 60;
+                Timer.value = Math.floor(min) + ':' + '00'
+            }
         }
-    }, 1000);
-}
 
-// 타이머 표시 업데이트 함수
-function updateTimer(duration) {
-    const minutes = Math.floor(duration / 60); // 분 계산
-    const seconds = duration % 60; // 초 계산
-    document.getElementById("timer").innerHTML = minutes + "분 " + seconds + "초 남음"; // 타이머 업데이트
-}
- </script>
- </div>
-
+    }, 1000); // 1초마다 
+});
+</script>
+</div>
 
 
 <script type="text/javascript">
@@ -601,5 +573,6 @@ elInputPassword.onkeyup = function () {
 		};
 	
 </script>
+
 </body>
 </html>
