@@ -90,6 +90,15 @@ public class FreeBoardDao {
 	}
 
 
+	public int selectViewsListCount() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("freeboard.selectViewsListCount");
+	}
+
+
+	
+
+
 	
 	
 	

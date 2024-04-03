@@ -56,6 +56,12 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectRecentList(Search search);
 
 
+	int selectViewsListCount();
+
+
+	
+
+
 	
 
 	

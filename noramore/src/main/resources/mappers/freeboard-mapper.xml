@@ -38,6 +38,10 @@
 		select * from free_board order by READ_COUNT desc
 	</select>
 	
+	<select id="selectViewsListCount" resultType="_int">
+		select count(*) from free_board order by READ_COUNT desc
+	</select>
+	
 	<select id="selectRecentList" resultMap="resultfreeList">
 		select * from free_board order by REGIST_DATE desc
 	</select>
