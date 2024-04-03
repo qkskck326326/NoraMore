@@ -34,6 +34,10 @@
 		from free_board
 	</select>
 	
+	<select id="selectViewsList" resultMap="resultfreeList">
+		select * from free_board order by READ_COUNT desc
+	</select>
+	
 	<select id="selectSearchList" parameterType="Search" resultMap="resultfreeList">
 		SELECT *
 		FROM (

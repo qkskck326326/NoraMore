@@ -106,6 +106,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.selectBoard(boardId);
 	}
 
+	@Override
+	public ArrayList<FreeBoard> selectViewsList(Search search) {
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectViewsList");
+		return (ArrayList<FreeBoard>)list;
+	}
+
 	
 	
 	

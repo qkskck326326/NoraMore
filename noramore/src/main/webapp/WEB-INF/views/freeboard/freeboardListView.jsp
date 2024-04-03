@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
-<%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<c:if test="${!empty requestScope.currentPage}">
-	<c:set var="Page" value="${requestScope.currentPage}" />
+
+<c:set var="currentLimit" value="${ requestScope.limit }" />
+<c:set var="nowpage" value="1" />
+<c:if test="${ !empty requestScope.currentPage }">
+	<c:set var="nowpage" value="${ requestScope.currentPage }" />
 </c:if>
 <!DOCTYPE html >
 <html>
@@ -14,63 +15,65 @@
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="resources/css/style.css">
 	<link rel="stylesheet" href="resources/css/dropdown.css">
-		<script type="text/javascript"
-			src="/resources/js/jquery-3.7.0.min.js"></script>
+	<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
+	
 		<title>Insert title here</title>
 
 <script type="text/javascript">
-        window.onload = function () {
-            var sortingSelect = document.getElementById("sortingSelect");
-            var itemSelect = document.getElementById("itemSelect");
+    window.onload = function () {
+        var sortingSelect = document.getElementById("sortingSelect");
+        var itemSelect = document.getElementById("itemSelect");
 
-            sortingSelect.onchange = function () {
-                var selectedOption = sortingSelect.value;
+        sortingSelect.onchange = function () {
+            var selectedOption = sortingSelect.value;
 
-                if (selectedOption === "recent") {
-                    sortRecent();
-                } else if (selectedOption === "views") {
-                    sortViews();
-                } else if (selectedOption === "likes") {
-                    sortLikes();
-                }
-            };
-            
-            itemSelect.onchange = function () {
-                var selectedOption = itemSelect.value;
-                if (selectedOption === "title") {
-                    sortTitle();
-                } else if (selectedOption === "author") {
-                    sortAuthor();
-            };
-
-            function sortRecent() {
-                console.log("최신순 정렬 실행");
-            }
-
-            function sortViews() {
-                console.log("조회순 정렬 실행");
-            }
-
-            function sortLikes() {
-                console.log("좋아요순 정렬 실행");
-            }
-            
-            function sortTitle(){
-            	 console.log("글제목 정렬 실행");
-            
-            }
-            function sortAuthor(){
-            	console.log("작성자 정렬 실행");
+            if (selectedOption === "recent") {
+                sortRecent();
+            } else if (selectedOption === "views") {
+                sortViews();
+            } else if (selectedOption === "likes") {
+                sortLikes();
             }
         };
+        
+        itemSelect.onchange = function () {
+            var selectedOption = itemSelect.value;
+            if (selectedOption === "title") {
+                sortTitle();
+            } else if (selectedOption === "author") {
+                sortAuthor();
+            }
         };
-        
-        
-        function selectCategory(value){
-        	$("#category").text(value).val(value);
-        }
+    };
 
-    </script>		
+    function sortRecent() {
+    	 location.href = "freerecentlist.do";
+    	 console.log("최신순 정렬 실행");
+    }
+
+    function sortViews() {
+    	location.href = "freeviewslist.do";
+    	console.log("조회순 정렬 실행");
+    }
+
+    function sortLikes() {
+    	 location.href = "freelikeslist.do";
+    	 console.log("좋아요순 정렬 실행");
+    }
+    
+    function sortTitle(){
+        console.log("글제목 정렬 실행");
+    }
+    
+    function sortAuthor(){
+        console.log("작성자 정렬 실행");
+    }
+    
+    function selectCategory(value){
+        $("#category").text(value).val(value);
+    }
+</script>
+
 </head>
 <body>
 
@@ -116,6 +119,22 @@
 </fieldset>
 
 </form>
+<!--  
+<%-- 정렬 기준 조회순 --%>
+
+<form id="viewform" class="sform" action="freeviewslist.do" method="post">
+	<input type="hidden" name="action" value="view">
+	
+<fieldset>
+	<input type="submit" value="최신순">
+	
+</fieldset>
+
+</form>	
+
+-->
+
+
 	<section id="board">
 
 		<h1>자유게시판</h1>
@@ -206,9 +225,10 @@
 		</table>
 		<!-- 추가한 부분 **************** -->
 <br>
-<!-- <c:import url="/WEB-INF/views/common/pagingView.jsp"/> -->
+ <c:import url="/WEB-INF/views/common/pagingView.jsp"/> 
 
 <!-- 추가한 부분 **************** -->
 	</section>
+
 </body>
 </html>

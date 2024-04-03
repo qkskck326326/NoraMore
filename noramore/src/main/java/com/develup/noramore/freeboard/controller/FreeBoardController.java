@@ -33,6 +33,7 @@ public class FreeBoardController {
 	@Autowired
 	private FreeBoardService freeBoardService;
 	
+	//게시글 목록 보기 요청 처리용
 	@RequestMapping("freeboardlist.do")
 	public ModelAndView selectFreeBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
 		//ArrayList<FreeBoard> list = freeBoardService.selectFreeBoard();
@@ -336,6 +337,49 @@ public class FreeBoardController {
 		
 	
 	}
+	
+	// 조회순 구현
+	
+	@RequestMapping(value = "freeviewslist.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView freeBoardSearchViewsMethod(
+		@RequestParam(name="page", required=false) String page,
+		ModelAndView mv
+			) {
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		
+		
+		
+		int listCount = freeBoardService.selectListcount();
+		
+		Paging paging = new Paging(listCount, currentPage, limit, "fblist.do");
+		paging.calculate();
+		
+		Search search = new Search();
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectViewsList(search);
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("freeboard/freeboardListView");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		return mv;
+	
+	}
+	
+	
+	
+	
+	
 			
 	//새 게시글 등록 요청 처리용 (첨부파일 업로드 기능 추가)
 	

@@ -49,6 +49,9 @@ public interface FreeBoardService {
 
 	FreeBoard selectBoard(int boardId);
 
+
+	ArrayList<FreeBoard> selectViewsList(Search search);
+
 	
 	
 
