@@ -14,6 +14,8 @@ public interface MemberService {
 
 	int selectCheckEmail(String email);
 
+	Member selectFindId(Member member);
+
 
 	
 

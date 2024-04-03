@@ -22,7 +22,7 @@ function dupEmailCheck(){
 				alert("없는 이메일 입니다. 다시 입력해 주세요.");
 				$('#email').select();
 			}else{
-				alert("사용가능한 이메일입니다.");
+				alert("이용가능한 이메일입니다.");
 				$('#email').attr("readonly", true); 
 				$('#emailAuth').attr("disabled", false); 
 				
@@ -43,12 +43,14 @@ function dupEmailCheck(){
 <body>
 
 <h1 >아이디 찾기</h1>
-<div id="entire">
+
+
 	<h3 id="title">본인확인 이메일로 인증</h3>
 	
-	<div id="form">
-		<input type="text" name="memberName"  id="memberid" class="form-control" placeholder="이름">
-		
+	<form action="emailIdChk.do" id="form" method="post" >
+	
+		<input type="text" name="memberName"  id="membername" class="form-control" placeholder="이름"   >
+		<div id="nameAuthWarn"></div>
 		<div class="form-group">
 	     <div>
 	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email">
@@ -57,19 +59,20 @@ function dupEmailCheck(){
 
 	    	<div>
 	  			<input class="form-control" placeholder="인증 코드 6자리" maxlength="6" disabled="disabled" name="authCode" id="authCode" type="text" autofocus>
-	  	
+	  			<div id="emailAuthWarn"></div>
+	  			
 	          	<label for="Timer">남은 시간:</label>
  				<input id="Timer" type="text" value="" width= "20px" readonly/>
 	          <button class="complete__target" id="complete" disabled="disabled" >인증완료</button>
 	     	</div>
 	     </div> 
-	      
-  		<div id="emailAuthWarn"></div>
-	</div>
 
 	</div>
-</div>
-<button id="next" disabled>다음</button>
+	
+	<input type="submit" id="next" disabled="disabled" value="다음" >
+</form>
+
+
 
 
 

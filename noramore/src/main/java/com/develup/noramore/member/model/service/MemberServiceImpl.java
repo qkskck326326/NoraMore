@@ -37,6 +37,11 @@ public class MemberServiceImpl implements MemberService {
 	public int selectCheckEmail(String email) {
 		return memberDao.selectCheckEmail(email);
 	}
+
+	@Override
+	public Member selectFindId(Member member) {
+		return memberDao.selectFindId(member);
+	}
 	
 	
 	
