@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>id찾기 페이지</title>
+<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/css/findIDPage.css" />
 
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
@@ -42,12 +42,12 @@ function dupEmailCheck(){
 </head>
 <body>
 
-<h1 >아이디 찾기</h1>
+<h1 >비밀번호 찾기</h1>
 
 
 	<h3 id="title">본인확인 이메일로 인증</h3>
 	
-	<form action="emailIdChk.do" id="form" method="post" >
+	<form action="emailIdChk2.do" id="form" method="post" >
 	
 		<input type="text" name="memberName"  id="membername" class="form-control" placeholder="이름"   >
 		<div id="nameAuthWarn"></div>
@@ -214,13 +214,4 @@ $("#emailAuth").on("click", function () {
 
 </body>
 
-
-
 </html>
-
-
-
-
-
-
-

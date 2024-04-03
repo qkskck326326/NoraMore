@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
@@ -71,6 +72,17 @@ public class MemberController {
 		return "/member/findPWPage";
 
 	}
+	
+	
+	@RequestMapping(value = "findPW2.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String findPWPage2() {
+		return "/member/findPWPage2";
+
+	}
+	
+	
+	
 
 	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
@@ -81,12 +93,12 @@ public class MemberController {
 
 	// 로그인 처리용
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String loginMethod(Member member, HttpSession session, SessionStatus status, Model model) { // HttpSession :
-																										// 세션 자동생성,
-																										// SessionStatus
-																										// : 세션 상태 파악,
-																										// Model : 모델자동
-																										// 생성
+	public String loginMethod(Member member, 
+								HttpSession session, 
+								SessionStatus status, 
+								Model model,
+								RedirectAttributes ra) { // HttpSession : 세션 자동 생성, SessionStatus : 세션 상태 파악
+																										
 		logger.info("login.do : " + member.toString());
 
 		Member loginMember = memberService.selectMember(member.getMemberID());
@@ -97,10 +109,7 @@ public class MemberController {
 			status.setComplete(); // 로그인 성공 요청결과로 HttpStatus code 200 보냄
 			return "common/home";
 		} else {
-			model.addAttribute("message", "로그인 실패! 아이디나 암호를 다시 확인하세요. 또는 로그인 제한된 회원입니다. 관리자에게 문의하세요."); // addAttribute(속성명,
-																										// 속성값)
-
-			return "common/moveLoginPage";
+			return "redirect:moveLoginPage.do";
 		}
 	}
 
@@ -115,7 +124,7 @@ public class MemberController {
 			return "common/home";
 		} else {
 			model.addAttribute("message", "로그인 세션이 존재하지 않습니다.");
-			return "common/error";
+			return "redirect:moveLoginPage.do";
 		}
 	}
 
@@ -137,12 +146,15 @@ public class MemberController {
 			String addressAdd = road + street + detail + ref;
 			member.setAddress(addressAdd);
 		}
-
-		if (memberService.insertMember(member) > 0) {
+		
+		int dup = memberService.selectCheckId(member.getMemberID());
+		
+	
+		if (memberService.insertMember(member) > 0 && dup == 0 ) {
 			return "member/moveLoginPage";
 		} else {
 			model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
-			return "member/moveEnrollPage";
+			return "redirect:moveEnrollPage.do";
 		}
 	}
 
@@ -202,7 +214,7 @@ public class MemberController {
 		Member member2 = memberService.selectFindId(member);
 		
 		if ( member2 != null) {
-			model.addAttribute("member2",member2.getMemberID());
+			model.addAttribute("member2",member2);
 			logger.info("member2 : " + member2.getMemberID());
 			return "member/idChkPage";
 		} else {
@@ -210,32 +222,100 @@ public class MemberController {
 			return "member/findIDPage";
 		}
 	}
-
 	
-	@RequestMapping(value = "bringId.do", method = RequestMethod.POST)
-	public void bringIdMethod(@RequestParam("email") String email, HttpServletResponse response) throws IOException {
-
-		int idCount = memberService.selectCheckEmail(email);
-
-		String returnStr = null;
-		if (idCount == 0) {
-			returnStr = "ok";
+	
+	@RequestMapping(value = "emailIdChk2.do", method = RequestMethod.POST)
+	public String emailIdChk2(Member member, Model model) throws Exception {
+		logger.info("emailIdChk.do : " + member);
+		
+		Member member2 = memberService.selectFindId(member);
+		
+		if ( member2 != null) {
+			model.addAttribute("member2",member2);
+			logger.info("member2 : " + member2.getMemberID());
+			return "member/pwUpdatePage";
 		} else {
-			returnStr = "dup";
+			model.addAttribute("message", "없는 회원입니다. 다시 확인해 주세요!");
+			return "member/findPWPage2";
 		}
-
-		// response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.append(returnStr);
-		out.flush();
-		out.close();
 	}
+
+	
+//	@RequestMapping(value = "bringId.do", method = RequestMethod.POST)
+//	public void bringIdMethod(@RequestParam("email") String email, HttpServletResponse response) throws IOException {
+//
+//		int idCount = memberService.selectCheckEmail(email);
+//
+//		String returnStr = null;
+//		if (idCount == 0) {
+//			returnStr = "ok";
+//		} else {
+//			returnStr = "dup";
+//		}
+//
+//		// response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+//		response.setContentType("text/html; charset=utf-8");
+//		PrintWriter out = response.getWriter();
+//		out.append(returnStr);
+//		out.flush();
+//		out.close();
+//	}
 	
 	
 	
+	// ajax 통신으로 찾을 비밀번호의 아이디 확인 요청 처리용 메소드
+		@RequestMapping(value = "dupIdCheck.do", method = RequestMethod.POST)
+		public void dupIdCheck(@RequestParam("memberID") String memberid, HttpServletResponse response) throws IOException {
+
+			int idCount = memberService.selectCheckId(memberid);
+
+			String returnStr = null;
+			if (idCount == 0) {
+				returnStr = "ok";
+			} else {
+				returnStr = "dup";
+			}
+
+			// response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.append(returnStr);
+			out.flush();
+			out.close();
+		}
 	
-	
+		
+		//비밀번호 재설정
+		@RequestMapping(value = "pwChange.do", method = RequestMethod.POST)
+		public String pwChange(Member member, Model model) throws Exception {
+			logger.info("emailIdChk.do : " + member);
+			
+			Member origin = memberService.selectOriginPw(member.getMemberID());
+			String originPw = origin.getMemberPWD();
+			
+			// 새로운 암호가 전송이 왔다면, 패스워드 암호화 처리함
+			String memberPwd = member.getMemberPWD().trim(); // 공백을 없앰
+			logger.info("새로운 암호 : " + memberPwd + ", " + memberPwd.length());
+			if (memberPwd != null && memberPwd.length() > 0) { // 암호가 전송이 왔다면
+				// 암호화된 기존의 패스워드와 새로운 패스워드를 비교해서 다른 값이면
+				if (this.bcryptPasswordEncoder.matches(memberPwd, originPw)) { // 입력한 패스워드, 암호화된 값 가져온것
+					// member 에 새로운 패스워드를 암호화해서 저장함
+					member.setMemberPWD(this.bcryptPasswordEncoder.encode(memberPwd));
+				}
+			} else { // 새로운 암호가 null 또는 글자갯수가 0일때는
+				// 기존 암호이면, 원래 암호화된 패스워드를 저장함
+				member.setMemberPWD(originPw);
+			}
+			
+			if ( memberService.updatePw(member) > 0) {
+
+				return "member/moveLoginPage";
+			} else {
+				model.addAttribute("message", "없는 회원입니다. 다시 확인해 주세요!");
+				return "member/pwUpdatePage";
+			}
+		}
+		
 	
 	
 	
