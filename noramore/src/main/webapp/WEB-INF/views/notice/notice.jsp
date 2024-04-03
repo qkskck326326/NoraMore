@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
- <c:import url = "/WEB-INF/views/common/sideSample.jsp"/>
+<c:import url = "/WEB-INF/views/common/sideSample.jsp"/>
 <c:import url = "/WEB-INF/views/common/header.jsp"/>
 
 <c:set var="currentLimit" value="${ requestScope.limit }" />
@@ -44,6 +44,8 @@
 		location.href = "${ pageContext.servletContext.contextPath }/nlist.do?page=1&limit="
 				+ limit;
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -83,7 +85,7 @@
 				<tr>
 					<td align="right">${ n.boardId }</td>
 					<td align="right">
-					<a href="${ pageContext.servletContext.contextPath }/noticedetail.do?no=${ n.boardId }">
+					<a href="${ pageContext.servletContext.contextPath }/noticedetail.do?no=${ q.boardId }">
 					${ n.title }</td>
 					<td align="right">${ n.memberID }</td>
 					<td align="right">${ n.readCount }</td>
@@ -95,9 +97,10 @@
 
 	</section>
 
+
+
 <c:import url="/WEB-INF/views/common/pagingView.jsp"/>
-
-
 </body>
+
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>
