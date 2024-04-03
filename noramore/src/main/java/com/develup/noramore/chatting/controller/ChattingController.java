@@ -38,27 +38,15 @@ public class ChattingController {
         return "chatting/chatting";
     }
     
-    // 채팅 상대 검색
-    @GetMapping(value="/chatting/selectTarget", produces="application/json; charset=UTF-8")
-    @ResponseBody
-    public List<Member> selectTarget(String query, @SessionAttribute("loginMember") Member loginMember){
-    
-       Map<String, Object>map = new HashMap<String, Object>();
-       
-       map.put("memberNo", loginMember.getMemberID());
-       map.put("query", query);
-       
-       return chattingService.selectTarget(map);
-    }
-    
+
     // 채팅방 입장(없으면 생성)
     @GetMapping("chattingEnter.do")
     @ResponseBody
-    public int chattingEnter(int targetNo, @SessionAttribute("loginMember") Member loginMember) {
+    public int chattingEnter(String targetId, @SessionAttribute("loginMember") Member loginMember) {
      
         Map<String, Object> map = new HashMap<String, Object>();
         
-        map.put("targetNo", targetNo);
+        map.put("targetId", targetId);
         map.put("loginMemberID", loginMember.getMemberID());
         
         int chattingNo = chattingService.checkChattingNo(map);

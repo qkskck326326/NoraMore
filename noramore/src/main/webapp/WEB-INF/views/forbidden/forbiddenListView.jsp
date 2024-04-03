@@ -196,6 +196,7 @@ function dupFbCheck(){
 <br>
 <br>
 <a href="alarmlist.do"><img src="resources/images/alarmIcon.png"></a>
+<a href="chattingPage.do"><img src="resources/images/alarmIcon.png"></a>
 
 
 </body>

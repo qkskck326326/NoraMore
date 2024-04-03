@@ -76,10 +76,10 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
             
                 // WebSocketSession은 HttpSession의 속성을 가로채서 똑같이 가지고 있기 때문에
                 // 회원 정보를 나타내는 loginMember도 가지고 있음
-                Member member = (Member)s.getAttributes().get("loginMember");
+            	Member member = (Member)s.getAttributes().get("loginMember");
+            	String loginMemberID = member.getMemberID();
                 // 로그인된 회원 정보 중 회원 번호 얻어오기
-                String loginMemberID = member.getMemberID();
-                logger.debug("loginMemberNo : " + loginMemberID);
+                logger.debug("loginMemberID : " + loginMemberID);
                 
                 // 로그인 상태인 회원 중 targetNo가 일치하는 회원에게 메시지 전달
                 if(loginMemberID == msg.getTargetId() || loginMemberID == msg.getSenderId()) {

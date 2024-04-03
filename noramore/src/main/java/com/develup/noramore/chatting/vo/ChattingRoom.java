@@ -6,21 +6,19 @@ public class ChattingRoom {
     private String lastMessage; // 최근 메시지
     private String sendTime; // 메시지 보낸 시간
     private String targetId; // 받는 회원 번호
-    private String targetNickName; // 받는 회원 닉네임
     private String targetProfile; // 받는 회원 프로필 사진
     private int notReadCount; // 읽지 않은 메시지 개수
     
 	public ChattingRoom() {
 		super();
 	}
-	public ChattingRoom(int chattingNo, String lastMessage, String sendTime, String targetId, String targetNickName,
+	public ChattingRoom(int chattingNo, String lastMessage, String sendTime, String targetId,
 			String targetProfile, int notReadCount) {
 		super();
 		this.chattingNo = chattingNo;
 		this.lastMessage = lastMessage;
 		this.sendTime = sendTime;
 		this.targetId = targetId;
-		this.targetNickName = targetNickName;
 		this.targetProfile = targetProfile;
 		this.notReadCount = notReadCount;
 	}
@@ -48,12 +46,7 @@ public class ChattingRoom {
 	public void setTargetId(String targetId) {
 		this.targetId = targetId;
 	}
-	public String getTargetNickName() {
-		return targetNickName;
-	}
-	public void setTargetNickName(String targetNickName) {
-		this.targetNickName = targetNickName;
-	}
+
 	public String getTargetProfile() {
 		return targetProfile;
 	}
@@ -69,7 +62,7 @@ public class ChattingRoom {
 	@Override
 	public String toString() {
 		return "ChattingRoom [chattingNo=" + chattingNo + ", lastMessage=" + lastMessage + ", sendTime=" + sendTime
-				+ ", targetId=" + targetId + ", targetNickName=" + targetNickName + ", targetProfile=" + targetProfile
+				+ ", targetId=" + targetId + ", targetProfile=" + targetProfile
 				+ ", notReadCount=" + notReadCount + "]";
 	}
     
