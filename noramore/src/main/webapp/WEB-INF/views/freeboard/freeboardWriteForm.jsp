@@ -54,13 +54,13 @@ console.log(contextValue);
 		<input type="text" placeholder="카테고리를 입력하세요." name="categoryId">
 		
 		<p>글 제목</p>
-		<input type="text" placeholder="글 제목을 입력하세요." name="title">
+		<input type="text" placeholder="글 제목을 입력하세요." name="title" id = "title">
 		
 		<p>본문</p>
-		<textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea>  
+		<%-- <textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea>--%>  
 		<!--  추가한 부분 ***************************************** -->
 		<!-- SmartEditor2  30 70 -->
-<%--	
+	
 <div class="jsx-2303464893 editor">
 	<div class="fr-box fr-basic fr-top" role="application">
 		<div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;">
@@ -70,7 +70,7 @@ console.log(contextValue);
 	</div>
 </div>
 
- --%>
+ 
  	
 <!-- ******************************************************************************* -->
 		<p>첨부파일</p>
@@ -81,7 +81,7 @@ console.log(contextValue);
 		<input type="submit" class="none"> -->
 		
 		
-		<button type="submit">글쓰기</button> &nbsp; 
+		<button type="submit" id="savebutton">글쓰기</button> &nbsp; 
 		<button type="reset">취소</button> &nbsp; 
 		
 		
@@ -176,4 +176,87 @@ console.log(contextValue);
 </html>
 
 <!-- SmartEditor2 -->
-<script type="text/javascript" src = "resources/js/notice-write.js"></script>
+<script type="text/javascript">
+
+//스마트에디터2.0관련 .js입니다.
+var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+		oAppRef : oEditors,
+		elPlaceHolder : "smartEditor", //저는 textarea의 id와 똑같이 적어줬습니다.
+		sSkinURI : "SmartEditor2/SmartEditor2Skin.html", //경로를 꼭 맞춰주세요!
+		fCreator : "createSEditor2",
+		htParams : {
+			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+			bUseToolbar : true,
+
+			// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+			bUseVerticalResizer : true,
+
+			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+			bUseModeChanger : false
+		}
+	});
+
+	$(function() {
+		$("#savebutton").click(function() {
+			oEditors.getById["smartEditor"].exec("UPDATE_CONTENTS_FIELD", []); 
+			//textarea의 id를 적어줍니다.
+
+			var selcatd = $("#selcatd > option:selected").val();
+			var title = $("#title").val();
+			//var content = document.getElementById("smartEditor").value;;
+			var content = oEditors.getById["smartEditor"].getIR(); 
+			// 가져온 값이 null인지 또는 빈 문자열인지 확인
+		    // ************가져온 부분 *************************
+		    if (!content) {
+		        alert("본문을 작성해주세요.");
+		        oEditors.getById["smartEditor"].exec("FOCUS");
+		        return;
+		    }
+		    
+		     $.ajax({
+       url: 'saveContext.do', // 올바른 컨트롤러로 수정
+       type: 'POST',
+       data: { context: content },
+       success: function(response) {
+           // 서버로부터의 응답을 처리합니다.
+           console.log(response); // 성공했을 경우 콘솔에 출력
+       },
+       error: function(xhr, status, error) {
+           // 오류 발생 시 처리합니다.
+           console.error(error); // 오류 메시지 콘솔에 출력
+       }
+   });
+		    // ********* 추가한 부분 *************
+
+			if (selcatd == "") {
+				alert("카테고리를 선택해주세요.");
+				return;
+			}
+			if (title == null || title == "") {
+				alert("제목을 입력해주세요.");
+				$("#title").focus();
+				return;
+			}
+			if(content == "" || content == null || content == '&nbsp;' || 
+					content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+				alert("본문을 작성해주세요.");
+				oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
+				return;
+			} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
+			
+			var result = confirm("발행 하시겠습니까?");
+			
+			if(result){
+				alert("발행 완료!");
+				$("#noticeWriteForm").submit();
+			}else{
+				return;
+			}
+		});
+	})
+
+
+
+
+</script>
