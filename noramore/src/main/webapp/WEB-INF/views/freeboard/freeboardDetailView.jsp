@@ -115,11 +115,36 @@ div {
 			<c:if test="${ empty FreeBoard.freeOriginalFileName}">
 				<p>첨부파일 없음</p>
 			</c:if>
-
+			<!-- 
 			<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button>
 			&nbsp;
 			<button onclick="requestDelete(); return false;">글삭제</button>
 			&nbsp;
+			 -->
+			
+			<%-- 로그인한 경우 : 본인 글 상세보기 일때는 수정페이지로 이동과 삭제 버튼 표시함 --%>
+			<c:if test="${ !empty loginMember }">
+				<c:if test="${ loginMember.memberID eq FreeBoard.memberId }">
+					<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
+					<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+				</c:if>
+				
+				<%-- 로그인한 경우 : 관리자인 경우 글삭제 버튼과 댓글달기 버튼 표시함 --%>
+				<c:if test="${ loginMember.adminYN eq 'Y' and loginMember.memberID ne FreeBoard.memberId  }">
+					<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+					
+					<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;
+					
+				</c:if>
+				
+				<%-- 로그인한 경우 : 본인 글이 아니고, 레벨이 3보다 작은 경우에만 댓글달기 버튼 표시함 --%>
+				<c:if test="${ loginMember.adminYN eq 'N' and loginMember.memberID ne FreeBoard.memberId }">
+					
+						<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;
+					</c:if>
+				
+			</c:if>
+			
 
 
 		</div>

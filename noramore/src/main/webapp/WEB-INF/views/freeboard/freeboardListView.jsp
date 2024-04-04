@@ -144,7 +144,7 @@
 
 -->
 
-
+<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="fbwriteform()">글 작성</button>
 	<section id="board">
 
 		<h1>자유게시판</h1>
@@ -243,6 +243,6 @@
 
 <!-- 추가한 부분 **************** -->
 	</section>
-<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="fbwriteform()">글 작성</button>
+
 </body>
 </html>
