@@ -13,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -620,6 +620,19 @@ public class FreeBoardController {
 	        return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
 	    }
 	}
+	
+	//스마트에디터 연동MVC
+	
+	 @PostMapping("saveContext.do")
+	    public ResponseEntity<String> saveContextToDB(@RequestBody String context) {
+	        try {
+	            // 받아온 내용을 DB에 저장하는 서비스 메소드를 호출합니다.
+	        	freeBoardService.saveContext(context);
+	            return new ResponseEntity<>("Success", HttpStatus.OK); // 성공 시 응답
+	        } catch (Exception e) {
+	            return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
+	        }
+	    }
 	 
 	 
 

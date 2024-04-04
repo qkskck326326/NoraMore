@@ -57,9 +57,10 @@ console.log(contextValue);
 		<input type="text" placeholder="글 제목을 입력하세요." name="title">
 		
 		<p>본문</p>
-		<!-- <textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea> --> 
+		<textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea>  
 		<!--  추가한 부분 ***************************************** -->
 		<!-- SmartEditor2  30 70 -->
+<%--	
 <div class="jsx-2303464893 editor">
 	<div class="fr-box fr-basic fr-top" role="application">
 		<div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;">
@@ -69,6 +70,8 @@ console.log(contextValue);
 	</div>
 </div>
 
+ --%>
+ 	
 <!-- ******************************************************************************* -->
 		<p>첨부파일</p>
 		<input type="file" id="file" name="upfile">

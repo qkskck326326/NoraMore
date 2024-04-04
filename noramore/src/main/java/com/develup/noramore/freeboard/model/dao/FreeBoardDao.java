@@ -134,6 +134,13 @@ public class FreeBoardDao {
 	}
 
 
+	public void saveContent(String context) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.insert("freeboard.saveContent", context);
+		
+	}
+
+
 	
 
 
