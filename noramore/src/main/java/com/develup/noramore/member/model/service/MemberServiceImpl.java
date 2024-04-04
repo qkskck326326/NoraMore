@@ -47,12 +47,6 @@ public class MemberServiceImpl implements MemberService {
 	public int updatePw(Member member) {
 		return memberDao.updatePw(member);
 	}
-
-	@Override
-	public Member selectOriginPw(String memberid) {
-		return memberDao.selectOriginPw(memberid);
-	}
-	
 	
 	
 }

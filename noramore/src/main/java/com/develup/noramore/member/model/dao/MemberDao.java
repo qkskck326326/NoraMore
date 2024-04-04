@@ -36,12 +36,9 @@ public class MemberDao {
 	}
 
 	public int updatePw(Member member) {
-		return sqlSessionTemplate.selectOne("memberMapper.updatePw", member);
+		return sqlSessionTemplate.update("memberMapper.updatePw", member);
 	}
 
-	public Member selectOriginPw(String memberid) {
-		return sqlSessionTemplate.selectOne("memberMapper.selectOriginPw", memberid);
-	}
 
 	
 	
