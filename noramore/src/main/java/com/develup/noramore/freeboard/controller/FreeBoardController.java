@@ -479,7 +479,7 @@ public class FreeBoardController {
 			mv.addObject("limit", limit);
 			
 			return mv;
-		
+		 
 		}
 			
 	
