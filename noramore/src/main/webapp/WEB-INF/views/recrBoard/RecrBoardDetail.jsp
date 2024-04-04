@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
+</c:if>
+<c:if test="${!empty requestScope.message}">
+	<c:set var="page" value="${requestScope.message}" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -64,7 +67,7 @@ function Alert(message) {
 window.onload = function() {
 	selectrecrcomment()
 	if(${!empty message}){
-    Alert("${message}");
+    alert("${message}");
 	}
 };
 
@@ -90,33 +93,35 @@ function selectrecrcomment() {
                 
                 var memberIdInput = $('<input type="hidden" name="memberId" value="' + comment.memberId + '">');
                 var commentIdInput = $('<input type="hidden" name="commentId" value="' + comment.commentId + '">');
-                var contextTextarea = $('<textarea rows="5" cols="20" readonly>' + comment.context + '</textarea>');
-                var lastUpdateDateParagraph = $('<p style="font-size: 8pt;">' + "작성자ID : " + comment.memberId + "&nbsp;&nbsp;&nbsp; 작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
+                var contextTextarea = $('<textarea class="commentForm" rows="5" cols="20" readonly>' + comment.context + '</textarea><br>');
+                var lastUpdateDateParagraph = $('<p style="font-size: 10pt;">' + "작성자ID : " + comment.memberId + "&nbsp;&nbsp;&nbsp; 작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
 
                 if(comment.refCommentId == 0){
-                	var commentDiv = $("<div id='commentForm'>");
+                	var commentDiv = $("<div id='commentForm' style=''>");
                 }else{
                 	var commentDiv = $("<div id='cocommentForm' style='left-margin: 100px;'>");
                 }
+                commentDiv.append(lastUpdateDateParagraph);
                 commentDiv.append(memberIdInput);
                 commentDiv.append(commentIdInput);
-                commentDiv.append(contextTextarea);
-                commentDiv.append(lastUpdateDateParagraph);
-                commentDiv.append("<button class='info-button' data-id='" + comment.commentId + "' onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
-                commentDiv.append("<button class='info-button' data-id='" + comment.commentId + "' onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
+                commentDiv.append(contextTextarea);  
+                if("${RecrBoard.memberId}" === "${sessionScope.loginMember.memberID}"){
+                commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
+                commentDiv.append("<button onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
+                }
                 var refCommentId1 = parseInt(comment.commentId);
                 
                 
                 if(comment.refCommentId == 0){
-                commentDiv.append('<div id="cocomment">' +
-                	    '<form id="cocommentForm" action="insertrecrcocomment.do" method="post">' +
+                commentDiv.append('<div id="cocomment" style="width: 500px; height: 200px;">' +
+                	    '<form id="cocommentForm" action="insertrecrcocomment.do" method="post" style="">' +
                 	    '<input type="hidden" name="memberId" value="' + "${sessionScope.loginMember.memberID}" + '">' +
                 	    '<input type="hidden" name="boardId" value="' + "${RecrBoard.boardId}" + '">' +
                 	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
                 	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
-                	    '<textarea name="context" cols="50" rows="5" required></textarea>' +
+                	    '<textarea class="commentForm" name="context" cols="50" rows="5" required></textarea>' +
                 	    '<br>' +
-                	    '<input type="submit" value="대댓글 등록">' +
+                	    '<button type="submit" >대댓글 등록</button>' +
                 	    '</form>' +
                 	    '<div id="commentList"></div>' +
                 	    '</div>');
@@ -261,114 +266,139 @@ function updatecomment(commentId1, context1){
 	align-items: center;
 }
 
-.boardRecr-div, .comment-div {
+.boardRecr-div {
 	width: 1000px;
 	padding: 20px;
 	margin: 10px;
-	border: 1px solid #ccc;
 	margin-left: 10px;
+	border: 1px;
+}
+
+.comment-div {
+	width: 100%; /* 원하는 너비로 조정하세요 */
+	margin-top: 20px; /* 위쪽 여백 */
+	margin-bottom: 20px; /* 아래쪽 여백 */
+	/* 그 외 필요한 스타일링 추가 */
 }
 
 .comment-list {
-	width: 1000px;
-	padding: 20px;
-    margin: 10px;
-    margin-left: 10px;
-    /*margin-left: '.boardRecr-div'와 동일한 값;  '.boardRecr-div'의 왼쪽 여백과 일치하도록 이 값을 조정하세요 */
+	width: 700px;
+	margin: 10px;
+	margin-top: 20px;
+	/*margin-left: '.boardRecr-div'와 동일한 값;  '.boardRecr-div'의 왼쪽 여백과 일치하도록 값 조정 */
 }
 
 #commentForm {
-    text-align: left;
-    margin-bottom: 15px;
+	text-align: left;
+	margin-bottom: 15px;
 }
 
 #cocommentForm {
-    text-align: left;
-    margin-bottom: 15px;
-    margin-left: 100px;
+	text-align: left;
+	margin-left: 100px;
+}
+
+button {
+	padding: 8px 16px; /* 버튼 내부 여백 설정 */
+	font-size: 12px; /* 글자 크기 설정 */
+	border: 2px solid #45d3b6; /* 테두리 설정 */
+	background-color: white; /* 기본 배경색 설정 */
+	color: black; /* 기본 글자 색 설정 */
+	border-radius: 4px; /* 버튼 모서리 둥글게 만들기 */
+	cursor: pointer; /* 마우스 커서를 포인터로 설정하여 클릭 가능한 상태로 만듦 */
+	transition: background-color 0.3s, color 0.3s;
+	/* 배경색과 글자색이 바뀔 때 부드럽게 전환 */
+	margin-right: 10px;
+	text-align: right;
+}
+
+button:hover {
+	background-color: #45d3b6; /* 마우스 오버시 배경색 변경 */
+	color: white; /* 마우스 오버시 글자색 변경 */
+}
+
+textarea.commentForm {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	resize: none; /* 크기 조절 비활성화 */
+	font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
+/* 마우스 호버 효과 */
+textarea.commentForm:hover {
+	border-color: #666;
 }
 </style>
 </head>
-<button onclick="updatecomment()">수정하기</button>
 <body>
 	<div class="container">
 		<div class="boardRecr-div">
-			<form action="#" method="post" enctype="multipart/form-data">
-				<div id="write" style="margin-bottom: 20px;">
-					<h1 style="text-align: left;">${RecrBoard.title}</h1>
-					<div class="line"></div>
-					<div style="text-align: left; margin-bottom: 10px;">
-						<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
-						<button class="whiteBtn"
-							style="float: right; background-color: pink; color: black;"
-							onclick="report(); return false;">신고하기</button>
-						<button class="whiteBtn" style="float: right; margin-right: 10px;"
-							onclick="insertappl(); return false;">모집신청</button>
-						<button class="whiteBtn" style="float: right; margin-right: 10px;"
-							onclick="checkRecrCondition(); return false;">모집조건</button>
-					</div>
-					<textarea cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
-					<div>
-						<p>첨부파일:</p>
-						<c:if test="${ !empty RecrBoard.recrOriginalFilename}">
-							<c:url var="rbdown" value="rbdown.do">
-								<c:param name="ofile" value="${RecrBoard.recrOriginalFilename}" />
-								<c:param name="rfile" value="${RecrBoard.recrRenameFilename}" />
-							</c:url>
-							<a href="${rbdown}">${RecrBoard.recrOriginalFilename}</a>
-						</c:if>
-						<c:if test="${ empty RecrBoard.recrOriginalFilename}">
-							<p>첨부파일 없음</p>
-						</c:if>
-					</div>
+			<div id="write" style="margin-bottom: 20px;">
+				<h1 style="text-align: left;">${RecrBoard.title}</h1>
+				<div style="text-align: left; margin-bottom: 10px;">
+					<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
+					<button class="whiteBtn"
+						style="float: right; background-color: pink; color: black;"
+						onclick="report(); return false;">신고하기</button>
+					<button class="whiteBtn" style="float: right; margin-right: 10px;"
+						onclick="insertappl(); return false;">모집신청</button>
+					<button class="whiteBtn" style="float: right; margin-right: 10px;"
+						onclick="checkRecrCondition(); return false;">모집조건</button>
+				</div>
+				<textarea cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
+				<div>
+					<p>첨부파일:</p>
+					<c:if test="${ !empty RecrBoard.recrOriginalFilename}">
+						<c:url var="rbdown" value="rbdown.do">
+							<c:param name="ofile" value="${RecrBoard.recrOriginalFilename}" />
+							<c:param name="rfile" value="${RecrBoard.recrRenameFilename}" />
+						</c:url>
+						<a href="${rbdown}">${RecrBoard.recrOriginalFilename}</a>
+					</c:if>
+					<c:if test="${ empty RecrBoard.recrOriginalFilename}">
+						<p>첨부파일 없음</p>
+					</c:if>
 					<p>시작 날짜 : ${RecrBoard.recrStartDate}</p>
 					<p>마감 날짜 : ${RecrBoard.recrEndDate}</p>
 					<p>장소 : ${RecrBoard.recrLocation}</p>
+					<button class="whiteBtn" onclick="updateBoard() ">수정하기</button>
+					<button class="whiteBtn" onclick="deleteBoard() ">삭제하기</button>
+					<div class="comment-div">
+						<button onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
+						<!-- 댓글 작성 폼 -->
+						<div id="writecommentForm" style="display: none;">
+							<form action="insertrecrcomment.do" method="post">
+								<input type="hidden" name="memberId"
+									value="${sessionScope.loginMember.memberID}"> <input
+									type="hidden" name="boardId" value="${RecrBoard.boardId}">
+								<input type="hidden" name="page" value="${page}">
+								<textarea class="commentForm" name="context" cols="50" rows="5"
+									required></textarea>
+								<br>
+								<button type="submit">댓글 등록</button>
+							</form>
+							<div id="commentList"></div>
+							<div class="comment-list"
+								style='display: none; text-align: left; padding: 0;'>
+								<br>
+							</div>
+						</div>
+					</div>
 				</div>
-			</form>
-			
-			<button class="whiteBtn" onclick="updateBoard() ">수정하기</button>
-			<button class="whiteBtn" onclick="deleteBoard() ">삭제하기</button>
-			
-		</div>
-		<div class="comment-div">
-			<!-- 댓글 보기 버튼 -->
-			<div id="writeComment">
-				<button class="whiteBtn"
-					onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
+
 			</div>
-			<!-- 댓글 작성 폼 -->
-			<div id="writecommentForm" style="display: none;">
-				<form action="insertrecrcomment.do" method="post">
-					<input type="hidden" name="memberId"
-						value="${sessionScope.loginMember.memberID}"> <input
-						type="hidden" name="boardId" value="${RecrBoard.boardId}">
-					<input type="hidden" name="page" value="${page}">
-					<textarea name="context" cols="50" rows="5" required></textarea>
-					<br> <input type="submit" value="댓글 등록">
-				</form>
-				<div id="commentList"></div>
-			</div>
+
 		</div>
 
-		<div class="comment-list" style='display: none; text-align: left;'></div>
 
 	</div>
 
-	<%-- var writecocomentform = `
-                    <div id="cocomment">
-                        <form id="cocommentForm" action="insertrecrcomment.do" method='post'>
-                            <input type="hidden" name="memberId" value='"${sessionScope.loginMember.memberID}"'>    
-                            <input type="hidden" name="boardId" value="${RecrBoard.boardId}">
-                            <input type="hidden" name="refCommentId1" value="${comment.commentId}"> 
-                            <input type="hidden" name="page" value="${page}">    
-                            <textarea name="context" cols="50" rows="5" required></textarea>
-                            <br>
-                            <input type="submit" value="댓글 등록">
-                        </form>
-                        <div id="commentList"></div>    
-                    </div>
-                `;  --%>
+
 
 </body>
 </html>

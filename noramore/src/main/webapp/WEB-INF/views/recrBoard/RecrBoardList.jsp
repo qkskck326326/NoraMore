@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/sideSample.jsp"/>
 <%-- <c:import url="/WEB-INF/views/common/sideSample.jsp"/> --%>
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
@@ -11,6 +12,13 @@
 <head>
 <meta charset="UTF-8">
 <title>NoraMore</title>
+<style type="text/css">
+#boardrecr{
+	top: 150px;
+    left: 10%;
+	margin-left: 200px;
+}
+</style>
 <link rel="stylesheet" href="resources/css/style.css">
 <link rel="stylesheet" href="resources/css/dropdown.css">
 <script type="text/javascript" src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
@@ -26,32 +34,30 @@ function selectCategory(value){
 </script>
 </head>
 <body>
-
+	<section id="boardrecr">
 	<h1>모집게시판 전체 목록</h1>
 	
 	
-	<div class="dropdown">
-    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
-    <div class="dropdown-content">
-        <a onclick="selectCategory('볼링')">볼링</a>
-        <a onclick="selectCategory('클라이밍')">클라이밍</a>
-        <a onclick="selectCategory('싸이클')">싸이클</a>
-        <a onclick="selectCategory('헬스')">헬스</a>
-        <a onclick="selectCategory('수상레저')">수상레저</a>
-        <a onclick="selectCategory('등산')">등산</a>
-    </div>
-</div>
+	<!-- <div class="dropdown">
+	    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
+	    <div class="dropdown-content">
+	        <a onclick="selectCategory('볼링')">볼링</a>
+	        <a onclick="selectCategory('클라이밍')">클라이밍</a>
+	        <a onclick="selectCategory('싸이클')">싸이클</a>
+	        <a onclick="selectCategory('헬스')">헬스</a>
+	        <a onclick="selectCategory('수상레저')">수상레저</a>
+	        <a onclick="selectCategory('등산')">등산</a>
+	    </div>
+	</div> -->
 	
-    <table>
-        <thead>
-            <tr>
+	<button class="whiteBtn" style=""  onclick="rbwriteform()">글 작성</button>
+    <table style='width: 1200px;'>
+        	<tr>
                 <th>번호</th>
                 <th>제목</th>
                 <th>작성자ID</th>
                 <th>조회수</th>
             </tr>
-        </thead>
-        <tbody>
             <c:forEach var="rl" items="${list}">
 	            <c:url var="rbd" value="rbdetail.do">
 					<c:param name="boardId" value="${rl.boardId}" />
@@ -64,10 +70,11 @@ function selectCategory(value){
                     <th>${rl.readCount}</th>
                 </tr>
             </c:forEach>
-        </tbody>
+    
     </table>
-<br>
-<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="rbwriteform()">글 작성</button>
+	<br>
+	</section>
+
 <c:import url="/WEB-INF/views/common/pagingView.jsp"/>
 </body>
 </html>
