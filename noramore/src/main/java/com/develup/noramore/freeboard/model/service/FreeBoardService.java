@@ -62,6 +62,12 @@ public interface FreeBoardService {
 	int selectRecentListCount();
 
 
+	void incrementReportCount(int boardId);
+
+
+	
+
+
 	
 
 

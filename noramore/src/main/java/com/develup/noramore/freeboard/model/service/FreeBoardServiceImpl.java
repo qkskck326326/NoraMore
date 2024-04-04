@@ -131,6 +131,13 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.selectRecentListCount();
 	}
 
+	@Override
+    public void incrementReportCount(int boardId) {
+		freeBoardDao.incrementReportCount(boardId);
+    }
+
+	
+
 	
 
 	

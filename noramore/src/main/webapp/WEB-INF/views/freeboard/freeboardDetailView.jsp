@@ -42,6 +42,24 @@
 		//게시글 (원글, 댓글, 대댓글) 수정 페이지로 이동 처리 함수
 		location.href = "${ fbup }";
 	}
+	
+	function report(boardId) {
+		// Ajax를 사용하여 서버로 해당 값을 전송하여 DB에 저장
+		$.ajax({
+	        type: "POST",
+	        url: "incrementReportCount.do",
+	        data: { boardId: boardId },
+	        success: function(response) {
+	            // 성공적으로 신고가 처리되었을 때 수행할 코드
+	            alert("게시물이 신고되었습니다.");
+	            // 페이지 새로고침 또는 신고 버튼 비활성화 등의 추가적인 처리 가능
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
+	            alert("오류가 발생했습니다.");
+	        }
+	    });
+    }
 </script>
 <title>NoraMore</title>
 
@@ -62,7 +80,7 @@ div {
 			<div>
 				<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
 				<button style="float: right; background-color: pink; color: black;"
-					class="whiteBtn" onclick="report(); return false;">신고하기</button>
+					class="whiteBtn" onclick="report(${FreeBoard.boardId}); return false;">신고하기</button>
 
 			</div>
 
