@@ -141,11 +141,13 @@ function dupFbCheck(){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
-
-<h2 class="title">금지어 관리</h2>
+<br><br><br><br><br>
+<h2 class="title"><a href="${ pageContext.servletContext.contextPath }/fblist.do">금지어 관리</a></h2>
 <br>
 
 		<div class="search" >
+		<a class="listRollback" href="${ pageContext.servletContext.contextPath }/fblist.do">전체 목록</a>
+		&nbsp; &nbsp;
 		<form action="fbsearch.do">
 			<input type="hidden" name="action" value="forbidden">
 			<input type="search" name="keyword" id="fbsearch" placeholder="검색할 금지어를 입력하세요"> &nbsp; &nbsp;
@@ -196,7 +198,6 @@ function dupFbCheck(){
 <br>
 <br>
 <a href="alarmlist.do"><img src="resources/images/alarmIcon.png"></a>
-<a href="chattingPage.do"><img src="resources/images/alarmIcon.png"></a>
 
 
 </body>

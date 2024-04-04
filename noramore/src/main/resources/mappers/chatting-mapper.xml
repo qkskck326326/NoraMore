@@ -99,7 +99,7 @@
       UPDATE "MESSAGE" SET
       READ_FL = 'Y'
       WHERE CHATTING_NO = #{chattingNo}
-      AND SENDER_NO != #{memberID}
+      AND SENDER_ID != #{memberID}
    </update>
 
    <!-- 채팅방 메시지 조회 -->
