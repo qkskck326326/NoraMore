@@ -58,6 +58,10 @@ public class RecreBoardDao {
 		SqlSessionTemplate.update("recrboard.countcoment", commentRecrBoard);
 	}
 
+	public int deleteBoard(int boardId) {
+		return SqlSessionTemplate.delete("recrboard.deleteBoard", boardId);
+	}
+
 
 
 

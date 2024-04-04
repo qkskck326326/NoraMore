@@ -50,6 +50,10 @@ public class CommentRecrBoardDao {
 		return sqlSessionTemplate.update("commentrecrboard.updateComment", commentRecrBoard);
 	}
 
+	public void deleteBoardComment(int boardId) {
+		sqlSessionTemplate.delete("commentrecrboard.deleteBoardComment", boardId);
+	}
+
 
 
 

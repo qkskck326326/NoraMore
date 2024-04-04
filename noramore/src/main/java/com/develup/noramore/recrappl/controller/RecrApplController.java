@@ -20,7 +20,7 @@ public class RecrApplController {
 	  @RequestMapping("insertappl.do")
 	  public String insertAppl(RecrAppl recrAppl, Model model) {  
 		  if(recrApplService.insertAppl(recrAppl) > 0) {
-			 //////////// int result = recrBoardService.upNowRecr(recrAppl.getBoardId());
+			
 				  model.addAttribute("message", "신청이 완료되었습니다.");
 				  return "recrBoard/RecrBoardDetail";			  
 		  }else {

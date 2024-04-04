@@ -65,7 +65,10 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		recreBoardDao.countcoment(commentRecrBoard);
 	}
 
-
+	@Override
+	public int deleteBoard(int boardId) {
+		return recreBoardDao.deleteBoard(boardId);
+	}
 
 
 

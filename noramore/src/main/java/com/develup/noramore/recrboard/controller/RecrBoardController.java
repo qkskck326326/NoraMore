@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.develup.noramore.commentrecrboard.service.CommentRecrBoardService;
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
@@ -28,6 +29,8 @@ public class RecrBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(RecrBoardController.class);
 	@Autowired
 	private RecrBoardService recrBoardService;
+	@Autowired
+	CommentRecrBoardService commentRecrBoardService;
 
 	// 테이블 검색
 	@RequestMapping("rblist.do")
@@ -227,6 +230,31 @@ public class RecrBoardController {
 
 	}//
 
+	
+	@RequestMapping("deleteboard.do")
+	public String deleteBoard(RecrBoard recrBoard, @RequestParam("page") String page, Model model) {
+		int currentPage = 1;
+		if (!page.isEmpty()) {
+			currentPage = Integer.parseInt(page);
+		}
+		commentRecrBoardService.deleteBoardComment(recrBoard.getBoardId());
+		if(recrBoardService.deleteBoard(recrBoard.getBoardId()) > 0 ) {
+			model.addAttribute("message", "글이 삭제되었습니다");
+			model.addAttribute("currentPage", currentPage);
+			return"redirect:rblist.do";
+		}else {
+			model.addAttribute("boardId", recrBoard.getBoardId());
+			model.addAttribute("page", currentPage);
+			model.addAttribute("message", "error! 글 삭제에 실패하였습니다!");
+			return"redirect:rblist.do";
+		}
+	}//
+	
+	
+	
+	
+	
+	
 	// 파일 다운로드 처리
 	@RequestMapping("rbdown.do")
 	public ModelAndView fileDown(@RequestParam("ofile") String originalFileName,

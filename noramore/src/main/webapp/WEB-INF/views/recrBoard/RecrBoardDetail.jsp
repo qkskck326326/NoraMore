@@ -17,8 +17,9 @@
 <c:url var="updateBoard" value="updateboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
 </c:url>
-<c:url var="deleteBoard" value="updateboard.do">
+<c:url var="deleteBoard" value="deleteboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
+	<c:param name="page" value="${page}" />
 </c:url>
 <c:url var="rblist" value="rblist.do">
 	<c:param name="page" value="${page}" />
@@ -187,6 +188,10 @@ function updateBoard(){
 	location.href = "${updateBoard}";
 }
 
+function deleteBoard(){
+	location.href = "${deleteBoard}";
+}
+
 function deletecomment(commentId1) {
     var commentId = commentId1;
 	console.log(commentId);
@@ -228,10 +233,7 @@ function updatecomment(commentId1, context1){
 	location.reload(); 
 }
 
-function deleteBoard(){
-	
-	
-}
+
 </script>
 <style>
 .container {
@@ -306,8 +308,8 @@ function deleteBoard(){
 				</div>
 			</form>
 			
-			<button class="whiteBtn" onclick="updateBoard()">수정하기</button>
-			<button class="whiteBtn" onclick="deleteBoard()">삭제하기</button>
+			<button class="whiteBtn" onclick="updateBoard() ">수정하기</button>
+			<button class="whiteBtn" onclick="deleteBoard() ">삭제하기</button>
 			
 		</div>
 		<div class="comment-div">

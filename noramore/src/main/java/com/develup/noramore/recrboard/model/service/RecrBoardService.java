@@ -28,5 +28,6 @@ public interface RecrBoardService {
 
 	void countcoment(CommentRecrBoard commentRecrBoard);
 
+	int deleteBoard(int boardId);
 	
 }

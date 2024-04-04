@@ -53,6 +53,12 @@ public class CommentRecrBoardServiceImpl implements CommentRecrBoardService{
 		commentRecrBoardDao.deleteSubComment(commentRecrBoard);
 	}
 
+	@Override
+	public void deleteBoardComment(int boardId) {
+		commentRecrBoardDao.deleteBoardComment(boardId);
+		
+	}
+
 
 
 	

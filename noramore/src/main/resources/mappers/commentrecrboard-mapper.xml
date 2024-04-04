@@ -32,6 +32,11 @@
 		where REF_COMMENT_ID = #{commentId} 
 		and BOARD_ID = #{boardId} 
 	</delete>
+	
+	<delete id="deleteBoardComment" parameterType="_int">
+		delete from COMM_RECR 
+		where BOARD_ID = #{boardId} 
+	</delete>
 
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
 		SELECT *
