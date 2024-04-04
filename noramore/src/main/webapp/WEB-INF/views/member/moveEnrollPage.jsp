@@ -351,7 +351,7 @@ $("#emailAuth").click(function() {
     		
     		var json = JSON.parse(strCode);
     		
-    		codeNum = json.code;
+    		codeNum = json.code; 
     		
     		
     		$("#authCode").attr("disabled", false); 
