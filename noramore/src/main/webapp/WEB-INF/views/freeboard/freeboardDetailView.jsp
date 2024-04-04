@@ -3,7 +3,7 @@
 
 <%-- <%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
 
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%--<%@ include file="/WEB-INF/views/common/header.jsp"%>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
