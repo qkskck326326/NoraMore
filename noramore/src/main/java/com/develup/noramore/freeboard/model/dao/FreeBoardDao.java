@@ -107,11 +107,20 @@ public class FreeBoardDao {
 		return (ArrayList<FreeBoard>)list;
 	}
 	
+	public ArrayList<FreeBoard> selectLikesList(Search search) {
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectLikesList", search);
+		return (ArrayList<FreeBoard>)list;
+	}
+	
 	public int selectRecentListCount() {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount");
 	}
 
+	public int selectLikesListCount() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("freeboard.selectLikesListCount");
+	}
 
 	public void incrementReportCount(int boardId) {
 		sqlSessionTemplate.update("freeboard.incrementReportCount", boardId);
@@ -123,6 +132,12 @@ public class FreeBoardDao {
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update("freeboard.incrementLikeCount", boardId);
 	}
+
+
+	
+
+
+	
 
 
 	

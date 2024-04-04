@@ -117,12 +117,23 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		return freeBoardDao.selectRecentList(search);
 	}
 	
-	
+	@Override
+	public ArrayList<FreeBoard> selectLikesList(Search search) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectLikesList(search);
+	}
+
 
 	@Override
 	public int selectViewsListCount() {
 		// TODO Auto-generated method stub
 		return freeBoardDao.selectViewsListCount();
+	}
+	
+	@Override
+	public int selectLikesListCount() {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectLikesListCount();
 	}
 
 	@Override
@@ -141,6 +152,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		freeBoardDao.incrementLikeCount(boardId);
 		
 	}
+
+	
+	
 
 	
 

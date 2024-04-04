@@ -76,17 +76,23 @@
     function selectCategory(value){
     	$("#category").text(value).val(value);
     }
+    
+    function fbwriteform(){
+    	location.href = "freeboardwrite.do";
+    }
 </script>
 
 </head>
 <body>
 
 <%-- 항목별 검색 기능 추가 --%>
+<%--
 <fieldset id="ss">
 	<legend>검색할 항목을 선택하세요.</legend>
 	<input type="radio" name="item" id="title"> 제목 &nbsp;
 	<input type="radio" name="item" id="writer"> 작성자 &nbsp;	
 </fieldset>
+ --%>
 <br>
 
 <%-- 검색 항목별 값 입력 전송용 폼 만들기 --%>
@@ -152,7 +158,7 @@
 		<%
 		}
 		%>
-		<button onclick="location.href='freeboardwrite.do';" class="blueBtn">글쓰기</button>
+		
 		<!--  <button onclick="location.href='freeboardwrite.do';" class="blueBtn">글쓰기</button>-->
 		<form action="board.jsp" method="get">
 
@@ -186,6 +192,8 @@
    	     
    	 
    	<!-- 추가한 부분 *********************************** -->
+   	<br>
+   	<br>
    	
    	 <div class="dropdown">
     <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
@@ -206,6 +214,7 @@
 				<th>제목</th>
 				<th>작성자ID</th>
 				<th>조회수</th>
+				<th>좋아요수</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -219,6 +228,7 @@
                     <td><a href="${fbd}">${fl.title}</a></td>
                     <td>${fl.memberId}</td>
                     <td>${fl.readCount}</td>
+                    <td>${fl.likeCount}</td>
                 </tr>
             </c:forEach>	
 				
@@ -233,6 +243,6 @@
 
 <!-- 추가한 부분 **************** -->
 	</section>
-
+<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="fbwriteform()">글 작성</button>
 </body>
 </html>

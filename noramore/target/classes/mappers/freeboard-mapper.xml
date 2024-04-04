@@ -62,6 +62,20 @@
 		select count(*) from free_board order by REGIST_DATE desc
 	</select>
 	
+	<select id="selectLikesList" parameterType="Search" resultMap="resultfreeList">
+		SELECT *
+		FROM (
+		    SELECT rownum rnum,
+		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
+		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
+		           LAST_UPD_DATE from (SELECT * FROM free_board ORDER BY LIKE_COUNT DESC))
+		WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="selectLikesListCount" resultType="_int">
+		select count(*) from free_board order by LIKE_COUNT desc
+	</select>
+	
 	<select id="selectSearchList" parameterType="Search" resultMap="resultfreeList">
 		SELECT *
 		FROM (
