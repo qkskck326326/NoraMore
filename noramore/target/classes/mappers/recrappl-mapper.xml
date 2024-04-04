@@ -12,8 +12,12 @@
 	    <result property="lastUpdDate" column="LAST_UPD_DT"/>
 	</resultMap>
 
-	<insert id="insertAppl" parameterType="RecrAppl" >
-		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{boardId}, #{memberId});
+	<select id="applSearchId" parameterType="RecrAppl">
+		select * from RECR_APPL where MEMBER_ID = #{memberId}
+	</select>
+	
+	<insert id="insertAppl" parameterType="RecrAppl">
+		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{boardId}, #{memberId})
 	</insert>
 
 	

@@ -6,4 +6,6 @@ public interface RecrApplService {
 
 	int insertAppl(RecrAppl recrAppl);
 
+	int applSearchId(RecrAppl recrAppl);
+
 }

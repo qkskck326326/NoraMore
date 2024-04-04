@@ -11,11 +11,13 @@
 <meta charset="UTF-8">
 <title>NoraMore</title>
 <c:url var="insertappl" value="insertappl.do">
-	<c:param name="RecrBoard" value="${RecrBoard}" />
-	<c:param name="Member" value="${loginMember}" />
+	<c:param name="boardId" value="${RecrBoard.boardId}" />
+	<c:param name="memberID" value="${sessionScope.loginMember.memberID}" />
+	<c:param name="page" value="${page}" />
 </c:url>
 <c:url var="updateBoard" value="updateboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
+	<c:param name="page" value="${page}" />
 </c:url>
 <c:url var="deleteBoard" value="deleteboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
@@ -103,7 +105,7 @@ function selectrecrcomment() {
                 commentDiv.append("<button class='info-button' data-id='" + comment.commentId + "' onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
                 commentDiv.append("<button class='info-button' data-id='" + comment.commentId + "' onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
                 var refCommentId1 = parseInt(comment.commentId);
-                console.log(refCommentId1);
+                
                 
                 if(comment.refCommentId == 0){
                 commentDiv.append('<div id="cocomment">' +
@@ -179,20 +181,24 @@ function checkRecrCondition(){
 	
 	alert(con);
 }
- 
+
+function calculateAge(birthDate) {
+    // 현재 날짜
+    var currentDate = new Date();
+    
+    // 생일 날짜로부터 현재 날짜까지의 시간차 계산
+    var timeDiff = currentDate.getTime() - birthDate.getTime();
+    
+    // 생일로부터 현재까지의 시간차를 밀리초에서 연도로 변환
+    var ageDate = new Date(timeDiff); 
+    
+    // 나이 계산
+    var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    
+    return age;
+}
 
 function insertappl(){
-	var ageMinCondition = ${RecrBoard.ageMinCondition};
-	var ageMaxCondition = ${RecrBoard.ageMaxCondition};
-	var genderCondition = ${RecrBoard.genderCondition};
-	
-
-	if(${RecrBoard.ageMinCondition} == 0 || "${RecrBoard.ageMinCondition}" > "${}"){
-		
-	}else{
-		alert("신청 실패! 신청조건을 확인해 주세요!");
-		return;
-	}
 	location.href = "${insertappl}";
 }//
 

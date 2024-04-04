@@ -15,6 +15,13 @@ public class RecrApplServiceImpl implements RecrApplService{
 	public int insertAppl(RecrAppl recrAppl) {
 		return recrApplDao.insertAppl(recrAppl);
 	}
+
+	@Override
+	public int applSearchId(RecrAppl recrAppl) {
+		return recrApplDao.applSearchId(recrAppl);
+	}
+
+
 	
 	
 }//
