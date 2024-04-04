@@ -39,7 +39,7 @@ public class ChattingController {
     }
     
     // 채팅 상대 검색
-    @GetMapping(value="selectTarget.do", produces="application/json; charset=UTF-8")
+    @GetMapping(value="/chat/selectTarget.do", produces="application/json; charset=UTF-8")
     @ResponseBody
     public List<Member> selectTarget(String query, @SessionAttribute("loginMember") Member loginMember){
     
@@ -52,7 +52,7 @@ public class ChattingController {
     }
     
     // 채팅방 입장(없으면 생성)
-    @GetMapping("chattingEnter.do")
+    @GetMapping("/chat/chattingEnter.do")
     @ResponseBody
     public int chattingEnter(String targetId, @SessionAttribute("loginMember") Member loginMember) {
      
@@ -72,14 +72,14 @@ public class ChattingController {
     }
     
     // 채팅방 목록 조회
-    @GetMapping(value="roomList.do", produces="application/json; charset=UTF-8")
+    @GetMapping(value="/chat/roomList.do", produces="application/json; charset=UTF-8")
     @ResponseBody
     public List<ChattingRoom> selectRoomList(@SessionAttribute("loginMember") Member loginMember) {
        return chattingService.selectRoomList(loginMember.getMemberID());
     }
     
     // 채팅 읽음 표시
-    @PutMapping("updateReadFlag.do")
+    @PutMapping("/chat/updateReadFlag.do")
     @ResponseBody
     public int updateReadFlag(@RequestBody Map<String, Object> paramMap) {
         return chattingService.updateReadFlag(paramMap);

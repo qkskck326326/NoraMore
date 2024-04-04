@@ -43,7 +43,7 @@ targetInput.addEventListener("input", e => {
 
    // 입력된 값이 있을 때
    if(query.length > 0){
-      fetch("selectTarget.do?query="+query)
+      fetch("/chat/selectTarget.do?query="+query)
       .then(resp => resp.json())
       .then(list => {
          //console.log(list);
@@ -98,7 +98,7 @@ function chattingEnter(e){
 
    const targetId = e.currentTarget.getAttribute("data-id");
 
-   fetch("chattingEnter.do?targetId="+targetId)
+   fetch("/chat/chattingEnter.do?targetId="+targetId)
    .then(resp => resp.text())
    .then(chattingNo => {
       console.log(chattingNo);
@@ -131,7 +131,7 @@ function chattingEnter(e){
 // 비동기로 채팅방 목록 조회
 function selectRoomList(){
 
-   fetch("roomList.do")
+   fetch("/chat/roomList.do")
    .then(resp => resp.json())
    .then(roomList => {
       console.log(roomList);
@@ -161,7 +161,7 @@ function selectRoomList(){
          listProfile.classList.add("list-profile");
 
          if(room.targetProfile == undefined)   
-            listProfile.setAttribute("src", "/resources/images/user.png");
+            listProfile.setAttribute("src", "resources/images/user.png");
          else                        
             listProfile.setAttribute("src", room.targetProfile);
 
@@ -207,7 +207,7 @@ function selectRoomList(){
 
             // 현재 채팅방을 보고 있는 경우
             // 비동기로 해당 채팅방 메시지를 읽음으로 표시
-            fetch("updateReadFlag.do",{
+            fetch("/chat/updateReadFlag.do",{
                method : "PUT",
                headers : {"Content-Type": "application/json"},
                body : JSON.stringify({"chattingNo" : selectChattingNo, "memberID" : loginMemberID})
@@ -272,7 +272,7 @@ function roomListAddEvent(){
 // 비동기로 메시지 목록을 조회하는 함수
 function selectChattingFn() {
 
-   fetch("selectMessage.do?"+`chattingNo=${selectChattingNo}&memberID	=${loginMemberID}`)
+   fetch("chat/selectMessage.do?"+`chattingNo=${selectChattingNo}&memberID=${loginMemberID}`)
    .then(resp => resp.json())
    .then(messageList => {
       console.log(messageList);
@@ -345,7 +345,7 @@ function selectChattingFn() {
 let chattingSock;
 
 if(loginMemberID != ""){
-   chattingSock = new SockJS("chattingPage.do");
+   chattingSock = new SockJS("/chat");
 }
 
 
