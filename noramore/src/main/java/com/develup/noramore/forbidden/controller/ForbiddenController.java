@@ -105,10 +105,14 @@ public class ForbiddenController {
 			model.addAttribute("action", action);
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("limit", limit);
+			return "forbidden/forbiddenListView";
+		 }else if(keyword == ""){
+			 return "redirect:fblist.do";
 		 }else {
 			model.addAttribute("message", keyword + "에 해당하는 검색결과가 없습니다.");
+			return "forbidden/forbiddenListView";
 		}
-		return "forbidden/forbiddenListView";
+
 	}
 	
 	//금지어 추가시 중복검사

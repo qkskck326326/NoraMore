@@ -111,10 +111,11 @@
    <!--------------------------------------- sockjs를 이용한 WebSocket 구현을 위해 라이브러리 추가 ---------------------------------------------->
    
    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-   <script type="text/javascript" src="resources/js/chatting.js"></script>
-   <script>
-      // 로그인한 회원 번호
+      <script>
+      // 로그인한 회원 ID
       const loginMemberID = "${loginMember.memberID}";
 	</script>
+   <script type="text/javascript" src="resources/js/chatting.js"></script>
+
 </body>
 </html>

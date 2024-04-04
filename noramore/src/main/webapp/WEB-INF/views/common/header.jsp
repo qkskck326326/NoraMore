@@ -16,7 +16,7 @@
     <div class="header-right">
         <nav>
             <ul>
-                <li><a href="board.jsp">채팅</a></li>
+                <li><a href="chattingPage.do"><img src="resources/images/alarmIcon.png">채팅</a></li>
                 <li><a href="receiveHome.jsp">문의내역</a></li>
                 <li><a href="info.jsp">마이페이지</a></li>
                 <li><a href="logout.jsp">로그아웃</a></li>
