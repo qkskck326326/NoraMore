@@ -44,6 +44,20 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder; // spring-security.xml에서의 id를 가져다 변수 명으로 사용
 	// 암호를 암호화 함.
 
+
+//	@Autowired
+//	private KakaoLoginAuth kakaoLoginAuth;
+//
+//	@Autowired
+//	private GoogleLoginAuth googleLoginAuth;
+//
+//	@Autowired
+//	private NaverLoginAuth naverLoginAuth;
+
+	
+	
+	
+	
 	// 뷰 페이지 내보내기용 메소드 ---------------------------------------------------
 	@RequestMapping(value = "moveLoginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
@@ -112,6 +126,10 @@ public class MemberController {
 			return "redirect:moveLoginPage.do";
 		}
 	}
+	
+	
+	
+	
 
 	// 로그아웃 처리용 메소드
 
@@ -127,6 +145,128 @@ public class MemberController {
 			return "redirect:moveLoginPage.do";
 		}
 	}
+	
+	
+//	// 소셜로그인이 포함된 로그인 페이지 내보내기용 메소드
+//	@RequestMapping(value = "moveLoginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
+//	public String moveLoginPage(Model model, HttpSession session) {
+//		// 카카오 로그인 접속을 위한 인증 url 정보 생성
+//		String kakaoAuthURL = kakaoLoginAuth.getAuthorizationUrl(session);
+//
+//		// 네이버 로그인 접속을 위한 인증 url 정보 생성
+//		String naverAuthURL = naverLoginAuth.getAuthorizationUrl(session);
+//
+//		// 구글 로그인 접속을 위한 인증 url 정보 생성
+//		String googleAuthURL = googleLoginAuth.getAuthorizationUrl(session);
+//
+//		// 모델에 각각의 url 정보 저장
+//		model.addAttribute("kakaourl", kakaoAuthURL);
+//		model.addAttribute("googleourl", googleAuthURL);
+//		model.addAttribute("naverurl", naverAuthURL);
+//
+//		return "member/loginPage";
+//	}
+//
+//	
+//	// 카카오 로그인 요청 처리용
+//		// (카카오 로그인 클릭시 전달된 kakaourl 에 의해 실행됨)
+//		@RequestMapping(value = "kcallback.do", produces = "application/json", method = { RequestMethod.GET,
+//				RequestMethod.POST })
+//		public String kakaoLogin(@RequestParam String code,
+//				Model model, HttpSession session) {
+//			logger.info("0. kcallback.do : " + code);
+//			
+//			//로그인 결과값을 node에 담아줌
+//			JsonNode node = kakaoLoginAuth.getAccessToken(code);
+//			logger.info("1. kcallback.do : " + node);
+//			// accessToken에 사용자의 로그인한 모든 정보가 들어있음
+//			JsonNode accessToken = node.get("access_token");
+//			logger.info("2. kcallback.do : " + accessToken);
+//			// 사용자 정보 추출
+//			JsonNode userInfo = kakaoLoginAuth.getKakaoUserInfo(accessToken);
+//			logger.info("3. kcallback.do : " + userInfo);
+//			
+//			// db table 에 기록할 회원정보 추출함 : 카카오 회원가입시
+//			//userInfo 에서 properties 정보 추출
+//			JsonNode properties = node.get("properties");
+//			logger.info("4. kcallback.do : " + properties);
+//			
+//			JsonNode kakao_account = userInfo.path("kakao_account");
+//			String kid = userInfo.path("id").asText();
+//			logger.info("5. kcallback.do : " + kakao_account);
+//			
+//			//등록된 카카오 회원 테이블에서 회원 정보 조회해 옴
+//			KakaoMember kmember = 
+//					memberService.selectKakaoLogin(kid);		
+//			
+//			Member loginMember = null; 
+//			
+//			//처음 로그인 요청시 카카오 회원 테이블에 회원 정보 저장
+//			if(kmember == null) {
+//				KakaoMember kakaovo = new KakaoMember();
+//				//properties 에서 하나씩 꺼내서 member 에 저장 처리
+//				kakaovo.setUserid(kid);
+//				kakaovo.setUsername((String)properties.get("nickname").asText());
+//				kakaovo.setEmail((String)kakao_account.get("email").asText());
+//					
+//				logger.info("6. kcallback.do : " + kakaovo);
+//				
+//				memberService.insertKakaoMember(kakaovo);
+//				loginMember = kakaovo;
+//			}else {
+//				loginMember = kmember;
+//			}
+//					
+//			if (loginMember != null) {
+//				// 카카오 로그인 성공시
+//				session.setAttribute("loginMember", loginMember);
+//				return "redirect:main.do";
+//			} else {
+//				model.addAttribute("message", "카카오 로그인 실패!");
+//				return "common/error";
+//			}
+//		}
+//
+//		// 네이버 로그인 요청 처리용
+//		// (네이버 로그인 클릭시 전달된 naverurl 에 의해 실행됨)
+//		@RequestMapping(value = "ncallback.do", 
+//				method = { RequestMethod.GET, 	RequestMethod.POST })
+//		public String naverLogin(Model model, HttpSession session) {
+//
+//			Member loginMember = null;
+//			
+//			if (loginMember != null) {
+//				// 카카오 로그인 성공시
+//				session.setAttribute("loginMember", loginMember);
+//				return "redirect:main.do";
+//			} else {
+//				model.addAttribute("message", "카카오 로그인 실패!");
+//				return "common/error";
+//			}
+//		}
+//
+//		// 구글 로그인 요청 처리용
+//		// (구글 로그인 클릭시 전달된 googleurl 에 의해 실행됨)
+//		@RequestMapping(value = "gcallback.do", 
+//				method = { RequestMethod.GET, 	RequestMethod.POST })
+//		public String googleLogin(
+//				Model model, HttpSession session) {
+//
+//			Member loginMember = null;
+//			
+//			if (loginMember != null) {
+//				// 카카오 로그인 성공시
+//				session.setAttribute("loginMember", loginMember);
+//				return "redirect:main.do";
+//			} else {
+//				model.addAttribute("message", "카카오 로그인 실패!");
+//				return "common/error";
+//			}
+//		}
+
+	
+	
+	
 
 	// 회원 가입 요청 처리용 메소드
 	@RequestMapping(value = "enroll.do", method = RequestMethod.POST)
@@ -224,15 +364,39 @@ public class MemberController {
 	}
 	
 	
+	// ajax 통신으로 찾을 비밀번호의 아이디 확인 요청 처리용 메소드
+	@RequestMapping(value = "dupIdCheck.do", method = RequestMethod.POST)
+	public void dupIdCheck(@RequestParam("memberID") String memberid, HttpServletResponse response) throws IOException {
+
+		int idCount = memberService.selectCheckId(memberid);
+
+		String returnStr = null;
+		if (idCount == 0) {
+			returnStr = "ok";
+		} else {
+			returnStr = "dup";
+		}
+
+		// response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.append(returnStr);
+		out.flush();
+		out.close();
+	}
+	
+	
+	
+	//비밀번호 찾기에서 이름, 이메일 같은 회원 > 아이디확인도하고 비번 재설정 페이지로 감
 	@RequestMapping(value = "emailIdChk2.do", method = RequestMethod.POST)
 	public String emailIdChk2(Member member, Model model) throws Exception {
-		logger.info("emailIdChk.do : " + member);
+		System.out.println("emailIdChk.do : " + member);
 		
 		Member member2 = memberService.selectFindId(member);
 		
 		if ( member2 != null) {
 			model.addAttribute("member2",member2);
-			logger.info("member2 : " + member2.getMemberID());
+			logger.info("member2 : " + member2);
 			return "member/pwUpdatePage";
 		} else {
 			model.addAttribute("message", "없는 회원입니다. 다시 확인해 주세요!");
@@ -263,49 +427,25 @@ public class MemberController {
 	
 	
 	
-	// ajax 통신으로 찾을 비밀번호의 아이디 확인 요청 처리용 메소드
-		@RequestMapping(value = "dupIdCheck.do", method = RequestMethod.POST)
-		public void dupIdCheck(@RequestParam("memberID") String memberid, HttpServletResponse response) throws IOException {
-
-			int idCount = memberService.selectCheckId(memberid);
-
-			String returnStr = null;
-			if (idCount == 0) {
-				returnStr = "ok";
-			} else {
-				returnStr = "dup";
-			}
-
-			// response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.append(returnStr);
-			out.flush();
-			out.close();
-		}
+	
 	
 		
 		//비밀번호 재설정
 		@RequestMapping(value = "pwChange.do", method = RequestMethod.POST)
 		public String pwChange(Member member, Model model) throws Exception {
-			logger.info("emailIdChk.do : " + member);
+			System.out.println("pwChange.do : " + member);
 			
-			Member origin = memberService.selectOriginPw(member.getMemberID());
-			String originPw = origin.getMemberPWD();
 			
-			// 새로운 암호가 전송이 왔다면, 패스워드 암호화 처리함
-			String memberPwd = member.getMemberPWD().trim(); // 공백을 없앰
-			logger.info("새로운 암호 : " + memberPwd + ", " + memberPwd.length());
-			if (memberPwd != null && memberPwd.length() > 0) { // 암호가 전송이 왔다면
-				// 암호화된 기존의 패스워드와 새로운 패스워드를 비교해서 다른 값이면
-				if (this.bcryptPasswordEncoder.matches(memberPwd, originPw)) { // 입력한 패스워드, 암호화된 값 가져온것
-					// member 에 새로운 패스워드를 암호화해서 저장함
-					member.setMemberPWD(this.bcryptPasswordEncoder.encode(memberPwd));
-				}
-			} else { // 새로운 암호가 null 또는 글자갯수가 0일때는
-				// 기존 암호이면, 원래 암호화된 패스워드를 저장함
-				member.setMemberPWD(originPw);
-			}
+			// 패스워드 암호화 처리
+			member.setMemberPWD(bcryptPasswordEncoder.encode(member.getMemberPWD()));
+			System.out.println("after encode : " + member.getMemberPWD());
+			System.out.println("pwd length : " + member.getMemberPWD().length());
+			
+			
+			logger.info("반환값 : " + memberService.updatePw(member));
+			
+			
+			System.out.println("반환값 : " + memberService.updatePw(member));
 			
 			if ( memberService.updatePw(member) > 0) {
 

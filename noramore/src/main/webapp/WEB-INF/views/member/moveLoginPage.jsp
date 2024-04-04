@@ -45,6 +45,26 @@ function enroll(){
 		<div id="enroll">아직도 회원이 아니신가요?</div>
 		<button class='button' onclick="enroll();">회원가입</button><br>
 	
+	<!-- 카카오 로그인 창으로 이동 -->
+<%-- <div id="kakao_id_login" class="social_login" style="text-align:center;">
+	<c:url var="kurl" value="${ requestScope.kakaourl }" />
+	<a href="${ kurl }" class="cp">
+		<img src="${ pageContext.servletContext.contextPath }/resources/images/kakao_login.png" 
+		alt="카카오 로그인">
+	</a>
+</div>
+<br>
+<!-- 네이버 로그인 창으로 이동 -->
+<div id="naver_id_login" class="social_login" style="text-align:center;">
+	<c:url var="nurl" value="${ requestScope.naverurl }" />
+	<a href="${ kurl }" class="cp">
+		<img src="resources/images/naver_login.png" 
+		alt="네이버 로그인">
+	</a>
+</div> --%>
+	
+	
+	
 </div>
 	
 </div>

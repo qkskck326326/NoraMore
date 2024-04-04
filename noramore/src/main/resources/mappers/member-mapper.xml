@@ -82,14 +82,9 @@
 	<update id="updatePw" parameterType="Member">
 		update member 
 		set MEMBER_PWD = #{ memberPWD } 
-		where MEMBER_ID = #{ memeberID }
+		where MEMBER_ID = #{ memberID }
 	</update>
 	
-	<!-- 기존 비밀번호 -->
-	<select id="selectOriginPw" parameterType="String" resultMap="resultMember">
-		select *
-		from member
-		where MEMBER_ID = #{ memberID }
-	</select>
+
 
 </mapper>
