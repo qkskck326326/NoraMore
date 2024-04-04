@@ -213,7 +213,7 @@ var oEditors = [];
 		        oEditors.getById["smartEditor"].exec("FOCUS");
 		        return;
 		    }
-		    
+		 <%-- ********없어도 되는 코드 smartEditor 관련 MVC구성 안해도됨****** --%>   
 		     $.ajax({
        url: 'saveContext.do', // 올바른 컨트롤러로 수정
        type: 'POST',
@@ -227,6 +227,7 @@ var oEditors = [];
            console.error(error); // 오류 메시지 콘솔에 출력
        }
    });
+		<%-- ********************************************** --%>   
 		    // ********* 추가한 부분 *************
 
 			if (selcatd == "") {
