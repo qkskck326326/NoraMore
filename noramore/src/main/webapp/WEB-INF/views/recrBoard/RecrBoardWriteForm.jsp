@@ -10,7 +10,117 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+<script type="text/javascript" src="SmartEditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
+
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors,
+	elPlaceHolder: "editorTxt",
+	sSkinURI: "SmartEditor2Skin.html",	
+	htParams : {bUseToolbar : true,
+		fOnBeforeUnload : function(){
+			alert("아싸!");	
+		}
+	}, //boolean
+	fOnAppLoad : function(){
+		//예제 코드
+		oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+	},
+	fCreator: "createSEditor2"
+});
+
+
+$("#savebutton").click(function() {
+	oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []); 
+	//textarea의 id를 적어줍니다.
+
+	var selcatd = $("#selcatd > option:selected").val();
+	var title = $("#title").val();
+	var content = document.getElementById("editorTxt").value;;
+
+	if (selcatd == "") {
+		alert("카테고리를 선택해주세요.");
+		return;
+	}
+	if (title == null || title == "") {
+		alert("제목을 입력해주세요.");
+		$("#title").focus();
+		return;
+	}
+	if(content == "" || content == null || content == '&nbsp;' || 
+			content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+		alert("본문을 작성해주세요.");
+		oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
+		return;
+	} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
+	
+	var result = confirm("발행 하시겠습니까?");
+	
+	if(result){
+		alert("발행 완료!");
+		$("#noticeWriteForm").submit();
+	}else{
+		return;
+	}
+});
+
+
+function sample4_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("searchAddress").value = data.jibunAddress;
+            
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+            } else {
+                document.getElementById("sample4_extraAddress").value = '';
+            }
+
+            var guideTextBox = document.getElementById("guide");
+            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+            if(data.autoRoadAddress) {
+                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                guideTextBox.style.display = 'block';
+
+            } else if(data.autoJibunAddress) {
+                var expJibunAddr = data.autoJibunAddress;
+                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                guideTextBox.style.display = 'block';
+            } else {
+                guideTextBox.innerHTML = '';
+                guideTextBox.style.display = 'none';
+            }
+        }
+    }).open();
+}
+
+
 $(function(){
     $('input[name="title"]').on('input', function(){
         var title = $(this).val();
@@ -130,7 +240,7 @@ $(function(){
 		<input  type="text" placeholder="글 제목을 입력하세요." name="title" style="display: inline-block;">
 		
 		<p id="context">본문*</p>
-		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context"></textarea>
+		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." id="editorTxt" name="context"></textarea>
 		
 		<p>첨부파일</p>
 		<input type="file" id="file" name="upfile">
@@ -164,9 +274,13 @@ $(function(){
 		</div>
 		
 		<p>장소</p>
-		<input type="text" placeholder="주소를 입력해주세요" id="where" name="recrLocation">
-		
-		<button type="submit" onclick="insertRecrBoard()">글쓰기</button>
+		<div style="display: flex; align-items: center;">
+    		<input type="text" placeholder="주소를 입력해주세요" id="searchAddress" name="recrLocation" readonly 
+    		style="width: 100%; height: 45px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px;">
+   			<button style="width: 150px; height: 45px; margin-left: 10px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px; font-size: 16px;
+    font-weight: bold;" onclick="sample4_execDaumPostcode(); return false;" >주소 검색</button>
+		</div>
+		<button type="submit" id="savebutton" onclick="insertRecrBoard()">글쓰기</button>
 	</section>
 </form>
 
@@ -174,3 +288,5 @@ $(function(){
 
 </body>
 </html>
+
+<script type="text/javascript" src = "resources/js/notice-write.js"></script>

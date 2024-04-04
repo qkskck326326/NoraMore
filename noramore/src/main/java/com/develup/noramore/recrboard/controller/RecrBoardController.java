@@ -41,10 +41,11 @@ public class RecrBoardController {
 			currentPage = Integer.parseInt(page);
 		}
 		int limit = 10;
-		if (page != null) {
-			currentPage = Integer.parseInt(page);
-
-		}
+		/*
+		 * if (limit != null) { limit = Integer.parseInt(limit1);
+		 * 
+		 * }
+		 */
 
 		int listCount = recrBoardService.selectListcount();
 
