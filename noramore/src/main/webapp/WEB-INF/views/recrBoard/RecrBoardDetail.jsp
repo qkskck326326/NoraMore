@@ -17,6 +17,9 @@
 <c:url var="updateBoard" value="updateboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
 </c:url>
+<c:url var="deleteBoard" value="updateboard.do">
+	<c:param name="boardId" value="${RecrBoard.boardId}" />
+</c:url>
 <c:url var="rblist" value="rblist.do">
 	<c:param name="page" value="${page}" />
 </c:url>
@@ -129,16 +132,10 @@ function selectrecrcomment() {
 }
 
 
-
-
-
 function moveListPage(){
 	location.href = "${rblist}";
 }
 
-function closecocoment(button) {
-    button.parent().remove();
-}
 
 
 function deletecomment(commentId) {
@@ -231,6 +228,10 @@ function updatecomment(commentId1, context1){
 	location.reload(); 
 }
 
+function deleteBoard(){
+	
+	
+}
 </script>
 <style>
 .container {

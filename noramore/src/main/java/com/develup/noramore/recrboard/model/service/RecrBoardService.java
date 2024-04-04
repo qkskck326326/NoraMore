@@ -2,6 +2,7 @@ package com.develup.noramore.recrboard.model.service;
 
 import java.util.ArrayList;
 
+import com.develup.noramore.commentrecrboard.model.vo.CommentRecrBoard;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
@@ -25,6 +26,7 @@ public interface RecrBoardService {
 
 	int downCount(int boardId);
 
+	void countcoment(CommentRecrBoard commentRecrBoard);
 
 	
 }

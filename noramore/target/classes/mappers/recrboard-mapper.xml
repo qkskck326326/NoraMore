@@ -98,4 +98,14 @@
 	)
 	WHERE BOARD_ID = #{boardId}
 	</update>
+	
+	<update id="countcoment">
+		UPDATE RECR_BOARD
+		SET COMMENT_COUNT = (
+		    SELECT COUNT(*)
+		    FROM COMM_RECR
+		    WHERE BOARD_ID = #{boardId}
+		)
+		WHERE BOARD_ID = #{boardId}
+	</update>
 </mapper>

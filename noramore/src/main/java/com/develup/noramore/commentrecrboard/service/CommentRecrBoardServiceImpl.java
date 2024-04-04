@@ -48,6 +48,11 @@ public class CommentRecrBoardServiceImpl implements CommentRecrBoardService{
 		commentRecrBoardDao.downcountcoment(commentRecrBoard);
 	}
 
+	@Override
+	public void deleteSubComment(CommentRecrBoard commentRecrBoard) {
+		commentRecrBoardDao.deleteSubComment(commentRecrBoard);
+	}
+
 
 
 	

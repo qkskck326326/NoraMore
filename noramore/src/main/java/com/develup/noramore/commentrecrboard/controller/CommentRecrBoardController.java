@@ -130,7 +130,8 @@ public class CommentRecrBoardController {
 	@RequestMapping(value="deletecomment.do", method = RequestMethod.POST)
 	public String deleteComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model) {
 		if(commentRecrBoardService.deleteComment(commentRecrBoard) >0 && recrBoardService.downCount(commentRecrBoard.getBoardId()) > 0) {
-			commentRecrBoardService.downcountcocoment(commentRecrBoard);
+			commentRecrBoardService.deleteSubComment(commentRecrBoard);
+			recrBoardService.countcoment(commentRecrBoard);
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";

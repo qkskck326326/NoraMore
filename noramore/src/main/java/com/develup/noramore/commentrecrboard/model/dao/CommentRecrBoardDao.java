@@ -42,9 +42,15 @@ public class CommentRecrBoardDao {
 		return sqlSessionTemplate.delete("commentrecrboard.deleteComment", commentRecrBoard);
 	}
 
+	public void deleteSubComment(CommentRecrBoard commentRecrBoard) {
+		sqlSessionTemplate.delete("commentrecrboard.deleteSubComment", commentRecrBoard);
+	}
+	
 	public int updateComment(CommentRecrBoard commentRecrBoard) {
 		return sqlSessionTemplate.update("commentrecrboard.updateComment", commentRecrBoard);
 	}
+
+
 
 
 	

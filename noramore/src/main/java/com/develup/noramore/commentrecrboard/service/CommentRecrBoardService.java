@@ -20,5 +20,7 @@ public interface CommentRecrBoardService {
 
 	int updateComment(CommentRecrBoard commentRecrBoard);
 
+	void deleteSubComment(CommentRecrBoard commentRecrBoard);
+
 
 }

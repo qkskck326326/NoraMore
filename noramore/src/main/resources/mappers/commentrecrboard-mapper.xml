@@ -26,6 +26,12 @@
 		where COMMENT_ID = #{commentId} 
 		and BOARD_ID = #{boardId} 
 	</delete>
+	
+	<delete id="deleteSubComment">
+		delete from COMM_RECR 
+		where REF_COMMENT_ID = #{commentId} 
+		and BOARD_ID = #{boardId} 
+	</delete>
 
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
 		SELECT *
@@ -49,7 +55,7 @@
 		and COMMENT_ID = #{refCommentId} 
 	</update>
 	
-	<update id="downcountcoment">
+	<update id="downcountcoment" parameterType="CommentRecrBoard">
 		UPDATE COMM_RECR 
 		SET COUNT_SUB_COMMENT = COUNT_SUB_COMMENT - 1 
 		where BOARD_ID = #{boardId}
@@ -63,4 +69,6 @@
 		where BOARD_ID = #{boardId}
 		and COMMENT_ID = #{commentId}  
 	</update>
+	
+	
 </mapper>

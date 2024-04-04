@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.develup.noramore.commentrecrboard.model.vo.CommentRecrBoard;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 import com.develup.noramore.recrservice.model.dao.RecreBoardDao;
@@ -58,6 +59,13 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 	public int downCount(int boardId) {
 		return recreBoardDao.downCount(boardId);
 	}
+
+	@Override
+	public void countcoment(CommentRecrBoard commentRecrBoard) {
+		recreBoardDao.countcoment(commentRecrBoard);
+	}
+
+
 
 
 
