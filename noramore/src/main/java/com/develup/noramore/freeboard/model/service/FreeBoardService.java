@@ -65,6 +65,9 @@ public interface FreeBoardService {
 	void incrementReportCount(int boardId);
 
 
+	void incrementLikeCount(int boardId);
+
+
 	
 
 

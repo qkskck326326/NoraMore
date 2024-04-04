@@ -136,6 +136,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		freeBoardDao.incrementReportCount(boardId);
     }
 
+	@Override
+	public void incrementLikeCount(int boardId) {
+		freeBoardDao.incrementLikeCount(boardId);
+		
+	}
+
 	
 
 	

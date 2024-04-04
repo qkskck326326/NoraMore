@@ -140,6 +140,12 @@
 		where BOARD_ID = #{ boardId }
 	</update>
 	
+	<update id="incrementLikeCount" >
+		update free_board
+		set LIKE_COUNT = LIKE_COUNT + 1
+		where BOARD_ID = #{ boardId }
+	</update>
+	
 	
 	<delete id="deleteBoard" parameterType="FreeBoard">
 		delete from free_board

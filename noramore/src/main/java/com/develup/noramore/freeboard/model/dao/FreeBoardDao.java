@@ -119,6 +119,12 @@ public class FreeBoardDao {
 	}
 
 
+	public void incrementLikeCount(int boardId) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.update("freeboard.incrementLikeCount", boardId);
+	}
+
+
 	
 
 	

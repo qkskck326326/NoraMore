@@ -569,6 +569,17 @@ public class FreeBoardController {
 	        return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
 	    }
 	}
+	
+	@RequestMapping("incrementLikeCount.do")
+	public ResponseEntity<String> incrementLikeCount(@RequestParam("boardId") int boardId) {
+	    try {
+	        // 신고 수 증가 메서드 호출
+	        freeBoardService.incrementLikeCount(boardId);
+	        return new ResponseEntity<>("Success", HttpStatus.OK); // 성공 시 응답
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
+	    }
+	}
 	 
 	 
 
