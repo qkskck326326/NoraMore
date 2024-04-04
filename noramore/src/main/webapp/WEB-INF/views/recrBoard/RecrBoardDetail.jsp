@@ -179,9 +179,20 @@ function checkRecrCondition(){
 	
 	alert(con);
 }
-
+ 
 
 function insertappl(){
+	var ageMinCondition = ${RecrBoard.ageMinCondition};
+	var ageMaxCondition = ${RecrBoard.ageMaxCondition};
+	var genderCondition = ${RecrBoard.genderCondition};
+	
+
+	if(${RecrBoard.ageMinCondition} == 0 || "${RecrBoard.ageMinCondition}" > "${}"){
+		
+	}else{
+		alert("신청 실패! 신청조건을 확인해 주세요!");
+		return;
+	}
 	location.href = "${insertappl}";
 }//
 

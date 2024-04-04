@@ -141,13 +141,6 @@
 	</select>
 
 
-	<update id="addReadCount" parameterType="_int">
-		update qna_board
-		set
-		READ_COUNT = READ_COUNT + 1
-		where BOARD_ID = #{ no }
-	</update>
-
 	<insert id="insertQna" parameterType="Qna">
 		insert into qna_board
 		(BOARD_ID, MEMBER_ID, TITLE, SUBSTANCE, READ_COUNT, REPORT_COUNT,
