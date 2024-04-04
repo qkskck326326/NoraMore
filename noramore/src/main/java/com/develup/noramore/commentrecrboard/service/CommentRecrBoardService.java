@@ -11,9 +11,14 @@ public interface CommentRecrBoardService {
 	ArrayList<CommentRecrBoard> selectRecrComment(int boardId);
 
 	void upcountcocoment(CommentRecrBoard commentRecrBoard);
+	
+	void downcountcocoment(CommentRecrBoard commentRecrBoard);
 
 	ArrayList<CommentRecrBoard> selectRecrCocomment(CommentRecrBoard commentRecrBoard);
 
-	int deletecomment(CommentRecrBoard commentRecrBoard);
+	int deleteComment(CommentRecrBoard commentRecrBoard);
+
+	int updateComment(CommentRecrBoard commentRecrBoard);
+
 
 }

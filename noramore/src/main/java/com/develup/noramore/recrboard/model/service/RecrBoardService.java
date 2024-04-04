@@ -23,6 +23,7 @@ public interface RecrBoardService {
 
 	int updateBoard(RecrBoard recrBoard);
 
+	int downCount(int boardId);
 
 
 	

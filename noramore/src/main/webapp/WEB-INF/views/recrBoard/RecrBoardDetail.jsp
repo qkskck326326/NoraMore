@@ -96,21 +96,21 @@ function selectrecrcomment() {
                 commentDiv.append(commentIdInput);
                 commentDiv.append(contextTextarea);
                 commentDiv.append(lastUpdateDateParagraph);
-                commentDiv.append("<button class='info-button' data-id='${commentId}' onclick='updatecomment()'>수정하기</button>");
-                commentDiv.append("<button class='info-button' data-id='${commentId}' onclick='deletecomment()'>삭제하기</button>");
+                commentDiv.append("<button class='info-button' data-id='" + comment.commentId + "' onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
+                commentDiv.append("<button class='info-button' data-id='" + comment.commentId + "' onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
                 var refCommentId1 = parseInt(comment.commentId);
                 console.log(refCommentId1);
                 
                 if(comment.refCommentId == 0){
                 commentDiv.append('<div id="cocomment">' +
-                	    '<form id="cocommentForm" action="insertrecrcomment.do" method="post">' +
+                	    '<form id="cocommentForm" action="insertrecrcocomment.do" method="post">' +
                 	    '<input type="hidden" name="memberId" value="' + "${sessionScope.loginMember.memberID}" + '">' +
                 	    '<input type="hidden" name="boardId" value="' + "${RecrBoard.boardId}" + '">' +
                 	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
                 	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
                 	    '<textarea name="context" cols="50" rows="5" required></textarea>' +
                 	    '<br>' +
-                	    '<input type="submit" value="댓글 등록">' +
+                	    '<input type="submit" value="대댓글 등록">' +
                 	    '</form>' +
                 	    '<div id="commentList"></div>' +
                 	    '</div>');
@@ -188,6 +188,47 @@ function insertappl(){
 
 function updateBoard(){
 	location.href = "${updateBoard}";
+}
+
+function deletecomment(commentId1) {
+    var commentId = commentId1;
+	console.log(commentId);
+    // 삭제할 댓글의 commentId 값을 서버로 전송하는 AJAX 요청
+    $.ajax({
+        url: 'deletecomment.do',
+        type: 'POST',
+        data: { commentId: commentId, boardId: "${RecrBoard.boardId}", page: "${page}" },
+        success: function(response) {
+            alert('댓글이 성공적으로 삭제되었습니다.');
+        },
+        error: function(xhr, status, error) {
+            // 오류 처리
+            console.error('댓글 삭제 중 오류가 발생했습니다:', error);
+        }
+    });
+
+    location.reload(); 
+}
+
+function updatecomment(commentId1, context1){
+	var commentId = commentId1;
+	var ncontext = context1
+	var context = prompt("수정할 내용", ncontext);
+	console.log(context);
+	$.ajax({
+        url: 'updatecomment.do',
+        type: 'POST',
+        data: { commentId: commentId, boardId: "${RecrBoard.boardId}", page: "${page}", context: context },
+        success: function(response) {
+            alert('댓글이 성공적으로 수정되었습니다.');
+        },
+        error: function(xhr, status, error) {
+            // 오류 처리
+            console.error('댓글 수정 중 오류가 발생했습니다:', error);
+        }
+    });
+	
+	location.reload(); 
 }
 
 </script>
