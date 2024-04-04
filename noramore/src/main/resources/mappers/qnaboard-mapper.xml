@@ -40,6 +40,107 @@
 		startRow } and #{ endRow }
 	</select>
 
+	<select id="searchTitleCount" parameterType="string"
+		resultType="_int">
+		select count(*) from qna_board where title like '%' || #{
+		keyword } || '%'
+	</select>
+
+	<select id="searchContentCount" parameterType="string"
+		resultType="_int">
+		select count(*) from qna_board where substance like '%' ||
+		#{ keyword } || '%'
+	</select>
+
+	<select id="searchDateCount" parameterType="SearchDate"
+		resultType="_int">
+		select count(*) from qna_board where resgist_dt between #{
+		begin } and #{ end }
+	</select>
+
+
+	<select id="selectSearchTitle" parameterType="String"
+		resultType="Qna">
+    <![CDATA[
+    SELECT *
+    FROM (
+        SELECT rownum rnum, board_id, title, substance, read_count, report_count,
+                        regist_dt, last_upd_dt, original_filename, rename_filename
+        FROM (
+            SELECT * 
+            FROM (
+                SELECT * 
+                FROM qna_board 
+                WHERE title LIKE '%' || #{keyword} || '%'
+                ORDER BY board_id
+            )
+        )
+    )
+    WHERE rnum BETWEEN #{startRow} AND #{endRow}
+    ]]>
+	</select>
+
+	<select id="selectSearchTitleKeyword" parameterType="String"
+		resultMap="resultQna">
+		SELECT *
+		FROM (
+		SELECT rownum rnum, BOARD_ID, MEMBER_ID,
+		TITLE, SUBSTANCE, READ_COUNT,
+		REGIST_DT, LAST_UPD_DT,
+		ORIGINAL_FILENAME, RENAME_FILENAME
+		FROM (
+		SELECT *
+		FROM qna_board
+		WHERE
+		title LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_ID
+		)
+		)
+		WHERE rnum
+		BETWEEN 1 AND 10
+	</select>
+
+	<select id="selectSearchContent" parameterType="Search"
+		resultMap="resultQna">
+		SELECT *
+		FROM (
+		SELECT rownum rnum, BOARD_ID, MEMBER_ID,
+		TITLE, SUBSTANCE, READ_COUNT,
+		REGIST_DT, LAST_UPD_DT,
+		ORIGINAL_FILENAME, RENAME_FILENAME
+		FROM (
+		SELECT *
+		FROM qna_board
+		WHERE
+		substance LIKE '%' || #{keyword} || '%'
+		ORDER BY BOARD_ID
+		)
+		)
+		WHERE rnum
+		BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<select id="selectSearchDate" parameterType="Search"
+		resultMap="resultQna">
+		SELECT *
+		FROM (
+		SELECT rownum rnum, BOARD_ID, MEMBER_ID,
+		TITLE, SUBSTANCE, READ_COUNT,
+		REGIST_DT, LAST_UPD_DT,
+		ORIGINAL_FILENAME, RENAME_FILENAME
+		FROM (
+		SELECT *
+		FROM qna_board
+		WHERE
+		REGIST_DT BETWEEN #{startDate} AND #{endDate}
+		ORDER BY BOARD_ID
+		)
+		)
+		WHERE
+		rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+
 	<update id="addReadCount" parameterType="_int">
 		update qna_board
 		set
@@ -51,9 +152,12 @@
 		insert into qna_board
 		(BOARD_ID, MEMBER_ID, TITLE, SUBSTANCE, READ_COUNT, REPORT_COUNT,
 		REGIST_DT, LAST_UPD_DT, ORIGINAL_FILENAME, RENAME_FILENAME)
-		values ((select NVL(max(BOARD_ID), 0) + 1 from qna_board),
-		#{memberID}, #{title}, #{substance}, 0, 0,
-		SYSDATE, SYSDATE, #{originalFilePath}, #{renameFilePath})
+		values
+		((select NVL(max(BOARD_ID), 0) + 1 from qna_board),
+		#{memberID},
+		#{title}, #{substance}, 0, 0,
+		SYSDATE, SYSDATE, #{originalFilePath},
+		#{renameFilePath})
 	</insert>
 
 	<delete id="deleteQna" parameterType="_int">
@@ -61,6 +165,12 @@
 		where
 		board_ID = #{ no }
 	</delete>
+
+	<update id="addReadCount" parameterType="int">
+		UPDATE qna_board
+		SET read_count = read_count + 1
+		WHERE board_id = #{id}
+	</update>
 
 	<update id="updateQna" parameterType="Qna">
 		UPDATE qna_board

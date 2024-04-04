@@ -3,11 +3,12 @@ package com.develup.noramore.qna.model.service;
 import java.util.ArrayList;
 
 import com.develup.noramore.common.Paging;
+import com.develup.noramore.common.Search;
+import com.develup.noramore.common.SearchDate;
 import com.develup.noramore.qna.model.vo.Qna;
 
 public interface QnaService {
-	int selectListCount();
-
+	
 	Qna selectOne(int boardID);
 
 	ArrayList<Qna> selectList(Paging paging);
@@ -20,5 +21,14 @@ public interface QnaService {
 
 	int deleteQna(int boardID);
 
-	
+	 ArrayList<Qna> selectSearchTitle(Search search);
+	 ArrayList<Qna> selectSearchTitle(String keyword);
+	 ArrayList<Qna> selectSearchContent(Search search);
+	 ArrayList<Qna> selectSearchDate(Search search);
+
+	 int selectListCount();
+	 int selectSearchTitleCount(String keyword);
+	 int selectSearchContentCount(String keyword);
+	 int selectSearchDateCount(SearchDate date);
+	 
 }
