@@ -272,7 +272,7 @@ function roomListAddEvent(){
 // 비동기로 메시지 목록을 조회하는 함수
 function selectChattingFn() {
 
-   fetch("chat/selectMessage.do?"+`chattingNo=${selectChattingNo}&memberID=${loginMemberID}`)
+   fetch("selectMessage.do?"+`chattingNo=${selectChattingNo}&memberID=${loginMemberID}`)
    .then(resp => resp.json())
    .then(messageList => {
       console.log(messageList);
