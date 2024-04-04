@@ -3,7 +3,7 @@
 
 <%-- <%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
 
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%--<%@ include file="/WEB-INF/views/common/header.jsp"%>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
@@ -60,6 +60,23 @@
 	        }
 	    });
     }
+	function like(boardId) {
+		// Ajax를 사용하여 서버로 해당 값을 전송하여 DB에 저장
+		$.ajax({
+	        type: "POST",
+	        url: "incrementLikeCount.do",
+	        data: { boardId: boardId },
+	        success: function(response) {
+	            // 성공적으로 신고가 처리되었을 때 수행할 코드
+	            alert("좋아요를 누르셨습니다.");
+	            // 페이지 새로고침 또는 신고 버튼 비활성화 등의 추가적인 처리 가능
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
+	            alert("오류가 발생했습니다.");
+	        }
+	    });
+    }
 </script>
 <title>NoraMore</title>
 
@@ -81,7 +98,8 @@ div {
 				<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
 				<button style="float: right; background-color: pink; color: black;"
 					class="whiteBtn" onclick="report(${FreeBoard.boardId}); return false;">신고하기</button>
-
+				<button style="float: right; background-color: pink; color: black;"
+					class="whiteBtn" onclick="like(${FreeBoard.boardId}); return false;">좋아요</button>
 			</div>
 
 			<textarea cols="30" rows="40" readonly>${FreeBoard.context}</textarea>
@@ -97,11 +115,36 @@ div {
 			<c:if test="${ empty FreeBoard.freeOriginalFileName}">
 				<p>첨부파일 없음</p>
 			</c:if>
-
+			<!-- 
 			<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button>
 			&nbsp;
 			<button onclick="requestDelete(); return false;">글삭제</button>
 			&nbsp;
+			 -->
+			
+			<%-- 로그인한 경우 : 본인 글 상세보기 일때는 수정페이지로 이동과 삭제 버튼 표시함 --%>
+			<c:if test="${ !empty loginMember }">
+				<c:if test="${ loginMember.memberID eq FreeBoard.memberId }">
+					<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
+					<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+				</c:if>
+				
+				<%-- 로그인한 경우 : 관리자인 경우 글삭제 버튼과 댓글달기 버튼 표시함 --%>
+				<c:if test="${ loginMember.adminYN eq 'Y' and loginMember.memberID ne FreeBoard.memberId  }">
+					<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+					
+					<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;
+					
+				</c:if>
+				
+				<%-- 로그인한 경우 : 본인 글이 아니고, 레벨이 3보다 작은 경우에만 댓글달기 버튼 표시함 --%>
+				<c:if test="${ loginMember.adminYN eq 'N' and loginMember.memberID ne FreeBoard.memberId }">
+					
+						<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;
+					</c:if>
+				
+			</c:if>
+			
 
 
 		</div>

@@ -441,7 +441,47 @@ public class FreeBoardController {
 	
 	}
 		
+	// 좋아요순 구현
 	
+		@RequestMapping("freelikeslist.do")
+		public ModelAndView freeBoardSearchLikeMethod(
+			@RequestParam(name="page", required=false) String page,
+			@RequestParam(name = "limit", required = false) String slimit,
+			ModelAndView mv
+				) {
+			int currentPage = 1;
+			if(page != null && page.trim().length() > 0) {
+				currentPage = Integer.parseInt(page);
+			}
+
+			int limit = 10;
+			if(slimit != null && slimit.trim().length() > 0) {
+				limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
+			}
+
+			
+			int listCount = freeBoardService.selectLikesListCount();
+			
+			Paging paging = new Paging(listCount, currentPage, limit, "freelikeslist.do");
+			paging.calculate();
+			
+			Search search = new Search();
+			search.setStartRow(paging.getStartRow());
+			search.setEndRow(paging.getEndRow());
+			
+			ArrayList<FreeBoard> list = freeBoardService.selectLikesList(search);
+			
+			
+			mv.addObject("list", list);
+			mv.setViewName("freeboard/freeboardListView");
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("paging", paging);
+			mv.addObject("limit", limit);
+			
+			return mv;
+		
+		}
+			
 	
 			
 	//새 게시글 등록 요청 처리용 (첨부파일 업로드 기능 추가)
@@ -564,6 +604,17 @@ public class FreeBoardController {
 	    try {
 	        // 신고 수 증가 메서드 호출
 	        freeBoardService.incrementReportCount(boardId);
+	        return new ResponseEntity<>("Success", HttpStatus.OK); // 성공 시 응답
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
+	    }
+	}
+	
+	@RequestMapping("incrementLikeCount.do")
+	public ResponseEntity<String> incrementLikeCount(@RequestParam("boardId") int boardId) {
+	    try {
+	        // 신고 수 증가 메서드 호출
+	        freeBoardService.incrementLikeCount(boardId);
 	        return new ResponseEntity<>("Success", HttpStatus.OK); // 성공 시 응답
 	    } catch (Exception e) {
 	        return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답

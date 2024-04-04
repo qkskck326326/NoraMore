@@ -54,15 +54,30 @@ public interface FreeBoardService {
 
 
 	ArrayList<FreeBoard> selectRecentList(Search search);
+	
+	
+	ArrayList<FreeBoard> selectLikesList(Search search);
 
 
 	int selectViewsListCount();
 
 
 	int selectRecentListCount();
+	
+	
+	int selectLikesListCount();
 
 
 	void incrementReportCount(int boardId);
+
+
+	void incrementLikeCount(int boardId);
+
+
+	
+
+
+	
 
 
 	
