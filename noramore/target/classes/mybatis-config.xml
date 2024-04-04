@@ -26,10 +26,10 @@
 		<typeAlias type="com.develup.noramore.alarm.model.vo.Alarm" alias="Alarm" />
 		<typeAlias type="com.develup.noramore.common.Paging" alias="Paging" />
 		<typeAlias type="com.develup.noramore.common.Search" alias="Search" />
+		<typeAlias type="com.develup.noramore.common.SearchDate" alias="SearchDate" />
 		<typeAlias type="com.develup.noramore.recrappl.model.vo.RecrAppl" alias="RecrAppl" />
 		<typeAlias type="com.develup.noramore.chatting.vo.ChattingRoom" alias="ChattingRoom" />
-		<typeAlias type="com.develup.noramore.chatting.vo.Message" alias="Message" />
-		
+		<typeAlias type="com.develup.noramore.chatting.vo.Message" alias="Message" />	
 	</typeAliases>
 	  
 	<mappers>

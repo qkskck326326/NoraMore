@@ -180,15 +180,11 @@ function checkRecrCondition(){
 	alert(con);
 }
 
+
 function insertappl(){
-	if(){
-		
-	}else{
-		alert("신청 실패! 신청조건을 확인해 주세요!");
-		return;
-	}
 	location.href = "${insertappl}";
 }//
+
 
 function updateBoard(){
 	location.href = "${updateBoard}";
