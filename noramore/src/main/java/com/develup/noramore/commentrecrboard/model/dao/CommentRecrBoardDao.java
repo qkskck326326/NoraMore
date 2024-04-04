@@ -28,13 +28,34 @@ public class CommentRecrBoardDao {
 		sqlSessionTemplate.update("commentrecrboard.upcountcocoment", commentRecrBoard);
 	}
 
+	public void downcountcoment(CommentRecrBoard commentRecrBoard) {
+		sqlSessionTemplate.update("commentrecrboard.downcountcoment", commentRecrBoard);
+	}
+	
 	public ArrayList<CommentRecrBoard> selectRecrCocomment(CommentRecrBoard commentRecrBoard) {
 		List<CommentRecrBoard> list = sqlSessionTemplate.selectList("commentrecrboard.selectRecrCocomment", commentRecrBoard);
 		return (ArrayList<CommentRecrBoard>)list;
 	}
 
-	public int deletecomment(CommentRecrBoard commentRecrBoard) {
-		return sqlSessionTemplate.delete("commentrecrboard.deletecomment", commentRecrBoard);
+
+	public int deleteComment(CommentRecrBoard commentRecrBoard) {
+		return sqlSessionTemplate.delete("commentrecrboard.deleteComment", commentRecrBoard);
 	}
+
+	public void deleteSubComment(CommentRecrBoard commentRecrBoard) {
+		sqlSessionTemplate.delete("commentrecrboard.deleteSubComment", commentRecrBoard);
+	}
+	
+	public int updateComment(CommentRecrBoard commentRecrBoard) {
+		return sqlSessionTemplate.update("commentrecrboard.updateComment", commentRecrBoard);
+	}
+
+	public void deleteBoardComment(int boardId) {
+		sqlSessionTemplate.delete("commentrecrboard.deleteBoardComment", boardId);
+	}
+
+
+
+
 	
 }//

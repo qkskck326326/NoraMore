@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.develup.noramore.commentrecrboard.model.vo.CommentRecrBoard;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
@@ -47,6 +48,18 @@ public class RecreBoardDao {
 
 	public int updateBoard(RecrBoard recrBoard) {
 		return SqlSessionTemplate.update("recrboard.updateBoard", recrBoard);
+	}
+
+	public int downCount(int boardId) {
+		return SqlSessionTemplate.update("recrboard.upCountComment", boardId);
+	}
+
+	public void countcoment(CommentRecrBoard commentRecrBoard) {
+		SqlSessionTemplate.update("recrboard.countcoment", commentRecrBoard);
+	}
+
+	public int deleteBoard(int boardId) {
+		return SqlSessionTemplate.delete("recrboard.deleteBoard", boardId);
 	}
 
 

@@ -34,9 +34,31 @@ public class CommentRecrBoardServiceImpl implements CommentRecrBoardService{
 	}
 
 	@Override
-	public int deletecomment(CommentRecrBoard commentRecrBoard) {
-		return commentRecrBoardDao.deletecomment(commentRecrBoard);
+	public int deleteComment(CommentRecrBoard commentRecrBoard) {
+		return commentRecrBoardDao.deleteComment(commentRecrBoard);
 	}
+
+	@Override
+	public int updateComment(CommentRecrBoard commentRecrBoard) {
+		return commentRecrBoardDao.updateComment(commentRecrBoard);
+	}
+
+	@Override
+	public void downcountcocoment(CommentRecrBoard commentRecrBoard) {
+		commentRecrBoardDao.downcountcoment(commentRecrBoard);
+	}
+
+	@Override
+	public void deleteSubComment(CommentRecrBoard commentRecrBoard) {
+		commentRecrBoardDao.deleteSubComment(commentRecrBoard);
+	}
+
+	@Override
+	public void deleteBoardComment(int boardId) {
+		commentRecrBoardDao.deleteBoardComment(boardId);
+		
+	}
+
 
 
 	

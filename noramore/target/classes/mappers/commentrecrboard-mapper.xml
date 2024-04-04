@@ -21,10 +21,21 @@
 	</insert>
 
 	
-	<delete id="deletecomment">
+	<delete id="deleteComment">
 		delete from COMM_RECR 
 		where COMMENT_ID = #{commentId} 
 		and BOARD_ID = #{boardId} 
+	</delete>
+	
+	<delete id="deleteSubComment">
+		delete from COMM_RECR 
+		where REF_COMMENT_ID = #{commentId} 
+		and BOARD_ID = #{boardId} 
+	</delete>
+	
+	<delete id="deleteBoardComment" parameterType="_int">
+		delete from COMM_RECR 
+		where BOARD_ID = #{boardId} 
 	</delete>
 
 	<select id="selectRecrComment" parameterType="_int" resultMap="CommentResultMap">
@@ -48,4 +59,21 @@
 		where BOARD_ID = #{boardId}
 		and COMMENT_ID = #{refCommentId} 
 	</update>
+	
+	<update id="downcountcoment" parameterType="CommentRecrBoard">
+		UPDATE COMM_RECR 
+		SET COUNT_SUB_COMMENT = COUNT_SUB_COMMENT - 1 
+		where BOARD_ID = #{boardId}
+		and COMMENT_ID = #{refCommentId}
+	</update>
+	
+	<update id="updateComment" parameterType="CommentRecrBoard">
+		UPDATE COMM_RECR 
+		SET CONTEXT = #{context}, 
+		LAST_UPDATE_DATE = default 
+		where BOARD_ID = #{boardId}
+		and COMMENT_ID = #{commentId}  
+	</update>
+	
+	
 </mapper>

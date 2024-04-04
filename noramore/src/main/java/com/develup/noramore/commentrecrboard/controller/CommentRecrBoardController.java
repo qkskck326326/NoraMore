@@ -24,8 +24,8 @@ public class CommentRecrBoardController {
 	@Autowired
 	private RecrBoardService recrBoardService;
 
-	// 댓글 달기
-	@RequestMapping(value = "insertrecrcomment.do", method = RequestMethod.POST)
+	// 대댓글 달기
+	@RequestMapping(value = "insertrecrcocomment.do", method = RequestMethod.POST)
 	public String insertRecrComment(CommentRecrBoard commentRecrBoard, Model model, @RequestParam("page") String page, 
 									@RequestParam("refCommentId1") String refCommentId1) {
 		System.out.println("들어온 값" + refCommentId1);
@@ -45,8 +45,8 @@ public class CommentRecrBoardController {
 		}
 	}//
 
-	// 대댓글 달기
-	@RequestMapping(value = "insertrecrcocomment.do", method = RequestMethod.POST)
+	// 댓글 달기
+	@RequestMapping(value = "insertrecrcomment.do", method = RequestMethod.POST)
 	public String insertRecrCocoment(CommentRecrBoard commentRecrBoard, Model model,
 			@RequestParam("page") String page) {
 		if (commentRecrBoardService.insertRecrComment(commentRecrBoard) > 0
@@ -64,22 +64,21 @@ public class CommentRecrBoardController {
 		}
 	}//
 
-	// 댓글 삭제
-	@RequestMapping("deletecomment.do")
-	public String deletecomment(@RequestParam("page") int page, CommentRecrBoard commentRecrBoard, Model model) {
-		if (commentRecrBoardService.deletecomment(commentRecrBoard) > 0) {
-			model.addAttribute("page", page);
-			model.addAttribute("boardId", commentRecrBoard.getBoardId());
-			return "redirect:rbdetail.do";
-		} else {
-			model.addAttribute("message", "error! 댓글 삭제에 실패하였습니다.");
-			model.addAttribute("boardId", commentRecrBoard.getBoardId());
-			model.addAttribute("page", page);
-			return "redirect:rbdetail.do";
-		}
-
-	}//
-
+	/*
+	 * // 댓글 삭제 ----- 아래 수정중
+	 * 
+	 * @RequestMapping("deletecommentttt.do") public String
+	 * deletecomment(@RequestParam("page") int page, CommentRecrBoard
+	 * commentRecrBoard, Model model) { if
+	 * (commentRecrBoardService.deletecomment(commentRecrBoard) > 0) {
+	 * model.addAttribute("page", page); model.addAttribute("boardId",
+	 * commentRecrBoard.getBoardId()); return "redirect:rbdetail.do"; } else {
+	 * model.addAttribute("message", "error! 댓글 삭제에 실패하였습니다.");
+	 * model.addAttribute("boardId", commentRecrBoard.getBoardId());
+	 * model.addAttribute("page", page); return "redirect:rbdetail.do"; }
+	 * 
+	 * }//
+	 */
 	// 댓글 출력
 	@RequestMapping(value = "selectrecrcomment.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -126,4 +125,67 @@ public class CommentRecrBoardController {
 
 		return jarr.toJSONString();
 	}//
+	
+	//댓글 삭제
+	@RequestMapping(value="deletecomment.do", method = RequestMethod.POST)
+	public String deleteComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model) {
+		if(commentRecrBoardService.deleteComment(commentRecrBoard) >0 && recrBoardService.downCount(commentRecrBoard.getBoardId()) > 0) {
+			commentRecrBoardService.deleteSubComment(commentRecrBoard);
+			recrBoardService.countcoment(commentRecrBoard);
+			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("page", page);
+			return "redirect:rbdetail.do";
+		}else {
+			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("page", page);
+			return "redirect:rbdetail.do";
+		}
+		
+	}
+	
+	//댓글 수정
+	@RequestMapping(value="updatecomment.do", method = RequestMethod.POST)
+	public String updateComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model) {
+		if( commentRecrBoardService.updateComment(commentRecrBoard) >0 ) {
+			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("page", page);
+			return "redirect:rbdetail.do";
+		}else {
+			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("page", page);
+			return "redirect:rbdetail.do";
+		}
+		
+	}
+	
 }//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

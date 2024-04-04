@@ -13,7 +13,7 @@
 	</resultMap>
 
 	<insert id="insertAppl" parameterType="RecrAppl" >
-		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{RecrAppl.boardId}, #{RecrAppl.memberId}); 
+		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{boardId}, #{memberId});
 	</insert>
 
 	
