@@ -113,10 +113,8 @@
 
    <!-- 채팅 상대 검색 -->
    <select id="selectTarget" resultMap="member_rm">
-      SELECT MEMBER_ID, MEMBER_EMAIL, PICTURE_FILE  FROM MEMBER
-      WHERE MEMBER_ID LIKE '%' || "${query} || '%'
-      AND MEMBER_DEL_FL = 'N'
-      AND MEMBER_ID != ${memberID}
+	  SELECT MEMBER_ID, EMAIL, PICTURE_FILE  FROM MEMBER
+      WHERE MEMBER_ID LIKE '%' || #{query} || '%'
+      AND MEMBER_ID != #{memberID}
    </select>
-
 </mapper>

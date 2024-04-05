@@ -1,8 +1,8 @@
 package com.develup.noramore.chatting.model.websocket;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,7 +34,7 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
     // synchronizedSet : 동기화된 Set 반환(HashSet은 기본적으로 비동기)
     // -> 멀티스레드 환경에서 하나의 컬렉션에 여러 스레드가 접근하여 의도치 않은 문제가 발생되지 않게 하기 위해
     //    동기화를 진행하여 스레드가 여러 순서대로 한 컬렉션에 순서대로 접근할 수 있게 변경
-	    
+
     // afterConnectionEstablished - 클라이언트와 연결이 완료되고, 통신할 준비가 되면 실행
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -42,8 +42,8 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
         // 이를 필드에 선언해 준 sessions에 저장
         sessions.add(session);
     
-        // logger.info("{}연결됨", session.getId());
-		// System.out.println(session.getId() + "연결됨");
+         logger.info("{}연결됨", session.getId());
+		System.out.println(session.getId() + "연결됨");
     }
     
     
@@ -94,7 +94,7 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.remove(session);
-        // logger.info("{}연결끊김",session.getId());
+         logger.info("{}연결끊김",session.getId());
     }
 
 }

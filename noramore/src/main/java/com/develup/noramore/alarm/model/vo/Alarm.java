@@ -7,7 +7,7 @@ import com.develup.noramore.common.Paging;
 public class Alarm {
 	private int alarmId;
 	private String alarmKind;
-	private String NativeId;
+	private int nativeId;
 	private String receiverId;
 	private String senderId;
 	private String checkedYN;
@@ -16,7 +16,7 @@ public class Alarm {
 	private int boardId;
 	private String title;
 	private String context;
-	private String refCommentId;
+	private int refCommentId;
 	private int startRow;
 	private int endRow;
 
@@ -24,13 +24,13 @@ public class Alarm {
 		super();
 	}
 
-	public Alarm(int alarmId, String alarmKind, String nativeId, String receiverId, String senderId, String checkedYN,
-			Date registDate, int boardId, String title, String context, String refCommentId, int startRow,
+	public Alarm(int alarmId, String alarmKind, int nativeId, String receiverId, String senderId, String checkedYN,
+			Date registDate, int boardId, String title, String context, int refCommentId, int startRow,
 			int endRow) {
 		super();
 		this.alarmId = alarmId;
 		this.alarmKind = alarmKind;
-		NativeId = nativeId;
+		this.nativeId = nativeId;
 		this.receiverId = receiverId;
 		this.senderId = senderId;
 		this.checkedYN = checkedYN;
@@ -59,12 +59,12 @@ public class Alarm {
 		this.alarmKind = alarmKind;
 	}
 
-	public String getNativeId() {
-		return NativeId;
+	public int getNativeId() {
+		return nativeId;
 	}
 
-	public void setNativeId(String nativeId) {
-		NativeId = nativeId;
+	public void setNativeId(int nativeId) {
+		this.nativeId = nativeId;
 	}
 
 	public String getReceiverId() {
@@ -123,11 +123,11 @@ public class Alarm {
 		this.context = context;
 	}
 
-	public String getRefCommentId() {
+	public int getRefCommentId() {
 		return refCommentId;
 	}
 
-	public void setRefCommentId(String refCommentId) {
+	public void setRefCommentId(int refCommentId) {
 		this.refCommentId = refCommentId;
 	}
 
@@ -149,7 +149,7 @@ public class Alarm {
 
 	@Override
 	public String toString() {
-		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", NativeId=" + NativeId + ", receiverId="
+		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", nativeId=" + nativeId + ", receiverId="
 				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
 				+ ", boardId=" + boardId + ", title=" + title + ", context=" + context + ", refCommentId="
 				+ refCommentId + ", startRow=" + startRow + ", endRow=" + endRow + "]";

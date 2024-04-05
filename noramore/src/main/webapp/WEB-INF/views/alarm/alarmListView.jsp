@@ -56,20 +56,20 @@
 				
 				<c:if test="${ a.alarmKind eq 'COMM_FREE' || a.alarmKind eq 'COMM_RECR'}">
 					<td>
-						<c:if test="${ empty a.refCommentId }">
-							글 <a href="/noramore/rbdetail.do?boardId=${ a.boardId }&page=1">'${ a.title }'</a> 에 새로운 댓글이 달렸습니다.
+						<c:if test="${ a.refCommentId <= 0}">
+							글 <a href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&page=1">'${ a.title }'</a> 에 새로운 댓글이 달렸습니다.
 							<br>
-							└ '${ a.senderId }' : '${ a.context }' 
+							└ '${ a.senderId }' : <a href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&page=1.comment-div">'${ a.context }'</a>
 						</c:if>
-						<c:if test="${ !empty a.refCommentId }">
-							'${ a.senderId }' 님의 답글 : '${ a.context }'
+						<c:if test="${ a.refCommentId > 0}">
+							'${ a.senderId }' 님의 답글 : <a href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&page=1.comment-div">'${ a.context }'</a>
 						</c:if>
 					</td>
 				</c:if>
 				
 				<c:if test="${ a.alarmKind eq 'RECR_APPL' }">
 					<td>
-						'${ a.senderId }' 님께서 모집 <a href="/noramore/rbdetail.do?boardId=${ a.boardId }&page=1">'${ a.title }'</a> 에 신청하였습니다.
+						'${ a.senderId }' 님께서 모집 <a href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&page=1">'${ a.title }'</a> 에 신청하였습니다.
 					</td>
 				</c:if>
 				

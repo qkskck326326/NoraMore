@@ -85,9 +85,9 @@ public class AlarmController {
 	@RequestMapping("commAlarm.do")
 	public void commAlarmInsert(
 			@RequestParam("alarmKind") String alarmKind,
-			@RequestParam("commentId") String commentId,
+			@RequestParam("commentId") int commentId,
 			@RequestParam(name="boardId", required=false) int boardId,
-			@RequestParam(name="refCommentId", required=false) String refCommentId,
+			@RequestParam(name="refCommentId", required=false) int refCommentId,
 			HttpServletRequest request) {
 		Member member = (Member)request.getSession().getAttribute("loginMember");
 		Alarm alarm = new Alarm();
@@ -96,11 +96,11 @@ public class AlarmController {
 		alarm.setSenderId(member.getMemberID());
 		
 		
-		if(refCommentId != null) {							//상위댓글에 대한 대댓글이면
+		if(refCommentId > 0) {							//상위댓글에 대한 대댓글이면
 			alarm.setAlarmKind(alarmKind);
 			alarm.setRefCommentId(refCommentId);		//상위댓글id(상위 댓글 작성자 id select 목적)
 			alarmService.insertCommAlarm(alarm);
-		}else if(refCommentId == null) {										//원글에 대한 댓글이면
+		}else if(refCommentId <= 0) {										//원글에 대한 댓글이면
 			alarm.setAlarmKind(alarmKind.substring(5) + "_BOARD");		// (RECR || FREE)_BOARD
 			alarm.setBoardId(boardId);											//원글 번호(작성자 id select 목적)
 			alarmService.insertCommRefAlarm(alarm);
@@ -117,7 +117,7 @@ public class AlarmController {
 		Member member = (Member)request.getSession().getAttribute("loginMember");
 		Alarm alarm = new Alarm();
 		alarm.setAlarmKind(alarmKind);
-		alarm.setNativeId(String.valueOf(recrAppl.getBoardId()));
+		alarm.setNativeId(recrAppl.getBoardId());
 		alarm.setSenderId(member.getMemberID());
 		
 		alarmService.insertApplAlarm(alarm);
