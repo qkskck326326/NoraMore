@@ -277,178 +277,184 @@ public class QnaController {
 	
 	
 	// Qna 제목 검색용 (페이징 처리 포함)
-		@RequestMapping(value="qsearchTitle.do", method= RequestMethod.GET)
-		public ModelAndView qnaSearchTitleMethod(
-				@RequestParam("action") String action,			
-				@RequestParam("keyword") String keyword,
-				@RequestParam(name="limit", required=false) String slimit,
-				@RequestParam(name="page", required=false) String page,
-				ModelAndView mv) {
-			
-			//검색결과에 대한 페이징 처리
-			//출력할 페이지 지정
-			int currentPage = 1;
-			//전송온 페이지 값이 있다면 추출함
-			if(page != null) {
-				currentPage = Integer.parseInt(page);
-			}
-			
-			//한 페이지당 출력할 목록 갯수 지정
-			int limit = 10;
-			//전송 온 limit 값이 있다면
-			if(slimit != null) {
-				limit = Integer.parseInt(slimit);
-			}
-			
-			//총 페이지수 계산을 위한 검색 결과 적용된 총 목록 갯수 조회
-			int listCount = qnaService.selectSearchTitleCount(keyword);
-			
-			//뷰 페이지에 사용할 페이징 관련 값 계산 처리
-			Paging paging = new Paging(listCount, currentPage, limit, "qsearchTitle.do");
-			paging.calculate();
-			
-			//서비스 메소드 호출하고 리턴결과 받기		
-			Search search = new Search();
-			search.setStartRow(paging.getStartRow());
-			search.setEndRow(paging.getEndRow());
-			search.setKeyword(keyword);
-			
-			ArrayList<Qna> list = qnaService.selectSearchTitle(search);
-			
-			//받은 결과에 따라 성공/실패 페이지 내보내기
-			if(list != null && list.size() > 0) {
-				mv.addObject("list", list);
-				mv.addObject("paging", paging);
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("limit", limit);
-				mv.addObject("action", action);
-				mv.addObject("keyword", keyword);			
-				
-				mv.setViewName("qna/qna");
-			}else {
-				mv.addObject("message", action + "에 대한 " 
-							+ keyword + " 검색 결과가 존재하지 않습니다.");			
-				mv.setViewName("common/error");
-			}
-			
-			return mv;
-		}
-		
-		//공지글 내용 검색용 (페이징 처리 포함)
-		@RequestMapping(value="nsearchContent.do", method= RequestMethod.GET)
-		public ModelAndView qnaSearchContentMethod(
-				@RequestParam("action") String action,			
-				@RequestParam("keyword") String keyword,
-				@RequestParam(name="limit", required=false) String slimit,
-				@RequestParam(name="page", required=false) String page,
-				ModelAndView mv) {
-			
-			//검색결과에 대한 페이징 처리
-			//출력할 페이지 지정
-			int currentPage = 1;
-			//전송온 페이지 값이 있다면 추출함
-			if(page != null) {
-				currentPage = Integer.parseInt(page);
-			}
-			
-			//한 페이지당 출력할 목록 갯수 지정
-			int limit = 10;
-			//전송 온 limit 값이 있다면
-			if(slimit != null) {
-				limit = Integer.parseInt(slimit);
-			}
-			
-			//총 페이지수 계산을 위한 검색 결과 적용된 총 목록 갯수 조회
-			int listCount = qnaService.selectSearchContentCount(keyword);
-			
-			//뷰 페이지에 사용할 페이징 관련 값 계산 처리
-			Paging paging = new Paging(listCount, currentPage, limit, "qsearchContent.do");
-			paging.calculate();
-			
-			//서비스 메소드 호출하고 리턴결과 받기		
-			Search search = new Search();
-			search.setStartRow(paging.getStartRow());
-			search.setEndRow(paging.getEndRow());
-			search.setKeyword(keyword);
-			
-			ArrayList<Qna> list = qnaService.selectSearchContent(search);
-			
-			//받은 결과에 따라 성공/실패 페이지 내보내기
-			if(list != null && list.size() > 0) {
-				mv.addObject("list", list);
-				mv.addObject("paging", paging);
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("limit", limit);
-				mv.addObject("action", action);
-				mv.addObject("keyword", keyword);			
-				
-				mv.setViewName("qna/qna");
-			}else {
-				mv.addObject("message", action + "에 대한 " 
-							+ keyword + " 검색 결과가 존재하지 않습니다.");			
-				mv.setViewName("common/error");
-			}
-			
-			return mv;
-		}
-		
-		//공지글 등록날짜로 검색용 (페이징 처리 포함)
-		@RequestMapping(value="qsearchDate.do", method= RequestMethod.GET)
-		public ModelAndView qnaSearchDateMethod(
-				SearchDate searchDate,
-				@RequestParam("action") String action,
-				@RequestParam(name="limit", required=false) String slimit,
-				@RequestParam(name="page", required=false) String page,
-				ModelAndView mv) {
-			
-			//검색결과에 대한 페이징 처리
-			//출력할 페이지 지정
-			int currentPage = 1;
-			//전송온 페이지 값이 있다면 추출함
-			if(page != null) {
-				currentPage = Integer.parseInt(page);
-			}
-			
-			//한 페이지당 출력할 목록 갯수 지정
-			int limit = 10;
-			//전송 온 limit 값이 있다면
-			if(slimit != null) {
-				limit = Integer.parseInt(slimit);
-			}
-			
-			//총 페이지수 계산을 위한 검색 결과 적용된 총 목록 갯수 조회
-			int listCount = qnaService.selectSearchDateCount(searchDate);
-			
-			//뷰 페이지에 사용할 페이징 관련 값 계산 처리
-			Paging paging = new Paging(listCount, currentPage, limit, "qsearchDate.do");
-			paging.calculate();
-			
-			//서비스 메소드 호출하고 리턴결과 받기		
-			Search search = new Search();
-			search.setStartRow(paging.getStartRow());
-			search.setEndRow(paging.getEndRow());
-			search.setBegin(searchDate.getBegin());
-			search.setEnd(searchDate.getEnd());
-			
-			ArrayList<Qna> list = qnaService.selectSearchDate(search);
-			
-			//받은 결과에 따라 성공/실패 페이지 내보내기
-			if(list != null && list.size() > 0) {
-				mv.addObject("list", list);
-				mv.addObject("paging", paging);
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("limit", limit);
-				mv.addObject("action", action);
-				mv.addObject("begin", searchDate.getBegin());
-				mv.addObject("end", searchDate.getEnd());			
-				
-				mv.setViewName("qna/qna");
-			}else {
-				mv.addObject("message", action + "에 대한 " + searchDate.getBegin() + "부터 "
-						+ searchDate.getEnd() + " 기간 사이에 가입한 회원 정보가 존재하지 않습니다.");		
-				mv.setViewName("common/error");
-			}
-			
-			return mv;
-		}
+	@RequestMapping(value="qsearchTitle.do", method= RequestMethod.GET)
+	public ModelAndView qnaSearchTitleMethod(
+	        @RequestParam("action") String action,            
+	        @RequestParam("keyword") String keyword,
+	        @RequestParam(name="limit", required=false, defaultValue="10") String slimit,
+	        @RequestParam(name="page", required=false, defaultValue="1") String page,
+	        ModelAndView mv) {
+
+	    // 검색 키워드나 페이지, limit 값이 빈 문자열이면 기본값으로 설정
+	    if (keyword == null || keyword.isEmpty()) {
+	        keyword = ""; // 빈 문자열로 설정하거나 다른 기본값 설정
+	    }
+	    if (slimit == null || slimit.isEmpty()) {
+	        slimit = "10"; // 빈 문자열이면 기본값으로 설정
+	    }
+	    if (page == null || page.isEmpty()) {
+	        page = "1"; // 빈 문자열이면 기본값으로 설정
+	    }
+
+	    //검색결과에 대한 페이징 처리
+	    //출력할 페이지 지정
+	    int currentPage = Integer.parseInt(page);
+	    
+	    //한 페이지당 출력할 목록 갯수 지정
+	    int limit = Integer.parseInt(slimit);
+
+	    //총 페이지수 계산을 위한 검색 결과 적용된 총 목록 갯수 조회
+	    int listCount = qnaService.selectSearchTitleCount(keyword);
+	    
+	    //뷰 페이지에 사용할 페이징 관련 값 계산 처리
+	    Paging paging = new Paging(listCount, currentPage, limit, "qsearchTitle.do");
+	    paging.calculate();
+	    
+	    //서비스 메소드 호출하고 리턴결과 받기      
+	    Search search = new Search();
+	    search.setStartRow(paging.getStartRow());
+	    search.setEndRow(paging.getEndRow());
+	    search.setKeyword(keyword);
+	    
+	    ArrayList<Qna> list = qnaService.selectSearchTitle(search);
+	    
+	    //받은 결과에 따라 성공/실패 페이지 내보내기
+	    if (list != null && list.size() > 0) {
+	        mv.addObject("list", list);
+	        mv.addObject("paging", paging);
+	        mv.addObject("currentPage", currentPage);
+	        mv.addObject("limit", limit);
+	        mv.addObject("action", action);
+	        mv.addObject("keyword", keyword);            
+	        
+	        mv.setViewName("qna/qna");
+	    } else {
+	        mv.addObject("message", action + "에 대한 " 
+	                    + keyword + " 검색 결과가 존재하지 않습니다.");            
+	        mv.setViewName("common/error");
+	    }
+	    
+	    return mv;
+	}
+
+	// 공지글 내용 검색용 (페이징 처리 포함)
+	@RequestMapping(value="qsearchContent.do", method= RequestMethod.GET)
+	public ModelAndView qnaSearchContentMethod(
+	        @RequestParam("action") String action,            
+	        @RequestParam("keyword") String keyword,
+	        @RequestParam(name="limit", required=false, defaultValue="10") String slimit,
+	        @RequestParam(name="page", required=false, defaultValue="1") String page,
+	        ModelAndView mv) {
+
+	    // 검색 키워드나 페이지, limit 값이 빈 문자열이면 기본값으로 설정
+	    if (keyword == null || keyword.isEmpty()) {
+	        keyword = ""; // 빈 문자열로 설정하거나 다른 기본값 설정
+	    }
+	    if (slimit == null || slimit.isEmpty()) {
+	        slimit = "10"; // 빈 문자열이면 기본값으로 설정
+	    }
+	    if (page == null || page.isEmpty()) {
+	        page = "1"; // 빈 문자열이면 기본값으로 설정
+	    }
+
+	    //검색결과에 대한 페이징 처리
+	    //출력할 페이지 지정
+	    int currentPage = Integer.parseInt(page);
+	    
+	    //한 페이지당 출력할 목록 갯수 지정
+	    int limit = Integer.parseInt(slimit);
+
+	    //총 페이지수 계산을 위한 검색 결과 적용된 총 목록 갯수 조회
+	    int listCount = qnaService.selectSearchContentCount(keyword);
+	    
+	    //뷰 페이지에 사용할 페이징 관련 값 계산 처리
+	    Paging paging = new Paging(listCount, currentPage, limit, "nsearchContent.do");
+	    paging.calculate();
+	    
+	    //서비스 메소드 호출하고 리턴결과 받기      
+	    Search search = new Search();
+	    search.setStartRow(paging.getStartRow());
+	    search.setEndRow(paging.getEndRow());
+	    search.setKeyword(keyword);
+	    
+	    ArrayList<Qna> list = qnaService.selectSearchContent(search);
+	    
+	    //받은 결과에 따라 성공/실패 페이지 내보내기
+	    if (list != null && list.size() > 0) {
+	        mv.addObject("list", list);
+	        mv.addObject("paging", paging);
+	        mv.addObject("currentPage", currentPage);
+	        mv.addObject("limit", limit);
+	        mv.addObject("action", action);
+	        mv.addObject("keyword", keyword);            
+	        
+	        mv.setViewName("qna/qna");
+	    } else {
+	        mv.addObject("message", action + "에 대한 " 
+	                    + keyword + " 검색 결과가 존재하지 않습니다.");            
+	        mv.setViewName("common/error");
+	    }
+	    
+	    return mv;
+	}
+
+	// 공지글 등록날짜로 검색용 (페이징 처리 포함)
+	@RequestMapping(value="qsearchDate.do", method= RequestMethod.GET)
+	public ModelAndView qnaSearchDateMethod(
+	        SearchDate searchDate,
+	        @RequestParam("action") String action,
+	        @RequestParam(name="limit", required=false, defaultValue="10") String slimit,
+	        @RequestParam(name="page", required=false, defaultValue="1") String page,
+	        ModelAndView mv) {
+
+	    //검색결과에 대한 페이징 처리
+	    //출력할 페이지 지정
+	    int currentPage = 1;
+	    //전송온 페이지 값이 있다면 추출함
+	    if(page != null && !page.isEmpty()) {
+	        currentPage = Integer.parseInt(page);
+	    }
+	    
+	    //한 페이지당 출력할 목록 갯수 지정
+	    int limit = 10;
+	    //전송 온 limit 값이 있다면
+	    if(slimit != null && !slimit.isEmpty()) {
+	        limit = Integer.parseInt(slimit);
+	    }
+	    
+	    //총 페이지수 계산을 위한 검색 결과 적용된 총 목록 갯수 조회
+	    int listCount = qnaService.selectSearchDateCount(searchDate);
+	    
+	    //뷰 페이지에 사용할 페이징 관련 값 계산 처리
+	    Paging paging = new Paging(listCount, currentPage, limit, "qsearchDate.do");
+	    paging.calculate();
+	    
+	    //서비스 메소드 호출하고 리턴결과 받기      
+	    Search search = new Search();
+	    search.setStartRow(paging.getStartRow());
+	    search.setEndRow(paging.getEndRow());
+	    search.setBegin(searchDate.getBegin());
+	    search.setEnd(searchDate.getEnd());
+	    
+	    ArrayList<Qna> list = qnaService.selectSearchDate(search);
+	    
+	    //받은 결과에 따라 성공/실패 페이지 내보내기
+	    if (list != null && list.size() > 0) {
+	        mv.addObject("list", list);
+	        mv.addObject("paging", paging);
+	        mv.addObject("currentPage", currentPage);
+	        mv.addObject("limit", limit);
+	        mv.addObject("action", action);
+	        mv.addObject("begin", searchDate.getBegin());
+	        mv.addObject("end", searchDate.getEnd());            
+	        
+	        mv.setViewName("qna/qna");
+	    } else {
+	        mv.addObject("message", action + "에 대한 " + searchDate.getBegin() + "부터 "
+	                + searchDate.getEnd() + " 기간 사이에 가입한 회원 정보가 존재하지 않습니다.");        
+	        mv.setViewName("common/error");
+	    }
+	    
+	    return mv;
+	}
 }

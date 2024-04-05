@@ -40,27 +40,27 @@
 		startRow } and #{ endRow }
 	</select>
 
-	<select id="searchTitleCount" parameterType="string"
+	<select id="selectSearchTitleCount" parameterType="string"
 		resultType="_int">
 		select count(*) from qna_board where title like '%' || #{
 		keyword } || '%'
 	</select>
 
-	<select id="searchContentCount" parameterType="string"
+	<select id="selectSearchContentCount" parameterType="string"
 		resultType="_int">
 		select count(*) from qna_board where substance like '%' ||
 		#{ keyword } || '%'
 	</select>
 
-	<select id="searchDateCount" parameterType="SearchDate"
+	<select id="selectSearchDateCount" parameterType="SearchDate"
 		resultType="_int">
 		select count(*) from qna_board where resgist_dt between #{
 		begin } and #{ end }
 	</select>
+	
 
-
-	<select id="selectSearchTitle" parameterType="String"
-		resultType="Qna">
+	<select id="selectSearchTitle" parameterType="Search"
+		resultMap="resultQna">
     <![CDATA[
     SELECT *
     FROM (
@@ -161,7 +161,8 @@
 
 	<update id="addReadCount" parameterType="int">
 		UPDATE qna_board
-		SET read_count = read_count + 1
+		SET
+		read_count = read_count + 1
 		WHERE board_id = #{id}
 	</update>
 

@@ -130,7 +130,7 @@
 		</div>
 		<div class="qna">
 			
-			<div class="qna1"><a href="qna.do">QnA</a></div>
+			<div class="qna1"><a href="qlist.do">QnA</a></div>
 			
 			<div class="inqnal">
 				<ul>
