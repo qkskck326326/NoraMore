@@ -74,6 +74,9 @@ public interface FreeBoardService {
 	void incrementLikeCount(int boardId);
 
 
+	void saveContext(String context);
+
+
 	
 
 

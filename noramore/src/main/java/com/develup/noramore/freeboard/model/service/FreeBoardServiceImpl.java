@@ -153,6 +153,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 	}
 
+	@Override
+	public void saveContext(String context) {
+		// TODO Auto-generated method stub
+		freeBoardDao.saveContent(context);
+	}
+
 	
 	
 

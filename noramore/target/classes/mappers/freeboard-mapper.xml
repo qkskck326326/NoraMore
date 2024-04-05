@@ -142,6 +142,12 @@
 				default, default, default, sysdate, default)
 	</insert>
 	
+	<insert id="saveContent" parameterType="String">
+	
+	 INSERT INTO free_board (context) VALUES (#{context})
+	</insert>
+	
+	
 	<update id="updateAddReadCount" parameterType="_int">
 		update free_board
 		set READ_COUNT = READ_COUNT + 1
