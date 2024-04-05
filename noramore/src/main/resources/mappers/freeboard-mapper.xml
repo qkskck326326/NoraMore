@@ -16,7 +16,8 @@
 		<result property="likeCount" column="LIKE_COUNT" />
 		<result property="reportCount" column="REPORT_COUNT" />
 		<result property="registDate" column="REGIST_DATE" />
-		<result property="lastUpdDate" column="LAST_UPD_DATE" />		
+		<result property="lastUpdDate" column="LAST_UPD_DATE" />
+		<result property="commentCount" column="COMMENT_COUNT"/>		
 	</resultMap>
 	
 	<select id="selectFreeBoard" resultMap="resultfreeList">
@@ -40,7 +41,7 @@
 		    SELECT rownum rnum,
 		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
-		           LAST_UPD_DATE from (SELECT * FROM free_board ORDER BY READ_COUNT DESC))
+		           LAST_UPD_DATE, COMMENT_COUNT from (SELECT * FROM free_board ORDER BY READ_COUNT DESC))
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
@@ -54,7 +55,7 @@
 		    SELECT rownum rnum,
 		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
-		           LAST_UPD_DATE from (SELECT * FROM free_board ORDER BY REGIST_DATE DESC))
+		           LAST_UPD_DATE, COMMENT_COUNT from (SELECT * FROM free_board ORDER BY REGIST_DATE DESC))
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
@@ -68,7 +69,7 @@
 		    SELECT rownum rnum,
 		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
-		           LAST_UPD_DATE from (SELECT * FROM free_board ORDER BY LIKE_COUNT DESC))
+		           LAST_UPD_DATE, COMMENT_COUNT from (SELECT * FROM free_board ORDER BY LIKE_COUNT DESC))
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
@@ -82,7 +83,7 @@
 		    SELECT rownum rnum,
 		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
-		           LAST_UPD_DATE from free_board)
+		           LAST_UPD_DATE, COMMENT_COUNT from free_board)
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
@@ -98,7 +99,7 @@
 		select *
 		from (select rownum rnum, BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
-		           LAST_UPD_DATE
+		           LAST_UPD_DATE, COMMENT_COUNT
 		     from (select * from free_board
 		     	   where title like '%' || #{ keyword } || '%'
 		          ))
@@ -114,7 +115,7 @@
 		select *
 		from (select rownum rnum, BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
-		           LAST_UPD_DATE
+		           LAST_UPD_DATE, COMMENT_COUNT
 		     from (select * from free_board
 		     	   where MEMBER_ID like '%' || #{ keyword } || '%'
 		          ))
@@ -139,7 +140,7 @@
 		insert into free_board
 		values ((select max(board_id) + 1 from free_board), #{ memberId }, #{ categoryId }, 
 				#{ title }, #{ context }, #{ freeOriginalFileName }, #{freeRenameFileName},
-				default, default, default, sysdate, default)
+				default, default, default, sysdate, default, default)
 	</insert>
 	
 	<insert id="saveContent" parameterType="String">
@@ -165,6 +166,31 @@
 		set LIKE_COUNT = LIKE_COUNT + 1
 		where BOARD_ID = #{ boardId }
 	</update>
+	
+	<update id="upCountComment" parameterType="_int">
+	UPDATE FREE_BOARD
+	SET COMMENT_COUNT = (
+	    SELECT COUNT(*)
+	    FROM COMM_FREE
+	    WHERE BOARD_ID = #{boardId}
+	)
+	WHERE BOARD_ID = #{boardId}
+	</update>
+	
+	<update id="countcoment">
+		UPDATE FREE_BOARD
+		SET COMMENT_COUNT = (
+		    SELECT COUNT(*)
+		    FROM COMM_FREE
+		    WHERE BOARD_ID = #{boardId}
+		)
+		WHERE BOARD_ID = #{boardId}
+	</update>
+	
+	
+	
+	
+	
 	
 	
 	<delete id="deleteBoard" parameterType="FreeBoard">

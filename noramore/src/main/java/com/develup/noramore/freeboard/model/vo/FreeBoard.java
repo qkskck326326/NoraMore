@@ -18,6 +18,7 @@ public class FreeBoard implements java.io.Serializable {
 	private int reportCount;
 	private java.sql.Date registDate;
 	private java.sql.Date lastUpdDate;
+	private int commentCount; 
 	
 	public FreeBoard() {
 		super();
@@ -25,7 +26,7 @@ public class FreeBoard implements java.io.Serializable {
 
 	public FreeBoard(int boardId, String memberId, int categoryId, String title, String context,
 			String freeOriginalFileName, String freeRenameFileName, int readCount, int likeCount, int reportCount,
-			Date registDate, Date lastUpdDate) {
+			Date registDate, Date lastUpdDate, int commentCount) {
 		super();
 		this.boardId = boardId;
 		this.memberId = memberId;
@@ -39,6 +40,7 @@ public class FreeBoard implements java.io.Serializable {
 		this.reportCount = reportCount;
 		this.registDate = registDate;
 		this.lastUpdDate = lastUpdDate;
+		this.commentCount = commentCount;
 	}
 
 	public int getBoardId() {
@@ -140,14 +142,27 @@ public class FreeBoard implements java.io.Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 
 	@Override
 	public String toString() {
 		return "FreeBoard [boardId=" + boardId + ", memberId=" + memberId + ", categoryId=" + categoryId + ", title="
 				+ title + ", context=" + context + ", freeOriginalFileName=" + freeOriginalFileName
 				+ ", freeRenameFileName=" + freeRenameFileName + ", readCount=" + readCount + ", likeCount=" + likeCount
-				+ ", reportCount=" + reportCount + ", registDate=" + registDate + ", lastUpdDate=" + lastUpdDate + "]";
+				+ ", reportCount=" + reportCount + ", registDate=" + registDate + ", lastUpdDate=" + lastUpdDate
+				+ ", commentCount=" + commentCount + "]";
 	}
+
+	
+
+	
 	
 	
 	

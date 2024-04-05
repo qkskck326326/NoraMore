@@ -2,6 +2,7 @@ package com.develup.noramore.freeboard.model.service;
 
 import java.util.ArrayList;
 
+import com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
@@ -75,6 +76,15 @@ public interface FreeBoardService {
 
 
 	void saveContext(String context);
+
+
+	int upCountComment(int boardId);
+
+
+	int downCount(int boardId);
+
+
+	void countcoment(CommentFreeBoard commentFreeBoard);
 
 
 	

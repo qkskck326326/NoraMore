@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
 
@@ -141,7 +142,19 @@ public class FreeBoardDao {
 	}
 
 
-	
+	public int upCountComment(int boardId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.update("freeboard.upCountComment", boardId);
+	}
+
+
+	public int downCount(int boardId) {
+		return sqlSessionTemplate.update("freeboard.upCountComment", boardId);
+	}
+
+	public void countcoment(CommentFreeBoard commentFreeBoard) {
+		sqlSessionTemplate.update("recrboard.countcoment", commentFreeBoard);
+	}
 
 
 	

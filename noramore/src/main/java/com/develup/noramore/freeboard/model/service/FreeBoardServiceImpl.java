@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.dao.FreeBoardDao;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
@@ -157,6 +158,25 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public void saveContext(String context) {
 		// TODO Auto-generated method stub
 		freeBoardDao.saveContent(context);
+	}
+
+	@Override
+	public int upCountComment(int boardId) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.upCountComment(boardId);
+	}
+
+	@Override
+	public int downCount(int boardId) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.downCount(boardId);
+	}
+
+	@Override
+	public void countcoment(CommentFreeBoard commentFreeBoard) {
+		// TODO Auto-generated method stub
+		freeBoardDao.countcoment(commentFreeBoard);
+		
 	}
 
 	
