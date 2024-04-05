@@ -206,7 +206,7 @@ function dupIDCheck(){
 	<div>
 	<h3 class="list">*아이디<span id="idError"></span></h3>
 		<span class="box int_id" >
-		<input type="text" name="memberID" id="memberid" class="input" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
+		<input type="text" name="memberID" id="memberid" class="input" value="${ kakaovo.memberID }" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
 		<input type="button" value="중복체크" onclick="return dupIDCheck();">
 		<div class="success-message hide"></div>
     	<div class="failure-message hide">아이디는 6~12글자이어야 합니다</div>
@@ -241,7 +241,7 @@ function dupIDCheck(){
 	<div>
 		<h3 class="list">성명<span id="nameError"></span></h3>
 		<span class="box int_id">
-			<input type="text" name="memberName" id="membername" class="input" maxlength="20" required><br>
+			<input type="text" name="memberName" id="membername" class="input" value="${kakaovo.memberName}" maxlength="20" required><br>
 		</span>
 	</div>
 	
@@ -264,7 +264,7 @@ function dupIDCheck(){
      
      <div class="form-group">
 	     <div>
-	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email">
+	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" value="${kakaovo.email}" id="email" type="email">
 	      		<input type="button" value="인증번호 받기" class="btn btn-primary" id="emailAuth">
 
 	    	<div>

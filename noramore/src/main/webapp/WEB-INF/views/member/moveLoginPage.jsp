@@ -13,9 +13,8 @@
 function enroll(){	
 	location.href = "enrollPage.do";
 }
-
+<!-- <script src="/noramore/resources/js/kakao.min.js"></script> -->
 </script>
-
 
 </head>
 <body>
@@ -38,7 +37,18 @@ function enroll(){
 		<a href="findIDPage.do">아이디찾기</a> / <a href="findPWPage.do">비밀번호찾기</a>
 		</div>
 		
-		<button class='social_login' id= "kakao" onclick="">카카오로 1초만에 로그인하기</button><br>
+		
+		
+		
+
+		
+		
+	<div id="k_id_login" class="social_login" style="text-align:center;">
+		<c:url var="kurl" value="${ requestScope.kakaourl }" />
+		<a href="${ kurl }" class="cp">
+			<img src="${ pageContext.servletContext.contextPath }/resources/images/kakao_login.png" alt="카카오 로그인">
+		</a>
+	</div> 
 	    <button class='social_login' id= "naver" onclick="">네이버로 1초만에 로그인하기</button><br>
 		<button class='social_login' id= "google" onclick="">구글로 1초만에 로그인하기</button><br>
 		
@@ -46,22 +56,16 @@ function enroll(){
 		<button class='button' onclick="enroll();">회원가입</button><br>
 	
 	<!-- 카카오 로그인 창으로 이동 -->
-<%-- <div id="kakao_id_login" class="social_login" style="text-align:center;">
-	<c:url var="kurl" value="${ requestScope.kakaourl }" />
-	<a href="${ kurl }" class="cp">
-		<img src="${ pageContext.servletContext.contextPath }/resources/images/kakao_login.png" 
-		alt="카카오 로그인">
-	</a>
-</div>
+ 
 <br>
 <!-- 네이버 로그인 창으로 이동 -->
-<div id="naver_id_login" class="social_login" style="text-align:center;">
+<%-- <div id="naver_id_login" class="social_login" style="text-align:center;">
 	<c:url var="nurl" value="${ requestScope.naverurl }" />
 	<a href="${ kurl }" class="cp">
 		<img src="resources/images/naver_login.png" 
 		alt="네이버 로그인">
 	</a>
-</div> --%>
+</div>  --%>
 	
 	
 	

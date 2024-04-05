@@ -49,7 +49,8 @@
 
 	<!-- 로그인용 쿼리 -->
 	<select id="selectMember" parameterType="string" resultMap="resultMember">
-		select * from member where MEMBER_ID = #{ memberID } and ACT_LIMIT in(0,1)
+		select * from member 
+		where MEMBER_ID = #{ memberID } and ACT_LIMIT in(0,1) <!-- and SIGNTYPE = "DIRECT" -->
 		
 	</select>
 	
@@ -70,14 +71,13 @@
 	
 	</select>
 	
+	
+	<!-- 아이디, 비번찾기 -->
 	<select id="selectFindId" parameterType="Member" resultMap="resultMember">
 		select * from member 
 		where EMAIL = #{ email } AND MEMBER_NAME = #{ memberName }
 	</select>
-	
-	
-	
-	
+
 	<!-- 비밀번호 재설정 --> 
 	<update id="updatePw" parameterType="Member">
 		update member 
@@ -86,5 +86,14 @@
 	</update>
 	
 
+	<select id="selectKakaoLogin" parameterType="String" resultMap="resultMember" >
+		select * from member
+		where MEMBER_ID = #{ memberID }
+	</select>
+<!-- 	
+	<insert id="insertKakaoMember" parameterType="Member" >
+		insert into member
+		values ( #{memberID}, #{memberName}, #{email}, default, default, default, default, default, default )
+	</insert> -->
 
 </mapper>

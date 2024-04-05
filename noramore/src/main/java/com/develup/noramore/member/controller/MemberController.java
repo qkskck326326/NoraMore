@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
+import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
 public class MemberController {
@@ -45,9 +46,9 @@ public class MemberController {
 	// 암호를 암호화 함.
 
 
-//	@Autowired
-//	private KakaoLoginAuth kakaoLoginAuth;
-//
+	@Autowired
+	private KakaoLoginAuth kakaoLoginAuth;
+
 //	@Autowired
 //	private GoogleLoginAuth googleLoginAuth;
 //
@@ -61,10 +62,28 @@ public class MemberController {
 	// 뷰 페이지 내보내기용 메소드 ---------------------------------------------------
 	@RequestMapping(value = "moveLoginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-	public String moveLoginPage() {
+	public String moveLoginPage(Model model, HttpSession session) {
+		
+		String kakaoAuthURL = kakaoLoginAuth.getAuthorizationUrl(session);
+		logger.info(kakaoAuthURL);
+
+//		// 네이버 로그인 접속을 위한 인증 url 정보 생성
+//		String naverAuthURL = naverLoginAuth.getAuthorizationUrl(session);
+//
+//		// 구글 로그인 접속을 위한 인증 url 정보 생성
+//		String googleAuthURL = googleLoginAuth.getAuthorizationUrl(session);
+
+		// 모델에 각각의 url 정보 저장
+		model.addAttribute("kakaourl", kakaoAuthURL);
+//		model.addAttribute("googleourl", googleAuthURL);
+//		model.addAttribute("naverurl", naverAuthURL);
+
 		return "/member/moveLoginPage";
 
 	}
+	
+
+	
 
 	@RequestMapping(value = "enrollPage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
@@ -147,86 +166,73 @@ public class MemberController {
 	}
 	
 	
-//	// 소셜로그인이 포함된 로그인 페이지 내보내기용 메소드
-//	@RequestMapping(value = "moveLoginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
-//	public String moveLoginPage(Model model, HttpSession session) {
-//		// 카카오 로그인 접속을 위한 인증 url 정보 생성
-//		String kakaoAuthURL = kakaoLoginAuth.getAuthorizationUrl(session);
-//
-//		// 네이버 로그인 접속을 위한 인증 url 정보 생성
-//		String naverAuthURL = naverLoginAuth.getAuthorizationUrl(session);
-//
-//		// 구글 로그인 접속을 위한 인증 url 정보 생성
-//		String googleAuthURL = googleLoginAuth.getAuthorizationUrl(session);
-//
-//		// 모델에 각각의 url 정보 저장
-//		model.addAttribute("kakaourl", kakaoAuthURL);
-//		model.addAttribute("googleourl", googleAuthURL);
-//		model.addAttribute("naverurl", naverAuthURL);
-//
-//		return "member/loginPage";
-//	}
-//
-//	
-//	// 카카오 로그인 요청 처리용
-//		// (카카오 로그인 클릭시 전달된 kakaourl 에 의해 실행됨)
-//		@RequestMapping(value = "kcallback.do", produces = "application/json", method = { RequestMethod.GET,
-//				RequestMethod.POST })
-//		public String kakaoLogin(@RequestParam String code,
-//				Model model, HttpSession session) {
-//			logger.info("0. kcallback.do : " + code);
-//			
-//			//로그인 결과값을 node에 담아줌
-//			JsonNode node = kakaoLoginAuth.getAccessToken(code);
-//			logger.info("1. kcallback.do : " + node);
-//			// accessToken에 사용자의 로그인한 모든 정보가 들어있음
-//			JsonNode accessToken = node.get("access_token");
-//			logger.info("2. kcallback.do : " + accessToken);
-//			// 사용자 정보 추출
-//			JsonNode userInfo = kakaoLoginAuth.getKakaoUserInfo(accessToken);
-//			logger.info("3. kcallback.do : " + userInfo);
-//			
-//			// db table 에 기록할 회원정보 추출함 : 카카오 회원가입시
-//			//userInfo 에서 properties 정보 추출
-//			JsonNode properties = node.get("properties");
-//			logger.info("4. kcallback.do : " + properties);
-//			
-//			JsonNode kakao_account = userInfo.path("kakao_account");
-//			String kid = userInfo.path("id").asText();
-//			logger.info("5. kcallback.do : " + kakao_account);
-//			
-//			//등록된 카카오 회원 테이블에서 회원 정보 조회해 옴
-//			KakaoMember kmember = 
-//					memberService.selectKakaoLogin(kid);		
-//			
-//			Member loginMember = null; 
-//			
-//			//처음 로그인 요청시 카카오 회원 테이블에 회원 정보 저장
-//			if(kmember == null) {
-//				KakaoMember kakaovo = new KakaoMember();
-//				//properties 에서 하나씩 꺼내서 member 에 저장 처리
-//				kakaovo.setUserid(kid);
-//				kakaovo.setUsername((String)properties.get("nickname").asText());
-//				kakaovo.setEmail((String)kakao_account.get("email").asText());
-//					
-//				logger.info("6. kcallback.do : " + kakaovo);
-//				
-//				memberService.insertKakaoMember(kakaovo);
-//				loginMember = kakaovo;
-//			}else {
-//				loginMember = kmember;
-//			}
-//					
-//			if (loginMember != null) {
-//				// 카카오 로그인 성공시
-//				session.setAttribute("loginMember", loginMember);
-//				return "redirect:main.do";
-//			} else {
-//				model.addAttribute("message", "카카오 로그인 실패!");
-//				return "common/error";
-//			}
-//		}
-//
+	
+
+	
+	// 카카오 로그인 요청 처리용
+	// (카카오 로그인 클릭시 전달된 kakaourl 에 의해 실행됨)
+	@RequestMapping(value = "kcallback.do", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST })
+	public String kakaoLogin(@RequestParam String code, Model model, HttpSession session) {
+		logger.info("0. kcallback.do : " + code);  //카카오 OAuth 인증 코드
+		
+		//로그인 결과값을 node에 담아줌     //카카오 OAuth 인증 코드를 통해 액세스 토큰을 받아옴
+		JsonNode node = kakaoLoginAuth.getAccessToken(code); 
+		
+		// accessToken에 사용자의 로그인한 모든 정보가 들어있음
+		JsonNode accessToken = node.get("access_token");
+		logger.info("2. kcallback.do :    du" + accessToken);
+		
+		// 사용자 정보 추출  //json으로 반환됨
+		JsonNode memberInfo = kakaoLoginAuth.getKakaoUserInfo(accessToken);
+		logger.info("3. kcallback.do : " + memberInfo);
+		
+		// db table 에 기록할 회원정보 추출함 : 카카오 회원가입시
+		//userInfo 에서 properties 정보 추출
+		JsonNode properties = node.get("properties");
+		logger.info("4. kcallback.do : " + properties);
+		
+		//path("kakao_account") 메서드는 userInfo에서 "kakao_account" 필드에 해당하는 하위 노드를 찾아서 그 값을 반환함
+		JsonNode kakao_account = memberInfo.path("kakao_account"); //사용자의 카카오계정 정보를 kakao_account변수에 저장함.
+		String kid = memberInfo.path("id").asText();     //사용자의 카카오 id 필드에 해당하는 문자열 값을 kid변수에 저장함.
+		//asText() : 해당필드의 값을 문자열로 변환함
+		logger.info("5. kcallback.do : " + kakao_account);  
+		
+		//등록된 카카오 회원 테이블에서 회원 정보 조회해 옴
+		Member kmember = memberService.selectKakaoLogin(kid);
+		
+		
+		Member loginMember = null;
+		
+		//처음 로그인 요청시 카카오 회원 테이블에 회원 정보 저장
+		if(kmember == null) {  //회원테이블에 회원 정보가 없다면
+			Member kakaovo = new Member();
+			//properties 에서 하나씩 꺼내서 member 에 저장 처리
+			kakaovo.setMemberID(kid);
+			kakaovo.setMemberName((String)properties.get("nickname").asText());
+			kakaovo.setEmail((String)kakao_account.get("email").asText());
+			logger.info("6. kcallback.do : " + kakaovo);
+			
+			model.addAttribute("kakaovo", kakaovo);
+			return "redirect:enrollPage.do";
+
+			
+			/* memberService.insertKakaoMember(kakaovo); */ //회원정보를 저장함
+		}else {
+			loginMember = kmember;
+		
+		}
+		
+		
+		if (loginMember != null) {
+			// 카카오 로그인 성공시
+			session.setAttribute("loginMember", loginMember);
+			return "redirect:home.do";
+		} else {
+			model.addAttribute("message", "카카오 로그인 실패!");
+			return "common/moveLoginPage";
+		}
+	}
+
 //		// 네이버 로그인 요청 처리용
 //		// (네이버 로그인 클릭시 전달된 naverurl 에 의해 실행됨)
 //		@RequestMapping(value = "ncallback.do", 
@@ -266,6 +272,9 @@ public class MemberController {
 
 	
 	
+
+		
+		
 	
 
 	// 회원 가입 요청 처리용 메소드
