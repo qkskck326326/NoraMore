@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.develup.noramore.member.model.service.MemberService;
+import com.develup.noramore.member.model.vo.Member;
 import com.develup.noramore.recrappl.model.service.RecrApplService;
 import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
@@ -29,7 +30,7 @@ public class RecrApplController {
 		  if(recrApplService.applSearchId(recrAppl) > 0) {
 			  validate = false;
 		  }
-		  
+		  Member vmember = memberService.selectMember(recrAppl.getMemberId());
 		  
 		  if(recrApplService.insertAppl(recrAppl) > 0) {		
 				  model.addAttribute("message", "신청이 완료되었습니다.");

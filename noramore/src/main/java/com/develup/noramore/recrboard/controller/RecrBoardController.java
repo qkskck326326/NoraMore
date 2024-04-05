@@ -32,8 +32,8 @@ public class RecrBoardController {
 	private RecrBoardService recrBoardService;
 	@Autowired
 	CommentRecrBoardService commentRecrBoardService;
-	@Autowired
-	private MemberService memberService;
+
+
 	
 	// 테이블 리스트
 	@RequestMapping("rblist.do")
@@ -359,10 +359,19 @@ public class RecrBoardController {
 	// 자세히 보기 페이지로 이동
 	@RequestMapping("rbdetail.do")
 	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId,
-			@RequestParam(name = "page", required = false) String currentPage) {
+			@RequestParam("page") String currentPage1, @RequestParam("categoryId") String categoryId1) {
+		int currentPage = 1;
+		if (currentPage1 != null) {
+			currentPage = Integer.parseInt(currentPage1);
+		}
+		int categoryId = 1;
+		if(categoryId1 != null) {
+			categoryId = Integer.parseInt(categoryId1);
+		}
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
 		model.addAttribute("page", currentPage);
+		model.addAttribute("categoryId", categoryId);
 		return "recrBoard/RecrBoardDetail";
 	}
 

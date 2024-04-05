@@ -36,7 +36,41 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+
 <script type="text/javascript">
+
+
+function translatte() {
+    const apiKey = 'b850fe62-5499-471b-b323-295587c0517f:fx'; // API 키 확인 필요
+    const text = document.getElementById("context").value;
+    const targetLang = 'en'; // 영어로 번역
+    const encodeText = encodeURIComponent(text);
+    // DeepL 번역 API URL (수정됨)
+    const url = `https://api.deepl.com/v2/translate?auth_key=${apiKey}`;
+
+    // Fetch API를 사용하여 DeepL API에 POST 요청을 보냄
+    fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `text=${encodeText}&target_lang=${targetLang}` // 요청 본문에 데이터 포함
+        })
+        .then(response => response.json()) // 응답을 JSON으로 변환
+        .then(data => {
+            if (data.translations && data.translations.length > 0) {
+                console.log("번역 결과:", data.translations[0].text);
+            } else {
+                console.error("번역 결과를 찾을 수 없습니다.");
+            }
+        })
+        .catch(error => {
+            console.error("에러 발생:", error);
+        });
+}
+
+
+
 function toggleCommentForm() {
     // writecommentForm 요소를 선택
     var writecommentForm = document.getElementById("writecommentForm");
@@ -354,7 +388,7 @@ textarea.commentForm:hover {
 					<button class="whiteBtn" style="float: right; margin-right: 10px;"
 						onclick="checkRecrCondition(); return false;">모집조건</button>
 				</div>
-				<textarea cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
+				<textarea id="context" cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 				<div>
 					<p>첨부파일:</p>
 					<c:if test="${ !empty RecrBoard.recrOriginalFilename}">
@@ -391,7 +425,9 @@ textarea.commentForm:hover {
 								style='display: none; text-align: left; padding: 0;'>
 								<br>
 							</div>
-						</div>
+						
+
+
 					</div>
 				</div>
 
@@ -401,8 +437,10 @@ textarea.commentForm:hover {
 
 
 	</div>
+</div>	
 
-
+<button onclick="translatte()">번역하기</button>
+<button onclick="libre()">리브레</button>
 
 </body>
 </html>

@@ -121,6 +121,7 @@ function changeFormAction() {
 				<c:url var="rbd" value="rbdetail.do">
 					<c:param name="boardId" value="${rl.boardId}" />
 					<c:param name="page" value="${page}" />
+					<c:param name="categoryId" value="${categoryId}" />
 				</c:url>
 				<tr>
 					<th>${rl.boardId}</th>
