@@ -39,6 +39,14 @@ public class MemberDao {
 		return sqlSessionTemplate.update("memberMapper.updatePw", member);
 	}
 
+	public Member selectKakaoLogin(String kid) {
+		return sqlSessionTemplate.selectOne("memberMapper.selectKakaoLogin", kid);
+	}
+
+	public void insertKakaoMember(Member kakaovo) {
+		sqlSessionTemplate.insert("memberMapper.insertKakaoMember", kakaovo);
+	}
+
 
 	
 	

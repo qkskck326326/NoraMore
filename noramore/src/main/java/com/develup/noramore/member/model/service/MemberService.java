@@ -1,5 +1,6 @@
 package com.develup.noramore.member.model.service;
 
+
 import com.develup.noramore.member.model.vo.Member;
 
 
@@ -17,6 +18,10 @@ public interface MemberService {
 	Member selectFindId(Member member);
 
 	int updatePw(Member member);
+
+	Member selectKakaoLogin(String kid);
+
+	void insertKakaoMember(Member kakaovo);
 
 
 

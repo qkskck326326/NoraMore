@@ -47,6 +47,20 @@ public class MemberServiceImpl implements MemberService {
 	public int updatePw(Member member) {
 		return memberDao.updatePw(member);
 	}
+
+	@Override
+	public Member selectKakaoLogin(String kid) {
+		return memberDao.selectKakaoLogin(kid);
+	}
+
+	@Override
+	public void insertKakaoMember(Member kakaovo) {
+		 memberDao.insertKakaoMember(kakaovo);
+		
+	}
+	
+	
+	
 	
 	
 }
