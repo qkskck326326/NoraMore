@@ -40,9 +40,24 @@
 		where board_id = #{boardId} 
 	</select>
 	
-	<select id="selectListcount" resultType="_int">
+	<select id="selectListcount" parameterType="_int" resultType="_int">
 		select count(*) 
 		from recr_board 
+		where category_id = #{categoryId} 
+	</select>
+	
+	<select id="searchtitlecount" parameterType="Search" resultType="_int">
+		select count(*) 
+		from recr_board 
+		where category_id = #{categoryId} 
+		and title like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchwritercount" parameterType="Search" resultType="_int">
+		select count(*) 
+		from recr_board 
+		where category_id = #{categoryId} 
+		and member_id like '%' || #{keyword} || '%'
 	</select>
 
 	<select id="selectSearchList" parameterType="Search" resultMap="resultRecr">
@@ -52,8 +67,31 @@
 		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT,  REPORT_COUNT, GENDER_CONDITION , MIN_AGE_CONDITION, MAX_AGE_CONDITION, MAX_RECR, 
 		           NOW_RECR, RECR_STATUS, RECR_START_DATE, RECR_END_DATE, RECR_ORIGINAL_FILENAME, 
 		           RECR_RENAME_FILENAME, RECR_ACT_START_DATE, RECR_ACT_END_DATE, RECR_LOC, 
-		           COMMENT_COUNT, READ_COUNT, REGIST_DATE, LAST_UPD_DATE from recr_board)
+		           COMMENT_COUNT, READ_COUNT, REGIST_DATE, LAST_UPD_DATE from recr_board where category_id = #{categoryId})
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="searchtitleList" parameterType="Search" resultMap="resultRecr">
+		SELECT *
+		FROM (
+		    SELECT rownum rnum,
+		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT,  REPORT_COUNT, GENDER_CONDITION , MIN_AGE_CONDITION, MAX_AGE_CONDITION, MAX_RECR, 
+		           NOW_RECR, RECR_STATUS, RECR_START_DATE, RECR_END_DATE, RECR_ORIGINAL_FILENAME, 
+		           RECR_RENAME_FILENAME, RECR_ACT_START_DATE, RECR_ACT_END_DATE, RECR_LOC, 
+		           COMMENT_COUNT, READ_COUNT, REGIST_DATE, LAST_UPD_DATE from recr_board where category_id = #{categoryId} and title like '%' || #{keyword} || '%')
+		WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="searchwriterList" parameterType="Search" resultMap="resultRecr">
+		SELECT *
+		FROM (
+		    SELECT rownum rnum,
+		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT,  REPORT_COUNT, GENDER_CONDITION , MIN_AGE_CONDITION, MAX_AGE_CONDITION, MAX_RECR, 
+		           NOW_RECR, RECR_STATUS, RECR_START_DATE, RECR_END_DATE, RECR_ORIGINAL_FILENAME, 
+		           RECR_RENAME_FILENAME, RECR_ACT_START_DATE, RECR_ACT_END_DATE, RECR_LOC, 
+		           COMMENT_COUNT, READ_COUNT, REGIST_DATE, LAST_UPD_DATE from recr_board where category_id = #{categoryId} and member_id like '%' || #{keyword} || '%')
+		WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	
 	</select>
 	
 	<insert id="insertRecrBoard" parameterType="RecrBoard">

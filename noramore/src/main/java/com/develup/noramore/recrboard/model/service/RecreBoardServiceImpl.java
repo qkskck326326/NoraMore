@@ -26,8 +26,8 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 	}
 
 	@Override
-	public int selectListcount() {
-		return recreBoardDao.selectListcount();
+	public int selectListcount(int categoryId) {
+		return recreBoardDao.selectListcount(categoryId);
 	}
 
 	@Override
@@ -68,6 +68,26 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 	@Override
 	public int deleteBoard(int boardId) {
 		return recreBoardDao.deleteBoard(boardId);
+	}
+
+	@Override
+	public int searchtitlecount(Search serach) {
+		return recreBoardDao.searchtitlecount(serach);
+	}
+
+	@Override
+	public ArrayList<RecrBoard> searchtitleList(Search search) {
+		return recreBoardDao.searchtitleList(search);
+	}
+
+	@Override
+	public int searchwritercount(Search search) {
+		return recreBoardDao.searchwritercount(search);
+	}
+
+	@Override
+	public ArrayList<RecrBoard> searchwriterList(Search search) {
+		return recreBoardDao.searchwriterList(search);
 	}
 
 

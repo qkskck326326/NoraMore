@@ -20,6 +20,7 @@ import com.develup.noramore.commentrecrboard.service.CommentRecrBoardService;
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
+import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
@@ -31,27 +32,26 @@ public class RecrBoardController {
 	private RecrBoardService recrBoardService;
 	@Autowired
 	CommentRecrBoardService commentRecrBoardService;
-
-	// 테이블 검색
+	@Autowired
+	private MemberService memberService;
+	
+	// 테이블 리스트
 	@RequestMapping("rblist.do")
 	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page, 
-										@RequestParam(name="limit", required = false) String limit1, @RequestParam(name="categoryId", required = false) String categoryId1) {
+										@RequestParam(name="categoryId", required = false) String categoryId1) {
 		// ArrayList<RecrBoard> list = recrBoardService.selectRecrBoard();
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int limit = 10;
-		if (limit1 != "") { 
-			
-		}
-		int categoryId = 10;
-		if (categoryId1 != "") { 
-			
+		int categoryId = 1;
+		if(categoryId1 != null) {
+			categoryId = Integer.parseInt(categoryId1);
 		}
 		
 
-		int listCount = recrBoardService.selectListcount();
+		int listCount = recrBoardService.selectListcount(categoryId);
 
 		Paging paging = new Paging(listCount, currentPage, limit, "rblist.do");
 		paging.calculate();
@@ -60,7 +60,8 @@ public class RecrBoardController {
 		Search search = new Search();
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
-
+		search.setCategoryId(categoryId);
+		
 		ArrayList<RecrBoard> list = recrBoardService.selectSearchList(search);
 
 		mv.addObject("list", list);
@@ -69,6 +70,72 @@ public class RecrBoardController {
 		mv.addObject("paging", paging);
 		return mv;
 	}//
+	
+	// 제목으로 검색
+	@RequestMapping("searchrecrtitle.do")
+	public ModelAndView searchRecrTitle(Search search, 
+			@RequestParam(name="limit", required=false) String limit1,
+			@RequestParam(name="page", required=false) String page, ModelAndView mv) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		int categoryId = 1;
+		if(search.getCategoryId() != 0) {
+			categoryId = search.getCategoryId();
+		}
+		
+		int listCount = recrBoardService.searchtitlecount(search);
+		Paging paging = new Paging(listCount, currentPage, limit, "searchrecrtitle.do");
+		paging.calculate();
+		
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<RecrBoard> list = recrBoardService.searchtitleList(search);
+
+
+		mv.addObject("list", list);
+		mv.setViewName("recrBoard/RecrBoardList");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		mv.addObject("categoryId", categoryId);
+		return mv;
+	}
+	
+	// 이름으로 검색
+		@RequestMapping("searchrecrwriter.do")
+		public ModelAndView searchRecrWriter(Search search, 
+				@RequestParam(name="limit", required=false) String limit1,
+				@RequestParam(name="page", required=false) String page, ModelAndView mv) {
+			int currentPage = 1;
+			if (page != null) {
+				currentPage = Integer.parseInt(page);
+			}
+			int limit = 10;
+			int categoryId = 1;
+			if(search.getCategoryId() != 0) {
+				categoryId = search.getCategoryId();
+			}
+			
+			int listCount = recrBoardService.searchwritercount(search);
+			Paging paging = new Paging(listCount, currentPage, limit, "searchrecrwriter.do");
+			paging.calculate();
+			
+			search.setStartRow(paging.getStartRow());
+			search.setEndRow(paging.getEndRow());
+			
+			ArrayList<RecrBoard> list = recrBoardService.searchwriterList(search);
+
+
+			mv.addObject("list", list);
+			mv.setViewName("recrBoard/RecrBoardList");
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("paging", paging);
+			mv.addObject("categoryId", categoryId);
+			return mv;
+		}
 
 	// 모집테이블 생성
 	@RequestMapping(value = "insertrb.do", method = RequestMethod.POST)

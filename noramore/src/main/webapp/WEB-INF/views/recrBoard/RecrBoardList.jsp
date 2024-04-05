@@ -28,14 +28,30 @@
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
+
+
 	function rbwriteform() {
 		location.href = 'rbwriteform.do?page=' + ${page};
 	}
 
-	function selectCategory(value) {
-		$("#category").text(value).val(value);
-	}
-	
+function check(){
+	var limitSelect = document.getElementById('limitSelect');
+    var limi = limitSelect.value;
+    console.log(limi);
+    
+    var keywordE = document.getElementById('keyword');
+    var keyword = keywordE.value;
+    console.log(keyword);
+    
+    var actionE = document.getElementById('action');
+    var action = actionE.value;
+    console.log(action);
+}
+
+function changeFormAction() {
+    var selectedValue = document.getElementById("action").value;
+    document.getElementById("searchaction").action = selectedValue;
+}
 </script>
 <style type="text/css">
 .search{
@@ -53,7 +69,7 @@
 <body>
 	<section id="board">
 		<h1>모집게시판 전체 목록</h1>
-
+	
 
 	<!-- <div class="dropdown">
 		    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
@@ -70,28 +86,29 @@
 
 	<%-- 검색 --%>
 	<section style='width: 1200px; border: 0px; margin: 10px 0;'>
-		<form id="" class="" action="search.do" method="post" >
-		검색 기준: <div class="dropdown">
-	        <select id="" name="action">
-	            <option value="title">글제목</option>
-	            <option value="author">작성자</option>
-	        </select>
-    	</div>
+	검색 기준: <div class="dropdown">
+			    <select id="action" name="action" onchange="changeFormAction()">
+			        <option value="searchrecrtitle.do">글제목</option>
+			        <option value="searchrecrwriter.do">작성자ID</option>
+			    </select>
+			</div>
+		<form id="searchaction" action="searchrecrtitle.do" method="post" >
 			<fieldset style='width: 1200px; border: 0px;'>
 				<div class="search" style='width: 180px;'>
-					<input name="keyword" style="width:140; height:25;">
+					<input id="keyword" name="keyword" style="width:140; height:25;">
 					<button>검색</button>
 				</div> &nbsp; 
-				한 페이지에 출력할 목록 갯수 : <select name="limit">
+				한 페이지에 출력할 목록 갯수 : <select name="limit" id="limitSelect">
 					<option value="10" selected>10</option>
 					<option value="15">15</option>
 					<option value="20">20</option>
+					<c:set var="limi" value="${limit}" ></c:set>
 				</select> &nbsp; 
 			</fieldset>
 			<input  type="hidden" name="categoryId" value="${categoryId}">
 		</form>
 	</section>
-		
+		<button onclick="check()">정보 확인</button>
 		<button class="whiteBtn" style="" onclick="rbwriteform()">글작성</button>
 		<table style='width: 1200px;'>
 			<tr>
