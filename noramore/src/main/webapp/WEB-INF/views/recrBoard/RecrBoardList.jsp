@@ -7,6 +7,9 @@
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
+<c:if test="${!empty requestScope.message}">
+	<c:set var="category" value="${requestScope.category}" />
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,10 +35,19 @@
 		$("#category").text(value).val(value);
 	}
 	
-	function selectSearch(value){
-		$("#action").text($("#action").(text)).val(value);
-	}
 </script>
+<style type="text/css">
+.search{
+	border: 1px solid #15bef5;
+    border-radius: 7px;
+    padding: 0 3px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 27px;
+}
+
+</style>
 </head>
 <body>
 	<section id="board">
@@ -57,7 +69,7 @@
 
 	<%-- 검색 --%>
 	<section style='width: 1200px; border: 0px; margin: 10px 0;'>
-		<form id="titleform" class="sform" action="Search.do" method="post" >
+		<form id="" class="" action="search.do" method="post" >
 		검색 기준: <div class="dropdown">
 	        <select id="" name="action">
 	            <option value="title">글제목</option>
@@ -65,8 +77,8 @@
 	        </select>
     	</div>
 			<fieldset style='width: 1200px; border: 0px;'>
-				<div class="search">
-					<input type="text" name="keyword" style="border: 1px;">
+				<div class="search" style='width: 180px;'>
+					<input name="keyword" style="width:140; height:25;">
 					<button>검색</button>
 				</div> &nbsp; 
 				한 페이지에 출력할 목록 갯수 : <select name="limit">

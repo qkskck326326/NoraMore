@@ -117,12 +117,13 @@ public class RecrBoardController {
 			model.addAttribute("message", " 글이 등록되었습니다.");
 			model.addAttribute("RecrBoard", recrBoard);
 			model.addAttribute("page", page);
+			
 			return "redirect:rblist.do";
 		} else {
 			model.addAttribute("message", " 글 등록에 실패하였습니다.");
 			return "redirect:rblist.do";
 		}
-
+		
 	}//
 
 	// 모집 테이블 수정

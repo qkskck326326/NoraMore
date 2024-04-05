@@ -6,7 +6,10 @@
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
 <c:if test="${!empty requestScope.message}">
-	<c:set var="page" value="${requestScope.message}" />
+	<c:set var="categoryId" value="${requestScope.categoryId}" />
+</c:if>
+<c:if test="${!empty requestScope.message}">
+	<c:set var="message" value="${requestScope.message}" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -28,6 +31,7 @@
 </c:url>
 <c:url var="rblist" value="rblist.do">
 	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}" />
 </c:url>
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
