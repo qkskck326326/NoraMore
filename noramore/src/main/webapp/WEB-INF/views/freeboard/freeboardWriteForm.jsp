@@ -3,12 +3,12 @@
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-<%--***********추가한 부분********* --%>
-<% request.setCharacterEncoding("UTF-8");%>
+<%--
+<% request.setCharacterEncoding("UTF-8");
 <% response.setContentType("text/html; charset=UTF-8");%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%--***************************** --%> 
+--%> 
 
 <!DOCTYPE html>
 <html>
@@ -22,6 +22,7 @@
 		<script type="text/javascript"
 			src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
 <title>Insert title here</title>
+<%--
 <script type="text/javascript">
 // 스마트 에디터 초기화
 $(function () {
@@ -32,9 +33,9 @@ var contextValue = $('#smartEditor').val();
 console.log(contextValue);
 
 </script>
+ --%>
 
 
-</script>
 
 </head>
 <body>
@@ -57,10 +58,10 @@ console.log(contextValue);
 		<input type="text" placeholder="글 제목을 입력하세요." name="title" id = "title">
 		
 		<p>본문</p>
-		<%-- <textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea>--%>  
+		<textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea> 
 		<!--  추가한 부분 ***************************************** -->
 		<!-- SmartEditor2  30 70 -->
-	
+	<%--
 <div class="jsx-2303464893 editor">
 	<div class="fr-box fr-basic fr-top" role="application">
 		<div class="fr-wrapper show-placeholder" dir="auto" style="overflow: scroll;">
@@ -70,7 +71,7 @@ console.log(contextValue);
 	</div>
 </div>
 
- 
+ --%>
  	
 <!-- ******************************************************************************* -->
 		<p>첨부파일</p>
@@ -174,7 +175,7 @@ console.log(contextValue);
 	 -->
 </body>
 </html>
-
+<%--
 <!-- SmartEditor2 -->
 <script type="text/javascript">
 
@@ -213,7 +214,7 @@ var oEditors = [];
 		        oEditors.getById["smartEditor"].exec("FOCUS");
 		        return;
 		    }
-		 <%-- ********없어도 되는 코드 smartEditor 관련 MVC구성 안해도됨****** --%>   
+		 <!-- ********없어도 되는 코드 smartEditor 관련 MVC구성 안해도됨****** -->   
 		     $.ajax({
        url: 'saveContext.do', // 올바른 컨트롤러로 수정
        type: 'POST',
@@ -227,7 +228,7 @@ var oEditors = [];
            console.error(error); // 오류 메시지 콘솔에 출력
        }
    });
-		<%-- ********************************************** --%>   
+		<!-- ********************************************** -->   
 		    // ********* 추가한 부분 *************
 
 			if (selcatd == "") {
@@ -257,7 +258,7 @@ var oEditors = [];
 		});
 	})
 
-
+--%>
 
 
 </script>
