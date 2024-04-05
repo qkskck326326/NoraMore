@@ -60,7 +60,7 @@ public class MemberController {
 	
 	
 	// 뷰 페이지 내보내기용 메소드 ---------------------------------------------------
-	@RequestMapping(value = "moveLoginPage.do", method = { RequestMethod.GET })
+	@RequestMapping(value = "moveLoginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
 	public String moveLoginPage(Model model, HttpSession session) {
 		
