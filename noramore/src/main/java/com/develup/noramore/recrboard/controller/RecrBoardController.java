@@ -34,18 +34,22 @@ public class RecrBoardController {
 
 	// 테이블 검색
 	@RequestMapping("rblist.do")
-	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page, 
+										@RequestParam(name="limit", required = false) String limit1, @RequestParam(name="categoryId", required = false) String categoryId1) {
 		// ArrayList<RecrBoard> list = recrBoardService.selectRecrBoard();
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int limit = 10;
-		/*
-		 * if (limit != null) { limit = Integer.parseInt(limit1);
-		 * 
-		 * }
-		 */
+		if (limit1 != "") { 
+			
+		}
+		int categoryId = 10;
+		if (categoryId1 != "") { 
+			
+		}
+		
 
 		int listCount = recrBoardService.selectListcount();
 
