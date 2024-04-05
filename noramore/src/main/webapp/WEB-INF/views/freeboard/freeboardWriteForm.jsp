@@ -55,7 +55,7 @@ console.log(contextValue);
 		<input type="text" placeholder="카테고리를 입력하세요." name="categoryId">
 		
 		<p>글 제목</p>
-		<input type="text" placeholder="글 제목을 입력하세요." name="title" id = "title">
+		<input type="text" placeholder="글 제목을 입력하세요." name="title" <%--id = "title"--%>>
 		
 		<p>본문</p>
 		<textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea> 
