@@ -17,6 +17,18 @@
 <!DOCTYPE html >
 <html>
 <head>
+<style type="text/css">
+form fieldset {
+	width: 600px;	
+}
+form.sform {
+	background: lightgray;
+	width: 650px;
+	position: relative;
+	left: 450px;
+	display: none;  /* 안 보이게 함 */
+}
+</style>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
@@ -62,17 +74,73 @@
 		}
 		%>
 		<button onclick="location.href='noticewrite.do';" class="blueBtn">글쓰기</button>
-		<form action="board.jsp" method="get">
 
-			<div class="position">
-				<p>검색하기</p>
-				<div class="search">
-					<input type="text" name="pos">
-					<button>검색</button>
-				</div>
-			</div>
+
+		<%-- 항목별 검색 기능 추가 --%>
+		<fieldset id="ss">
+			<legend>검색할 항목을 선택하세요.</legend>
+			<input type="radio" name="item" id="title"> 제목 &nbsp; <input
+				type="radio" name="item" id="content"> 내용 &nbsp; <input
+				type="radio" name="item" id="date"> 등록날짜 &nbsp; <b
+				style="color: blue;">출력할 목록 갯수를 선택하세요 : </b> <select id="limit"
+				onchange="changeLimit(this.value);">
+				<c:if test="${ currentLimit eq 10 }">
+					<option value="10" selected>10개씩 출력</option>
+				</c:if>
+				<c:if test="${ currentLimit ne 10 }">
+					<option value="10">10개씩 출력</option>
+				</c:if>
+				<c:if test="${ currentLimit eq 15 }">
+					<option value="15" selected>15개씩 출력</option>
+				</c:if>
+				<c:if test="${ currentLimit ne 15 }">
+					<option value="15">15개씩 출력</option>
+				</c:if>
+				<c:if test="${ currentLimit eq 20 }">
+					<option value="20" selected>20개씩 출력</option>
+				</c:if>
+				<c:if test="${ currentLimit ne 20 }">
+					<option value="20">20개씩 출력</option>
+				</c:if>
+			</select>
+		</fieldset>
+		<br>
+
+		<%-- 검색 항목별 값 입력 전송용 폼 만들기 --%>
+		<%-- 제목 검색 폼 --%>
+		<form id="titleform" class="sform" action="nsearchTitle.do"
+			method="get">
+			<input type="hidden" name="action" value="title"> <input
+				type="hidden" name="limit" value="${ currentLimit }">
+			<fieldset>
+				<legend>검색할 제목을 입력하세요.</legend>
+				<input type="search" name="keyword" size="50"> &nbsp; <input
+					type="submit" value="검색">
+			</fieldset>
 		</form>
 
+		<%-- 내용 검색 폼 --%>
+		<form id="contentform" class="sform" action="nsearchContent.do"
+			method="get">
+			<input type="hidden" name="action" value="content"> <input
+				type="hidden" name="limit" value="${ currentLimit }">
+			<fieldset>
+				<legend>검색할 내용을 입력하세요.</legend>
+				<input type="search" name="keyword" size="50"> &nbsp; <input
+					type="submit" value="검색">
+			</fieldset>
+		</form>
+
+		<%-- 등록날짜 검색 폼 --%>
+		<form id="dateform" class="sform" action="nsearchDate.do" method="get">
+			<input type="hidden" name="action" value="date"> <input
+				type="hidden" name="limit" value="${ currentLimit }">
+			<fieldset>
+				<legend>검색할 등록날짜를 선택하세요.</legend>
+				<input type="date" name="begin"> ~ <input type="date"
+					name="end"> &nbsp; <input type="submit" value="검색">
+			</fieldset>
+		</form>
 		<table>
 			<tr>
 				<th>No</th>

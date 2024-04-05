@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.develup.noramore.common.Paging;
+import com.develup.noramore.common.Search;
+import com.develup.noramore.common.SearchDate;
 import com.develup.noramore.notice.model.vo.Notice;
 
 @Repository("noticeBoardDao")
@@ -47,6 +49,41 @@ public class NoticeBoardDao {
 	//공지글 삭제
 	public int deleteNotice(int noticeNo) {
 		return sqlSessionTemplate.delete("noticeMapper.deleteNotice", noticeNo);
+	}
+
+	public int selectSearchTitleCount(String keyword) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("noticeMapper.selectSearchTitleCount", keyword);
+	}
+
+	public int selectSearchContentCount(String keyword) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("noticeMapper.selectSearchContentCount", keyword);
+	}
+
+	public int selectSearchDateCount(SearchDate date) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("noticeMapper.selectSearchDateCount", date);
+	}
+
+	public ArrayList<Notice> selectSearchTitle(Search search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Notice> selectSearchTitle(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Notice> selectSearchContent(Search search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Notice> selectSearchDate(Search search) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

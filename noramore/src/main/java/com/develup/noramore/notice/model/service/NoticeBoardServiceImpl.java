@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.develup.noramore.common.Paging;
+import com.develup.noramore.common.Search;
+import com.develup.noramore.common.SearchDate;
 import com.develup.noramore.notice.model.dao.NoticeBoardDao;
 import com.develup.noramore.notice.model.vo.Notice;
+import com.develup.noramore.qna.model.vo.Qna;
 
 @Service("noticeBoardService")
 public class NoticeBoardServiceImpl implements NoticeBoardService{
@@ -51,5 +54,47 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 	public int deleteNotice(int noticeNo) {
 		// TODO Auto-generated method stub
 		return noticeBoardDao.deleteNotice(noticeNo);
+	}
+
+	@Override
+	public int selectSearchTitleCount(String keyword) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectSearchTitleCount(keyword);
+	}
+
+	@Override
+	public int selectSearchContentCount(String keyword) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectSearchContentCount(keyword);
+	}
+
+	@Override
+	public int selectSearchDateCount(SearchDate date) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectSearchDateCount(date);
+	}
+
+	@Override
+	public ArrayList<Notice> selectSearchTitle(Search search) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectSearchTitle(search);
+	}
+
+	@Override
+	public ArrayList<Notice> selectSearchTitle(String keyword) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectSearchTitle(keyword);
+	}
+
+	@Override
+	public ArrayList<Notice> selectSearchContent(Search search) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectSearchContent(search);
+	}
+
+	@Override
+	public ArrayList<Notice> selectSearchDate(Search search) {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectSearchDate(search);
 	}
 }

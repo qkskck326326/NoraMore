@@ -14,6 +14,24 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <script src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <title>Notice 수정</title>
+<script>
+	function moveUpdatePage() {
+		// 수정 페이지로 이동하는 코드
+		/* var form = document.createElement('form');
+		form.method = 'POST';
+		form.action = '${nu}';
+		document.body.appendChild(form);
+		form.submit(); */
+		location.href = "${nup}";
+	}
+	function requestDelete() {
+		location.href = "${nd}";
+	}
+	function goToList() {
+		// 목록 페이지로 이동하는 코드
+		window.location.href = 'nlist.do';
+	}
+</script>
 </head>
 <body>
 	<br>
@@ -65,21 +83,23 @@
 			<textarea rows="30" cols="70" name="substance">${notice.substance}</textarea>
 
 			<!-- 첨부파일 영역 -->
-			   <p>첨부파일</p>
-        <c:if test="${!empty notice.originalFilePath}">
-            <!-- 첨부파일 정보 표시 -->
+			<p>첨부파일</p>
+			<c:if test="${!empty notice.originalFilePath}">
+				<!-- 첨부파일 정보 표시 -->
             ${notice.originalFilePath}&nbsp;
             <input type="checkbox" name="deleteFlag" value="yes">
             파일 삭제 <br>
             변경 : <input type="file" name="upfile">
-        </c:if>
-        <c:if test="${empty notice.originalFilePath}">
-            <!-- 첨부파일이 없는 경우 -->
-            첨부된 파일 없음 <br><br>
+			</c:if>
+			<c:if test="${empty notice.originalFilePath}">
+				<!-- 첨부파일이 없는 경우 -->
+            첨부된 파일 없음 <br>
+				<br>
             추가 : 
-            <br><br>
-            <input type="file" name="upfile">
-        </c:if>
+            <br>
+				<br>
+				<input type="file" name="upfile">
+			</c:if>
 
 			<!-- 수정 및 취소 버튼 -->
 			<tr>
