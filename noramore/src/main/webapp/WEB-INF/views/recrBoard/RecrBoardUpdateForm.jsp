@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+<script type="text/javascript" src="SmartEditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
     $(function(){
         $('input[name="title"]').on('input', function(){

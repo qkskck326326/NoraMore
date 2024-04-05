@@ -15,4 +15,8 @@ public class RecrApplDao {
 		return sqlSessionTemplate.insert("recrappl.insertAppl", recrAppl);
 	}
 
+	public int applSearchId(RecrAppl recrAppl) {
+		return sqlSessionTemplate.selectOne("recrappl.applSearchId", recrAppl);
+	}
+
 }//

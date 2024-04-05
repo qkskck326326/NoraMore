@@ -34,17 +34,22 @@ public class RecrBoardController {
 
 	// 테이블 검색
 	@RequestMapping("rblist.do")
-	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page) {
+	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page, 
+										@RequestParam(name="limit", required = false) String limit1, @RequestParam(name="categoryId", required = false) String categoryId1) {
 		// ArrayList<RecrBoard> list = recrBoardService.selectRecrBoard();
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int limit = 10;
-		if (page != null) {
-			currentPage = Integer.parseInt(page);
-
+		if (limit1 != "") { 
+			
 		}
+		int categoryId = 10;
+		if (categoryId1 != "") { 
+			
+		}
+		
 
 		int listCount = recrBoardService.selectListcount();
 
@@ -116,12 +121,13 @@ public class RecrBoardController {
 			model.addAttribute("message", " 글이 등록되었습니다.");
 			model.addAttribute("RecrBoard", recrBoard);
 			model.addAttribute("page", page);
+			
 			return "redirect:rblist.do";
 		} else {
 			model.addAttribute("message", " 글 등록에 실패하였습니다.");
 			return "redirect:rblist.do";
 		}
-
+		
 	}//
 
 	// 모집 테이블 수정
