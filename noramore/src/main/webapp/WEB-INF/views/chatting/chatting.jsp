@@ -5,13 +5,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="resources/css/chatting.css">
 <title>채팅 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 <script type="text/javascript" src="resources/js/jquery-3.7.0.min.js"></script>
-<script src="https://kit.fontawesome.com/a2e8ca0ae3.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -66,7 +64,7 @@
                      <div>
                         <p class="recent-message">${room.lastMessage}</p>
 
-                        <c:if test="${ !empty room.notReadCount }">
+                        <c:if test="${ room.notReadCount > 0 }">
                            <p class="not-read-count">${room.notReadCount}</p>
                         </c:if>
                      </div>

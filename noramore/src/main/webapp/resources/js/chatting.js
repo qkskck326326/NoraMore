@@ -10,8 +10,7 @@ const targetInput = document.querySelector("#targetInput"); // 사용자 검색
 const resultArea = document.querySelector("#resultArea"); // 검색 결과
 
 let selectChattingNo; // 선택한 채팅방 번호
-let selectTargetNo; // 현재 채팅 대상
-let selectTargetName; // 대상의 이름
+let selectTargetId; // 대상의 이름
 let selectTargetProfile; // 대상의 프로필
 
 
@@ -43,7 +42,7 @@ targetInput.addEventListener("input", e => {
 
    // 입력된 값이 있을 때
    if(query.length > 0){
-      fetch("/chat/selectTarget.do?query="+query)
+      fetch("selectTarget.do?query="+query)
       .then(resp => resp.json())
       .then(list => {
          //console.log(list);
@@ -71,11 +70,11 @@ targetInput.addEventListener("input", e => {
             if(member.photoFilename == null) img.setAttribute("src", "resources/images/user.png");
             else   img.setAttribute("src", member.photoFilename);
 
-            let nickname = member.memberID;
+            let memberName = member.memberID;
             let email = member.memberEmail;
 
             const span = document.createElement("span");
-            span.innerHTML = `${nickname} ${email}`.replace(query, `<mark>${query}</mark>`);
+            span.innerHTML = `${memberName} ${email}`.replace(query, `<mark>${query}</mark>`);
 
             // 요소 조립(화면에 추가)
             li.append(img, span);
@@ -98,7 +97,7 @@ function chattingEnter(e){
 
    const targetId = e.currentTarget.getAttribute("data-id");
 
-   fetch("/chat/chattingEnter.do?targetId="+targetId)
+   fetch("chattingEnter.do?targetId="+targetId)
    .then(resp => resp.text())
    .then(chattingNo => {
       console.log(chattingNo);
@@ -131,7 +130,7 @@ function chattingEnter(e){
 // 비동기로 채팅방 목록 조회
 function selectRoomList(){
 
-   fetch("/chat/roomList.do")
+   fetch("roomList.do")
    .then(resp => resp.json())
    .then(roomList => {
       console.log(roomList);
@@ -173,15 +172,15 @@ function selectRoomList(){
 
          const p = document.createElement("p");
 
-         const targetName = document.createElement("span");
-         targetName.classList.add("target-name");
-         targetName.innerText = room.targetNickName;
+         const targetId = document.createElement("span");
+         targetId.classList.add("target-name");
+         targetId.innerText = room.targetId;
          
          const recentSendTime = document.createElement("span");
          recentSendTime.classList.add("recent-send-time");
          recentSendTime.innerText = room.sendTime;
 
-         p.append(targetName, recentSendTime);
+         p.append(targetId, recentSendTime);
        
          const div = document.createElement("div");
          
@@ -250,11 +249,6 @@ function roomListAddEvent(){
          selectTargetId = item.getAttribute("target-id");
 
          selectTargetProfile = item.children[0].children[0].getAttribute("src");
-         selectTargetName = item.children[1].children[0].children[0].innerText;
-
-         if(item.children[1].children[1].children[1] != undefined){
-            item.children[1].children[1].children[1].remove();
-         }
 
          // 모든 채팅방에서 select 클래스를 제거
          for(let it of chattingItemList) it.classList.remove("select")
@@ -315,7 +309,7 @@ function selectChattingFn() {
 
             // 상대 이름
             const b = document.createElement("b");
-            b.innerText = selectTargetName; // 전역변수
+            b.innerText = selectTargetId; // 전역변수
 
             const br = document.createElement("br");
 
@@ -342,12 +336,31 @@ function selectChattingFn() {
 
 // 로그인이 되어 있을 경우에만
 // /chattingSock 이라는 요청 주소로 통신할 수 있는 WebSocket 객체 생성
-let chattingSock;
 
-if(loginMemberID != ""){
-   chattingSock = new SockJS("/chat");
-}
 
+   const chattingSock = new SockJS("http://localhost:8080/noramore/chat");
+
+
+chattingSock.onopen = function() {
+    console.log('WebSocket 연결이 열렸습니다.');
+};
+
+chattingSock.onmessage = function(event) {
+    console.log('서버로부터 메시지를 수신했습니다:', event.data);
+};
+
+chattingSock.onclose = function() {
+    console.log('WebSocket 연결이 닫혔습니다.');
+};
+
+chattingSock.onclose = function(event) {
+    console.log('WebSocket 연결이 닫혔습니다. 이유:', event.reason);
+    console.log('닫힘 코드:', event.code);
+};
+
+chattingSock.onerror = function(error) {
+    console.error('WebSocket 오류 발생:', error);
+};
 
 // 채팅 입력
 const send = document.getElementById("send");
@@ -431,7 +444,7 @@ chattingSock.onmessage = function(e) {
    
          // 상대 이름
          const b = document.createElement("b");
-         b.innerText = selectTargetName; // 전역변수
+         b.innerText = selectTargetId; // 전역변수
    
          const br = document.createElement("br");
    

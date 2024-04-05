@@ -197,7 +197,7 @@ function dupFbCheck(){
 <br>
 <br>
 <br>
-<a href="alarmlist.do"><img src="resources/images/alarmIcon.png"></a>
+<a href="alarmlist.do"><img src="${ pageContext.servletContext.contextPath }/resources/images/alarmIcon.png"></a>
 
 
 </body>
