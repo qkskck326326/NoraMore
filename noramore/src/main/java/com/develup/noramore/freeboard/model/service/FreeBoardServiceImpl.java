@@ -42,9 +42,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int selectListcount() {
+	public int selectListcount(int categoryId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectListcount();
+		return freeBoardDao.selectListcount(categoryId);
 	}
 
 	@Override
@@ -54,9 +54,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int selectSearchTitleCount(String keyword) {
+	public int selectSearchTitleCount(Search search) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectSearchTitleCount(keyword);
+		return freeBoardDao.selectSearchTitleCount(search);
 	}
 
 	@Override
@@ -66,9 +66,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int selectSearchWriterCount(String keyword) {
+	public int selectSearchWriterCount(Search search) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectSearchWriterCount(keyword);
+		return freeBoardDao.selectSearchWriterCount(search);
 	}
 
 	@Override
@@ -90,9 +90,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int deleteBoard(FreeBoard freeBoard) {
+	public int deleteBoard(int boardId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.deleteBoard(freeBoard);
+		return freeBoardDao.deleteBoard(boardId);
 	}
 
 	@Override
@@ -179,6 +179,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 	}
 
+	
 	
 	
 

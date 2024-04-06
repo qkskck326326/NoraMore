@@ -18,19 +18,19 @@ public interface FreeBoardService {
 	FreeBoard selectBoardId(int boardId);
 
 
-	int selectListcount();
+	int selectListcount(int categoryId);
 
 
 	ArrayList<FreeBoard> selectSearchList(Search search);
 
 
-	int selectSearchTitleCount(String keyword);
+	int selectSearchTitleCount(Search search);
 
 
 	ArrayList<FreeBoard> selectSearchTitle(Search search);
 
 
-	int selectSearchWriterCount(String keyword);
+	int selectSearchWriterCount(Search search);
 
 
 	ArrayList<FreeBoard> selectSearchWriter(Search search);
@@ -42,7 +42,7 @@ public interface FreeBoardService {
 	int updateAddReadCount(int boardId);
 
 
-	int deleteBoard(FreeBoard freeBoard);
+	int deleteBoard(int boardId);
 
 
 	int updateOrigin(FreeBoard freeBoard);
@@ -85,6 +85,9 @@ public interface FreeBoardService {
 
 
 	void countcoment(CommentFreeBoard commentFreeBoard);
+
+
+	
 
 
 	

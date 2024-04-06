@@ -24,9 +24,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectListcount() {
+	public int selectListcount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectListcount");
+		return sqlSessionTemplate.selectOne("freeboard.selectListcount", categoryId);
 	
 	}
 
@@ -37,9 +37,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectSearchTitleCount(String keyword) {
+	public int selectSearchTitleCount(Search search) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectSearchTitleCount", keyword);
+		return sqlSessionTemplate.selectOne("freeboard.selectSearchTitleCount", search);
 	}
 
 
@@ -49,9 +49,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectSearchWriterCount(String keyword) {
+	public int selectSearchWriterCount(Search search) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectSearchWriterCount", keyword);
+		return sqlSessionTemplate.selectOne("freeboard.selectSearchWriterCount", search);
 	}
 
 
@@ -73,9 +73,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int deleteBoard(FreeBoard freeBoard) {
+	public int deleteBoard(int boardId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.delete("freeboard.deleteBoard", freeBoard);
+		return sqlSessionTemplate.delete("freeboard.deleteBoard", boardId);
 	}
 
 
@@ -153,9 +153,11 @@ public class FreeBoardDao {
 	}
 
 	public void countcoment(CommentFreeBoard commentFreeBoard) {
-		sqlSessionTemplate.update("recrboard.countcoment", commentFreeBoard);
+		sqlSessionTemplate.update("freeboard.countcoment", commentFreeBoard);
 	}
 
+
+	
 
 	
 

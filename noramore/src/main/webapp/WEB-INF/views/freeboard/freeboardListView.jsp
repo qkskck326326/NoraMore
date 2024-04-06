@@ -3,12 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
-
+<%--
 <c:set var="currentLimit" value="${ requestScope.limit }" />
 <c:set var="nowpage" value="1" />
 <c:if test="${ !empty requestScope.currentPage }">
 	<c:set var="nowpage" value="${ requestScope.currentPage }" />
 </c:if>
+ --%>
+<c:if test="${!empty requestScope.currentPage}">
+	<c:set var="page" value="${requestScope.currentPage}" />
+</c:if>
+<c:set var="categoryId" value="1"/>
+<c:if test="${!empty requestScope.message}">
+	<c:set var="category" value="${requestScope.category}" />
+</c:if>
+
 <!DOCTYPE html >
 <html>
 <head>
@@ -18,6 +27,7 @@
 	<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
 	
 		<title>Insert title here</title>
+
 
 <script type="text/javascript">
     window.onload = function () {
@@ -80,7 +90,40 @@
     function fbwriteform(){
     	location.href = "freeboardwrite.do";
     }
+    
+    function check(){
+    	var limitSelect = document.getElementById('limitSelect');
+        var limi = limitSelect.value;
+        console.log(limi);
+        
+        var keywordE = document.getElementById('keyword');
+        var keyword = keywordE.value;
+        console.log(keyword);
+        
+        var actionE = document.getElementById('action');
+        var action = actionE.value;
+        console.log(action);
+    }
+
+    function changeFormAction() {
+        var selectedValue = document.getElementById("action").value;
+        document.getElementById("searchaction").action = selectedValue;
+    }
 </script>
+
+<style>
+
+.search{
+	border: 1px solid #15bef5;
+    border-radius: 7px;
+    padding: 0 3px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 27px;
+}
+
+</style>
 
 </head>
 <body>
@@ -97,6 +140,7 @@
 
 <%-- 검색 항목별 값 입력 전송용 폼 만들기 --%>
 <%-- 제목 검색 폼 --%>
+
 <form id="titleform" class="sform" action="fbsearchTitle.do" method="post">
 	<input type="hidden" name="action" value="title">	
 <fieldset>
@@ -112,6 +156,34 @@
 </fieldset>
 </form>
 
+ 
+ 
+<%-- 제목 검색 폼 --%>
+ 
+<section style='width: 1200px; border: 0px; margin: 10px 0;'>
+	검색 기준: <div class="dropdown">
+			    <select id="action" name="action" onchange="changeFormAction()">
+			        <option value="fbsearchTitle.do">글제목</option>
+			        <option value="fbsearchWriter.do">작성자ID</option>
+			    </select>
+			</div>
+		<form id="searchaction" action="fbsearchTitle.do" method="post" >
+			<fieldset style='width: 1200px; border: 0px;'>
+				<div class="search" style='width: 180px;'>
+					<input id="keyword" name="keyword" style="width:140; height:25;">
+					<button>검색</button>
+				</div> &nbsp; 
+				한 페이지에 출력할 목록 갯수 : <select name="limit" id="limitSelect">
+					<option value="10" selected>10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+					<c:set var="limi" value="${limit}" ></c:set>
+				</select> &nbsp; 
+			</fieldset>
+			<input  type="hidden" name="categoryId" value="${categoryId}">
+		</form>
+	</section>
+<button onclick="check()">정보 확인</button>
 <%-- 작성자 검색 폼 --%>
 <form id="writerform" class="sform" action="fbsearchWriter.do" method="post">
 	<input type="hidden" name="action" value="writer">	

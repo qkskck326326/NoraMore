@@ -3,6 +3,11 @@
 <%@ include file="/WEB-INF/views/common/sideSample.jsp"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
+<c:set var="categoryId" value="1"/>
+<c:if test="${!empty requestScope.message}">
+	<c:set var="categoryId" value="${requestScope.categoryId}" />
+</c:if>
+
 <%--
 <% request.setCharacterEncoding("UTF-8");
 <% response.setContentType("text/html; charset=UTF-8");%>
@@ -21,6 +26,8 @@
 <link rel="stylesheet" href="resources/css/style.css">
 		<script type="text/javascript"
 			src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
+			
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <title>Insert title here</title>
 <%--
 <script type="text/javascript">
@@ -44,6 +51,8 @@ console.log(contextValue);
 		
     <form action="freeboardinsert.do" method="post" enctype="multipart/form-data" >
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
+	<input  type="hidden" name="categoryId" value="${categoryId}">
+	<input  type="hidden" name="page" value="${page}">
 	<section id="write">
 		<!-- <h1>글쓰기</h1>
 		<div class="line"></div> -->
@@ -51,8 +60,6 @@ console.log(contextValue);
 		<p>작성자</p>
 		<input type="text" name="memberId" readonly value="${ sessionScope.loginMember.memberID }">
 		
-		<p>카테고리</p>
-		<input type="text" placeholder="카테고리를 입력하세요." name="categoryId">
 		
 		<p>글 제목</p>
 		<input type="text" placeholder="글 제목을 입력하세요." name="title" <%--id = "title"--%>>

@@ -5,9 +5,19 @@
 
 <%--<%@ include file="/WEB-INF/views/common/header.jsp"%>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:if test="${!empty requestScope.currentPage}">
+	<c:set var="page" value="${requestScope.currentPage}" />
+</c:if>
+
+<c:if test="${!empty requestScope.message}">
+	<c:set var="categoryId" value="${requestScope.categoryId}" />
+</c:if>
+
 <c:if test="${!empty requestScope.message}">
 <c:set var="message" value="${requestScope.message}" />
 </c:if>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +38,11 @@
 <c:url var="fbup" value="fbupview.do">
 	<c:param name="boardId" value="${ FreeBoard.boardId }" />
 	<c:param name="page" value="${ currentPage }" />
+</c:url>
+
+<c:url var="freeboardlist" value="freeboardlist.do">
+	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}" />
 </c:url>
 
 <script type="text/javascript"
@@ -61,6 +76,7 @@
 	        }
 	    });
     }
+	
 	function like(boardId) {
 		// Ajax를 사용하여 서버로 해당 값을 전송하여 DB에 저장
 		$.ajax({
@@ -338,7 +354,7 @@ textarea.commentForm:hover {
 				<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
 				<button style="float: right; background-color: pink; color: black;"
 					class="whiteBtn" onclick="report(${FreeBoard.boardId}); return false;">신고하기</button>
-				<button style="float: right; background-color: pink; color: black;"
+				<button id="likeButton_${FreeBoard.boardId}" style="float: right; background-color: pink; color: black;"
 					class="whiteBtn" onclick="like(${FreeBoard.boardId}); return false;">좋아요</button>
 			</div>
 
@@ -401,7 +417,7 @@ textarea.commentForm:hover {
 	<%-- 가져온 부분 ****************************** --%>
 			
 		<div class="comment-div">
-		<button onclick="toggleCommentForm(); return false;">댓글</button>
+		<button onclick="toggleCommentForm(); return false;">댓글(${FreeBoard.commentCount})개</button>
 		<!-- 댓글 작성 폼 -->
 		<div id="writecommentForm" style="display: none;">
 			<form action="insertfreecomment.do" method="post">
