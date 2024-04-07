@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
 
@@ -23,9 +24,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectListcount() {
+	public int selectListcount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectListcount");
+		return sqlSessionTemplate.selectOne("freeboard.selectListcount", categoryId);
 	
 	}
 
@@ -36,9 +37,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectSearchTitleCount(String keyword) {
+	public int searchTitleCount(Search search) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectSearchTitleCount", keyword);
+		return sqlSessionTemplate.selectOne("freeboard.searchTitleCount", search);
 	}
 
 
@@ -48,9 +49,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectSearchWriterCount(String keyword) {
+	public int selectSearchWriterCount(Search search) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectSearchWriterCount", keyword);
+		return sqlSessionTemplate.selectOne("freeboard.selectSearchWriterCount", search);
 	}
 
 
@@ -72,9 +73,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int deleteBoard(FreeBoard freeBoard) {
+	public int deleteBoard(int boardId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.delete("freeboard.deleteBoard", freeBoard);
+		return sqlSessionTemplate.delete("freeboard.deleteBoard", boardId);
 	}
 
 
@@ -90,9 +91,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectViewsListCount() {
+	public int selectViewsListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectViewsListCount");
+		return sqlSessionTemplate.selectOne("freeboard.selectViewsListCount", categoryId);
 	}
 
 
@@ -112,14 +113,14 @@ public class FreeBoardDao {
 		return (ArrayList<FreeBoard>)list;
 	}
 	
-	public int selectRecentListCount() {
+	public int selectRecentListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount");
+		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount", categoryId);
 	}
 
-	public int selectLikesListCount() {
+	public int selectLikesListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectLikesListCount");
+		return sqlSessionTemplate.selectOne("freeboard.selectLikesListCount", categoryId);
 	}
 
 	public void incrementReportCount(int boardId) {
@@ -141,8 +142,25 @@ public class FreeBoardDao {
 	}
 
 
+	public int upCountComment(int boardId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.update("freeboard.upCountComment", boardId);
+	}
+
+
+	public int downCount(int boardId) {
+		return sqlSessionTemplate.update("freeboard.upCountComment", boardId);
+	}
+
+	public void countcoment(CommentFreeBoard commentFreeBoard) {
+		sqlSessionTemplate.update("freeboard.countcoment", commentFreeBoard);
+	}
+
+
 	
 
+
+	
 
 	
 

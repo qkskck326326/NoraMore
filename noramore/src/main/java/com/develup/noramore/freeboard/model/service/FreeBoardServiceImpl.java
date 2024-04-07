@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.dao.FreeBoardDao;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
@@ -41,9 +42,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int selectListcount() {
+	public int selectListcount(int categoryId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectListcount();
+		return freeBoardDao.selectListcount(categoryId);
 	}
 
 	@Override
@@ -53,9 +54,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int selectSearchTitleCount(String keyword) {
+	public int searchTitleCount(Search search) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectSearchTitleCount(keyword);
+		return freeBoardDao.searchTitleCount(search);
 	}
 
 	@Override
@@ -65,9 +66,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int selectSearchWriterCount(String keyword) {
+	public int selectSearchWriterCount(Search search) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectSearchWriterCount(keyword);
+		return freeBoardDao.selectSearchWriterCount(search);
 	}
 
 	@Override
@@ -89,9 +90,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int deleteBoard(FreeBoard freeBoard) {
+	public int deleteBoard(int boardId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.deleteBoard(freeBoard);
+		return freeBoardDao.deleteBoard(boardId);
 	}
 
 	@Override
@@ -125,21 +126,21 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 
 	@Override
-	public int selectViewsListCount() {
+	public int selectViewsListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectViewsListCount();
+		return freeBoardDao.selectViewsListCount(categoryId);
 	}
 	
 	@Override
-	public int selectLikesListCount() {
+	public int selectLikesListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectLikesListCount();
+		return freeBoardDao.selectLikesListCount(categoryId);
 	}
 
 	@Override
-	public int selectRecentListCount() {
+	public int selectRecentListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectRecentListCount();
+		return freeBoardDao.selectRecentListCount(categoryId);
 	}
 
 	@Override
@@ -159,6 +160,26 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		freeBoardDao.saveContent(context);
 	}
 
+	@Override
+	public int upCountComment(int boardId) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.upCountComment(boardId);
+	}
+
+	@Override
+	public int downCount(int boardId) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.downCount(boardId);
+	}
+
+	@Override
+	public void countcoment(CommentFreeBoard commentFreeBoard) {
+		// TODO Auto-generated method stub
+		freeBoardDao.countcoment(commentFreeBoard);
+		
+	}
+
+	
 	
 	
 

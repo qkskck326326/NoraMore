@@ -2,6 +2,7 @@ package com.develup.noramore.freeboard.model.service;
 
 import java.util.ArrayList;
 
+import com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
@@ -17,19 +18,19 @@ public interface FreeBoardService {
 	FreeBoard selectBoardId(int boardId);
 
 
-	int selectListcount();
+	int selectListcount(int categoryId);
 
 
 	ArrayList<FreeBoard> selectSearchList(Search search);
 
 
-	int selectSearchTitleCount(String keyword);
+	int searchTitleCount(Search search);
 
 
 	ArrayList<FreeBoard> selectSearchTitle(Search search);
 
 
-	int selectSearchWriterCount(String keyword);
+	int selectSearchWriterCount(Search search);
 
 
 	ArrayList<FreeBoard> selectSearchWriter(Search search);
@@ -41,7 +42,7 @@ public interface FreeBoardService {
 	int updateAddReadCount(int boardId);
 
 
-	int deleteBoard(FreeBoard freeBoard);
+	int deleteBoard(int boardId);
 
 
 	int updateOrigin(FreeBoard freeBoard);
@@ -59,13 +60,13 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectLikesList(Search search);
 
 
-	int selectViewsListCount();
+	int selectViewsListCount(int categoryId);
 
 
-	int selectRecentListCount();
+	int selectRecentListCount(int categoryId);
 	
 	
-	int selectLikesListCount();
+	int selectLikesListCount(int categoryId);
 
 
 	void incrementReportCount(int boardId);
@@ -75,6 +76,20 @@ public interface FreeBoardService {
 
 
 	void saveContext(String context);
+
+
+	int upCountComment(int boardId);
+
+
+	int downCount(int boardId);
+
+
+	void countcoment(CommentFreeBoard commentFreeBoard);
+
+
+
+
+	
 
 
 	
