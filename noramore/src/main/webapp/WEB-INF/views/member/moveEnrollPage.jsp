@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,17 +87,47 @@ function validate(){
 	var idValue = $('#memberid').val();
 	var pwdValue = $('#memberpwd').val();
 	var pwdValue2 = $('#memberpwd2').val();
+	var nicnameValue= $('#memberNicname').val(); 
 	var nameValue = $('#membername').val();
 	var birthValue = $('#birth').val();
 
 	
 	
 	
-	if (!/^[a-z][A-Za-z0-9]{5,11}$/.test(dmemberid)){
+	if (!/^[A-Za-z0-9][A-Za-z0-9]{5,50}$/.test(dmemberid)){
 		document.getElementById("memberid").value = "";
 		document.getElementById("memberid").select();
 	    return false;
 	}
+	
+	
+	 if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
+			alert("암호와 암호확인이 일치하지 않습니다. 다시 입력하세요.");
+			document.getElementById("memberpwd2").value = "";  // 두 번째 비밀번호 필드의 값을 비웁니다.
+			document.getElementById("memberpwd").select();  // 첫 번째 비밀번호 필드를 선택합니다.
+			return false;  //전송 취소함
+		}
+		
+	if (!/^[A-Z][a-z\d]{5,11}[!@#]$/.test(pwdValue)) {
+	    alert("비밀번호 : 첫글자는 영문 대문자, 마지막에 특수문자 넣어주세요. 6~12자 입력할 것!");
+	    document.getElementById("memberpwd").value = "";
+	    document.getElementById("memberpwd2").value = "";
+		document.getElementById("memberpwd").select();
+	    return false;
+	}
+	
+	
+	
+	
+	//닉네임
+	if(!/^[가-힝]{2,}$/.test(nicnameValue)){
+		alert("닉네임 : 한글로 2글자 이상을 넣으세요");
+		document.getElementById("memberNicname").value = "";  
+		document.getElementById("memberNicname").select(); 
+		return false;
+	}
+	
+	
 
 	//이름
 	if(!/^[가-힝]{2,}$/.test(nameValue)){
@@ -113,20 +143,7 @@ function validate(){
 	
 
 	
-	 if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
-		alert("암호와 암호확인이 일치하지 않습니다. 다시 입력하세요.");
-		document.getElementById("memberpwd2").value = "";  // 두 번째 비밀번호 필드의 값을 비웁니다.
-		document.getElementById("memberpwd").select();  // 첫 번째 비밀번호 필드를 선택합니다.
-		return false;  //전송 취소함
-	}
 	
-	if (!/^[A-Z][a-z\d]{5,11}[!@#]$/.test(pwdValue)) {
-	    alert("비밀번호 : 첫글자는 영문 대문자, 마지막에 특수문자 넣어주세요. 6~12자 입력할 것!");
-	    document.getElementById("memberpwd").value = "";
-	    document.getElementById("memberpwd2").value = "";
-		document.getElementById("memberpwd").select();
-	    return false;
-	}
 	
 	
 	
@@ -150,15 +167,26 @@ function dupIDCheck(){
 		data: { memberID: $('#memberid').val() },
 		success: function(data){ 
 			console.log("success : " + data);
+			
+			if(data =="null"){
+				alert("아이디를 입력해주세요.");
+				$('#memberid').select();
+				$('#registerBtn').attr("disabled", true); 	
+			
+			}
 			if(data == "ok"){   
-				alert("사용 가능한 아이디입니다.");
-				 $('#memberpwd').focus();
-				$("registerBtn").attr("disabled", false);
-				$('#memberid').attr("readonly", true); 
-			}else{
+					alert("사용 가능한 아이디입니다.");
+					 $('#memberpwd').focus();
+					$('#memberid').attr("readonly", true); 
+					$('#registerBtn').attr("disabled", false); 
+			}
+			if(data == "dup"){
 				alert("이미 사용중인 아이디입니다.");
 				$('#memberid').select();
+				$('#registerBtn').attr("disabled", true); 
 			}
+			
+			
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
@@ -167,6 +195,13 @@ function dupIDCheck(){
 	return false;
 	
 }
+
+
+
+
+
+
+
  
 
 /* 
@@ -190,7 +225,79 @@ function dupIDCheck(){
 
 
 
+
+function dupNicnameCheck(){
+	//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함
+	$.ajax({  
+		url: "nicnamechk.do",
+		type: "post",
+		data: { memberNicname: $('#memberNicname').val() },
+		success: function(data){ 
+			console.log("success : " + data);
+			
+			if(data =="null"){
+				alert("닉네임을 입력해주세요.");
+				$('#nicname').select();
+				$('#registerBtn').attr("disabled", true); 	
+			
+			}
+			 if(data == "ok"){   
+					alert("사용 가능한 닉네임입니다.");
+					$('#nicname').attr("readonly", true); 
+					$('#registerBtn').attr("disabled", false); 
+					
+			}
+			if(data == "dup"){
+				alert("이미 사용중인 닉네임입니다.");
+				$('#nicname').select();
+				$('#registerBtn').attr("disabled", true); 
+			
+			}
+			
+		
+			
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+	return false;
+	
+}
+
+
+
+
+
+
 </script>
+
+ <script type="text/javascript">
+
+
+ $(() => {
+	   const urlParams = new URLSearchParams(window.location.search);
+	    const id = urlParams.get('id');
+	    const email = urlParams.get('email');
+	    const signType = urlParams.get('signType');
+	    
+	    console.log(id);
+	    console.log(email);
+
+	    
+	    if (!!id) {
+	        $("#userId").prop('readonly', true);
+	    }
+	    if (!!email) {
+	        $("#email").prop('readonly', true);
+	    }
+	    
+	    
+	    
+	    
+	}); //doc ready;
+</script>
+
 </head>
 <body>
 
@@ -203,21 +310,33 @@ function dupIDCheck(){
 
 	<h5>회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</h5>
 	
+
+	
+	
+	
+	
 	<div>
 	<h3 class="list">*아이디<span id="idError"></span></h3>
 		<span class="box int_id" >
-		<input type="text" name="memberID" id="memberid" class="input" value="${ kakaovo.memberID }" required></span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
+		 <c:if test="${ !empty param.id }">
+				<input type="text" name="memberID" id="memberid" class="input" autocomplete="off" value="${ param.id }" >
+			</c:if> 
+			
+			<c:if test="${ empty param.id }">
+				<input type="text" name="memberID" id="memberid" autocomplete="off" class="input" required>
+			</c:if>
+		</span>  <!-- name은 vo의 필드값과 같아야 함 --> <!-- required : 필수항목 -->	
 		<input type="button" value="중복체크" onclick="return dupIDCheck();">
 		<div class="success-message hide"></div>
-    	<div class="failure-message hide">아이디는 6~12글자이어야 합니다</div>
-    	<div class="failure-message2 hide">첫글자는 영소문자, 영어 또는 숫자만 가능합니다</div>
+    	<div class="failure-message hide">아이디는 6글자이상이어야 합니다</div>
+    	<div class="failure-message2 hide">영어 또는 숫자만 가능합니다</div>
 	</div>
 	
 		
 	<div>
 		<h3 class="list">*비밀번호<span id="pwError" ></span></h3>
 		<span class="box int_id">
-			<input type="password" name="memberPWD" id="memberpwd" class="input" maxlength="20" required>
+			<input type="password" name="memberPWD" id="memberpwd" class="input" autocomplete="off" maxlength="20" required>
 		</span>
 	</div>
 	<div class="strongPassword-message hide">8글자 이상, 첫글자 영대문자, 소문자와 숫자 그리고 특수문자(@$!%*#?&)를 사용하세요</div>
@@ -226,29 +345,40 @@ function dupIDCheck(){
 		<img src="/first/resources/member_photofiles/" id="photo" 				
 		style="width:150px;height:160px;border:1px solid navy;display:block;"
 		alt="사진을 드래그 드롭하세요."
-		style="padding:0; margin:0;"> 
+		style="padding:0; margin:0;">  
 	</div>
 	<br>
 	
 	<div>
 		<h3 class="list">비밀번호 재확인<span id="pwCheckError"></span></h3>
 		<span class="box int_id">
-			<input type="password" id="memberpwd2" class="input" maxlength="20" required><br>
+			<input type="password" id="memberpwd2" class="input" maxlength="20" autocomplete="off" required><br>
 		</span>	
 		<div class="mismatch-message hide">비밀번호가 일치하지 않습니다</div>
 	</div>
 	
 	<div>
+		<h3 class="list">*닉네임<span id="nameError"></span></h3>
+		<spn class="box int_id">
+			<input type="text" name="memberNicname" id="memberNicname" class="input" autocomplete="off" maxlength="20">
+		</spn>
+		<input type="button" value="중복체크" onclick="return dupNicnameCheck();">
+	</div>
+	
+	
+	
+	
+	<div>
 		<h3 class="list">성명<span id="nameError"></span></h3>
 		<span class="box int_id">
-			<input type="text" name="memberName" id="membername" class="input" value="${kakaovo.memberName}" maxlength="20" required><br>
+			<input type="text" name="memberName" id="membername" class="input" autocomplete="off" maxlength="20" required><br>
 		</span>
 	</div>
 	
 	<div>
 		<h3 class="list">생년월일<span id="birthError"></span></h3>
 		<span class="box int_id">
-			<input type="date" name="birth" id="birth" class="input" required>
+			<input type="date" name="birth" id="birth" class="input" required></span>
 	</div>
 	
 	
@@ -264,7 +394,13 @@ function dupIDCheck(){
      
      <div class="form-group">
 	     <div>
-	  		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" value="${kakaovo.email}" id="email" type="email">
+	     	  <c:if test="${ !empty param.email }">
+	     		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" value="${param.email}" id="email" type="email" autocomplete="off">
+	     	</c:if> 
+	     	
+	  		<c:if test="${ empty param.email }">
+	     		<input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="email" autocomplete="off">
+	     	</c:if> 
 	      		<input type="button" value="인증번호 받기" class="btn btn-primary" id="emailAuth">
 
 	    	<div>
@@ -295,25 +431,36 @@ function dupIDCheck(){
 		<input type="text" id="sample4_roadAddress" name="road" placeholder="도로명주소">
 		<input type="text" id="sample4_jibunAddress" name="street" placeholder="지번주소">
 		<span id="guide" style="color:#999;display:none"></span><br>
-		<input type="text" id="sample4_detailAddress" name="detail" placeholder="상세주소">
-		<input type="text" id="sample4_extraAddress" name="ref" placeholder="참고항목">
+		<input type="text" id="sample4_detailAddress" name="detail" placeholder="상세주소" autocomplete="off">
+		<input type="text" id="sample4_extraAddress" name="ref" placeholder="참고항목" autocomplete="off">
 		       
        </div>
     </div>
     
 	<br><br>
 	<!-- 개인정보 수집 동의 -->
-       <div class="userInput">
-          <h3 class="list">개인정보 수집/이용동의<span id="consentError"></span></h3>
-          <div id="informationConsent">
-             <span id="consentBox">
-                 <h3>개인정보 처리방침<span id="consentError"></span></h3>
-                 <!-- 세부내용 중략 -->
-             </span>
-          </div>
-          <label class="select"><input type="radio" id="check" name="check" value="동의">동의</label>
-          <label class="select"><input type="radio" id="noneCheck"name="check" value="비동의" checked="checked">비동의</label>
-      </div>
+    <div class="userInput">
+       <h3 class="list">개인정보 수집/이용동의<span id="consentError"></span></h3>
+       <div id="informationConsent">
+          <span id="consentBox">
+              <h3>개인정보 처리방침<span id="consentError"></span></h3>
+              <!-- 세부내용 중략 -->
+          </span>
+       </div>
+       <label class="select"><input type="radio" id="check" name="check" value="동의">동의</label>
+       <label class="select"><input type="radio" id="noneCheck"name="check" value="비동의" checked="checked">비동의</label>
+   </div>
+   
+   <div >
+   		<c:if test="${ !empty param.signType }">
+   		<input type="text" id="signType" name="signType" value="${ param.signType }" class="hide">
+   		</c:if>
+   		<c:if test="${ empty param.signType }">
+   		<input type="text" id="signType" name="signType" value="direct" class="hide" >
+   		</c:if>
+   </div>
+      
+      
 
 
 <br><br>
@@ -487,12 +634,12 @@ let elStrongPasswordMessage = document.querySelector('.strongPassword-message');
 
 
 function idLength(value) {
-	  return value.length >= 6 && value.length <= 12
+	  return value.length >= 6 && value.length <= 50
 	}
 
 
 function onlyNumberAndEnglish(str) {
-	  return /^[a-z][A-Za-z0-9]*$/.test(str);
+	  return /^[A-Za-z0-9][A-Za-z0-9]*$/.test(str);
 	}
 	
 
@@ -515,7 +662,7 @@ elInputUsername.addEventListener('keyup', function(){
 	      elFailureMessage.classList.add('hide');
 	      elFailureMessageTwo.classList.remove('hide'); // 영어 또는 숫자만 가능합니다
 	    }
-	    // 글자 수가 4~12글자가 아닐 경우
+	    // 글자 수가 6~50글자가 아닐 경우
 	    else if(idLength(elInputUsername.value) === false) {
 	      elSuccessMessage.classList.add('hide'); // 성공 메시지가 가려져야 함
 	      elFailureMessage.classList.remove('hide'); // 아이디는 4~12글자이어야 합니다
