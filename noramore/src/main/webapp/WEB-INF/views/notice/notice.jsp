@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:import url = "/WEB-INF/views/common/sideSample.jsp"/>
-<c:import url = "/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/sideSample.jsp" />
+<c:import url="/WEB-INF/views/common/header.jsp" />
 
 <c:set var="currentLimit" value="${ requestScope.limit }" />
 <c:set var="nowpage" value="1" />
@@ -19,14 +19,15 @@
 <head>
 <style type="text/css">
 form fieldset {
-	width: 600px;	
+	width: 600px;
 }
+
 form.sform {
 	background: lightgray;
 	width: 650px;
 	position: relative;
 	left: 450px;
-	display: none;  /* 안 보이게 함 */
+	display: none; /* 안 보이게 함 */
 }
 </style>
 <meta charset="UTF-8">
@@ -56,26 +57,18 @@ form.sform {
 		location.href = "${ pageContext.servletContext.contextPath }/nlist.do?page=1&limit="
 				+ limit;
 	}
-	
-	
 </script>
 </head>
 <body>
 	<section id="board">
 		<h1>공지사항</h1>
 		<div class="line"></div>
-		<%
-		if (request.getParameter("pos") != null) {
-		%>
-		<h3>
-			'<%=request.getParameter("pos")%>' 근처 검색 결과
-		</h3>
-		<%
-		}
-		%>
-		<button onclick="location.href='noticewrite.do';" class="blueBtn">글쓰기</button>
-
-
+		
+		<c:if
+			test="${!empty sessionScope.loginMember and sessionScope.loginMember.adminYN == 'Y'}">
+			<button onclick="location.href='qnawrite.do';" class="blueBtn">글쓰기</button>
+		</c:if>
+		
 		<%-- 항목별 검색 기능 추가 --%>
 		<fieldset id="ss">
 			<legend>검색할 항목을 선택하세요.</legend>
@@ -152,14 +145,13 @@ form.sform {
 			<c:forEach items="${ requestScope.list }" var="n">
 				<tr>
 					<td align="right">${ n.boardId }</td>
-					<td align="right">
-					<a href="${ pageContext.servletContext.contextPath }/noticedetail.do?no=${ n.boardId }">
-					${ n.title }</a></td>
+					<td align="right"><a
+						href="${ pageContext.servletContext.contextPath }/noticedetail.do?no=${ n.boardId }">
+							${ n.title }</a></td>
 					<td align="right">${ n.memberID }</td>
 					<td align="right">${ n.readCount }</td>
 					<td align="center"><fmt:formatDate value="${ n.registDt }"
-							pattern="yyyy-MM-dd" />
-					</td>
+							pattern="yyyy-MM-dd" /></td>
 			</c:forEach>
 		</table>
 
@@ -167,7 +159,7 @@ form.sform {
 
 
 
-<c:import url="/WEB-INF/views/common/pagingView.jsp"/>
+	<c:import url="/WEB-INF/views/common/pagingView.jsp" />
 </body>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
