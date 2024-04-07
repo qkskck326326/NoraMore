@@ -80,6 +80,10 @@ public class RecreBoardDao {
 		return (ArrayList<RecrBoard>)list;
 	}
 
+	public void upReadCount(int boardId) {
+		SqlSessionTemplate.update("recrboard.upReadCount", boardId);
+	}
+
 
 
 

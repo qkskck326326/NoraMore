@@ -90,6 +90,11 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.searchwriterList(search);
 	}
 
+	@Override
+	public void upReadCount(int boardId) {
+		recreBoardDao.upReadCount(boardId);
+	}
+
 
 
 }//

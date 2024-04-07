@@ -1,5 +1,7 @@
 package com.develup.noramore.recrappl.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,16 @@ public class RecrApplServiceImpl implements RecrApplService{
 		return recrApplDao.insertAppl(recrAppl);
 	}
 
+
 	@Override
-	public int applSearchId(RecrAppl recrAppl) {
-		return recrApplDao.applSearchId(recrAppl);
+	public int searchAppl(RecrAppl recrAppl) {
+		return recrApplDao.searchAppl(recrAppl);
+	}
+
+
+	@Override
+	public ArrayList<RecrAppl> selectBoardId(int boardId) {
+		return recrApplDao.selectBoardId(boardId);
 	}
 
 
