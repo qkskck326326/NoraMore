@@ -16,7 +16,21 @@
 	<insert id="insertAppl" parameterType="RecrAppl">
 		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{boardId}, #{memberId})
 	</insert>
-
+	
+	<update id="cancelAppl">
+		UPDATE RECR_APPL 
+		SET RECR_STATE = 3 
+		WHERE BOARD_ID = #{boardId} 
+		AND MEMBER_ID = #{memberId} 
+	</update>
+		
+	<update id="applyAppl">
+		UPDATE RECR_APPL 
+		SET RECR_STATE = 2
+		WHERE BOARD_ID = #{boardId} 
+		AND MEMBER_ID = #{memberId} 
+	</update>
+	
 	<select id="searchAppl" parameterType="RecrAppl" resultType="_int">
 		select count(*) from RECR_APPL 
 		WHERE BOARD_ID = #{boardId} 
@@ -25,7 +39,8 @@
 
 	<select id="selectBoardId" parameterType="RecrAppl" resultMap="recrBoardResultMap">
 		select * from RECR_APPL 
-		WHERE BOARD_ID = #{boardId}
+		WHERE BOARD_ID = #{boardId} 
+		and RECR_STATE = 1 
 	</select>
 	
 	<!-- <select id="selectRecrBoard" resultMap="resultRecr">

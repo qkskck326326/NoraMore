@@ -275,6 +275,13 @@ function rbreport(){
 function applyAppl(memberId, boardId){
 	console.log(memberId);
 	console.log(boardId);
+	location.href = "applyAppl.do?memberId=" + memberId + "&boardId=" + boardId + "&page=" + ${page} + "&categoryId=" + ${categoryId};
+}
+
+function cancelAppl(memberId, boardId){
+	console.log(memberId);
+	console.log(boardId);
+	location.href = "cancelAppl.do?memberId=" + memberId + "&boardId=" + boardId + "&page=" + ${page} + "&categoryId=" + ${categoryId};
 }
 
 function deletecomment(commentId1) {
@@ -435,7 +442,7 @@ textarea.commentForm:hover {
 								<c:forEach var="appl" items="${applList}">
 									<th>${appl.memberId}</th>
 									<th><button onclick="applyAppl('${appl.memberId}', ${appl.boardId})">수락</button></th>
-									<th><button onclick="denieAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
+									<th><button onclick="cancelAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
 								</c:forEach>
 								</tr>
 							</c:if>
@@ -504,3 +511,4 @@ textarea.commentForm:hover {
 
 </body>
 </html>
+0

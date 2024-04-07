@@ -104,12 +104,12 @@ function changeFormAction() {
 					<option value="20">20</option>
 					<c:set var="limi" value="${limit}" ></c:set>
 				</select> &nbsp; 
+				<button class="whiteBtn" style="float: right;" onclick="rbwriteform()">글작성</button>
 			</fieldset>
 			<input  type="hidden" name="categoryId" value="${categoryId}">
 		</form>
 	</section>
-		<button onclick="check()">정보 확인</button>
-		<button class="whiteBtn" style="" onclick="rbwriteform()">글작성</button>
+		
 		<table style='width: 1200px;'>
 			<tr>
 				<th>번호</th>
