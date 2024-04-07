@@ -132,9 +132,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 	
 	@Override
-	public int selectLikesListCount() {
+	public int selectLikesListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectLikesListCount();
+		return freeBoardDao.selectLikesListCount(categoryId);
 	}
 
 	@Override

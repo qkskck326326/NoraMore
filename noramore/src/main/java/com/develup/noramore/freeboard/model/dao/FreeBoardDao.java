@@ -118,9 +118,9 @@ public class FreeBoardDao {
 		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount", categoryId);
 	}
 
-	public int selectLikesListCount() {
+	public int selectLikesListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectLikesListCount");
+		return sqlSessionTemplate.selectOne("freeboard.selectLikesListCount", categoryId);
 	}
 
 	public void incrementReportCount(int boardId) {

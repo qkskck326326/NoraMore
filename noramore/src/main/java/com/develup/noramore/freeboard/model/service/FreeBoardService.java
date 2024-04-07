@@ -66,7 +66,7 @@ public interface FreeBoardService {
 	int selectRecentListCount(int categoryId);
 	
 	
-	int selectLikesListCount();
+	int selectLikesListCount(int categoryId);
 
 
 	void incrementReportCount(int boardId);
