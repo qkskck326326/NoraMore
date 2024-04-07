@@ -107,6 +107,21 @@
 					</figcaption>
 				</figure>
 			</li>
+			<c:forEach var="category" items="${list}">
+				<c:url var="goBaord" value="rblist.do">
+					<c:param name="categoryId" value="${category.categoryId}" />
+				</c:url>
+				<li>
+					<figure>
+						<a href="${goBaord}">
+						<img src="resources/categoryImg/${category.renameFileName}" alt="${category.originalFileName}" >
+						</a>
+						<figcaption>
+							<h3>${category.categoryName}</h3>
+						</figcaption>
+					</figure>
+				</li>
+			</c:forEach>
 		</ul>
 	</div>
 	<!-- /container -->
