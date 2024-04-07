@@ -9,6 +9,7 @@ public class Member implements java.io.Serializable  {
 	//Field
 	private String memberID;      //회원아이디
 	private String memberPWD;       //비밀번호
+	private String memberNicname;
 	private String memberName;      //이름
 	private Date birth;       //생년월일
 	private String gender;			//성별
@@ -34,12 +35,13 @@ public class Member implements java.io.Serializable  {
 
 
 
-	public Member(String memberID, String memberPWD, String memberName, Date birth, String gender, String email,
+	public Member(String memberID, String memberPWD, String memberNicname, String memberName, Date birth, String gender, String email,
 			String address, String photoFilename, String resign, String adminYN, String signType, String actLimit, Date registDate,
 			Date modifiedDate, int memberAuth) {
 		super();
 		this.memberID = memberID;
 		this.memberPWD = memberPWD;
+		this.memberNicname = memberNicname;
 		this.memberName = memberName;
 		this.birth = birth;
 		this.email = email;
@@ -79,6 +81,15 @@ public class Member implements java.io.Serializable  {
 		this.memberPWD = memberPWD;
 	}
 
+	public String getMemberNicname() {
+		return memberNicname;
+	}
+
+
+
+	public void setMemberNicname(String memberNicname) {
+		this.memberNicname = memberNicname;
+	}
 
 
 	public String getMemberName() {
@@ -233,7 +244,7 @@ public class Member implements java.io.Serializable  {
 	
 	@Override
 	public String toString() {
-		return "Member [memberID=" + memberID + ", memberPWD=" + memberPWD + ", memberName=" + memberName
+		return "Member [memberID=" + memberID + ", memberPWD=" + memberPWD + ", memberNicname=" + memberNicname + ", memberName=" + memberName
 				+ ", birth=" + birth +  ", gender=" + gender + ", email=" + email + ", address=" + address + ", photoFilename=" + photoFilename + ", resign="
 				+ resign + ", adminYN=" + adminYN + ", signType=" + signType + ", actLimit=" + actLimit
 				+ ", registDate=" + registDate + ", modifiedDate=" + modifiedDate +  ", memberAuth=" + memberAuth + "]";

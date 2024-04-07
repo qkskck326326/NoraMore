@@ -53,10 +53,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectKakaoLogin(kid);
 	}
 
+//	@Override
+//	public void insertKakaoMember(Member kakaovo) {
+//		 memberDao.insertKakaoMember(kakaovo);
+//		
+//	}
+
 	@Override
-	public void insertKakaoMember(Member kakaovo) {
-		 memberDao.insertKakaoMember(kakaovo);
-		
+	public int selectCheckNicname(String memberNicname) {
+		return memberDao.selectCheckNicname(memberNicname);
 	}
 	
 	

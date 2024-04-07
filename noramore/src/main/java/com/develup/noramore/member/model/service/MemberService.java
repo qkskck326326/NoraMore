@@ -21,7 +21,9 @@ public interface MemberService {
 
 	Member selectKakaoLogin(String kid);
 
-	void insertKakaoMember(Member kakaovo);
+//	void insertKakaoMember(Member kakaovo);
+
+	int selectCheckNicname(String memberNicname);
 
 
 

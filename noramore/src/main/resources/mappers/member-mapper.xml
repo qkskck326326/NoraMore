@@ -6,6 +6,8 @@
 	<resultMap id="resultMember" type="Member">
 		<id property="memberID" column="MEMBER_ID" />
 		<result property="memberPWD" column="MEMBER_PWD" />
+		<result property="memberPWD" column="MEMBER_PWD" />
+		<result property="memberNicname" column="MEMBER_NICNAME" />
 		<result property="memberName" column="MEMBER_NAME" />
 		<result property="birth" column="BIRTH" />
 		<result property="gender" column="GENDER" />
@@ -26,6 +28,7 @@
 	<resultMap id="resultList" type="Member">
 		<result property="memberID" column="MEMBER_ID" />
 		<result property="memberPWD" column="MEMBER_PWD" />
+		<result property="memberNicname" column="MEMBER_NICNAME" />
 		<result property="memberName" column="MEMBER_NAME" />
 		<result property="birth" column="BIRTH" />
 		<result property="gender" column="GENDER" />
@@ -56,8 +59,8 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into member 
-		values (#{ memberID }, #{ memberPWD }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
-				#{ address }, #{ photoFilename }, default, default, default, default, default, default)
+		values (#{ memberID }, #{ memberPWD }, #{ memberNicname }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
+				#{ address }, #{ photoFilename }, default, default, #{ signType }, default, default, default)
 	</insert>
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
@@ -90,6 +93,13 @@
 		select * from member
 		where MEMBER_ID = #{ memberID }
 	</select>
+	
+	<select id="selectCheckNicname" parameterType="String" resultType="_int">
+		select count(*) from member where MEMBER_NICNAME = #{ memberNicname }
+	</select>
+	
+	
+	
 <!-- 	
 	<insert id="insertKakaoMember" parameterType="Member" >
 		insert into member

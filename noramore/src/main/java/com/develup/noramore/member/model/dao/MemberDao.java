@@ -43,9 +43,15 @@ public class MemberDao {
 		return sqlSessionTemplate.selectOne("memberMapper.selectKakaoLogin", kid);
 	}
 
-	public void insertKakaoMember(Member kakaovo) {
-		sqlSessionTemplate.insert("memberMapper.insertKakaoMember", kakaovo);
+	public int selectCheckNicname(String memberNicname) {
+		return sqlSessionTemplate.selectOne("memberMapper.selectCheckNicname", memberNicname);
 	}
+
+//	public void insertKakaoMember(Member kakaovo) {
+//		sqlSessionTemplate.insert("memberMapper.insertKakaoMember", kakaovo);
+//	}
+
+	
 
 
 	
