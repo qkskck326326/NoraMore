@@ -8,7 +8,19 @@
 <!DOCTYPE html >
 <html>
 <head>
- 
+<style type="text/css">
+form fieldset {
+	width: 600px;
+}
+
+form.sform {
+	background: lightgray;
+	width: 650px;
+	position: relative;
+	left: 450px;
+	display: none; /* 안 보이게 함 */
+}
+</style>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
@@ -42,8 +54,10 @@
 	<section id="board">
 		<h1>QnA</h1>
 		<div class="line"></div>
-		<button onclick="location.href='qnawrite.do';" class="blueBtn">글쓰기</button>
-
+		<c:if
+			test="${!empty sessionScope.loginMember and sessionScope.loginMember.adminYN == 'Y'}">
+			<button onclick="location.href='qnawrite.do';" class="blueBtn">글쓰기</button>
+		</c:if>
 		<%-- 항목별 검색 기능 추가 --%>
 		<fieldset id="ss">
 			<legend>검색할 항목을 선택하세요.</legend>

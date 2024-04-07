@@ -52,8 +52,8 @@
 					<li><a href="#">모집게시판</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul></li>
-			<li><a href="${ pageContext.servletContext.contextPath }/notice.do">공지사항</a></li>				
-			<li><a href="${ pageContext.servletContext.contextPath }/notice.do">QnA</a></li>				
+			<li><a href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>				
+			<li><a href="${ pageContext.servletContext.contextPath }/qlist.do">QnA</a></li>				
 		</ul>
 	</aside>
 </body>

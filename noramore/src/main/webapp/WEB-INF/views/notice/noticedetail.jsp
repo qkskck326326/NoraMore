@@ -56,14 +56,18 @@
 		<table>
 			<tr>
 				<th colspan="2">
-					<button class="blueBtn"
-						style="float: right; margin-right: 30px; margin-left: 10px;"
-						onclick="requestDelete(); return false;">삭제</button>
-					<button class="blueBtn" style="float: right; margin-left: 10px;"
-						onclick="moveUpdatePage(); return false;">수정</button>
+					<c:if
+						test="${!empty sessionScope.loginMember and sessionScope.loginMember.adminYN == 'Y'}">
+
+
+						<button class="blueBtn"
+							style="float: right; margin-right: 30px; margin-left: 10px;"
+							onclick="requestDelete(); return false;">삭제</button>
+						<button class="blueBtn" style="float: right; margin-left: 10px;"
+							onclick="moveUpdatePage(); return false;">수정</button>
+					</c:if>
 					<button class="whiteBtn" style="float: right;"
-						onclick="goToList();">목록</button>
-				</th>
+						onclick="goToList();">목록</button></th>
 			</tr>
 		</table>
 		<br>
@@ -90,7 +94,7 @@
 			</c:if> <c:if test="${ empty notice.originalFilePath }">&nbsp;	</c:if></td>
 
 
-		</section>
+	</section>
 	</form>
 
 
