@@ -3,7 +3,9 @@ package com.develup.noramore.recrboard.controller;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import com.develup.noramore.commentrecrboard.service.CommentRecrBoardService;
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
+import com.develup.noramore.recrappl.model.service.RecrApplService;
+import com.develup.noramore.recrappl.model.vo.RecrAppl;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
@@ -31,27 +36,27 @@ public class RecrBoardController {
 	private RecrBoardService recrBoardService;
 	@Autowired
 	CommentRecrBoardService commentRecrBoardService;
-
-	// 테이블 검색
+	@Autowired
+	RecrApplService recrApplService;
+	
+	
+	// 테이블 리스트
 	@RequestMapping("rblist.do")
 	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page, 
-										@RequestParam(name="limit", required = false) String limit1, @RequestParam(name="categoryId", required = false) String categoryId1) {
+										@RequestParam(name="categoryId", required = false) String categoryId1) {
 		// ArrayList<RecrBoard> list = recrBoardService.selectRecrBoard();
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int limit = 10;
-		if (limit1 != "") { 
-			
-		}
-		int categoryId = 10;
-		if (categoryId1 != "") { 
-			
+		int categoryId = 1;
+		if(categoryId1 != null) {
+			categoryId = Integer.parseInt(categoryId1);
 		}
 		
 
-		int listCount = recrBoardService.selectListcount();
+		int listCount = recrBoardService.selectListcount(categoryId);
 
 		Paging paging = new Paging(listCount, currentPage, limit, "rblist.do");
 		paging.calculate();
@@ -60,15 +65,83 @@ public class RecrBoardController {
 		Search search = new Search();
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
-
+		search.setCategoryId(categoryId);
+		
 		ArrayList<RecrBoard> list = recrBoardService.selectSearchList(search);
 
 		mv.addObject("list", list);
 		mv.setViewName("recrBoard/RecrBoardList");
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
+		mv.addObject("categoryId", categoryId);
 		return mv;
 	}//
+	
+	// 제목으로 검색
+	@RequestMapping("searchrecrtitle.do")
+	public ModelAndView searchRecrTitle(Search search, 
+			@RequestParam(name="limit", required=false) String limit1,
+			@RequestParam(name="page", required=false) String page, ModelAndView mv,
+			@RequestParam("categoryId") int categoryId) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		if(search.getCategoryId() != 0) {
+			categoryId = search.getCategoryId();
+		}
+		
+		int listCount = recrBoardService.searchtitlecount(search);
+		Paging paging = new Paging(listCount, currentPage, limit, "searchrecrtitle.do");
+		paging.calculate();
+		
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<RecrBoard> list = recrBoardService.searchtitleList(search);
+
+
+		mv.addObject("list", list);
+		mv.setViewName("recrBoard/RecrBoardList");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		mv.addObject("categoryId", categoryId);
+		return mv;
+	}
+	
+	// 이름으로 검색
+		@RequestMapping("searchrecrwriter.do")
+		public ModelAndView searchRecrWriter(Search search, 
+				@RequestParam(name="limit", required=false) String limit1,
+				@RequestParam(name="page", required=false) String page, ModelAndView mv, 
+				@RequestParam("categoryId") int categoryId) {
+			int currentPage = 1;
+			if (page != null) {
+				currentPage = Integer.parseInt(page);
+			}
+			int limit = 10;
+			if(search.getCategoryId() != 0) {
+				categoryId = search.getCategoryId();
+			}
+			
+			int listCount = recrBoardService.searchwritercount(search);
+			Paging paging = new Paging(listCount, currentPage, limit, "searchrecrwriter.do");
+			paging.calculate();
+			
+			search.setStartRow(paging.getStartRow());
+			search.setEndRow(paging.getEndRow());
+			
+			ArrayList<RecrBoard> list = recrBoardService.searchwriterList(search);
+
+
+			mv.addObject("list", list);
+			mv.setViewName("recrBoard/RecrBoardList");
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("paging", paging);
+			mv.addObject("categoryId", categoryId);
+			return mv;
+		}
 
 	// 모집테이블 생성
 	@RequestMapping(value = "insertrb.do", method = RequestMethod.POST)
@@ -77,7 +150,8 @@ public class RecrBoardController {
 			@RequestParam("maxRecr1") String maxRecr,
 			@RequestParam(name = "ageMinCondition1", required = false) String ageMinCondition,
 			@RequestParam(name = "ageMaxCondition1", required = false) String ageMaxCondition,
-			@RequestParam("page") String page) {
+			@RequestParam("page") String page, 
+			@RequestParam("categoryId") int categoryId) {
 		// input을 number 로 해도 이쪽으로 보낼 때는 String 형태로 넘어와서 취한 조취
 		if (!ageMaxCondition.isEmpty()) {
 			recrBoard.setAgeMaxCondition(Integer.parseInt(ageMaxCondition));
@@ -120,10 +194,12 @@ public class RecrBoardController {
 		if (recrBoardService.insertRecrBoard(recrBoard) > 0) {
 			model.addAttribute("message", " 글이 등록되었습니다.");
 			model.addAttribute("RecrBoard", recrBoard);
-			model.addAttribute("page", page);
+			model.addAttribute("currentPage", page);
 			
 			return "redirect:rblist.do";
 		} else {
+			model.addAttribute("categoryId", categoryId);
+			model.addAttribute("currentPage", page);
 			model.addAttribute("message", " 글 등록에 실패하였습니다.");
 			return "redirect:rblist.do";
 		}
@@ -138,7 +214,7 @@ public class RecrBoardController {
 			@RequestParam("maxRecr1") String maxRecr,
 			@RequestParam(name = "ageMinCondition1", required = false) String ageMinCondition,
 			@RequestParam(name = "ageMaxCondition1", required = false) String ageMaxCondition,
-			@RequestParam("page") String page) {
+			@RequestParam("page") String page, @RequestParam("categoryId") int categoryId) {
 		int currentPage = 1;
 		if (!page.isEmpty()) {
 			currentPage = Integer.parseInt(page);
@@ -186,6 +262,8 @@ public class RecrBoardController {
 				} catch (Exception e) {
 					e.printStackTrace();
 					model.addAttribute("message", "첨부파일 파일명 변환 중 에러가 발생했습니다. ");
+					model.addAttribute("categoryId", categoryId);
+					model.addAttribute("currentPage", page);
 					return "recerBoarad/RecrBoardList";
 				}
 			} /// 파일명 바꾸기
@@ -225,11 +303,13 @@ public class RecrBoardController {
 		if (recrBoardService.updateBoard(recrBoard) > 0) {
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("boardId", recrBoard.getBoardId());
+			model.addAttribute("categoryId", categoryId);
 			return "redirect: rbdetail.do";
 		} else {
 			model.addAttribute("currentPage", page);
 			model.addAttribute("boardId", recrBoard.getBoardId());
 			model.addAttribute("message", "오류! 수정에 실패하였습니다");
+			model.addAttribute("categoryId", categoryId);
 			return "redirect: rbdetail.do";
 
 		}
@@ -238,7 +318,8 @@ public class RecrBoardController {
 
 	
 	@RequestMapping("deleteboard.do")
-	public String deleteBoard(RecrBoard recrBoard, @RequestParam("page") String page, Model model) {
+	public String deleteBoard(RecrBoard recrBoard, @RequestParam("page") String page, Model model, 
+			@RequestParam("categoryId") int categoryId) {
 		int currentPage = 1;
 		if (!page.isEmpty()) {
 			currentPage = Integer.parseInt(page);
@@ -252,12 +333,46 @@ public class RecrBoardController {
 			model.addAttribute("boardId", recrBoard.getBoardId());
 			model.addAttribute("page", currentPage);
 			model.addAttribute("message", "error! 글 삭제에 실패하였습니다!");
+			model.addAttribute("categoryId", categoryId);
 			return"redirect:rblist.do";
 		}
 	}//
 	
 	
-	
+	// 글 신고 처리
+	@RequestMapping("rbreport.do")
+	public String rbreport(@RequestParam("page") String page, Model model, 
+			@RequestParam("categoryId") int categoryId, @RequestParam("boardId") int boardId, 
+			HttpServletRequest request, HttpServletResponse response) {
+			
+			String articleId = "RecrBoardReport_" + boardId;
+			boolean isViewed = false;
+		// 쿠키에서 해당 게시물의 신고 여부를 확인
+		        Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
+		        if (viewCookie != null) {
+		            isViewed = true;
+		        }
+
+		        if (!isViewed) {
+		            // 여기에 신고 증가 처리
+		            
+
+		            // 새 쿠키 생성 및 설정
+		            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+		            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
+		            newCookie.setPath("/");
+		            response.addCookie(newCookie);
+		            model.addAttribute("message", "신고 처리되었습니다.");
+		        }else {
+		        	model.addAttribute("message", "이미 신고 처리된 게시물 입니다.");
+		        }
+		
+		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
+		model.addAttribute("RecrBoard", recrBoard);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("categoryId", categoryId);		     
+		return "recrBoard/RecrBoardDetail";
+	}//
 	
 	
 	
@@ -281,28 +396,64 @@ public class RecrBoardController {
 
 	// 글 수정 페이지로 이동
 	@RequestMapping("updateboard.do")
-	public String moveUpdateBoard(@RequestParam("boardId") String boardID, Model model) {
+	public String moveUpdateBoard(@RequestParam("boardId") String boardID, Model model, @RequestParam("categoryId") int categoryId) {
 		int boardId = Integer.parseInt(boardID);
 
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
+		model.addAttribute("categoryId", categoryId);
 		return "recrBoard/RecrBoardUpdateForm";
 	}
 
 	// 자세히 보기 페이지로 이동
 	@RequestMapping("rbdetail.do")
 	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId,
-			@RequestParam(name = "page", required = false) String currentPage) {
+			@RequestParam("page") String currentPage1, @RequestParam("categoryId") String categoryId1, 
+			HttpServletRequest request, HttpServletResponse response) {
+		int currentPage = 1;
+		if (currentPage1 != null) {
+			currentPage = Integer.parseInt(currentPage1);
+		}
+		int categoryId = 1;
+		if(categoryId1 != null) {
+			categoryId = Integer.parseInt(categoryId1);
+		}
+		
+		String articleId = "RecrBoardCount_" + boardId;
+		boolean isViewed = false;
+		
+		Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
+        if (viewCookie != null) {
+            isViewed = true;
+        }
+
+        if (!isViewed) {
+        	// 여기에 조회수 증가 처리
+        	recrBoardService.upReadCount(boardId);
+        	
+            // 새 쿠키 생성 및 설정
+            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+            newCookie.setMaxAge(24 * 60 * 60); // 쿠키 유효 시간: 24시간
+            newCookie.setPath("/");
+            response.addCookie(newCookie);
+        }
+		
+        ArrayList<RecrAppl> applList = recrApplService.selectBoardId(boardId);
+		
+		
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
+		model.addAttribute("applList", applList);
 		model.addAttribute("RecrBoard", recrBoard);
 		model.addAttribute("page", currentPage);
+		model.addAttribute("categoryId", categoryId);
 		return "recrBoard/RecrBoardDetail";
 	}
 
 	// 글 작성 폼으로 이동
 	@RequestMapping("rbwriteform.do")
-	public String moveRecrBoardWriteForm(@RequestParam("page") String page, Model model) {
+	public String moveRecrBoardWriteForm(@RequestParam("page") String page, Model model, @RequestParam("categoryId") int categoryId) {
 		model.addAttribute("page", page);
+		model.addAttribute("categoryId", categoryId);
 		return "recrBoard/RecrBoardWriteForm";
 	}
 

@@ -25,8 +25,8 @@ public class RecreBoardDao {
 		return SqlSessionTemplate.selectOne("recrboard.selectBoardId", boardId);
 	}
 
-	public int selectListcount() {
-		return SqlSessionTemplate.selectOne("recrboard.selectListcount");
+	public int selectListcount(int categoryId) {
+		return SqlSessionTemplate.selectOne("recrboard.selectListcount", categoryId);
 	}
 
 	public ArrayList<RecrBoard> selectSearchList(Search search) {
@@ -60,6 +60,28 @@ public class RecreBoardDao {
 
 	public int deleteBoard(int boardId) {
 		return SqlSessionTemplate.delete("recrboard.deleteBoard", boardId);
+	}
+
+	public int searchtitlecount(Search search) {
+		return SqlSessionTemplate.selectOne("recrboard.searchtitlecount", search);
+	}
+
+	public ArrayList<RecrBoard> searchtitleList(Search search) {
+		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.searchtitleList", search);
+		return (ArrayList<RecrBoard>)list;
+	}
+
+	public int searchwritercount(Search search) {
+		return SqlSessionTemplate.selectOne("recrboard.searchwritercount", search);
+	}
+
+	public ArrayList<RecrBoard> searchwriterList(Search search) {
+		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.searchwriterList", search);
+		return (ArrayList<RecrBoard>)list;
+	}
+
+	public void upReadCount(int boardId) {
+		SqlSessionTemplate.update("recrboard.upReadCount", boardId);
 	}
 
 

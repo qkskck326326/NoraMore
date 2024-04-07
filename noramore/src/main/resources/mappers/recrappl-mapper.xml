@@ -12,14 +12,21 @@
 	    <result property="lastUpdDate" column="LAST_UPD_DT"/>
 	</resultMap>
 
-	<select id="applSearchId" parameterType="RecrAppl">
-		select * from RECR_APPL where MEMBER_ID = #{memberId}
-	</select>
 	
 	<insert id="insertAppl" parameterType="RecrAppl">
 		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{boardId}, #{memberId})
 	</insert>
 
+	<select id="searchAppl" parameterType="RecrAppl" resultType="_int">
+		select count(*) from RECR_APPL 
+		WHERE BOARD_ID = #{boardId} 
+		and MEMBER_ID = #{memberId} 
+	</select>
+
+	<select id="selectBoardId" parameterType="RecrAppl" resultMap="recrBoardResultMap">
+		select * from RECR_APPL 
+		WHERE BOARD_ID = #{boardId}
+	</select>
 	
 	<!-- <select id="selectRecrBoard" resultMap="resultRecr">
 		select * from recr_board 

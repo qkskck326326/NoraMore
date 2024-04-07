@@ -18,25 +18,73 @@
 <title>NoraMore</title>
 <c:url var="insertappl" value="insertappl.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
-	<c:param name="memberID" value="${sessionScope.loginMember.memberID}" />
+	<c:param name="memberId" value="${sessionScope.loginMember.memberID}" />
 	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}"></c:param>
 </c:url>
 <c:url var="updateBoard" value="updateboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
 	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}"></c:param>
 </c:url>
 <c:url var="deleteBoard" value="deleteboard.do">
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
 	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}"></c:param>
 </c:url>
 <c:url var="rblist" value="rblist.do">
 	<c:param name="page" value="${page}" />
 	<c:param name="categoryId" value="${categoryId}" />
 </c:url>
+<c:url var="rbreport" value="rbreport.do">
+	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}" />
+	<c:param name="boardId" value="${RecrBoard.boardId}" />
+</c:url>
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+
 <script type="text/javascript">
+
+
+function translateText() {
+    const apiKey = 'AIzaSyAaIhu_6-vh8v4xryS5-fPmJ_ABZpnB6xo';
+    const url = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`;
+
+    // 번역할 텍스트를 sourceText textarea에서 가져옵니다.
+    const sourceText = document.getElementById('context').value;
+
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+            q: sourceText,
+            source: "en",
+            target: "ko"
+        }),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('API 요청 실패: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.data && data.data.translations && data.data.translations.length > 0) {
+            document.getElementById('translatedText').textContent = data.data.translations[0].translatedText;
+        } else {
+            throw new Error('번역 데이터를 찾을 수 없습니다.');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert('번역 실패: ' + error.message);
+    });
+}
+
+
+
 function toggleCommentForm() {
     // writecommentForm 요소를 선택
     var writecommentForm = document.getElementById("writecommentForm");
@@ -69,12 +117,12 @@ function Alert(message) {
 
 // 페이지 로딩 시 alert 창 띄우기
 window.onload = function() {
-	selectrecrcomment()
-	if(${!empty message}){
-    alert("${message}");
-	}
-};
-
+	selectrecrcomment();
+    var message = "${message}";
+    if (message) {
+        alert(message);
+    }
+}; 
 
 
 
@@ -220,6 +268,15 @@ function deleteBoard(){
 	location.href = "${deleteBoard}";
 }
 
+function rbreport(){
+	location.href = "${rbreport}"
+}
+
+function applyAppl(memberId, boardId){
+	console.log(memberId);
+	console.log(boardId);
+}
+
 function deletecomment(commentId1) {
     var commentId = commentId1;
 	console.log(commentId);
@@ -346,15 +403,48 @@ textarea.commentForm:hover {
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
 				<div style="text-align: left; margin-bottom: 10px;">
 					<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
-					<button class="whiteBtn"
-						style="float: right; background-color: pink; color: black;"
-						onclick="report(); return false;">신고하기</button>
-					<button class="whiteBtn" style="float: right; margin-right: 10px;"
-						onclick="insertappl(); return false;">모집신청</button>
-					<button class="whiteBtn" style="float: right; margin-right: 10px;"
-						onclick="checkRecrCondition(); return false;">모집조건</button>
+
+					<c:if
+						test="${sessionScope.loginMember.memberID ne RecrBoard.memberId}">
+						<button class="whiteBtn"
+							style="float: right; background-color: pink; color: black;"
+							onclick="rbreport(); return false;">신고하기</button>
+						<button class="whiteBtn" style="float: right; margin-right: 10px;"
+							onclick="insertappl(); return false;">모집신청</button>
+						<button class="whiteBtn" style="float: right; margin-right: 10px;"
+							onclick="checkRecrCondition(); return false;">모집조건</button>
+					</c:if>
+
+					<c:if
+						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
+						<button id="showRecrAppl" class="whiteBtn" style="float: right;">모집목록 보기</button>
+						
+						<table style='width: 600px;'>
+							<tr>
+								<th>신청자ID</th>
+								<th>거절</th>
+								<th>수락</th>
+							</tr>
+							<c:if test="${empty applList}">
+								<tr>
+									<th>신청자가 없습니다</th>
+								</tr>
+							</c:if>
+							<c:if test="${!empty applList}">
+								<tr>
+								<c:forEach var="appl" items="${applList}">
+									<th>${appl.memberId}</th>
+									<th><button onclick="applyAppl('${appl.memberId}', ${appl.boardId})">수락</button></th>
+									<th><button onclick="denieAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
+								</c:forEach>
+								</tr>
+							</c:if>
+						</table>
+						
+					</c:if>
+
 				</div>
-				<textarea cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
+				<textarea id="context" cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 				<div>
 					<p>첨부파일:</p>
 					<c:if test="${ !empty RecrBoard.recrOriginalFilename}">
@@ -370,8 +460,13 @@ textarea.commentForm:hover {
 					<p>시작 날짜 : ${RecrBoard.recrStartDate}</p>
 					<p>마감 날짜 : ${RecrBoard.recrEndDate}</p>
 					<p>장소 : ${RecrBoard.recrLocation}</p>
-					<button class="whiteBtn" onclick="updateBoard() ">수정하기</button>
-					<button class="whiteBtn" onclick="deleteBoard() ">삭제하기</button>
+
+					<c:if
+						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
+						<button class="whiteBtn" onclick="updateBoard() ">수정하기</button>
+						<button class="whiteBtn" onclick="deleteBoard() ">삭제하기</button>
+					</c:if>
+
 					<div class="comment-div">
 						<button onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
 						<!-- 댓글 작성 폼 -->
@@ -391,18 +486,21 @@ textarea.commentForm:hover {
 								style='display: none; text-align: left; padding: 0;'>
 								<br>
 							</div>
+
+
+
 						</div>
 					</div>
+
 				</div>
 
 			</div>
 
+
 		</div>
-
-
 	</div>
 
-
+	<button onclick="translateText()">번역하기</button>
 
 </body>
 </html>

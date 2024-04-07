@@ -12,7 +12,7 @@ public interface RecrBoardService {
 
 	RecrBoard selectBoardId(int boardId);
 
-	int selectListcount();
+	int selectListcount(int categoryId);
 
 	ArrayList<RecrBoard> selectSearchList(Search search);
 
@@ -29,5 +29,15 @@ public interface RecrBoardService {
 	void countcoment(CommentRecrBoard commentRecrBoard);
 
 	int deleteBoard(int boardId);
+
+	int searchtitlecount(Search serach);
+
+	ArrayList<RecrBoard> searchtitleList(Search search);
+
+	int searchwritercount(Search search);
+
+	ArrayList<RecrBoard> searchwriterList(Search search);
+
+	void upReadCount(int boardId);
 	
 }

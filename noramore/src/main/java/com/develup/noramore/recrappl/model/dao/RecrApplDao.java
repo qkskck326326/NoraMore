@@ -1,5 +1,8 @@
 package com.develup.noramore.recrappl.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,8 +18,15 @@ public class RecrApplDao {
 		return sqlSessionTemplate.insert("recrappl.insertAppl", recrAppl);
 	}
 
-	public int applSearchId(RecrAppl recrAppl) {
-		return sqlSessionTemplate.selectOne("recrappl.applSearchId", recrAppl);
+
+	public int searchAppl(RecrAppl recrAppl) {
+		return sqlSessionTemplate.selectOne("recrappl.searchAppl", recrAppl);
+	}
+
+
+	public ArrayList<RecrAppl> selectBoardId(int boardId) {
+		List<RecrAppl> list = sqlSessionTemplate.selectList("recrappl.selectBoardId", boardId);
+		return (ArrayList<RecrAppl>)list;
 	}
 
 }//
