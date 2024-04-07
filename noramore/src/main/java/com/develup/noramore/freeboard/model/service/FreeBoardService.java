@@ -63,7 +63,7 @@ public interface FreeBoardService {
 	int selectViewsListCount();
 
 
-	int selectRecentListCount();
+	int selectRecentListCount(int categoryId);
 	
 	
 	int selectLikesListCount();

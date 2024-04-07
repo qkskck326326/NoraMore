@@ -56,12 +56,12 @@
 		    SELECT rownum rnum,
 		           BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
-		           LAST_UPD_DATE, COMMENT_COUNT from (SELECT * FROM free_board ORDER BY REGIST_DATE DESC))
+		           LAST_UPD_DATE, COMMENT_COUNT from (SELECT * FROM free_board WHERE CATEGORY_ID = #{categoryId} ORDER BY REGIST_DATE DESC))
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="selectRecentListCount" resultType="_int">
-		select count(*) from free_board order by REGIST_DATE desc
+		select count(*) from free_board WHERE category_id = #{categoryId} order by REGIST_DATE desc
 	</select>
 	
 	<select id="selectLikesList" parameterType="Search" resultMap="resultfreeList">

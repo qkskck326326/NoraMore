@@ -113,9 +113,9 @@ public class FreeBoardDao {
 		return (ArrayList<FreeBoard>)list;
 	}
 	
-	public int selectRecentListCount() {
+	public int selectRecentListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount");
+		return sqlSessionTemplate.selectOne("freeboard.selectRecentListCount", categoryId);
 	}
 
 	public int selectLikesListCount() {

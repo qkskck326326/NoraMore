@@ -259,70 +259,70 @@ public class FreeBoardController {
 	
 	
 	// 제목으로 검색
-		@RequestMapping("fbsearchTitle.do")
-		public ModelAndView searchFreeTitle(Search search, 
-				@RequestParam(name="limit", required=false) String limit1,
-				@RequestParam(name="page", required=false) String page, ModelAndView mv) {
-			int currentPage = 1;
-			if (page != null) {
-				currentPage = Integer.parseInt(page);
-			}
-			int limit = 10;
-			int categoryId = 1;
-			if(search.getCategoryId() != 0) {
-				categoryId = search.getCategoryId();
-			}
-			
-			int listCount = freeBoardService.searchTitleCount(search);
-			Paging paging = new Paging(listCount, currentPage, limit, "fbsearchTitle.do");
-			paging.calculate();
-			
-			search.setStartRow(paging.getStartRow());
-			search.setEndRow(paging.getEndRow());
-			
-			ArrayList<FreeBoard> list = freeBoardService.selectSearchTitle(search);
-
-
-			mv.addObject("list", list);
-			mv.setViewName("freeboard/freeboardListView");
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("paging", paging);
-			mv.addObject("categoryId", categoryId);
-			return mv;
+	@RequestMapping("fbsearchTitle.do")
+	public ModelAndView searchFreeTitle(Search search, 
+			@RequestParam(name="limit", required=false) String limit1,
+			@RequestParam(name="page", required=false) String page, ModelAndView mv) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		int categoryId = 1;
+		if(search.getCategoryId() != 0) {
+			categoryId = search.getCategoryId();
 		}
 		
+		int listCount = freeBoardService.searchTitleCount(search);
+		Paging paging = new Paging(listCount, currentPage, limit, "fbsearchTitle.do");
+		paging.calculate();
+		
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectSearchTitle(search);
+
+
+		mv.addObject("list", list);
+		mv.setViewName("freeboard/freeboardListView");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		mv.addObject("categoryId", categoryId);
+		return mv;
+	}
+	
 		// 이름으로 검색
-			@RequestMapping("fbsearchWriter.do")
-			public ModelAndView searchFreeWriter(Search search, 
-					@RequestParam(name="limit", required=false) String limit1,
-					@RequestParam(name="page", required=false) String page, ModelAndView mv) {
-				int currentPage = 1;
-				if (page != null) {
-					currentPage = Integer.parseInt(page);
-				}
-				int limit = 10;
-				int categoryId = 1;
-				if(search.getCategoryId() != 0) {
-					categoryId = search.getCategoryId();
-				}
-				
-				int listCount = freeBoardService.selectSearchWriterCount(search);
-				Paging paging = new Paging(listCount, currentPage, limit, "fbsearchWriter.do");
-				paging.calculate();
-				
-				search.setStartRow(paging.getStartRow());
-				search.setEndRow(paging.getEndRow());
-				
-				ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
+	@RequestMapping("fbsearchWriter.do")
+	public ModelAndView searchFreeWriter(Search search, 
+			@RequestParam(name="limit", required=false) String limit1,
+			@RequestParam(name="page", required=false) String page, ModelAndView mv) {
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10;
+		int categoryId = 1;
+		if(search.getCategoryId() != 0) {
+			categoryId = search.getCategoryId();
+		}
+		
+		int listCount = freeBoardService.selectSearchWriterCount(search);
+		Paging paging = new Paging(listCount, currentPage, limit, "fbsearchWriter.do");
+		paging.calculate();
+		
+		search.setStartRow(paging.getStartRow());
+		search.setEndRow(paging.getEndRow());
+		
+		ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
 
 
-				mv.addObject("list", list);
-				mv.setViewName("freeboard/freeboardListView");
-				mv.addObject("currentPage", currentPage);
-				mv.addObject("paging", paging);
-				mv.addObject("categoryId", categoryId);
-				return mv;
-			}
+		mv.addObject("list", list);
+		mv.setViewName("freeboard/freeboardListView");
+		mv.addObject("currentPage", currentPage);
+		mv.addObject("paging", paging);
+		mv.addObject("categoryId", categoryId);
+		return mv;
+	}
 
 
 	
@@ -374,6 +374,7 @@ public class FreeBoardController {
 	public ModelAndView freeBoardSearchRecentMethod(
 		@RequestParam(name="page", required=false) String page,
 		@RequestParam(name = "limit", required = false) String slimit,
+		@RequestParam(name="categoryId", required = false) String categoryId1,
 		ModelAndView mv
 			) {
 		int currentPage = 1;
@@ -385,9 +386,14 @@ public class FreeBoardController {
 		if(slimit != null && slimit.trim().length() > 0) {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
 		}
+		
+		int categoryId = 1;
+		if(categoryId1 != null) {
+			categoryId = Integer.parseInt(categoryId1);
+		}
 
 		
-		int listCount = freeBoardService.selectRecentListCount();
+		int listCount = freeBoardService.selectRecentListCount(categoryId);
 		
 		Paging paging = new Paging(listCount, currentPage, limit, "freerecentlist.do");
 		paging.calculate();
@@ -395,6 +401,8 @@ public class FreeBoardController {
 		Search search = new Search();
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
+		search.setCategoryId(categoryId);
+
 		
 		ArrayList<FreeBoard> list = freeBoardService.selectRecentList(search);
 		
