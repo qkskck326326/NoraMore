@@ -60,7 +60,7 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectLikesList(Search search);
 
 
-	int selectViewsListCount();
+	int selectViewsListCount(int categoryId);
 
 
 	int selectRecentListCount(int categoryId);

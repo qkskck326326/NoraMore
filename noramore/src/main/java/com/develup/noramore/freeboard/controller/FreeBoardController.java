@@ -333,6 +333,7 @@ public class FreeBoardController {
 	public ModelAndView selectViewFreeBoard(
 		@RequestParam(name="page", required=false) String page,
 		@RequestParam(name = "limit", required = false) String slimit,
+		@RequestParam(name="categoryId", required = false) String categoryId1,
 		ModelAndView mv
 			) {
 		int currentPage = 1;
@@ -345,8 +346,13 @@ public class FreeBoardController {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
 		}
 		
+		int categoryId = 1;
+		if(categoryId1 != null) {
+			categoryId = Integer.parseInt(categoryId1);
+		}
+
 		
-		int listCount = freeBoardService.selectViewsListCount();
+		int listCount = freeBoardService.selectViewsListCount(categoryId);
 		
 		Paging paging = new Paging(listCount, currentPage, limit, "freeviewslist.do");
 		paging.calculate();
@@ -354,6 +360,7 @@ public class FreeBoardController {
 		Search search = new Search();
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
+		search.setCategoryId(categoryId);
 		
 		ArrayList<FreeBoard> list = freeBoardService.selectViewsList(search);
 		

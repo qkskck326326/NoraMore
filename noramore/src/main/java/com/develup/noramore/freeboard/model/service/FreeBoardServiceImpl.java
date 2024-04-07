@@ -126,9 +126,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 
 	@Override
-	public int selectViewsListCount() {
+	public int selectViewsListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectViewsListCount();
+		return freeBoardDao.selectViewsListCount(categoryId);
 	}
 	
 	@Override

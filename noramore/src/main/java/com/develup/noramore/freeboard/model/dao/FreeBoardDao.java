@@ -91,9 +91,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectViewsListCount() {
+	public int selectViewsListCount(int categoryId) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectViewsListCount");
+		return sqlSessionTemplate.selectOne("freeboard.selectViewsListCount", categoryId);
 	}
 
 
