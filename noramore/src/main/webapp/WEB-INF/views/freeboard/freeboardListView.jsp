@@ -46,14 +46,7 @@
             }
         };
         
-        itemSelect.onchange = function () {
-            var selectedOption = itemSelect.value;
-            if (selectedOption === "title") {
-                sortTitle();
-            } else if (selectedOption === "author") {
-                sortAuthor();
-            }
-        };
+       
     };
 
     function sortRecent() {
@@ -71,13 +64,6 @@
     	 console.log("좋아요순 정렬 실행");
     }
     
-    function sortTitle(){
-        console.log("글제목 정렬 실행");
-    }
-    
-    function sortAuthor(){
-        console.log("작성자 정렬 실행");
-    }
     
     function selectCategory(value){
         $("#category").text(value).val(value);
@@ -88,7 +74,7 @@
     }
     
     function fbwriteform(){
-    	location.href = "freeboardwrite.do";
+    	location.href = "freeboardwrite.do?page=" + ${page};
     }
     
     function check(){
@@ -136,29 +122,68 @@
 	<input type="radio" name="item" id="writer"> 작성자 &nbsp;	
 </fieldset>
  --%>
-<br>
 
-<%-- 검색 항목별 값 입력 전송용 폼 만들기 --%>
-<%-- 제목 검색 폼 --%>
 
-<form id="titleform" class="sform" action="fbsearchTitle.do" method="post">
-	<input type="hidden" name="action" value="title">	
+ 
+<%-- 제목, 글작성자 검색 폼 --%>
+ <%--
+<section style='width: 1200px; border: 0px; margin: 10px 0;'>
+	검색 기준: <div class="dropdown">
+			    <select id="action" name="action" onchange="changeFormAction()">
+			        <option value="fbsearchTitle.do">글제목</option>
+			        <option value="fbsearchWriter.do">작성자ID</option>
+			    </select>
+			</div>
+		<form id="searchaction" action="fbsearchTitle.do" method="post" >
+			<fieldset style='width: 1200px; border: 0px;'>
+				<div class="search" style='width: 180px;'>
+					<input id="keyword" name="keyword" style="width:140; height:25;">
+					<button>검색</button>
+				</div> &nbsp; 
+				한 페이지에 출력할 목록 갯수 : <select name="limit" id="limitSelect">
+					<option value="10" selected>10</option>
+					<option value="15">15</option>
+					<option value="20">20</option>
+					<c:set var="limi" value="${limit}" ></c:set>
+				</select> &nbsp; 
+			</fieldset>
+			<input  type="hidden" name="categoryId" value="${categoryId}">
+		</form>
+	</section>
+<button onclick="check()">정보 확인</button>
+ --%>
+<!--  
+<%-- 정렬 기준 조회순 --%>
+
+<form id="viewform" class="sform" action="freeviewslist.do" method="post">
+	<input type="hidden" name="action" value="view">
+	
 <fieldset>
-	<legend>검색할 제목을 입력하세요.</legend>
-	<input type="search" name="keyword"> &nbsp;
-	한 페이지에 출력할 목록 갯수 : 
-	<select name="limit">
-		<option value="10" selected>10</option>
-		<option value="15" >15</option>
-		<option value="20" >20</option>
-	</select> &nbsp; 
-	<input type="submit" value="검색">
+	<input type="submit" value="최신순">
+	
 </fieldset>
-</form>
 
- 
- 
-<%-- 제목 검색 폼 --%>
+</form>	
+
+-->
+
+<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="fbwriteform()">글 작성</button>
+	<section id="board">
+
+		<h1>자유게시판</h1>
+		<div class="line"></div>
+		<%-- 
+		<%
+		if (request.getParameter("pos") != null) {
+		%>
+		<h3>
+			'<%=request.getParameter("pos")%>' 근처 검색 결과
+		</h3>
+		<%
+		}
+		%>
+		--%>
+		<%-- 제목, 글작성자 검색 폼 --%>
  
 <section style='width: 1200px; border: 0px; margin: 10px 0;'>
 	검색 기준: <div class="dropdown">
@@ -184,71 +209,10 @@
 		</form>
 	</section>
 <button onclick="check()">정보 확인</button>
-<%-- 작성자 검색 폼 --%>
-<form id="writerform" class="sform" action="fbsearchWriter.do" method="post">
-	<input type="hidden" name="action" value="writer">	
-<fieldset>
-	<legend>검색할 작성자를 입력하세요.</legend>
-	<input type="search" name="keyword"> &nbsp;
-	한 페이지에 출력할 목록 갯수 : 
-	<select name="limit">
-		<option value="10" selected>10</option>
-		<option value="15" >15</option>
-		<option value="20" >20</option>
-	</select> &nbsp; 
-	<input type="submit" value="검색">
-	
-</fieldset>
-
-</form>
-<!--  
-<%-- 정렬 기준 조회순 --%>
-
-<form id="viewform" class="sform" action="freeviewslist.do" method="post">
-	<input type="hidden" name="action" value="view">
-	
-<fieldset>
-	<input type="submit" value="최신순">
-	
-</fieldset>
-
-</form>	
-
--->
-
-<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="fbwriteform()">글 작성</button>
-	<section id="board">
-
-		<h1>자유게시판</h1>
-		<div class="line"></div>
-		<%
-		if (request.getParameter("pos") != null) {
-		%>
-		<h3>
-			'<%=request.getParameter("pos")%>' 근처 검색 결과
-		</h3>
-		<%
-		}
-		%>
+		
 		
 		<!--  <button onclick="location.href='freeboardwrite.do';" class="blueBtn">글쓰기</button>-->
-		<form action="board.jsp" method="get">
-
-			<div class="position">
-				<p>항목 선택</p>
-    <div class="dropdown">
-        <select id="itemSelect">
-            <option value="title">글제목</option>
-            <option value="author">작성자</option>
-        </select>
-    </div>
-				<p>검색하기</p>
-				<div class="search">
-					<input type="text" name="pos">
-					<button>검색</button>
-				</div>
-			</div>
-		</form>
+		
 		
 			<div class="position2">
         <p>정렬 기준</p>

@@ -65,10 +65,27 @@
 	        type: "POST",
 	        url: "incrementReportCount.do",
 	        data: { boardId: boardId },
+	        /*
 	        success: function(response) {
 	            // 성공적으로 신고가 처리되었을 때 수행할 코드
 	            alert("게시물이 신고되었습니다.");
 	            // 페이지 새로고침 또는 신고 버튼 비활성화 등의 추가적인 처리 가능
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
+	            alert("오류가 발생했습니다.");
+	        }
+	        */
+	        
+	        success: function(response) {
+	            if (response === "Success") {
+	                alert("게시물이 신고되었습니다.");
+	                // 페이지 새로고침 또는 신고 버튼 비활성화 등의 추가적인 처리 가능
+	            } else if (response === "Already Viewed") {
+	                alert("이미 신고하기를 누르셨습니다.");
+	            } else {
+	                alert("오류가 발생했습니다.");
+	            }
 	        },
 	        error: function(xhr, status, error) {
 	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
@@ -83,6 +100,7 @@
 	        type: "POST",
 	        url: "incrementLikeCount.do",
 	        data: { boardId: boardId },
+	        /*
 	        success: function(response) {
 	            // 성공적으로 신고가 처리되었을 때 수행할 코드
 	            alert("좋아요를 누르셨습니다.");
@@ -92,6 +110,23 @@
 	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
 	            alert("오류가 발생했습니다.");
 	        }
+	        */
+	        
+	        success: function(response) {
+	            if (response === "Success") {
+	                alert("좋아요를 누르셨습니다.");
+	                // 페이지 새로고침 또는 신고 버튼 비활성화 등의 추가적인 처리 가능
+	            } else if (response === "Already Viewed") {
+	                alert("이미 좋아요를 누르셨습니다.");
+	            } else {
+	                alert("오류가 발생했습니다.");
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
+	            alert("오류가 발생했습니다.");
+	        }
+	        
 	    });
     }
 	

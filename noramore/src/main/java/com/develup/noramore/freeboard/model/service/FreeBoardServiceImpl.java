@@ -54,9 +54,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public int selectSearchTitleCount(Search search) {
+	public int searchTitleCount(Search search) {
 		// TODO Auto-generated method stub
-		return freeBoardDao.selectSearchTitleCount(search);
+		return freeBoardDao.searchTitleCount(search);
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public interface FreeBoardService {
 	ArrayList<FreeBoard> selectSearchList(Search search);
 
 
-	int selectSearchTitleCount(Search search);
+	int searchTitleCount(Search search);
 
 
 	ArrayList<FreeBoard> selectSearchTitle(Search search);
@@ -85,6 +85,8 @@ public interface FreeBoardService {
 
 
 	void countcoment(CommentFreeBoard commentFreeBoard);
+
+
 
 
 	

@@ -37,9 +37,9 @@ public class FreeBoardDao {
 	}
 
 
-	public int selectSearchTitleCount(Search search) {
+	public int searchTitleCount(Search search) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne("freeboard.selectSearchTitleCount", search);
+		return sqlSessionTemplate.selectOne("freeboard.searchTitleCount", search);
 	}
 
 
@@ -155,6 +155,9 @@ public class FreeBoardDao {
 	public void countcoment(CommentFreeBoard commentFreeBoard) {
 		sqlSessionTemplate.update("freeboard.countcoment", commentFreeBoard);
 	}
+
+
+	
 
 
 	

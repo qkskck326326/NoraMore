@@ -30,9 +30,9 @@
 	
 	</select>
 	
-	<select id="selectListcount" parameterType="_int" resultType="_int">
-		select count(*)
-		from free_board
+	<select id="selectListcount" parameterType="Search" resultType="_int">
+		select count(*) 
+		from free_board 
 		where category_id = #{categoryId}
 	</select>
 	
@@ -88,7 +88,7 @@
 		WHERE rnum BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
-	<select id="selectSearchTitleCount" parameterType="string" resultType="_int">
+	<select id="searchTitleCount" parameterType="Search" resultType="_int">
 	
 		select count(*) from free_board
 		where category_id = #{categoryId} 
@@ -102,13 +102,13 @@
 		from (select rownum rnum, BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
 		           LAST_UPD_DATE, COMMENT_COUNT
-		     from (select * from free_board where category_id = #{categoryId} 
+		     from free_board where category_id = #{categoryId} 
 		     	   and title like '%' || #{ keyword } || '%'
-		          ))
+		          )
 		where rnum between #{ startRow } and #{ endRow } 
 	</select>
 	
-	<select id="selectSearchWriterCount" parameterType="string" resultType="_int">
+	<select id="selectSearchWriterCount" parameterType="Search" resultType="_int">
 		select count(*) from free_board
 		where category_id = #{categoryId} 
 		and MEMBER_ID like '%' || #{ keyword } || '%'
@@ -119,9 +119,9 @@
 		from (select rownum rnum, BOARD_ID, MEMBER_ID, CATEGORY_ID, TITLE, CONTEXT, FREE_ORIGINAL_FILENAME, 
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
 		           LAST_UPD_DATE, COMMENT_COUNT
-		     from (select * from free_board where category_id = #{categoryId} 
+		     from free_board where category_id = #{categoryId} 
 		     	   and MEMBER_ID like '%' || #{ keyword } || '%'
-		          ))
+		          )
 		where rnum between #{ startRow } and #{ endRow } 
 	</select>
 	

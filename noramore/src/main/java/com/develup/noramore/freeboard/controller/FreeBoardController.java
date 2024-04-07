@@ -3,7 +3,9 @@ package com.develup.noramore.freeboard.controller;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import com.develup.noramore.commentfreeboard.model.service.CommentFreeBoardService;
 import com.develup.noramore.common.FileNameChange;
@@ -26,6 +30,7 @@ import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.freeboard.model.service.FreeBoardService;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
+
 
 
 @Controller("freeBoardController")
@@ -253,137 +258,72 @@ public class FreeBoardController {
 	}
 	
 	
-	//자유게시판 제목 검색용 (페이징 처리)
-	@RequestMapping(value="fbsearchTitle.do", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView freeBoardTitleMethod(
-			@RequestParam("action") String action,
-			//@RequestParam("keyword") String keyword,
-			@RequestParam(name = "limit", required = false) String slimit,
-			@RequestParam(name = "page", required=false) String page,
-			ModelAndView mv, Search search) {
-	
-	//검색결과에 대한 페이징 처리를 위한 페이지 지정
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = Integer.parseInt(page);
-		}
-		
-		int limit = 10;
-		if(slimit != null) {
-			limit = Integer.parseInt(slimit);
+	// 제목으로 검색
+		@RequestMapping("fbsearchTitle.do")
+		public ModelAndView searchFreeTitle(Search search, 
+				@RequestParam(name="limit", required=false) String limit1,
+				@RequestParam(name="page", required=false) String page, ModelAndView mv) {
+			int currentPage = 1;
+			if (page != null) {
+				currentPage = Integer.parseInt(page);
+			}
+			int limit = 10;
+			int categoryId = 1;
+			if(search.getCategoryId() != 0) {
+				categoryId = search.getCategoryId();
+			}
 			
-		}
-		
-		int categoryId = 1;
-		if(search.getCategoryId() != 0) {
-			categoryId = search.getCategoryId();
-		}
-		
-		
-		//검색결과가 적용된 총 페이지 계산을 위한 총 목록 갯수 조회해옴
-		int listCount = freeBoardService.selectSearchTitleCount(search);
-		
-		Paging paging = new Paging(listCount, currentPage, limit, "fbsearchTitle.do");
-		paging.calculate();
-		
-		//한 페이지에 출력할 검색 결과 적용된 목록 조회
-		//Search search = new Search();
-		search.setStartRow(paging.getStartRow());
-		search.setEndRow(paging.getEndRow());
-		//search.setKeyword(keyword);
-		
-		
-		ArrayList<FreeBoard> list = freeBoardService.selectSearchTitle(search);
-		
-		//받은 결과에 따라 성공/실패 페이지 내보내기
-		if(list != null && list.size() > 0) {
+			int listCount = freeBoardService.searchTitleCount(search);
+			Paging paging = new Paging(listCount, currentPage, limit, "fbsearchTitle.do");
+			paging.calculate();
+			
+			search.setStartRow(paging.getStartRow());
+			search.setEndRow(paging.getEndRow());
+			
+			ArrayList<FreeBoard> list = freeBoardService.selectSearchTitle(search);
+
+
 			mv.addObject("list", list);
-			mv.addObject("paging", paging);
-			//mv.addObject("action", action);
-			mv.addObject("currentPage", currentPage);
-			//mv.addObject("limit", limit);
-			//mv.addObject("keyword", keyword);
-			mv.addObject("categoryId", categoryId);
-			
 			mv.setViewName("freeboard/freeboardListView");
-			
-			
-		} else {
-			mv.addObject("message", action + "에 대한 " + search + "검색 결과가 존재하지 않습니다.");
-			mv.setViewName("common/error");
-			
-		}
-		return mv;
-		
-		
-		
-		
-		
-	}
-			
-	//게시글 작성자 검색용(페이징 처리)
-	
-	@RequestMapping(value = "fbsearchWriter.do", method= {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView freeBoardSearchWriterMethod(
-		@RequestParam("action") String action,
-		//@RequestParam("keyword") String keyword,
-		Search search,
-		@RequestParam(name="limit", required=false) String slimit,
-		@RequestParam(name="page", required=false) String page,
-		ModelAndView mv
-			) {
-		//검색결과에 대한 페이징 처리를 위한 페이지 지정
-		int currentPage = 1;
-		if(page != null) {
-			currentPage = Integer.parseInt(page);
-		}
-		int limit = 10;
-		if(slimit != null) {
-			limit = Integer.parseInt(slimit);
-		}
-		
-		int categoryId = 1;
-		if(search.getCategoryId() != 0) {
-			categoryId = search.getCategoryId();
-		}
-		
-		//검색결과가 적용된 총 페이지 계산을 위한 총 목록 갯수 조회해옴
-		int listCount = freeBoardService.selectSearchWriterCount(search);
-		
-		//뷰 페이지에 사용할 페이징 관련 값들 계산 처리
-		Paging paging = new Paging(listCount, currentPage, limit, "fbsearchWriter.do");
-		paging.calculate();
-		
-		//한 페이지에 출력할 검색 결과 적용된 목록 조회
-		
-		search.setStartRow(paging.getStartRow());
-		search.setEndRow(paging.getEndRow());
-		//search.setKeyword(keyword);
-		
-		ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
-		
-		//받은 결과에 따라 성공/실패 페이지 내보내기
-		if(list != null && list.size() > 0) {
-			mv.addObject("list", list);
-			mv.addObject("paging", paging);
 			mv.addObject("currentPage", currentPage);
-			mv.addObject("action", action);
+			mv.addObject("paging", paging);
 			mv.addObject("categoryId", categoryId);
-			//mv.addObject("keyword", keyword);
-			mv.addObject("limit", limit);
-			mv.setViewName("freeboard/freeboardListView");
-			
-		} else {
-			mv.addObject("message",
-					action + "에 대한 " + search + " 검색 결과가 존재하지 않습니다. ");
-			mv.setViewName("common/error");
+			return mv;
 		}
 		
-		return mv;
-		
-	
-	}
-	
+		// 이름으로 검색
+			@RequestMapping("fbsearchWriter.do")
+			public ModelAndView searchFreeWriter(Search search, 
+					@RequestParam(name="limit", required=false) String limit1,
+					@RequestParam(name="page", required=false) String page, ModelAndView mv) {
+				int currentPage = 1;
+				if (page != null) {
+					currentPage = Integer.parseInt(page);
+				}
+				int limit = 10;
+				int categoryId = 1;
+				if(search.getCategoryId() != 0) {
+					categoryId = search.getCategoryId();
+				}
+				
+				int listCount = freeBoardService.selectSearchWriterCount(search);
+				Paging paging = new Paging(listCount, currentPage, limit, "fbsearchWriter.do");
+				paging.calculate();
+				
+				search.setStartRow(paging.getStartRow());
+				search.setEndRow(paging.getEndRow());
+				
+				ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
+
+
+				mv.addObject("list", list);
+				mv.setViewName("freeboard/freeboardListView");
+				mv.addObject("currentPage", currentPage);
+				mv.addObject("paging", paging);
+				mv.addObject("categoryId", categoryId);
+				return mv;
+			}
+
 
 	
 	
@@ -634,26 +574,72 @@ public class FreeBoardController {
 	@ResponseBody
 	*/
 	@RequestMapping("incrementReportCount.do")
-	public ResponseEntity<String> incrementReportCount(@RequestParam("boardId") int boardId) {
+	public ResponseEntity<String> incrementReportCount(@RequestParam("boardId") int boardId,
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		// 아래 변수는 자신의 테이블 명과 같이 조회할 쿠키의 이름을 지정하는 것임
+        String articleId = "FreeBoard_reportCount" + boardId;
+        // 쿠키에서 해당 게시물의 조회수 증가 여부를 확인
+        boolean isViewed = false;
+        Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
+        if (viewCookie != null) {
+            isViewed = true;
+        }
+        if (!isViewed) {
 	    try {
 	        // 신고 수 증가 메서드 호출
 	        freeBoardService.incrementReportCount(boardId);
-	        return new ResponseEntity<>("Success", HttpStatus.OK); // 성공 시 응답
+	        
+	     // 새 쿠키 생성 및 설정
+	        Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+	        newCookie.setMaxAge(24 * 60 * 60); // 쿠키 유효 시간: 24시간 (시 * 분 * 초)
+	        newCookie.setPath("/");
+	        response.addCookie(newCookie);
+	        
+	        return new ResponseEntity<String>("Success", HttpStatus.OK); // 성공 시 응답
+	        
 	    } catch (Exception e) {
-	        return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
+	        return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
 	    }
+        }
+        return new ResponseEntity<String>("Already Viewed", HttpStatus.OK);
 	}
 	
 	@RequestMapping("incrementLikeCount.do")
-	public ResponseEntity<String> incrementLikeCount(@RequestParam("boardId") int boardId) {
+	public ResponseEntity<String>  incrementLikeCount(@RequestParam("boardId") int boardId,
+			/*@PathVariable long boardId,*/ HttpServletRequest request, HttpServletResponse response) {
+		
+		// 아래 변수는 자신의 테이블 명과 같이 조회할 쿠키의 이름을 지정하는 것임
+        String articleId = "FreeBoard_likeCount" + boardId;
+        
+     // 쿠키에서 해당 게시물의 조회수 증가 여부를 확인
+        boolean isViewed = false;
+        Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
+        if (viewCookie != null) {
+            isViewed = true;
+        }
+        if (!isViewed) {
 	    try {
 	        // 신고 수 증가 메서드 호출
 	        freeBoardService.incrementLikeCount(boardId);
-	        return new ResponseEntity<>("Success", HttpStatus.OK); // 성공 시 응답
+	        
+	        // 새 쿠키 생성 및 설정
+	        Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+	        newCookie.setMaxAge(24 * 60 * 60); // 쿠키 유효 시간: 24시간 (시 * 분 * 초)
+	        newCookie.setPath("/");
+	        response.addCookie(newCookie);
+	        
+	        return new ResponseEntity<String>("Success", HttpStatus.OK); // 성공 시 응답
 	    } catch (Exception e) {
-	        return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
+	        return new ResponseEntity<String>("Error", HttpStatus.INTERNAL_SERVER_ERROR); // 오류 시 응답
 	    }
-	}
+	    
+	  
+        }
+        
+        return new ResponseEntity<String>("Already Viewed", HttpStatus.OK);
+    }
+	
 	
 	
 	
