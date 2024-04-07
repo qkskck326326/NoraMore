@@ -417,7 +417,7 @@ textarea.commentForm:hover {
 
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
-						<button id="showRecrAppl" class="whiteBtn" style="float: right;"></button>
+						<button id="showRecrAppl" class="whiteBtn" style="float: right;">모집목록 보기</button>
 						
 						<table style='width: 600px;'>
 							<tr>
