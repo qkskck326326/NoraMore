@@ -13,6 +13,8 @@
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
+
+
 <c:set var="categoryId" value="1"/>
 <c:if test="${!empty requestScope.message}">
 	<c:set var="category" value="${requestScope.category}" />
