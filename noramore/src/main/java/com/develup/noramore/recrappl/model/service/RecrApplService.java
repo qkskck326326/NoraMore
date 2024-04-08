@@ -14,4 +14,10 @@ public interface RecrApplService {
 
 	ArrayList<RecrAppl> selectBoardId(int boardId);
 
+
+	int cancelAppl(RecrAppl recrAppl);
+
+
+	int applyAppl(RecrAppl recrAppl);
+
 }

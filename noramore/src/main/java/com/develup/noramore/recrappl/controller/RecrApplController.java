@@ -79,17 +79,58 @@ public class RecrApplController {
 			  }
 		  }else {
 			  model.addAttribute("message", "신청에 실패하였습니다! 모집 조건을 확인해 주세요");
-			  model.addAttribute("currentPage", page);
+			  model.addAttribute("page", page);
 			  model.addAttribute("categoryId", categoryId);
-			  model.addAttribute("RecrBoard", recrBoard);
-			  return "recrBoard/RecrBoardDetail";
+			  model.addAttribute("boardId", recrAppl.getBoardId());
+			  return "redirect:rbdetail.do";
 		  }
-		  
-		  
-		  
-		  
-		  
-		  
+  
 	  } 
 	  
+	  @RequestMapping("applyAppl.do")
+	  public String applyAppl(RecrAppl recrAppl, Model model, @RequestParam("page") int page, @RequestParam("categoryId") int categoryId) {
+		  
+		  model.addAttribute("categoryId", categoryId);
+		  model.addAttribute("boardId", recrAppl.getBoardId());
+		  model.addAttribute("page", page);
+		  
+		  if(recrApplService.applyAppl(recrAppl) > 0) {
+			  model.addAttribute("message", "모집 신청을 수락하였습니다.");
+			  return"redirect:rbdetail.do";
+		  }else {
+			  model.addAttribute("message", "error! 모집 신청 수락에 실패하였습니다!");
+			  return"redirect:rbdetail.do";
+		  } 
+		  
+	  }//
+	  
+	  @RequestMapping("cancelAppl.do")
+	  public String cancelAppl(RecrAppl recrAppl, Model model, @RequestParam("page") int page, @RequestParam("categoryId") int categoryId) {
+		  
+		  model.addAttribute("categoryId", categoryId);
+		  model.addAttribute("boardId", recrAppl.getBoardId());
+		  model.addAttribute("page", page);
+		  
+		  if(recrApplService.cancelAppl(recrAppl) > 0) {
+			  model.addAttribute("message", "모집 신청을 거절하였습니다.");
+			  return"redirect:rbdetail.do";
+		  }else {
+			  model.addAttribute("message", "error! 모집 신청 거절에 실패하였습니다!");
+			  return"redirect:rbdetail.do";
+		  } 
+		  
+	  }//
+	  
+	  
 }//
+
+
+
+
+
+
+
+
+
+
+

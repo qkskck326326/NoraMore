@@ -29,4 +29,14 @@ public class RecrApplDao {
 		return (ArrayList<RecrAppl>)list;
 	}
 
+
+	public int cancelAppl(RecrAppl recrAppl) {
+		return sqlSessionTemplate.update("recrappl.cancelAppl", recrAppl);
+	}
+
+
+	public int applyAppl(RecrAppl recrAppl) {
+		return sqlSessionTemplate.update("recrappl.applyAppl", recrAppl);
+	}
+
 }//

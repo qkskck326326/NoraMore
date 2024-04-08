@@ -31,6 +31,18 @@ public class RecrApplServiceImpl implements RecrApplService{
 	}
 
 
+	@Override
+	public int cancelAppl(RecrAppl recrAppl) {
+		return recrApplDao.cancelAppl(recrAppl);
+	}
+
+
+	@Override
+	public int applyAppl(RecrAppl recrAppl) {
+		return recrApplDao.applyAppl(recrAppl);
+	}
+
+
 	
 	
 }//
