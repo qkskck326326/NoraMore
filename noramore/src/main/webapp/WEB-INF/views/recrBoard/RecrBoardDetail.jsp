@@ -44,9 +44,15 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
-
+<script src="//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=ko"></script>
 <script type="text/javascript">
-
+function googleSectionalElementInit() {
+    new google.translate.SectionalElement({
+        sectionalNodeClassName: 'goog-trans-section',
+        controlNodeClassName: 'goog-trans-control',
+        background: '#78E7FF'
+    }, 'google_sectional_element');
+}
 
 function translateText() {
     const apiKey = 'AIzaSyAaIhu_6-vh8v4xryS5-fPmJ_ABZpnB6xo';
@@ -432,8 +438,9 @@ textarea.commentForm:hover {
 
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
-						<button id="showRecrAppl" class="whiteBtn" style="float: right;">모집목록 보기</button>
-						
+						<button id="showRecrAppl" class="whiteBtn" style="float: right;">모집목록
+							보기</button>
+
 						<table style='width: 600px;'>
 							<tr>
 								<th>신청자ID</th>
@@ -447,15 +454,17 @@ textarea.commentForm:hover {
 							</c:if>
 							<c:if test="${!empty applList}">
 								<tr>
-								<c:forEach var="appl" items="${applList}">
-									<th>${appl.memberId}</th>
-									<th><button onclick="applyAppl('${appl.memberId}', ${appl.boardId})">수락</button></th>
-									<th><button onclick="cancelAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
-								</c:forEach>
+									<c:forEach var="appl" items="${applList}">
+										<th>${appl.memberId}</th>
+										<th><button
+												onclick="applyAppl('${appl.memberId}', ${appl.boardId})">수락</button></th>
+										<th><button
+												onclick="cancelAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
+									</c:forEach>
 								</tr>
 							</c:if>
 						</table>
-						
+
 					</c:if>
 
 				</div>
@@ -485,19 +494,19 @@ textarea.commentForm:hover {
 					<div class="comment-div">
 						<button onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
 						<!-- 댓글 작성 폼 -->
-						
+
 						<div id="writecommentForm" style="display: none;">
 							<c:if test="${!empty sessionScope.loginMember}">
-							<form action="insertrecrcomment.do" method="post">
-								<input type="hidden" name="memberId"
-									value="${sessionScope.loginMember.memberID}"> <input
-									type="hidden" name="boardId" value="${RecrBoard.boardId}">
-								<input type="hidden" name="page" value="${page}">
-								<textarea class="commentForm" name="context" cols="50" rows="5"
-									required></textarea>
-								<br>
-								<button type="submit">댓글 등록</button>
-							</form>
+								<form action="insertrecrcomment.do" method="post">
+									<input type="hidden" name="memberId"
+										value="${sessionScope.loginMember.memberID}"> <input
+										type="hidden" name="boardId" value="${RecrBoard.boardId}">
+									<input type="hidden" name="page" value="${page}">
+									<textarea class="commentForm" name="context" cols="50" rows="5"
+										required></textarea>
+									<br>
+									<button type="submit">댓글 등록</button>
+								</form>
 							</c:if>
 							<div id="commentList"></div>
 							<div class="comment-list"
@@ -505,8 +514,8 @@ textarea.commentForm:hover {
 								<br>
 							</div>
 						</div>
-						
-						
+
+
 					</div>
 
 				</div>
@@ -517,7 +526,17 @@ textarea.commentForm:hover {
 		</div>
 	</div>
 
-	<button onclick="translateText()">번역하기</button>
+	<div id="google_sectional_element" style="display: none"></div>
+	<div class="goog-trans-section">
+		<div class="goog-trans">
+			<div class="goog-trans-control"></div>
+			<div class="goog-trans-info">[번역]을 누르시면 번역이 됩니다.</div>
+		</div>
+		<div id="google_translate_element_area">The page you are looking
+			at is being generated dynamically by CodeIgniter.</div>
+	</div>
+
+	<button onclick="googleSectionalElementInit()">번역하기</button>
 
 </body>
 </html>
