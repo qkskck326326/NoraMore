@@ -13,7 +13,6 @@
 
 	<!-- 존재하지 않는 클래스와 매퍼파일을 먼저 등록 설정하면 톰켓 구동 안함 : 에러 발생함 -->
 	<typeAliases>			
-		<typeAlias type="com.develup.noramore.category.model.vo.Category" alias="Category" />
 		<typeAlias type="com.develup.noramore.commentfreeboard.model.vo.CommentFreeBoard" alias="CommentFreeBoard" />
 		<typeAlias type="com.develup.noramore.commentrecrboard.model.vo.CommentRecrBoard" alias="CommentRecrBoard" />      
 		<typeAlias type="com.develup.noramore.forbidden.model.vo.Forbidden" alias="Forbidden" />
@@ -30,11 +29,13 @@
 		<typeAlias type="com.develup.noramore.common.SearchDate" alias="SearchDate" />
 		<typeAlias type="com.develup.noramore.recrappl.model.vo.RecrAppl" alias="RecrAppl" />
 		<typeAlias type="com.develup.noramore.chatting.vo.ChattingRoom" alias="ChattingRoom" />
-		<typeAlias type="com.develup.noramore.chatting.vo.Message" alias="Message" />	
+		<typeAlias type="com.develup.noramore.chatting.vo.Message" alias="Message" />
+		<typeAlias type="com.develup.noramore.category.model.vo.Category" alias="Category" />
+		<typeAlias type="com.develup.noramore.admin.model.vo.Flow" alias="Flow" />
+		<typeAlias type="com.develup.noramore.admin.model.vo.BoardManage" alias="BoardManage" />
 	</typeAliases>
 	  
 	<mappers>
-		<mapper resource="mappers/category-mapper.xml" />
 		<mapper resource="mappers/commentfreeboard-mapper.xml" />
 		<mapper resource="mappers/commentrecrboard-mapper.xml" />
 		<mapper resource="mappers/forbidden-mapper.xml" />
@@ -48,5 +49,7 @@
 		<mapper resource="mappers/recrappl-mapper.xml" />
 		<mapper resource="mappers/alarm-mapper.xml" />
 		<mapper resource="mappers/chatting-mapper.xml" />
+		<mapper resource="mappers/category-mapper.xml" />
+		<mapper resource="mappers/admin-mapper.xml" />
 	</mappers>
 </configuration>

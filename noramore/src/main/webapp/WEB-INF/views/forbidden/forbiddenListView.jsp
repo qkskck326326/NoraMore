@@ -173,7 +173,6 @@ function dupFbCheck(){
 	</div>
 	<br>
 
-
 		<table class="table" align="center" border="1" cellspacing="0" width="700">
 			<tr>
 				<th>번호</th>

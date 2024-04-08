@@ -13,6 +13,7 @@ public class Alarm {
 	private String checkedYN;
 	private Date registDate;
 	
+	private int categoryId;
 	private int boardId;
 	private String title;
 	private String context;
@@ -25,7 +26,7 @@ public class Alarm {
 	}
 
 	public Alarm(int alarmId, String alarmKind, int nativeId, String receiverId, String senderId, String checkedYN,
-			Date registDate, int boardId, String title, String context, int refCommentId, int startRow,
+			Date registDate, int categoryId, int boardId, String title, String context, int refCommentId, int startRow,
 			int endRow) {
 		super();
 		this.alarmId = alarmId;
@@ -35,6 +36,7 @@ public class Alarm {
 		this.senderId = senderId;
 		this.checkedYN = checkedYN;
 		this.registDate = registDate;
+		this.categoryId = categoryId;
 		this.boardId = boardId;
 		this.title = title;
 		this.context = context;
@@ -99,6 +101,14 @@ public class Alarm {
 		this.registDate = registDate;
 	}
 
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
 	public int getBoardId() {
 		return boardId;
 	}
@@ -151,11 +161,8 @@ public class Alarm {
 	public String toString() {
 		return "Alarm [alarmId=" + alarmId + ", alarmKind=" + alarmKind + ", nativeId=" + nativeId + ", receiverId="
 				+ receiverId + ", senderId=" + senderId + ", checkedYN=" + checkedYN + ", registDate=" + registDate
-				+ ", boardId=" + boardId + ", title=" + title + ", context=" + context + ", refCommentId="
-				+ refCommentId + ", startRow=" + startRow + ", endRow=" + endRow + "]";
+				+ ", categoryId=" + categoryId + ", boardId=" + boardId + ", title=" + title + ", context=" + context
+				+ ", refCommentId=" + refCommentId + ", startRow=" + startRow + ", endRow=" + endRow + "]";
 	}
-
-	
-	
 
 }
