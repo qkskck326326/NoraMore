@@ -12,6 +12,7 @@
 		<result property="checkedYN" column="CHECKED_YN"/>
 		<result property="registDate" column="REGIST_DATE"/>
 
+		<result property="categoryId" column="category_id"/>
 		<result property="boardId" column="BOARD_ID"/>
 		<result property="title" column="TITLE"/>
 		<result property="context" column="CONTEXT"/>
@@ -24,27 +25,30 @@
 
 	<select id="selectList" parameterType="Alarm" resultMap="resultList">
 		select *
-		from (select rownum rnum, alarm_id, alarm_kind, board_id, title, context, ref_comment_id, receiver_id, sender_id, checked_yn, regist_date
-				from (select alarm_id, alarm_kind, b.board_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
+		from (select rownum rnum, alarm_id, alarm_kind, board_id, category_id, title, context, ref_comment_id, receiver_id, sender_id, checked_yn, regist_date
+				from (select alarm_id, alarm_kind, b.board_id, b.category_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
                         from alarm a
                         join comm_free c on (c.comment_id = a.native_id)
                         join free_board b on (c.board_id = b.board_id)
+                        join category d on (d.category_id = b.category_id)
                         where alarm_kind = 'COMM_FREE'
                         or alarm_kind = 'FREE_BOARD'
                         and receiver_id = #{ receiverId }
 						union
-                        select alarm_id, alarm_kind, b.board_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
+                        select alarm_id, alarm_kind, b.board_id, b.category_id, title, c.context, ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
                         from alarm a
                         join comm_recr c on (c.comment_id = a.native_id)
                         join recr_board b on (c.board_id = b.board_id)
+                        join category d on (d.category_id = b.category_id)
                         where alarm_kind = 'COMM_RECR'
                         or alarm_kind = 'RECR_BOARD'
                         and receiver_id = #{ receiverId }
 						union
-						select alarm_id, alarm_kind, b.board_id, title, NULL as context, NULL as ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
+						select alarm_id, alarm_kind, b.board_id, b.category_id, title, NULL as context, NULL as ref_comment_id, receiver_id, sender_id, checked_yn, a.regist_date
 						from alarm a
 						join recr_appl ap on (board_id = native_id)
 						join recr_board b on (ap.board_id = b.board_id)
+						join category d on (d.category_id = b.category_id)
 						where alarm_kind = 'RECR_APPL'
 						and receiver_id = #{ receiverId }
 						order by checked_YN asc, regist_date desc, alarm_id desc))
