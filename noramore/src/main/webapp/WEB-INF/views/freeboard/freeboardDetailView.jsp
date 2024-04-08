@@ -379,9 +379,13 @@ textarea.commentForm:hover {
 </style>
 </head>
 <body>
+
+	
+	
 	<form action="freeboardlist.do" method="post"
 		enctype="multipart/form-data">
 		<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
+	
 		<div id="write">
 			<h1 style="text-align: left;">${FreeBoard.title}</h1>
 			<div class="line"></div>
@@ -392,9 +396,9 @@ textarea.commentForm:hover {
 				<button id="likeButton_${FreeBoard.boardId}" style="float: right; background-color: pink; color: black;"
 					class="whiteBtn" onclick="like(${FreeBoard.boardId}); return false;">좋아요</button>
 			</div>
-
-			<textarea cols="30" rows="40" readonly>${FreeBoard.context}</textarea>
 			
+			<textarea cols="30" rows="40" readonly>${FreeBoard.context}</textarea>
+			</div>
 			<c:if test="${ !empty FreeBoard.freeOriginalFileName}">
 				<p>첨부파일</p>
 				<c:url var="fbdown" value="fbdown.do">
@@ -412,7 +416,7 @@ textarea.commentForm:hover {
 			<button onclick="requestDelete(); return false;">글삭제</button>
 			&nbsp;
 			 -->
-			
+		
 			
 			<%-- 로그인한 경우 : 본인 글 상세보기 일때는 수정페이지로 이동과 삭제 버튼 표시함 --%>
 			
@@ -441,14 +445,14 @@ textarea.commentForm:hover {
 			</c:if>
 			
 			
-		</div>
+		
 		
 		
 	
 		
 	</form>
-	
-	
+
+
 	<%-- 가져온 부분 ****************************** --%>
 			
 		<div class="comment-div">

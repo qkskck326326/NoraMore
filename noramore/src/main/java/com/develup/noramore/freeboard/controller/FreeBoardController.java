@@ -263,7 +263,10 @@ public class FreeBoardController {
 			@RequestParam(name="limit", required=false) String slimit,
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
 			@RequestParam(name="categoryId", required = false) String categoryId1) {
+		
+		
 		int currentPage = 1;
+		
 		
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -274,6 +277,7 @@ public class FreeBoardController {
 		if(slimit != null && slimit.trim().length() > 0) {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
 		}
+		
 		
 		
 		int categoryId = 1;
