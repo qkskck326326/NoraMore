@@ -143,6 +143,6 @@ function changeFormAction() {
 		<br>
 	</section>
 
-	<c:import url="/WEB-INF/views/common/pagingView.jsp" />
+	<c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
 </body>
 </html>

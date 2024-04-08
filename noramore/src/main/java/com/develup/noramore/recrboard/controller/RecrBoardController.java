@@ -107,6 +107,7 @@ public class RecrBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
+		mv.addObject("keyword", search.getKeyword());
 		return mv;
 	}
 	
@@ -140,6 +141,7 @@ public class RecrBoardController {
 			mv.addObject("currentPage", currentPage);
 			mv.addObject("paging", paging);
 			mv.addObject("categoryId", categoryId);
+			mv.addObject("keyword", search.getKeyword());
 			return mv;
 		}
 
