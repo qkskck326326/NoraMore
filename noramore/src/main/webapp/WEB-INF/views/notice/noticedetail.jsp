@@ -58,8 +58,6 @@
 				<th colspan="2">
 					<c:if
 						test="${!empty sessionScope.loginMember and sessionScope.loginMember.adminYN == 'Y'}">
-
-
 						<button class="blueBtn"
 							style="float: right; margin-right: 30px; margin-left: 10px;"
 							onclick="requestDelete(); return false;">삭제</button>
