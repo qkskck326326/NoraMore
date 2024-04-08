@@ -9,7 +9,7 @@
 </c:if>
 <c:set var="categoryId" value="1"/>
 <c:if test="${!empty requestScope.message}">
-	<c:set var="category" value="${requestScope.category}" />
+	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -29,10 +29,13 @@
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 
-
-	function rbwriteform() {
-		location.href = 'rbwriteform.do?page=' + ${page};
-	}
+function rbwriteform(){
+        var page = ${page};
+        var categoryId = ${categoryId};
+        location.href = 'rbwriteform.do?page=' + page + '&categoryId=' + categoryId;
+        
+        return false;
+}
 
 function check(){
 	var limitSelect = document.getElementById('limitSelect');
@@ -96,7 +99,7 @@ function changeFormAction() {
 			<fieldset style='width: 1200px; border: 0px;'>
 				<div class="search" style='width: 180px;'>
 					<input id="keyword" name="keyword" style="width:140; height:25;">
-					<button>검색</button>
+					<button type="submit">검색</button>
 				</div> &nbsp; 
 				한 페이지에 출력할 목록 갯수 : <select name="limit" id="limitSelect">
 					<option value="10" selected>10</option>
@@ -104,10 +107,11 @@ function changeFormAction() {
 					<option value="20">20</option>
 					<c:set var="limi" value="${limit}" ></c:set>
 				</select> &nbsp; 
-				<button class="whiteBtn" style="float: right;" onclick="rbwriteform()">글작성</button>
+				
 			</fieldset>
 			<input  type="hidden" name="categoryId" value="${categoryId}">
 		</form>
+		<button class="whiteBtn" style="float: right;" onclick="rbwriteform()">글작성</button>
 	</section>
 		
 		<table style='width: 1200px;'>

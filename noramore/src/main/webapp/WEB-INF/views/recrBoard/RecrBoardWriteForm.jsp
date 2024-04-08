@@ -13,61 +13,9 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"src="/noramore/resources/js/jquery-3.7.0.min.js"></script>	
-<script type="text/javascript" src="SmartEditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef: oEditors,
-	elPlaceHolder: "editorTxt",
-	sSkinURI: "SmartEditor2Skin.html",	
-	htParams : {bUseToolbar : true,
-		fOnBeforeUnload : function(){
-			alert("아싸!");	
-		}
-	}, //boolean
-	fOnAppLoad : function(){
-		//예제 코드
-		oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
-	},
-	fCreator: "createSEditor2"
-});
-
-
-$("#savebutton").click(function() {
-	oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []); 
-	//textarea의 id를 적어줍니다.
-
-	var selcatd = $("#selcatd > option:selected").val();
-	var title = $("#title").val();
-	var content = document.getElementById("editorTxt").value;;
-
-	if (selcatd == "") {
-		alert("카테고리를 선택해주세요.");
-		return;
-	}
-	if (title == null || title == "") {
-		alert("제목을 입력해주세요.");
-		$("#title").focus();
-		return;
-	}
-	if(content == "" || content == null || content == '&nbsp;' || 
-			content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
-		alert("본문을 작성해주세요.");
-		oEditors.getById["smartEditor"].exec("FOCUS"); //포커싱
-		return;
-	} //이 부분은 스마트에디터 유효성 검사 부분이니 참고하시길 바랍니다.
-	
-	var result = confirm("발행 하시겠습니까?");
-	
-	if(result){
-		alert("발행 완료!");
-		$("#noticeWriteForm").submit();
-	}else{
-		return;
-	}
-});
 
 
 function sample4_execDaumPostcode() {
@@ -291,5 +239,3 @@ $(function(){
 
 </body>
 </html>
-
-<script type="text/javascript" src = "resources/js/notice-write.js"></script>
