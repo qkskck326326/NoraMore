@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+*	{margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: #000;
+	font-family: 'ELAND_Choice_M';
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	margin: 0;
+	padding: 0;
+}
+
+
+/* 
+#info_box {
+    background-color: white;
+    position: relative;
+    top: 156px;
+    left: 375px;
+    width: 550px;
+    height: 560px;
+    box-shadow: 0 13px 17px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+     display: flex; Flexbox를 사용하도록 설정
+    align-items: center; 수직 가운데 정렬
+    justify-content: center; 수평 가운데 정렬
+   
+    
+    
+	
+}
+
+h1 {
+    
+}
+
+.title {
+	
+	font-weight: bold;
+	font-size: 15px;
+		clear:both;
+	
+}
+
+#form{
+position:absolute;
+	top:500px;
+	left:200px;
+}
+
+ */
+
+
+#info_box {
+    position: relative;
+    top: 157px;
+    left: -50px;
+    max-width: 416px;
+    max-height: 418px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    margin-bottom: 15px;
+}
+
+.title {
+    font-weight: bold;
+    display: inline-block;
+    width: 80px;
+}
+
+.input {
+    display: inline-block;
+    width: calc(100% - 90px);
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+

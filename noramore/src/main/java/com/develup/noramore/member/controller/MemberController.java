@@ -126,10 +126,85 @@ public class MemberController {
 
 	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-	public String mypage() {
-		return "/member/mypage";
-
+	public String mypage(@RequestParam("memberID") String memeberid, Model model) {
+		
+		model.addAttribute("memberID", memeberid);
+		
+		
+		
+		return "/member/myArticlePage";
 	}
+	
+	//내 프로필 가기
+	@RequestMapping(value = "myinfo.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String memberDetailPage(@RequestParam("memberID") String memberid, Model model) {
+		
+		Member member = memberService.selectMember(memberid);
+		
+		if (member != null) {
+			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "member/memberDetailPage";
+		} else {
+			return "redirect:home.do";
+		}
+	}
+	
+	
+	
+	@RequestMapping(value = "updatePage.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String updatePage(@RequestParam("memberID") String memberid, Model model) {
+		Member member = memberService.selectMember(memberid);
+		
+		
+		if (member != null) {
+			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "/member/memberUpdatePage";
+		} else {
+			model.addAttribute("message", memberid + " 에 대한 수정페이지로 이동 실패!");
+			return "common/error";
+		}
+		
+		
+	}
+	
+	
+	
+	
+
+	@RequestMapping(value = "grade.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String gradePage(@RequestParam("memberID") String memeberid, Model model) {
+		
+		Member member = memberService.selectMember(memeberid);
+		
+		if (member != null) {
+			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "member/gradePage";
+		} else {
+			return "redirect:home.do";
+		}
+	}
+	
+	
+	
+	@RequestMapping(value = "articel.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String myArticlePage(@RequestParam("memberID") String memeberid, Model model) {
+		
+		Member member = memberService.selectMember(memeberid);
+		
+		if (member != null) {
+			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "member/myArticlePage";
+		} else {
+			return "redirect:home.do";
+		}
+	}
+	
+	
+	
 
 	// 로그인 처리용
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
@@ -149,7 +224,10 @@ public class MemberController {
 			status.setComplete(); // 로그인 성공 요청결과로 HttpStatus code 200 보냄
 			return "redirect:home.do";
 		} else {
-			return "redirect:moveLoginPage.do";
+		    model.addAttribute("message", "없는 회원입니다. 다시 확인해 주세요.");
+			/* String message = "없는 회원입니다. 다시 확인해 주세요."; */
+			/* return "redirect:moveLoginPage.do?message=" + message; */
+		    return "member/moveLoginPage";
 		}
 	}
 	
@@ -362,7 +440,7 @@ public class MemberController {
 			return "member/moveLoginPage";
 		} else {
 			model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
-			return "redirect:moveEnrollPage.do";
+			return "member/moveEnrollPage";
 		}
 	}
 
