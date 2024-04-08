@@ -7,6 +7,10 @@
 <title>등급</title>
 </head>
 <body>
+<c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/member/mypageSidebar.jsp" /> 
+
+
 
 </body>
 </html>

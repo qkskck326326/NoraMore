@@ -274,6 +274,16 @@ function dupNicnameCheck(){
 
  <script type="text/javascript">
 
+ window.onload = function() {
+		
+	 var message = "${message}";
+	 if(message != ""){
+	 alert(message);
+	 }
+}; 
+ 
+ 
+ 
 
  $(() => {
 	   const urlParams = new URLSearchParams(window.location.search);
@@ -291,10 +301,7 @@ function dupNicnameCheck(){
 	    if (!!email) {
 	        $("#email").prop('readonly', true);
 	    }
-	    
-	    
-	    
-	    
+ 
 	}); //doc ready;
 </script>
 
