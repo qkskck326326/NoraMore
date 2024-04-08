@@ -70,12 +70,16 @@ form.sform {
 		</c:if>
 		
 		<%-- 항목별 검색 기능 추가 --%>
-		<fieldset id="ss">
+		<fieldset id="ss" style="border:black; width:220px">
 			<legend>검색할 항목을 선택하세요.</legend>
+			<br>
 			<input type="radio" name="item" id="title"> 제목 &nbsp; <input
 				type="radio" name="item" id="content"> 내용 &nbsp; <input
-				type="radio" name="item" id="date"> 등록날짜 &nbsp; <b
-				style="color: blue;">출력할 목록 갯수를 선택하세요 : </b> <select id="limit"
+				type="radio" name="item" id="date"> 등록날짜 &nbsp; 
+				<br><br>
+				<b style="color: blue;">출력할 목록 갯수를 선택하세요</b> 
+				<br>				
+				<select id="limit"
 				onchange="changeLimit(this.value);">
 				<c:if test="${ currentLimit eq 10 }">
 					<option value="10" selected>10개씩 출력</option>
