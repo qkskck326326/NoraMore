@@ -8,7 +8,7 @@
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
 <c:set var="categoryId" value="1"/>
-<c:if test="${!empty requestScope.message}">
+<c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
 <!DOCTYPE html>
