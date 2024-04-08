@@ -30,6 +30,10 @@
 <script type="text/javascript">
 
 function rbwriteform(){
+	if(${empty sessionScope.loginMember}){
+		alert("로그인을 해야 합니다.");
+		return;
+	}
         var page = ${page};
         var categoryId = ${categoryId};
         location.href = 'rbwriteform.do?page=' + page + '&categoryId=' + categoryId;

@@ -164,7 +164,7 @@ function selectrecrcomment() {
                 var refCommentId1 = parseInt(comment.commentId);
                 
                 
-                if(comment.refCommentId == 0){
+                if(comment.refCommentId == 0 && ${!empty sessionScope.loginMember}){
                 commentDiv.append('<div id="cocomment" style="width: 500px; height: 200px;">' +
                 	    '<form id="cocommentForm" action="insertrecrcocomment.do" method="post" style="">' +
                 	    '<input type="hidden" name="memberId" value="' + "${sessionScope.loginMember.memberID}" + '">' +
@@ -256,6 +256,10 @@ function calculateAge(birthDate) {
 }
 
 function insertappl(){
+	if(${empty sessionScope.loginMember}){
+		alert("로그인을 해야합니다.");
+		return
+	}
 	location.href = "${insertappl}";
 }//
 
@@ -269,6 +273,10 @@ function deleteBoard(){
 }
 
 function rbreport(){
+	if(${empty sessionScope.loginMember}){
+		alert("로그인을 해야합니다.");
+		return
+	}
 	location.href = "${rbreport}"
 }
 
@@ -477,7 +485,9 @@ textarea.commentForm:hover {
 					<div class="comment-div">
 						<button onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
 						<!-- 댓글 작성 폼 -->
+						
 						<div id="writecommentForm" style="display: none;">
+							<c:if test="${!empty sessionScope.loginMember}">
 							<form action="insertrecrcomment.do" method="post">
 								<input type="hidden" name="memberId"
 									value="${sessionScope.loginMember.memberID}"> <input
@@ -488,15 +498,15 @@ textarea.commentForm:hover {
 								<br>
 								<button type="submit">댓글 등록</button>
 							</form>
+							</c:if>
 							<div id="commentList"></div>
 							<div class="comment-list"
 								style='display: none; text-align: left; padding: 0;'>
 								<br>
 							</div>
-
-
-
 						</div>
+						
+						
 					</div>
 
 				</div>
