@@ -36,6 +36,7 @@ public class CommentRecrBoardController {
 				&& recrBoardService.upCountComment(commentRecrBoard.getBoardId()) > 0) {
 			model.addAttribute("message", "댓글이 등록되었습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";
 		} else {
@@ -54,12 +55,13 @@ public class CommentRecrBoardController {
 		if (commentRecrBoardService.insertRecrComment(commentRecrBoard) > 0
 				&& recrBoardService.upCountComment(commentRecrBoard.getBoardId()) > 0) {
 			commentRecrBoardService.upcountcocoment(commentRecrBoard);
-			model.addAttribute("message", "대댓글이 등록되었습니다.");
+			model.addAttribute("message", "댓글이 등록되었습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);
+			model.addAttribute("categoryId", categoryId);
 			return "redirect:rbdetail.do";
 		} else {
-			model.addAttribute("message", "error! 대댓글이 등록에 실패하였습니다.");
+			model.addAttribute("message", "error! 댓글이 등록에 실패하였습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);
 			model.addAttribute("categoryId", categoryId);
