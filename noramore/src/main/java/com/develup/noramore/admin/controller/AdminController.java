@@ -23,25 +23,10 @@ import com.develup.noramore.admin.model.vo.ReportMember;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.common.SearchDate;
-import com.develup.noramore.freeboard.model.service.FreeBoardService;
-import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
-import com.develup.noramore.recrboard.model.service.RecrBoardService;
 
 @Controller
 public class AdminController {
-
-	@Autowired
-	private MemberService memberService;
-	
-	//@Autowired
-	//private MemAddService memAddService;
-	
-	@Autowired
-	private RecrBoardService recrBoardService;
-	
-	@Autowired
-	private FreeBoardService freeBoardService;	
 	
 	@Autowired
 	private AdminService adminService;
