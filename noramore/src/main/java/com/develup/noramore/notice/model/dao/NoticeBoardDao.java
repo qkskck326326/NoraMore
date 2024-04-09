@@ -11,6 +11,7 @@ import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.common.SearchDate;
 import com.develup.noramore.notice.model.vo.Notice;
+import com.develup.noramore.qna.model.vo.Qna;
 
 @Repository("noticeBoardDao")
 public class NoticeBoardDao {
@@ -67,23 +68,23 @@ public class NoticeBoardDao {
 	}
 
 	public ArrayList<Notice> selectSearchTitle(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> list = sqlSessionTemplate.selectList("noticeMapper.selectSearchTitle", search);
+		return (ArrayList<Notice>)list;
 	}
 
 	public ArrayList<Notice> selectSearchTitle(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> list = sqlSessionTemplate.selectList("noticeMapper.selectSearchTitle", keyword);
+		return (ArrayList<Notice>)list;
 	}
 
 	public ArrayList<Notice> selectSearchContent(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> list = sqlSessionTemplate.selectList("noticeMapper.selectSearchContent", search);
+		return (ArrayList<Notice>)list;
 	}
 
 	public ArrayList<Notice> selectSearchDate(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> list = sqlSessionTemplate.selectList("noticeMapper.selectSearchDate", search);
+		return (ArrayList<Notice>)list;
 	}
 
 	

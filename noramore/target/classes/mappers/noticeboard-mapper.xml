@@ -48,19 +48,22 @@
 
 	<select id="selectSearchTitleCount" parameterType="string"
 		resultType="_int">
-		select count(*) from notice_board where title like '%' || #{
+		select count(*) from notice_board where title like '%' ||
+		#{
 		keyword } || '%'
 	</select>
 
 	<select id="selectSearchContentCount" parameterType="string"
 		resultType="_int">
-		select count(*) from notice_board where substance like '%' ||
+		select count(*) from notice_board where substance like '%'
+		||
 		#{ keyword } || '%'
 	</select>
 
 	<select id="selectSearchDateCount" parameterType="SearchDate"
 		resultType="_int">
-		select count(*) from notice_board where resgist_dt between #{
+		select count(*) from notice_board where resgist_dt between
+		#{
 		begin } and #{ end }
 	</select>
 
@@ -70,7 +73,7 @@
     <![CDATA[
     SELECT *
     FROM (
-        SELECT rownum rnum, board_id, title, substance, read_count, report_count,
+        SELECT rownum rnum, board_id,member_id, title, substance, read_count,
                         regist_dt, last_upd_dt, original_filename, rename_filename
         FROM (
             SELECT * 
@@ -85,6 +88,7 @@
     WHERE rnum BETWEEN #{startRow} AND #{endRow}
     ]]>
 	</select>
+
 
 	<select id="selectSearchTitleKeyword" parameterType="String"
 		resultMap="resultNotice">
@@ -122,7 +126,8 @@
 		ORDER BY BOARD_ID
 		)
 		)
-		WHERE rnum
+		WHERE
+		rnum
 		BETWEEN #{startRow} AND #{endRow}
 	</select>
 

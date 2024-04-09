@@ -12,6 +12,7 @@ public class Qna {
    	private Date lastUpdDt;
     private String originalFilePath;
 	private String renameFilePath;
+	private int commentCount; 
 	
 	 public Qna() {
 			super();
@@ -19,7 +20,7 @@ public class Qna {
 		}
 
 	public Qna(int boardId, String memberID, String title, String substance, int readCount, Date registDt,
-			Date lastUpdDt, String originalFilePath, String renameFilePath) {
+			Date lastUpdDt, String originalFilePath, String renameFilePath, int commentCount) {
 		super();
 		this.boardId = boardId;
 		this.memberID = memberID;
@@ -30,6 +31,7 @@ public class Qna {
 		this.lastUpdDt = lastUpdDt;
 		this.originalFilePath = originalFilePath;
 		this.renameFilePath = renameFilePath;
+		this.commentCount = commentCount;
 	}
 
 	public int getBoardId() {
@@ -104,13 +106,23 @@ public class Qna {
 		this.renameFilePath = renameFilePath;
 	}
 
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+
 	@Override
 	public String toString() {
 		return "Qna [boardId=" + boardId + ", memberID=" + memberID + ", title=" + title + ", substance=" + substance
 				+ ", readCount=" + readCount + ", registDt=" + registDt + ", lastUpdDt=" + lastUpdDt
-				+ ", originalFilePath=" + originalFilePath + ", renameFilePath=" + renameFilePath + "]";
+				+ ", originalFilePath=" + originalFilePath + ", renameFilePath=" + renameFilePath + ", commentCount="
+				+ commentCount + "]";
 	}
-	
+
+	 
 	 
 	
 }
