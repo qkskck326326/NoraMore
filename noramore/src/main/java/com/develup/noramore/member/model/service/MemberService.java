@@ -25,6 +25,8 @@ public interface MemberService {
 
 	int selectCheckNicname(String memberNicname);
 
+	int updateMember(Member member);
+
 
 
 

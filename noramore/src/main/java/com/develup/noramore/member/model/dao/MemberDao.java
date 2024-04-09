@@ -1,7 +1,5 @@
 package com.develup.noramore.member.model.dao;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +43,10 @@ public class MemberDao {
 
 	public int selectCheckNicname(String memberNicname) {
 		return sqlSessionTemplate.selectOne("memberMapper.selectCheckNicname", memberNicname);
+	}
+
+	public int updateMember(Member member) {
+		return sqlSessionTemplate.update("memberMapper.updateMember", member);
 	}
 
 //	public void insertKakaoMember(Member kakaovo) {
