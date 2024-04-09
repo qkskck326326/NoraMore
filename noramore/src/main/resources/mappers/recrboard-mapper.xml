@@ -103,11 +103,6 @@
 	
 	</select>
 	
-	<select id="selectRecrBoardId" parameterType="string" resultMap="resultRecr">
-		select * from RECR_BOARD 
-		where memberId = #{memberId} 
-	</select>
-	
 	<insert id="insertRecrBoard" parameterType="RecrBoard">
 	    INSERT INTO RECR_BOARD 
 	    VALUES (
@@ -150,12 +145,6 @@
 	    WHERE BOARD_ID = #{boardId}
 	)
 	WHERE BOARD_ID = #{boardId}
-	</update>
-	
-	<update id="boardReport" parameterType="_int">
-		UPDATE RECR_BOARD 
-		SET COMMENT_COUNT = COMMENT_COUNT + 1 
-		WHERE BOARD_ID = #{boardId} 
 	</update>
 	
 	<update id="countcoment" parameterType="_int">
