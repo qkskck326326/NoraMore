@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.develup.noramore.alarm.model.service.AlarmService;
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
 import com.develup.noramore.member.naver.api.NaverLoginAuth;
@@ -44,6 +45,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private AlarmService alarmService;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder; // spring-security.xml에서의 id를 가져다 변수 명으로 사용
@@ -172,6 +176,9 @@ public class MemberController {
 			return "member/memberDetailPage";
 		} 
 	}
+	
+	
+	
 
 	//회원정보 수정페이지 처리
 		@RequestMapping(value = "memberUpdate.do", method = { RequestMethod.POST, RequestMethod.GET })
@@ -268,11 +275,17 @@ public class MemberController {
 
 		if (loginMember != null
 				&& this.bcryptPasswordEncoder.matches(member.getMemberPWD(), loginMember.getMemberPWD())) {
+			
 			session.setAttribute("loginMember", loginMember); // 세션이름에 loginMember을 저장함
+		      int listCount = alarmService.selectNewCount(member.getMemberID());
+		      
+		      if(listCount > 0) {
+		         session.setAttribute("alarmCount", listCount);
+		      }
 			status.setComplete(); // 로그인 성공 요청결과로 HttpStatus code 200 보냄
 			return "redirect:home.do";
 		} else {
-		    model.addAttribute("message", "없는 회원입니다. 다시 확인해 주세요.");
+		    model.addAttribute("message", "아이디 또는 비밀번호가 틀렸습니다. 다시 입력해 주세요.");
 			/* String message = "없는 회원입니다. 다시 확인해 주세요."; */
 			/* return "redirect:moveLoginPage.do?message=" + message; */
 		    return "member/moveLoginPage";
@@ -477,7 +490,7 @@ public class MemberController {
 
 		// 주소 합치기
 		if (road != null && street != null && detail != null) {
-			String addressAdd = road + street + detail + ref;
+			String addressAdd = road + " " + street + " " + detail + " " + ref;
 			member.setAddress(addressAdd);
 		}
 		

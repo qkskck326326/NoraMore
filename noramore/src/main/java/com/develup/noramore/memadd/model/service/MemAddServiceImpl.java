@@ -14,10 +14,11 @@ public class MemAddServiceImpl implements MemAddService{
 	private MemAddDao memAddDao;
 	
 	@Override
-	public MemAdd selectAll(String memberid) {
-		System.out.println("service " + memAddDao.selectAll(memberid));
-		return memAddDao.selectAll(memberid);
+	public MemAdd selectMemAdd(String memberid) {
+		return memAddDao.selectMemAdd(memberid);
 	}
+
+	
 	
 	
 }

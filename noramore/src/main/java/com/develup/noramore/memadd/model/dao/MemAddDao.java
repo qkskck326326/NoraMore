@@ -11,10 +11,10 @@ public class MemAddDao {
 	@Autowired   //root-context.xml 에서 생성한 객체를 자동 연결함
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public MemAdd selectAll(String memberid) {
+	public MemAdd selectMemAdd(String memberid) {
 		System.out.println("dao" + memberid);
 	
-		return sqlSessionTemplate.selectOne("memAddMapper.selectAll", memberid);
+		return sqlSessionTemplate.selectOne("memAddMapper.selectMemAdd", memberid);
 		
 		
 	}

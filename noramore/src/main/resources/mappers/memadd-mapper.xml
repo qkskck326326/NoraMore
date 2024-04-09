@@ -20,7 +20,7 @@
 	</resultMap>
 	
 	
-	<select id="selectAll" parameterType="string" resultMap="resultMemberAdd"> 
+	<select id="selectMemAdd" parameterType="string" resultMap="resultMemberAdd"> 
 		select * from MEMBER_ADD 
 		where MEMBER_ID = #{ memberID } 
 	</select>
