@@ -95,6 +95,11 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		recreBoardDao.upReadCount(boardId);
 	}
 
+	@Override
+	public ArrayList<RecrBoard> selectLocation(int categoryId) {
+		return recreBoardDao.selectLocation(categoryId);
+	}
+
 
 
 }//

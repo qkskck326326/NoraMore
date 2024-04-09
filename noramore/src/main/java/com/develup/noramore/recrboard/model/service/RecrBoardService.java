@@ -39,5 +39,7 @@ public interface RecrBoardService {
 	ArrayList<RecrBoard> searchwriterList(Search search);
 
 	void upReadCount(int boardId);
+
+	ArrayList<RecrBoard> selectLocation(int categoryId);
 	
 }

@@ -84,6 +84,11 @@ public class RecreBoardDao {
 		SqlSessionTemplate.update("recrboard.upReadCount", boardId);
 	}
 
+	public ArrayList<RecrBoard> selectLocation(int categoryId) {
+		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectLocation", categoryId);
+		return (ArrayList<RecrBoard>)list;
+	}
+
 
 
 

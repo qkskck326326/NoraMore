@@ -1,12 +1,17 @@
 package com.develup.noramore.recrboard.controller;
 
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +51,9 @@ public class RecrBoardController {
 	// 테이블 리스트
 	@RequestMapping("rblist.do")
 	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page, 
-										@RequestParam(name="categoryId", required = false) String categoryId1) {
+										@RequestParam(name="categoryId", required = false) String categoryId1) throws JsonGenerationException, JsonMappingException, IOException {
 		ArrayList<Category> categoryList = categoryService.selectAll();
+		
 		
 		int currentPage = 1;
 		if (page != null) {
@@ -57,10 +63,17 @@ public class RecrBoardController {
 		int categoryId = 1;
 		if(categoryId1 != null) {
 			categoryId = Integer.parseInt(categoryId1);
-		}
+		} 
 		
-
+		ArrayList<RecrBoard> locationList = recrBoardService.selectLocation(categoryId);
 		int listCount = recrBoardService.selectListcount(categoryId);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+
+        String locationListJson = objectMapper.writeValueAsString(locationList);
+        mv.addObject("locationListJSON", locationListJson);
+        
+		
 
 		Paging paging = new Paging(listCount, currentPage, limit, "rblist.do");
 		paging.calculate();
@@ -79,6 +92,7 @@ public class RecrBoardController {
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
 		mv.addObject("categoryList", categoryList);
+		mv.addObject("locationList", locationList);
 		return mv;
 	}//
 	
