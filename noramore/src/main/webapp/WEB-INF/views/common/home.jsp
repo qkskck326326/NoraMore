@@ -162,6 +162,7 @@
 
 <div class="adminF">
 	<a href="fblist.do?page=1">금지어 관리</a>
+	<a href="goCategoryWriteForm.do">카테고리 추가</a>
 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <div class="admin">
 </div>
