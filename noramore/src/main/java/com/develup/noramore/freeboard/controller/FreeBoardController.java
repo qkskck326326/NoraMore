@@ -226,7 +226,7 @@ public class FreeBoardController {
 	@RequestMapping("freeboardwrite.do")
 	public String selectWriteFreeBoard() {
 		
-		return "freeboard/freeboardWriteForm";
+		return "freeboard/freeboardWriteForm"; 
 	}
 	
 	/*
