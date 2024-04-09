@@ -6,60 +6,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
-<title>자유게시판 신고목록 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
+<title>신고된 게시글 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/alarm.css">
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
+<c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+h2.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 설정 */
+    overflow: hidden; /* 텍스트가 넘칠 경우 자르고 숨김 */
+    text-overflow: ellipsis; /* 텍스트가 넘칠 경우 점 세 개로 생략 표시 */
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
+}
+</style>
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
 <br><br><br><br><br><br>
-<h2 class="title">신고된 게시글</h2>
-<br>
-
-	<table class="table" align="center" border="1" cellspacing="0" width="700">
-		<tr>
-			<th>게시판</th>
-			<th>카테고리</th>
-			<th>번 호</th>
-			<th>글 제목</th>
-			<th>작성자</th>
-			<th>조회수</th>
-			<th>게시일</th>
-			<th>신고</th>
-		</tr>
-		
-		
-		<!-- title, context, senderId 모두 a태그 적용 + a 태그 onclick 시 확인여부 'Y'로 update 요청보내기 -->
-		<c:forEach items="${ requestScope.list }" var="a">
-			<tr>
-				<td>
-					<c:if test=" ${ a.boardRef == 'RECR_BOARD' }">
-						모집 
-					</c:if>
-					<c:if test=" ${ a.boardRef == 'FREE_BOARD' }">
-						자유
-					</c:if>
-				</td>
-				<td>${ a.categoryName }</td>
-				<td>${ a.boardId }</td>
-				<td>
-					<c:if test=" ${ a.boardRef == 'RECR_BOARD' }">
-						 <a href="${ pageContext.servletContext.contextPath }/rbdetail.do">${ a.title }</a>
-					</c:if>
-					<c:if test=" ${ a.boardRef == 'FREE_BOARD' }">
-						<a href="${ pageContext.servletContext.contextPath }/fbdetail.do">${ a.title }</a>
-					</c:if>
-				</td>
-				<td>${ a.memberID }</td>
-				<td>${ a.readCount }</td>
-				<td>${ a.registDate }</td>
-				<td>${ a.reportCount }</td>
-			</tr>
-		</c:forEach> 
-	</table>
-<c:import url="/WEB-INF/views/common/pagingView.jsp" />
+    <div class="container">
+        <h2 class="title">신고된 게시글</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>게시판</th>
+                    <th>카테고리</th>
+                    <th>글 번호</th>
+                    <th>글 제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>게시일</th>
+                    <th>신 고</th>
+                    <th>관 리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${ list }" var="a">
+                    <tr>
+                        <td>${ a.boardRef }</td>
+                        <td>${ a.categoryName }</td>
+                        <td>${ a.boardId }</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${ a.boardRef eq '모집' }">
+                                    <a href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&page=1&categoryId=${ a.categoryId }">${ a.title }</a>
+                                </c:when>
+                                <c:when test="${ a.boardRef eq '자유' }">
+                                    <a href="${ pageContext.servletContext.contextPath }/fbdetail.do?boardId=${ a.boardId }&page=1&categoryId=${ a.categoryId }">${ a.title }</a>
+                                </c:when>
+                            </c:choose>
+                        </td>
+                        <td>${ a.memberID }</td>
+                        <td>${ a.readCount }</td>
+                        <td>${ a.registDate }</td>
+                        <td>${ a.reportCount }</td>
+                        <th><button onclick=""></button> </th>
+                    </tr>
+                </c:forEach> 
+            </tbody>
+        </table>
+    </div>
+    <c:import url="/WEB-INF/views/common/pagingView.jsp" />
 </body>
-
 </html>

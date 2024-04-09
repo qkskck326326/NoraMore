@@ -1,6 +1,9 @@
 package com.develup.noramore.admin.model.vo;
 
-public class Flow {
+public class Flow implements java.io.Serializable{
+
+	private static final long serialVersionUID = 3249163605837475252L;
+	
 	private int enrollYesterday;
 	private int enrollToday;
 	private int withdrawalYesterday;

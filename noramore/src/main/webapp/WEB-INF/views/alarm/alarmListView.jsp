@@ -8,27 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>알림 확인 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
-
+<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/alarm.css">
 <script type="text/javascript" src="/first/resources/js/jquery-3.7.0.min.js"></script>
-<script>
-/*   var context = "${ a.context }";
-  var clength = context.length;
-  var title = "${ a.title }";
-  var tlength = title.length;
-  
-  if(clength <= 10){
-	  document.write(context)''
-  }else if(clength > 10){
-	  document.write(context.substring(0, 10) + "... ");
-  }
-  
-  if(tlength <= 10){
-	  document.write(context)''
-  }else if(tlength > 10){
-	  document.write(context.substring(0, 10) + "... ");
-  } */
-
-</script>
+<style type="text/css">
+a {
+	color: #0174DF;
+	font-weight: bold;
+	text-decoration: underline;
+}
+</style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
@@ -38,7 +26,7 @@
 
 	<table class="table" align="center" border="1" cellspacing="0" width="700">
 		<tr>
-			<th>번호</th>
+			<th>번 호</th>
 			<th>내 용</th>
 			<th>발신일</th>
 			<th>상 태</th>
@@ -90,22 +78,5 @@
 		</c:forEach>
 
 	</table>
-<style type="text/css">
-
-.checkedColor{
- color: rgba(128, 128, 128, 0.5);
-}
-
-a {
-	color: #0174DF;
-	font-weight: bold;
-	text-decoration: underline;
-}
-
-.checkedColor {
-    background-color: #f0f0f0; /* 읽음 상태 배경색 */
-}
-
-</style>
 </body>
 </html>

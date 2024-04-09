@@ -21,21 +21,16 @@
 			</section>
 		</section>
 		<ul>
-			<li><a href="#"><i class="fa-solid fa-cat"></i> 메인으로</a> <br>
-			<li><a href="#"><i class="fa-solid fa-cat"></i> 회원 관리</a>
+			<li><a href="${ pageContext.servletContext.contextPath }/adminPage.do"><i class="fa-solid fa-cat"></i> 메인으로</a> <br>
+			<li><a href="${ pageContext.servletContext.contextPath }/memberlist.do"><i class="fa-solid fa-cat"></i> 회원</a>
 				<ul>
-					<li><a href="#">회원 목록</a></li>
-					<li><a href="#">신고된 회원</a></li>
-				</ul>
-			</li>
-			<li><a href="#"><i class="fa-solid fa-cat"></i>신고된 게시판</a>
-				<ul>
-					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
-				</ul>
-			</li>
-			<li><a href="${ pageContext.servletContext.contextPath }/notice.do">공지사항</a></li>				
-			<li><a href="${ pageContext.servletContext.contextPath }/qna.do">QnA</a></li>				
+					<li><a href="${ pageContext.servletContext.contextPath }/memberlist.do">회원 목록</a></li>
+					<li><a href="${ pageContext.servletContext.contextPath }/reportedMemlist.do">신고된 회원</a></li>
+				</ul></li>
+			<li><a href="${ pageContext.servletContext.contextPath }/reportedBoardlist.do">신고된 게시판</a></li>
+			<li><a href="${ pageContext.servletContext.contextPath }/fblist.do">금지어 관리</a></li>			
+			<li><a href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>				
+			<li><a href="${ pageContext.servletContext.contextPath }/qlist.do">QnA</a></li>				
 		</ul>
 	</aside>
 </body>

@@ -99,8 +99,6 @@ function dupFbCheck(){
 	                        console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
 	                    }
 	                });
-
-	                $('tr:has(td:contains("' + fbWord + '"))').remove();
 	            } else {
 	                alert("오류! 금지어 삭제를 실패했습니다.");
 	            }
@@ -141,10 +139,9 @@ function dupFbCheck(){
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
 <br><br><br><br><br>
-<h2 class="title"><a href="${ pageContext.servletContext.contextPath }/fblist.do">금지어 관리</a></h2>
-<br>
-
+<h2 class="title">금지어 관리</h2>
 		<div class="search" >
 		<a class="listRollback" href="${ pageContext.servletContext.contextPath }/fblist.do">전체 목록</a>
 		&nbsp; &nbsp;
@@ -196,6 +193,7 @@ function dupFbCheck(){
 <br>
 <br>
 <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="alarmlist.do"><img src="${ pageContext.servletContext.contextPath }/resources/images/alarmIcon.png"></a>
 
 

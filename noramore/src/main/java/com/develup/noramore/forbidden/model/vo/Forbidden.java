@@ -2,8 +2,12 @@ package com.develup.noramore.forbidden.model.vo;
 
 import java.sql.Date;
 
-public class Forbidden {
+public class Forbidden implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3019851411985854571L;
 	private int fbId;
 	private String fbWord;
 	private Date registDate;
