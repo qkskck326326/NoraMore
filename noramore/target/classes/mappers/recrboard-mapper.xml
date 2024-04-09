@@ -105,7 +105,7 @@
 	
 	<select id="selectRecrBoardId" parameterType="string" resultMap="resultRecr">
 		select * from RECR_BOARD 
-		where memberId = #{memberId} 
+		where member_Id = #{memberId} 
 	</select>
 	
 	<insert id="insertRecrBoard" parameterType="RecrBoard">
@@ -154,7 +154,7 @@
 	
 	<update id="boardReport" parameterType="_int">
 		UPDATE RECR_BOARD 
-		SET COMMENT_COUNT = COMMENT_COUNT + 1 
+		SET REPORT_COUNT = REPORT_COUNT + 1 
 		WHERE BOARD_ID = #{boardId} 
 	</update>
 	
