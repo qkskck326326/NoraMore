@@ -6,7 +6,7 @@
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
-<c:if test="${!empty requestScope.categoryId}">
+<c:if test="${!empty requestScope.message}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
 <c:if test="${!empty requestScope.message}">
@@ -107,14 +107,18 @@ function toggleCommentForm() {
     }
 }
 
+function Alert(message) {
+    alert(message);
+}
 
-var message = "${message}";
-    window.onload = function() {
-        selectrecrcomment();
-        if (message) {
-            alert(message);
-        }
-    }; 
+// 페이지 로딩 시 alert 창 띄우기
+window.onload = function() {
+	selectrecrcomment();
+    var message = "${message}";
+    if (message) {
+        alert(message);
+    }
+}; 
 
 
 

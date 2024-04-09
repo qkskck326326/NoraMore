@@ -11,10 +11,6 @@
 <c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
-<c:if test="${!empty requestScope.message}">
-	<c:set var="message" value="${requestScope.message}" />
-</c:if>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,36 +66,17 @@ window.onload = function(){
 	            });
 
 	            var infowindow = new kakao.maps.InfoWindow({
-	                content: '<div style="padding:5px;">' + ' <a href="rbdetail.do?page=1&categoryId='+ RecrBoard.categoryId + '&boardId=' + RecrBoard.boardId + '" target="_blank">' + RecrBoard.title + '</a></div>'
+	                content: '<div style="padding:5px;">' + RecrBoard.title + ' <a href="rbdetail.do?page=1&categoryId=' + RecrBoard.categoryId + '&boardId=' + RecrBoard.boardId + '" target="_blank">(보기)</a></div>'
 	            });
 	            infowindow.open(map, marker);
 	        } 
 	    });
 	});
 	
-	geocoder.addressSearch("${sessionScope.loginMember.address}", function(result, status) {
-		console.log("${sessionScope.loginMember.address}");
-        if (status === kakao.maps.services.Status.OK) {
-            var coords1 = new kakao.maps.LatLng(result[0].y, result[0].x);
-            map.setCenter(coords1);
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords1
-            });
-
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="padding:5px; width: 80px; height: 30px; text-align: center;"> 우리집 </div>'
-            });
-            infowindow.open(map, marker);
-            
-        } 
-        
-        
-        
-    });
-	}	
+	}
 	
 	displayMarkers();
+	
 	
 }//
 
@@ -152,7 +129,7 @@ function changeFormAction() {
 	<section id="board">
 		<h1>모집게시판 전체 목록</h1>
 	
-	<div id="map" style="width:1200px;height:350px;"></div>   
+	<div id="map" style="width:100%;height:350px;"></div>   
 
 	<!-- <div class="dropdown">
 		    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
