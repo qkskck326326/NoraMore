@@ -309,6 +309,7 @@ public class AdminController {
 			@RequestParam("memberID") String memberID, 
 			@RequestParam("restrict") String restrict, HttpServletResponse response) throws IOException {
 
+		
 		Member member = new Member();
 		member.setMemberID(memberID);
 		member.setActLimit(restrict);
