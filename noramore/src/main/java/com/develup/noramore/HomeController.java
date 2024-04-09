@@ -28,7 +28,7 @@ public class HomeController {
 	public String forwardMainView(Model model) {
 		ArrayList<Category> list = categoryService.selectAll();
 		
-		model.addAttribute("list", list);
+		model.addAttribute("categoryList", list);
 		
 		return "common/home";
 	}//

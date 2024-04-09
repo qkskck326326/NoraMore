@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.develup.noramore.category.model.service.CategoryService;
+import com.develup.noramore.category.model.vo.Category;
 import com.develup.noramore.commentrecrboard.service.CommentRecrBoardService;
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
@@ -35,16 +37,18 @@ public class RecrBoardController {
 	@Autowired
 	private RecrBoardService recrBoardService;
 	@Autowired
-	CommentRecrBoardService commentRecrBoardService;
+	private CommentRecrBoardService commentRecrBoardService;
 	@Autowired
-	RecrApplService recrApplService;
-	
+	private RecrApplService recrApplService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	// 테이블 리스트
 	@RequestMapping("rblist.do")
 	public ModelAndView selectRecrBoard(ModelAndView mv, @RequestParam(name = "page", required = false) String page, 
 										@RequestParam(name="categoryId", required = false) String categoryId1) {
-		// ArrayList<RecrBoard> list = recrBoardService.selectRecrBoard();
+		ArrayList<Category> categoryList = categoryService.selectAll();
+		
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -74,6 +78,7 @@ public class RecrBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
+		mv.addObject("categoryList", categoryList);
 		return mv;
 	}//
 	
@@ -107,6 +112,7 @@ public class RecrBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
+		mv.addObject("keyword", search.getKeyword());
 		return mv;
 	}
 	
@@ -140,6 +146,7 @@ public class RecrBoardController {
 			mv.addObject("currentPage", currentPage);
 			mv.addObject("paging", paging);
 			mv.addObject("categoryId", categoryId);
+			mv.addObject("keyword", search.getKeyword());
 			return mv;
 		}
 

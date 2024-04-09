@@ -8,8 +8,8 @@
 	    <id column="CATEGORY_ID" property="categoryId" jdbcType="INTEGER"/>
 	    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR"/>
 	    <result column="REGIST_DATE" property="registDate" jdbcType="DATE"/>
-	    <result column="OriginalFileName" property="originalFileName" jdbcType="VARCHAR"/>
-	    <result column="RenameFileName" property="renameFileName" jdbcType="VARCHAR"/>
+	    <result column="Original_File_Name" property="originalFileName" jdbcType="VARCHAR"/>
+	    <result column="Rename_File_Name" property="renameFileName" jdbcType="VARCHAR"/>
 	</resultMap>
 
 

@@ -107,7 +107,7 @@
 					</figcaption>
 				</figure>
 			</li>
-			<c:forEach var="category" items="${list}">
+			<c:forEach var="category" items="${categoryList}">
 				<c:url var="goBaord" value="rblist.do">
 					<c:param name="categoryId" value="${category.categoryId}" />
 				</c:url>
@@ -162,6 +162,7 @@
 
 <div class="adminF">
 	<a href="fblist.do?page=1">금지어 관리</a>
+	<a href="goCategoryWriteForm.do">카테고리 추가</a>
 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <div class="admin">
 </div>

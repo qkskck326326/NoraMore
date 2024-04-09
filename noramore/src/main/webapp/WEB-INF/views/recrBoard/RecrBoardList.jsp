@@ -27,7 +27,11 @@
 <link rel="stylesheet" href="resources/css/dropdown.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=여기에_발급받은_자바스크립트_키를_입력하세요&libraries=services"></script>
 <script type="text/javascript">
+
+
+
 
 function rbwriteform(){
 	if(${empty sessionScope.loginMember}){
@@ -123,6 +127,7 @@ function changeFormAction() {
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자ID</th>
+				<th>모집상황</th>
 				<th>조회수</th>
 			</tr>
 			<c:forEach var="rl" items="${list}">
@@ -135,6 +140,7 @@ function changeFormAction() {
 					<th>${rl.boardId}</th>
 					<th><a href="${rbd}">${rl.title}</a></th>
 					<th>${rl.memberId}</th>
+					<th>${rl.nowRecr}명 / ${rl.maxRecr}명</th>
 					<th>${rl.readCount}</th>
 				</tr>
 			</c:forEach>
@@ -143,6 +149,6 @@ function changeFormAction() {
 		<br>
 	</section>
 
-	<c:import url="/WEB-INF/views/common/pagingView.jsp" />
+	<c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
 </body>
 </html>

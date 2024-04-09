@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:import url="/WEB-INF/views/common/header.jsp" />
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
@@ -44,50 +45,39 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=ko"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script type="text/javascript">
-function googleSectionalElementInit() {
-    new google.translate.SectionalElement({
-        sectionalNodeClassName: 'goog-trans-section',
-        controlNodeClassName: 'goog-trans-control',
-        background: '#78E7FF'
-    }, 'google_sectional_element');
+
+async function translateText() {
+    const textToTranslate = document.getElementById('context').value;
+    const targetLanguage = "en";
+    const subscriptionKey = 'e863bfea42804c318d498eaf7322525d'; // Azure에서 발급받은 구독 키를 입력하세요.
+    const endpoint = 'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=' + targetLanguage;
+
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify([{Text: textToTranslate}]),
+            headers: {
+                'Ocp-Apim-Subscription-Key': subscriptionKey,
+                'Content-Type': 'application/json',
+                'Ocp-Apim-Subscription-Region': 'koreacentral', // 리소스 위치를 입력하세요.
+            }
+        });
+
+        const data = await response.json();
+        const translatedText = data[0].translations[0].text;
+        document.getElementById('context').innerText = translatedText;
+    } catch (error) {
+        console.error('Translation error:', error);
+    }
+    
+    alert("translate complete!");
 }
 
-function translateText() {
-    const apiKey = 'AIzaSyAaIhu_6-vh8v4xryS5-fPmJ_ABZpnB6xo';
-    const url = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`;
 
-    // 번역할 텍스트를 sourceText textarea에서 가져옵니다.
-    const sourceText = document.getElementById('context').value;
 
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-            q: sourceText,
-            source: "en",
-            target: "ko"
-        }),
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('API 요청 실패: ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.data && data.data.translations && data.data.translations.length > 0) {
-            document.getElementById('translatedText').textContent = data.data.translations[0].translatedText;
-        } else {
-            throw new Error('번역 데이터를 찾을 수 없습니다.');
-        }
-    })
-    .catch(error => {
-        console.error(error);
-        alert('번역 실패: ' + error.message);
-    });
-}
+
 
 
 
@@ -177,7 +167,8 @@ function selectrecrcomment() {
                 	    '<input type="hidden" name="boardId" value="' + "${RecrBoard.boardId}" + '">' +
                 	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
                 	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
-                	    '<textarea class="commentForm" name="context" cols="50" rows="5" required></textarea>' +
+                	    '<input type="hidden" name="categoryId" value="' + "${categoryId}" + '">' +
+                	    '<textarea class="commentWriteForm" name="context" cols="50" rows="5" required></textarea>' +
                 	    '<br>' +
                 	    '<button type="submit" >대댓글 등록</button>' +
                 	    '</form>' +
@@ -339,6 +330,10 @@ function updatecomment(commentId1, context1){
 	location.reload(); 
 }
 
+function showApplList(){
+	var applList = document.getElementById("applList");
+        applList.style.display = "block";
+}
 
 </script>
 <style>
@@ -399,7 +394,7 @@ button:hover {
 	color: white; /* 마우스 오버시 글자색 변경 */
 }
 
-textarea.commentForm {
+textarea.commentWriteForm {
 	width: 100%;
 	height: 150px;
 	padding: 10px;
@@ -410,6 +405,19 @@ textarea.commentForm {
 	resize: none; /* 크기 조절 비활성화 */
 	font-family: Arial, sans-serif; /* 폰트 설정 */
 }
+
+textarea.commentForm {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #666;
+	border-radius: 5px;
+	box-sizing: border-box;
+	resize: none; /* 크기 조절 비활성화 */
+	font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
 
 /* 마우스 호버 효과 */
 textarea.commentForm:hover {
@@ -424,7 +432,7 @@ textarea.commentForm:hover {
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
 				<div style="text-align: left; margin-bottom: 10px;">
 					<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
-
+					<button onclick="translateText()">translate context</button>
 					<c:if
 						test="${sessionScope.loginMember.memberID ne RecrBoard.memberId}">
 						<button class="whiteBtn"
@@ -438,14 +446,13 @@ textarea.commentForm:hover {
 
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
-						<button id="showRecrAppl" class="whiteBtn" style="float: right;">모집목록
-							보기</button>
+						<button class="whiteBtn" style="float: right;" onclick="showApplList()">모집목록 보기</button>
 
-						<table style='width: 600px;'>
+						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
-								<th>신청자ID</th>
-								<th>거절</th>
-								<th>수락</th>
+								<th width="150px">신청자ID</th>
+								<th width="120px">거절</th>
+								<th width="120px">수락</th>
 							</tr>
 							<c:if test="${empty applList}">
 								<tr>
@@ -502,7 +509,8 @@ textarea.commentForm:hover {
 										value="${sessionScope.loginMember.memberID}"> <input
 										type="hidden" name="boardId" value="${RecrBoard.boardId}">
 									<input type="hidden" name="page" value="${page}">
-									<textarea class="commentForm" name="context" cols="50" rows="5"
+									<input type="hidden" name="categoryId" value="${categoryId}">
+									<textarea class="commentWriteForm" name="context" cols="50" rows="5"
 										required></textarea>
 									<br>
 									<button type="submit">댓글 등록</button>
@@ -526,18 +534,8 @@ textarea.commentForm:hover {
 		</div>
 	</div>
 
-	<div id="google_sectional_element" style="display: none"></div>
-	<div class="goog-trans-section">
-		<div class="goog-trans">
-			<div class="goog-trans-control"></div>
-			<div class="goog-trans-info">[번역]을 누르시면 번역이 됩니다.</div>
-		</div>
-		<div id="google_translate_element_area">The page you are looking
-			at is being generated dynamically by CodeIgniter.</div>
-	</div>
 
-	<button onclick="googleSectionalElementInit()">번역하기</button>
+	
 
 </body>
 </html>
-0
