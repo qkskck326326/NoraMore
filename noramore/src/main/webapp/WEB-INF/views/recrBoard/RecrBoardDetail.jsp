@@ -48,83 +48,36 @@
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script type="text/javascript">
 
-async function translateText(text, sourceLang, targetLang) {
-    const response = await fetch('https://libretranslate.de/translate', {
-        method: 'POST',
-        body: JSON.stringify({
-            q: text,
-            source: sourceLang,
-            target: targetLang,
-            format: 'text'
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    });
+async function translateText() {
+    const textToTranslate = document.getElementById('context').value;
+    const targetLanguage = "en";
+    const subscriptionKey = 'e863bfea42804c318d498eaf7322525d'; // Azure에서 발급받은 구독 키를 입력하세요.
+    const endpoint = 'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=' + targetLanguage;
 
-    const data = await response.json();
-    return data.translatedText; // 번역된 텍스트를 반환
-}
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify([{Text: textToTranslate}]),
+            headers: {
+                'Ocp-Apim-Subscription-Key': subscriptionKey,
+                'Content-Type': 'application/json',
+                'Ocp-Apim-Subscription-Region': 'koreacentral', // 리소스 위치를 입력하세요.
+            }
+        });
 
-async function translateAndDisplay() {
-    const sourceTextElement = document.getElementById('context');
-    const translatedTextElement = document.getElementById('context');
+        const data = await response.json();
+        const translatedText = data[0].translations[0].text;
+        document.getElementById('context').innerText = translatedText;
+    } catch (error) {
+        console.error('Translation error:', error);
+    }
     
-    // 입력된 텍스트와 소스/타겟 언어를 가져옵니다.
-    const sourceText = sourceTextElement.value;
-    const sourceLang = 'ko';
-    const targetLang = 'en';
-
-    // 텍스트를 번역합니다.
-    const translatedText = await translateText(sourceText, sourceLang, targetLang);
-
-    // 번역된 텍스트를 화면에 표시합니다.
-    translatedTextElement.innerText = translatedText;
-    
-    return false;
+    alert("translate complete!");
 }
 
 
-function googleSectionalElementInit() {
-    new google.translate.SectionalElement({
-        sectionalNodeClassName: 'goog-trans-section',
-        controlNodeClassName: 'goog-trans-control',
-        background: '#78E7FF'
-    }, 'google_sectional_element');
-}
 
-function translateText() {
-    const apiKey = 'AIzaSyAaIhu_6-vh8v4xryS5-fPmJ_ABZpnB6xo';
-    const url = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`;
 
-    // 번역할 텍스트를 sourceText textarea에서 가져옵니다.
-    const sourceText = document.getElementById('context').value;
-
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-            q: sourceText,
-            source: "en",
-            target: "ko"
-        }),
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('API 요청 실패: ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.data && data.data.translations && data.data.translations.length > 0) {
-            document.getElementById('translatedText').textContent = data.data.translations[0].translatedText;
-        } else {
-            throw new Error('번역 데이터를 찾을 수 없습니다.');
-        }
-    })
-    .catch(error => {
-        console.error(error);
-        alert('번역 실패: ' + error.message);
-    });
-}
 
 
 
@@ -479,7 +432,7 @@ textarea.commentForm:hover {
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
 				<div style="text-align: left; margin-bottom: 10px;">
 					<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
-
+					<button onclick="translateText()">translate context</button>
 					<c:if
 						test="${sessionScope.loginMember.memberID ne RecrBoard.memberId}">
 						<button class="whiteBtn"
@@ -581,16 +534,8 @@ textarea.commentForm:hover {
 		</div>
 	</div>
 
-	<div id="google_sectional_element" style="display: none"></div>
-	<div class="goog-trans-section">
-		<div class="goog-trans">
-			<div class="goog-trans-control"></div>
-			<div class="goog-trans-info">[번역]</div>
-		</div>
-		<div id="google_translate_element_area">The page you are looking.</div>
-	</div>
 
-	<button onclick="translateAndDisplay()">번역하기</button>
+	
 
 </body>
 </html>
