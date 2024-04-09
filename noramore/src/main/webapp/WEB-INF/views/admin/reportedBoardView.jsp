@@ -65,6 +65,38 @@ button:hover {
     background-color: #45a049;
 }
 </style>
+<script type="text/javascript">
+function deleteRboard(boardId, categoryId) {
+    $.ajax({
+        type: 'GET',
+        url: 'freeboarddelete.do',
+        data: { page: 1,
+        		boardId: boardId,
+        		categoryId: categoryId },
+        success: function(response) {
+                alert("게시글이 삭제되었습니다.");
+        },
+        error: function(xhr, status, error) {
+            	console.error("에러 : ", error);
+        }
+    });
+}
+function deleteFboard(boardId, categoryId) {
+    $.ajax({
+        type: 'GET',
+        url: 'deleteboard.do',
+        data: { page: 1,
+        		boardId: boardId,
+        		categoryId: categoryId },
+        success: function(response) {
+                alert("게시글이 삭제되었습니다.");
+        },
+        error: function(xhr, status, error) {
+            	console.error("에러 : ", error);
+        }
+    });
+}
+</script>
 </head>
 <body>
 <br><br><br><br><br><br>
@@ -104,7 +136,16 @@ button:hover {
                         <td>${ a.readCount }</td>
                         <td>${ a.registDate }</td>
                         <td>${ a.reportCount }</td>
-                        <th><button onclick=""></button> </th>
+                        <td>
+	                        <c:choose>
+								<c:when test="${ a.boardRef eq '모집' }">
+									<button onclick="deleteRboard(${ a.boardId }, ${ a.categoryId });">삭 제</button>
+								</c:when>
+								<c:when test="${ a.boardRef eq '자유' }">
+									<button onclick="deleteFboard(${ a.boardId }, ${ a.categoryId });">삭 제</button>
+								</c:when>
+							</c:choose>                   
+                        <td>
                     </tr>
                 </c:forEach> 
             </tbody>

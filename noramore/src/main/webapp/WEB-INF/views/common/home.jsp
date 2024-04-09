@@ -1,5 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko" class="no-js">
 <head>
@@ -41,7 +42,7 @@
 					<button class='button' id=two onclick="enroll();">회원가입</button>	
 				</div>
 			</c:if>
-			<c:if test="${ !empty sessionScope.loginMember }">
+			<c:if test="${ !empty sessionScope.loginMember && loginMember.adminYN eq 'N' }">
 				<div class="loginSign">
 				${ sessionScope.loginMember.memberName } 님. <br>
 					<button class='button'><a href="logout.do">로그아웃</a></button>
@@ -50,6 +51,18 @@
 						<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
 					</c:url> <!--  마이 페이지 들어갈때 자기자신의 정보를 가지고 올 수 있게 함 -->
 					<a href="${ mypage }">My Page</a>
+				</div>
+			</c:if>
+			<c:if test="${ !empty sessionScope.loginMember && loginMember.adminYN eq 'Y' }">
+				<div class="loginSign">
+				${ sessionScope.loginMember.memberName } 님. <br>
+					<button class='button'><a href="logout.do">로그아웃</a></button>
+					
+					<c:url var="mypage" value="my.do">
+						<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
+					</c:url> <!--  마이 페이지 들어갈때 자기자신의 정보를 가지고 올 수 있게 함 -->
+					<a href="${ mypage }">My Page</a>
+					<button class='button'><a href="${ pageContext.servletContext.contextPath }/adminPage.do">관리자 페이지</a></button>
 				</div>
 			</c:if>
 		</header>
@@ -161,7 +174,6 @@
 	<hr>
 
 <div class="adminF">
-	<a href="fblist.do?page=1">금지어 관리</a>
 	<a href="goCategoryWriteForm.do">카테고리 추가</a>
 </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <div class="admin">

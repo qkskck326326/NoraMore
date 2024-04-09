@@ -224,7 +224,7 @@
 						where report_count > 0
 						union
 						select '자유' as board_ref, category_id, category_name, board_id, title, member_ID, report_Count, read_Count, a.regist_Date
-						from recr_board a
+						from free_board a
 						join category b using (category_id)
 						where report_count > 0
 						order by regist_Date desc))
