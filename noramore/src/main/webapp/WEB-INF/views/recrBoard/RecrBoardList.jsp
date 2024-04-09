@@ -27,7 +27,11 @@
 <link rel="stylesheet" href="resources/css/dropdown.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=여기에_발급받은_자바스크립트_키를_입력하세요&libraries=services"></script>
 <script type="text/javascript">
+
+
+
 
 function rbwriteform(){
 	if(${empty sessionScope.loginMember}){

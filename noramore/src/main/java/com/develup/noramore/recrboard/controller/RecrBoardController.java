@@ -37,9 +37,9 @@ public class RecrBoardController {
 	@Autowired
 	private RecrBoardService recrBoardService;
 	@Autowired
-	CommentRecrBoardService commentRecrBoardService;
+	private CommentRecrBoardService commentRecrBoardService;
 	@Autowired
-	RecrApplService recrApplService;
+	private RecrApplService recrApplService;
 	@Autowired
 	private CategoryService categoryService;
 	
