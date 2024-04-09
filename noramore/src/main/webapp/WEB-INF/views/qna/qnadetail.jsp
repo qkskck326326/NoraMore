@@ -70,10 +70,10 @@
 		}
 	}
 	
-	function selectrecrcomment() {
+	function selectqnacomment() {
 	    var bId;
-	    if (${!empty RecrBoard.boardId}) {
-	        bId = "${RecrBoard.boardId}";
+	    if (${!empty Qna.boardId}) {
+	        bId = "${Qna.boardId}";
 	    } else {
 	        bId = "${boardId}";
 	    }
@@ -101,7 +101,7 @@
 	                commentDiv.append(memberIdInput);
 	                commentDiv.append(commentIdInput);
 	                commentDiv.append(contextTextarea);  
-	                if("${RecrBoard.memberId}" === "${sessionScope.loginMember.memberID}"){
+	                if("${Qna.memberId}" === "${sessionScope.loginMember.memberID}"){
 	                commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
 	                commentDiv.append("<button onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
 	                }
@@ -110,9 +110,9 @@
 	                
 	                if(comment.refCommentId == 0 && ${!empty sessionScope.loginMember}){
 	                commentDiv.append('<div id="cocomment" style="width: 500px; height: 200px;">' +
-	                	    '<form id="cocommentForm" action="insertrecrcocomment.do" method="post" style="">' +
+	                	    '<form id="cocommentForm" action="insertqnacocomment.do" method="post" style="">' +
 	                	    '<input type="hidden" name="memberId" value="' + "${sessionScope.loginMember.memberID}" + '">' +
-	                	    '<input type="hidden" name="boardId" value="' + "${RecrBoard.boardId}" + '">' +
+	                	    '<input type="hidden" name="boardId" value="' + "${Qna.boardId}" + '">' +
 	                	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
 	                	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
 	                	    '<textarea class="commentForm" name="context" cols="50" rows="5" required></textarea>' +
@@ -184,15 +184,15 @@
 				<a href="${ qfd }">${qna.originalFilePath }</a>
 			</c:if> <c:if test="${ empty qna.originalFilePath }">&nbsp;	</c:if></td>
 		<div class="comment-div">
-			<button onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
+			<button onclick="toggleCommentForm(); return false;">댓글(${Qna.commentCount})개</button>
 			<!-- 댓글 작성 폼 -->
 
 			<div id="writecommentForm" style="display: none;">
 				<c:if test="${!empty sessionScope.loginMember}">
-					<form action="insertrecrcomment.do" method="post">
+					<form action="insertqnacomment.do" method="post">
 						<input type="hidden" name="memberId"
 							value="${sessionScope.loginMember.memberID}"> <input
-							type="hidden" name="boardId" value="${RecrBoard.boardId}">
+							type="hidden" name="boardId" value="${Qna.boardId}">
 						<input type="hidden" name="page" value="${page}">
 						<textarea class="commentForm" name="context" cols="50" rows="5"
 							required></textarea>

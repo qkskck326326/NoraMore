@@ -21,7 +21,7 @@
 		<typeAlias type="com.develup.noramore.memadd.model.vo.MemAdd" alias="MemAdd" />
 		<typeAlias type="com.develup.noramore.notice.model.vo.Notice" alias="Notice" />
 		<typeAlias type="com.develup.noramore.qna.model.vo.Qna" alias="Qna" />
-		<!-- <typeAlias type="com.develup.noramore.commentqnaboard.model.vo.CommentQnaBoard" alias="CommentQnaBoard" />   -->
+		<typeAlias type="com.develup.noramore.commentqnaboard.model.vo.CommentQnaBoard" alias="CommentQnaBoard" />
 		<typeAlias type="com.develup.noramore.recrboard.model.vo.RecrBoard" alias="RecrBoard" /> 
 		<typeAlias type="com.develup.noramore.alarm.model.vo.Alarm" alias="Alarm" />
 		<typeAlias type="com.develup.noramore.common.Paging" alias="Paging" />
