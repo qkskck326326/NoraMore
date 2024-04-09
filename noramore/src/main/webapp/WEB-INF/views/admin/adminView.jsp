@@ -18,14 +18,18 @@
 }
 
 .statics {
-    max-width: 400px;
+    max-width: 800px; /* 변경된 부분: 테이블이 두 개씩 가로 배치되도록 크기 조절 */
     text-align: center;
+    display: flex; /* 변경된 부분: 테이블들을 가로로 나란히 배치하기 위해 flex 사용 */
+    flex-wrap: wrap; /* 변경된 부분: 넘칠 경우 다음 줄로 이동하도록 설정 */
+    justify-content: space-around; /* 변경된 부분: 테이블들을 가로 방향으로 고르게 배치 */
 }
 
 .statics table {
-    width: 100%;
+    width: 45%; /* 변경된 부분: 테이블이 가로로 나란히 배치되도록 너비 조절 */
     border-collapse: collapse;
     border: 1px solid #ddd;
+    margin-bottom: 20px; /* 변경된 부분: 각 테이블 사이의 간격 조절 */
 }
 
 .statics th, .statics td {
@@ -58,7 +62,6 @@
                 <td>${ flow.enrollToday } 명</td>
             </tr>
         </table>
-        <br>
         <table>
             <tr>
                 <th>어제 탈퇴한 회원</th>
