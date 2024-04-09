@@ -27,10 +27,58 @@
 <link rel="stylesheet" href="resources/css/dropdown.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=여기에_발급받은_자바스크립트_키를_입력하세요&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	c5e1909af5c34f4d02319699b9f0e261&libraries=services"></script>
 <script type="text/javascript">
 
 
+
+//마커 표시 함수 호출
+
+
+window.onload = function(){
+	
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};  
+
+	//지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+
+	//주소로부터 좌표를 얻어 마커를 표시하는 함수
+	function displayMarkers() {
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	var locationList = JSON.parse('${locationListJSON}');
+	
+	locationList.forEach(function(RecrBoard) {
+		console.log(RecrBoard.recrLocation);
+	    geocoder.addressSearch(RecrBoard.recrLocation, function(result, status) {
+	        if (status === kakao.maps.services.Status.OK) {
+	            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	            var marker = new kakao.maps.Marker({
+	                map: map,
+	                position: coords
+	            });
+
+	            var infowindow = new kakao.maps.InfoWindow({
+	                content: '<div style="padding:5px;">' + RecrBoard.title + ' <a href="rbdetail.do?page=1&categoryId=' + RecrBoard.categoryId + '&boardId=' + RecrBoard.boardId + '" target="_blank">(보기)</a></div>'
+	            });
+	            infowindow.open(map, marker);
+	        } 
+	    });
+	});
+	
+	}
+	
+	displayMarkers();
+	
+	
+}//
 
 
 function rbwriteform(){
