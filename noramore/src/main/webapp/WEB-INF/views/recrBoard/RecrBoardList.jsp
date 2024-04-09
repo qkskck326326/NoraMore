@@ -123,6 +123,7 @@ function changeFormAction() {
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자ID</th>
+				<th>모집상황</th>
 				<th>조회수</th>
 			</tr>
 			<c:forEach var="rl" items="${list}">
@@ -135,6 +136,7 @@ function changeFormAction() {
 					<th>${rl.boardId}</th>
 					<th><a href="${rbd}">${rl.title}</a></th>
 					<th>${rl.memberId}</th>
+					<th>${rl.nowRecr}명 / ${rl.maxRecr}명</th>
 					<th>${rl.readCount}</th>
 				</tr>
 			</c:forEach>

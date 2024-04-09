@@ -21,37 +21,15 @@
 			</section>
 		</section>
 		<ul>
-			<li><a href="#"><i class="fa-solid fa-cat"></i> 메인으로</a> <br>
-			<li><a href="#"><i class="fa-solid fa-cat"></i> 볼링</a>
+			<c:forEach var="category" items="${categoryList}">
+			<li><a href="rblist.do?categoryId=${category.categoryId}"><i class="fa-solid fa-cat"></i> ${category.categoryName}</a>
 				<ul>
-					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
-				</ul></li>
-			<li><a href="#"><i class="fa-solid fa-cat"></i> 클라이밍</a>
-				<ul>
-					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
-				</ul></li>
-			<li><a href="#"><i class="fa-solid fa-cat"></i> 사이클</a>
-				<ul>
-					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
-				</ul></li>
-			<li><a href="#">헬스</a>
-				<ul>
-					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
-				</ul></li>
-			<li><a href="#">수상레져</a>
-				<ul>
-					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
-				</ul></li>
-			<li><a href="#">등산</a>
-				<ul>
-					<li><a href="#">모집게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
-				</ul></li>
+					<li><a href="rblist.do?categoryId=${category.categoryId}">모집게시판</a></li>
+					<li><a href="freeboardlist.do?categoryId=${category.categoryId}">자유게시판</a></li>
+				</ul>
+			</li>
+			</c:forEach>		
+			
 			<li><a href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>				
 			<li><a href="${ pageContext.servletContext.contextPath }/qlist.do">QnA</a></li>				
 		</ul>
