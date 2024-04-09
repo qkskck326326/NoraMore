@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.develup.noramore.commentqnaboard.model.vo.CommentQnaBoard;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.common.SearchDate;
@@ -18,6 +19,9 @@ public class QnaDao {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
+	public void countcoment(CommentQnaBoard commentQnaBoard) {
+		sqlSessionTemplate.update("qnaMapper.countcoment", commentQnaBoard);
+	}	
 	
 	public int selectListCount() {		
 		return sqlSessionTemplate.selectOne("qnaMapper.selectListCount");
@@ -87,6 +91,16 @@ public class QnaDao {
 	public int selectSearchDateCount(SearchDate date) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("qnaMapper.selectSearchDateCount", date);
+	}
+
+	public int downCount(int boardId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int upCountComment(int boardId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -16,6 +16,17 @@
 <html>
 <head>
 
+<script type="text/javascript">
+	function openSetting() {
+		if (document.getElementById('setting').style.display === 'block') {
+			document.getElementById('setting').style.display = 'none';
+		} else {
+			document.getElementById('setting').style.display = 'block';
+		}
+	}
+</script>
+
+
 <meta charset="UTF-8">
 <!-- <link rel="stylesheet" href="resources/css/style.css"> -->
 <link rel="stylesheet" href="resources/css/chatbot.css">
@@ -27,80 +38,96 @@
 	<section id="board">
 		<h1>게시물 추천</h1>
 		<div class="line"></div>
-		<div class="chatbot-container">
-        <div id="chatbot">
-    <div id="conversation">
-        <div class="chatbot-message">
-            <p class="chatbot-text">노라모아에 오신것을 환영합니다 !
-            <br><br>             
-            <input type="checkbox" id="checkboxA" value="A"> A 항목<br>
-            <input type="checkbox" id="checkboxB" value="B"> B 항목<br>
-            <input type="checkbox" id="checkboxB" value="B"> C 항목<br>
-            <input type="checkbox" id="checkboxB" value="B"> D 항목<br>
-            <input type="checkbox" id="checkboxB" value="B"> F 항목<br>
-            <input type="checkbox" id="checkboxB" value="B"> G 항목<br>
-            </p>
-        </div>
-    </div>
-    <form id="input-form">
-        <message-container>
-            <input id="input-field" type="text" placeholder="Type your message here">
-           
-            <button id="blueBtn" type="submit">제출
-            </button>
-        </message-container>
-    </form>
-</div>
 
 
-<script type="text/javascript">
-    // Add event listener to input form
-    inputForm.addEventListener('submit', function (event) {
-        // Prevent form submission
-        event.preventDefault();
+		<div class="top"></div>
+			<h3>ASP 모바일 상담 서비스</h3>
+			<button onclick="openSetting()">
+				<img src="./img/setting.png">
+			</button>
+			<div id="setting">
+				<div class="chatbot-container">
+					<div id="chatbot">
+						<div id="conversation">
+							<div class="chatbot-message">	
+								<p class="chatbot-text">노라모아에 오신것을 환영합니다23 !<br><br>원하시는 질문을 말씀하세요</p>
+							</div>
+						</div>
+						<form id="input-form">
+							<message-container> <input id="input-field"
+								type="text" placeholder="Type your message here">
 
-        // Get user input
-        const input = inputField.value;
+							<button id="blueBtn" type="submit">제출</button>
+							</message-container>
+						</form>
+					</div>
+				</div>
+			</div>		
 
-        // Get checked checkbox values
-        const checkedItems = [];
-        const checkboxA = document.getElementById('checkboxA');
-        const checkboxB = document.getElementById('checkboxB');
-        if (checkboxA.checked) {
-            checkedItems.push(checkboxA.value);
-        }
-        if (checkboxB.checked) {
-            checkedItems.push(checkboxB.value);
-        }
 
-        // Clear input field
-        inputField.value = '';
-        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: "2-digit" });
+				<script type="text/javascript">
+					// Add event listener to input form
+					inputForm
+							.addEventListener(
+									'submit',
+									function(event) {
+										// Prevent form submission
+										event.preventDefault();
 
-        // Add user input to conversation
-        let message = document.createElement('div');
-        message.classList.add('chatbot-message', 'user-message');
-        message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${input}</p>`;
-        conversation.appendChild(message);
+										// Get user input
+										const input = inputField.value;
 
-        // Generate chatbot response
-        const response = generateResponse(input, checkedItems);
+										// Get checked checkbox values
+										const checkedItems = [];
+										const checkboxA = document
+												.getElementById('checkboxA');
+										const checkboxB = document
+												.getElementById('checkboxB');
+										if (checkboxA.checked) {
+											checkedItems.push(checkboxA.value);
+										}
+										if (checkboxB.checked) {
+											checkedItems.push(checkboxB.value);
+										}
 
-        // Add chatbot response to conversation
-        message = document.createElement('div');
-        message.classList.add('chatbot-message', 'chatbot');
-        message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${response}</p>`;
-        conversation.appendChild(message);
-        message.scrollIntoView({ behavior: "smooth" });
-    });
-</script>  
+										// Clear input field
+										inputField.value = '';
+										const currentTime = new Date()
+												.toLocaleTimeString([], {
+													hour : '2-digit',
+													minute : "2-digit"
+												});
 
-    </div>
+										// Add user input to conversation
+										let message = document
+												.createElement('div');
+										message.classList.add(
+												'chatbot-message',
+												'user-message');
+										message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${input}</p>`;
+										conversation.appendChild(message);
+
+										// Generate chatbot response
+										const response = generateResponse(
+												input, checkedItems);
+
+										// Add chatbot response to conversation
+										message = document.createElement('div');
+										message.classList.add(
+												'chatbot-message', 'chatbot');
+										message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${response}</p>`;
+										conversation.appendChild(message);
+										message.scrollIntoView({
+											behavior : "smooth"
+										});
+									});
+				</script>
+
+			</div>
 			
-		
 	</section>
 
-    <script src="resources/js/chatbot.js"></script>
+	<script src="resources/js/chatbot.js"></script>
 </body>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

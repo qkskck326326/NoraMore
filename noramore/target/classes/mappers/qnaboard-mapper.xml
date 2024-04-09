@@ -16,6 +16,17 @@
 		<result property="renameFilePath" column="RENAME_FILENAME" />
 	</resultMap>
 
+	<update id="countcoment" parameterType="_int">
+		UPDATE QNA_BOARD
+		SET COMMENT_COUNT = (
+		    SELECT COUNT(*)
+		    FROM COMM_RECR
+		    WHERE BOARD_ID = #{boardId}
+		)
+		WHERE BOARD_ID = #{boardId}
+	</update>
+
+
 	<select id="selectListCount" resultType="_int">
 		select count(*) from
 		qna_board

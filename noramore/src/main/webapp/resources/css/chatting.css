@@ -273,3 +273,30 @@
     background-color: black;
     color: white;
  }
+ 
+ 
+ .top>button{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent; /* 뒷 배경을 부모와 같게 맞춰줌 */
+    border:none;
+    margin-top: 1rem;
+    float: right;
+}
+.top>button>img{
+    width: 3.5rem;
+    height: 3.5rem;
+}
+#setting{
+    width: 80%;
+    height: 30rem;
+    position: absolute;
+    display: none;
+    margin-left: 17%;
+    border: solid 0.1rem;
+    border-radius: 1rem;
+    background-color: white;
+    font-size: 1.3rem;
+    z-index: 1;
+}
