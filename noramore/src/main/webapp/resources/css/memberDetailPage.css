@@ -87,7 +87,7 @@ position:absolute;
     border-radius: 3px;
 }
 
-button {
+#modifyBtn {
     background-color: #4caf50;
     color: white;
     padding: 10px 20px;
@@ -99,4 +99,108 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+
+
+
+.modal {
+	position:absolute;
+	display:none;
+	justify-content: center;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index: 1050;
+	background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-dialog {
+	display: flex;
+	display-direction: column;
+	align-items: center;
+	justify-content: center;
+	top: 0px;
+	left: 0px;
+	width: 500px;
+}
+
+
+.modal-content {
+	background-color: rgb(255,255,255); 
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+    border-radius: 8px; /* 모달 테두리를 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 모달에 그림자 효과 추가 */
+}
+
+
+.modal-header {
+	top: 10px;
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
+	align-self : center;
+	justify-content: center;
+	position: relative;
+    background-color: rgb(255,255,255); 
+}
+
+.modal-title {
+	position: relative;
+    color: #333; /* 타이틀 텍스트 색상 */
+    padding: 10px;
+}
+
+.btn-close {
+    /* 닫기 버튼 커스텀 스타일 */
+}
+
+.modal-body {
+	position: relative;
+	text-align: center;
+	background-color: rgb(255,255,255); 
+	border-radius:10px;
+    padding: 20px; /* 적당한 패딩으로 내용물과의 간격 조정 */
+}
+
+.modal-footer {
+	position: relative;
+    flex-direction: row;
+    /* border-top: 1px solid #eeeeee; */
+    /* background-color: #f8f9fa; */
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+/* 버튼 스타일 */
+.btn-primary {
+    background-color: #007bff; /* 기본 배경색 */
+    border-color: #007bff; /* 테두리 색상 */
+    color: white; /* 텍스트 색상 */
+    padding: 10px 20px; /* 버튼 내 패딩 */
+    border-radius: 5px; /* 버튼 테두리 둥글게 */
+    font-weight: bold; /* 텍스트 굵기 */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* 배경색 */
+    border-color: #6c757d; /* 테두리 색상 */
+    color: white; /* 텍스트 색상 */
+    padding: 10px 20px; /* 버튼 내 패딩 */
+    border-radius: 5px; /* 버튼 테두리 둥글게 */
+    font-weight: bold; /* 텍스트 굵기 */
+}
+
+/* 입력 필드 스타일 */
+.form-control {
+    border-radius: 5px; /* 입력 필드 테두리 둥글게 */
+    border: 1px solid #ced4da; /* 테두리 색상 */
+    padding: 10px; /* 내부 패딩 */
+    
+}
+
 

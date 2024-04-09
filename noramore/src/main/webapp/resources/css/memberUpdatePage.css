@@ -1,0 +1,105 @@
+@charset "UTF-8";@charset "UTF-8";@charset "UTF-8";
+
+/* Apply styles to the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the form container */
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the form headings */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Style form input fields */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Style radio buttons */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Style error messages */
+.mismatch-message,
+.strongPassword-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Style the back link */
+#back {
+    text-decoration: none;
+    color: #333;
+    margin-left: 10px;
+}
+
+/* Style the container div */
+div {
+    margin-bottom: 10px;
+}
+
+/* Style the span */
+span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Style the container for address inputs */
+#address {
+    margin-top: 10px;
+}
+
+/* Style the guide text */
+#guide {
+    color: #999;
+    display: none;
+}
+
+/* Hide/show class */
+.hide {
+    display: none;
+}

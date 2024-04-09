@@ -126,9 +126,9 @@ public class MemberController {
 
 	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-	public String mypage(@RequestParam("memberID") String memeberid, Model model) {
-		
-		model.addAttribute("memberID", memeberid);
+	public String mypage(HttpServletRequest request, Model model) {
+	      
+	      model.addAttribute("memberID", request.getSession().getAttribute("memberID"));
 		
 		
 		
@@ -152,40 +152,88 @@ public class MemberController {
 	
 	
 	
+
+	//회원정보 수정페이지로 이동
 	@RequestMapping(value = "updatePage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-	public String updatePage(@RequestParam("memberID") String memberid, Model model) {
-		Member member = memberService.selectMember(memberid);
+	public String updatePage(Member member, Model model) {
 		
 		
-		if (member != null) {
-			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
-			return "/member/memberUpdatePage";
-		} else {
-			model.addAttribute("message", memberid + " 에 대한 수정페이지로 이동 실패!");
-			return "common/error";
-		}
-		
-		
-	}
+		String memberid = member.getMemberID();
+		Member member1 = memberService.selectMember(memberid);
+			
 	
+		if( member != null) { 
+			model.addAttribute("member", member1); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "/member/memberUpdatePage";
+		
+		}else {
+			model.addAttribute("message", "비밀번호를 다시 입력해주세요.");
+			return "member/memberDetailPage";
+		} 
+	}
+
+	//회원정보 수정페이지 처리
+		@RequestMapping(value = "memberUpdate.do", method = { RequestMethod.POST, RequestMethod.GET })
+		// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+		public String memberUpdate(Member member, Model model,
+			
+				@RequestParam("originPwd") String originPwd,
+				@RequestParam("road") String road, @RequestParam("street") String street,
+				@RequestParam("detail") String detail, @RequestParam("ref") String ref) {
+			
+			
+			System.out.println("originPwd : " + originPwd);
+		
+			String addressAdd = road + street + detail + ref;
+			
+			System.out.println("주소 : " + member.getAddress());
+			
+			//주소
+			if (addressAdd == "" || addressAdd == null) {
+				/* String address = member.getAddress(); */
+				member.setAddress(member.getAddress());
+				
+					
+			}else {	
+				member.setAddress(addressAdd);
+			}
+		
+			
+			System.out.println("id라네" + member.getMemberID());
+			
+			//새로운 암호가 전송이 왔다면, 패스워드 암호화 처리함
+			String memberPWD = member.getMemberPWD().trim();
+			logger.info("새로운 암호 : " + memberPWD + ", " + memberPWD.length());
+			
+			if(memberPWD != null && memberPWD.length() > 0) {
+				//암호화된 기존의 패스워드와 새로운 패스워드를 비교해서 다른 값이면
+				if(!this.bcryptPasswordEncoder.matches(memberPWD, originPwd)) {
+					//member 에 새로운 패스워드를 암호화해서 저장함
+				 member.setMemberPWD(this.bcryptPasswordEncoder.encode(memberPWD));
+					System.out.println("member!!!! : " + member);
+				}
+			}else {  //새로운 암호가 null 또는 글자갯수가 0일때는
+				//기존 암호이면, 원래 암호화된 패스워드를 저장함
+				member.getMemberPWD();
+			
+			}
+			
+			if(memberService.updateMember(member) > 0) {
+				//뷰리졸버로 리턴하지 않고, 바로 컨트롤러의 다른 메소드를 실행할 경우
+				return "member/memberDetailPage";
+				//만약, 회원정보 수정 성공시 마이페이지로 이동되게 한다면
+				//return "redirect:myinfo.do?userId=" + member.getUserId();
+			}else {
+				model.addAttribute("message", "회원 정보 수정 실패!");
+				return "member/memberUpdatePage";
+			}
+		}
+
 	
 	
 	
 
-	@RequestMapping(value = "grade.do", method = { RequestMethod.GET, RequestMethod.POST })
-	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-	public String gradePage(@RequestParam("memberID") String memeberid, Model model) {
-		
-		Member member = memberService.selectMember(memeberid);
-		
-		if (member != null) {
-			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
-			return "member/gradePage";
-		} else {
-			return "redirect:home.do";
-		}
-	}
 	
 	
 	

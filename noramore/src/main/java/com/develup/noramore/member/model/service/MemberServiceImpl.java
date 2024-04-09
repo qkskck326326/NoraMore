@@ -63,6 +63,11 @@ public class MemberServiceImpl implements MemberService {
 	public int selectCheckNicname(String memberNicname) {
 		return memberDao.selectCheckNicname(memberNicname);
 	}
+
+	@Override
+	public int updateMember(Member member) {
+		return memberDao.updateMember(member);
+	}
 	
 	
 	
