@@ -474,7 +474,7 @@ textarea.commentForm:hover {
 				<c:if test="${ loginMember.adminYN eq 'Y' and loginMember.memberID ne FreeBoard.memberId  }">
 					<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
 					
-					<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;
+					<%-- <button onclick="requestReply(); return false;">댓글달기</button> &nbsp;--%>
 					
 				</c:if>
 				
@@ -482,7 +482,7 @@ textarea.commentForm:hover {
 				
 				<c:if test="${ loginMember.adminYN eq 'N' and loginMember.memberID ne FreeBoard.memberId }">
 					
-						<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;
+						<%--<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;--%>
 					</c:if>
 				
 			</c:if>
