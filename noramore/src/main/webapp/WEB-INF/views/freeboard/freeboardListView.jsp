@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="resources/css/dropdown.css">
 	<script type="text/javascript" src="/resources/js/jquery-3.7.0.min.js"></script>
 	
-		<title>Insert title here</title>
+		<title>NoraMore</title>
 
 
 <script type="text/javascript">
@@ -81,10 +81,19 @@
     }
     
     function fbwriteform(){
-    	location.href = "freeboardwrite.do?page=" + ${page};
+    	if(${empty sessionScope.loginMember}){
+    		alert("로그인을 해야 합니다.");
+    		return;
+    	}
+    	var page = ${page};
+        var categoryId = ${categoryId};
+        
+    	location.href = "freeboardwrite.do?page=" + ${page} + '&categoryId=' + categoryId;
+    	
+    	return false;
     }
     
-    /*
+    
     function check(){
     	var limitSelect = document.getElementById('limitSelect');
         var limi = limitSelect.value;
@@ -98,7 +107,7 @@
         var action = actionE.value;
         console.log(action);
     }
-    */
+    
 
     function changeFormAction() {
         var selectedValue = document.getElementById("action").value;
@@ -121,21 +130,22 @@
 }
 
 .header {
-  z-index: 1000; /* 헤더를 위로 */
+
+  z-index: 100; /* 헤더를 위로 */
 }
 
 .sidebar {
-  z-index: 1000; /* 사이드바를 위로 */
+
+  z-index: 100; /* 사이드바를 위로 */
 }
 
 .content {
-  z-index: 1001; /* 메인 컨텐츠를 아래로 */
+	position: relative;
+    margin-right: 100px; /* 사이드바의 폭에 따라 조정할 수 있습니다 */
 }
 
-.whiteBtn {
-  z-index: 1100; /* Higher z-index than sidebar and header */
-  position: relative; /* Ensure proper positioning */
-}
+
+
 
 </style>
 
@@ -195,7 +205,7 @@
 
 -->
 
-<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="fbwriteform()">글 작성</button>
+<div class=content>
 	<section id="board">
 
 		<h1>자유게시판</h1>
@@ -236,7 +246,7 @@
 			</fieldset>
 			<input  type="hidden" name="categoryId" value="${categoryId}">
 		</form>
-		
+		<button class="whiteBtn" style="float: right;  margin-right:10;" onclick="fbwriteform()">글 작성</button>
 		
 	</section>
 	
@@ -280,8 +290,9 @@
 --%>
 
 		<!-- ****************************************** -->
-		<table>
+		<table style='width: 1200px;'>
 			<thead>
+			
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
@@ -310,12 +321,15 @@
 			
 
 		</table>
+		
+
 		<!-- 추가한 부분 **************** -->
 <br>
- <c:import url="/WEB-INF/views/common/pagingView.jsp"/> 
+ <c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
 
 <!-- 추가한 부분 **************** -->
 	</section>
+</div>
 
 </body>
 </html>
