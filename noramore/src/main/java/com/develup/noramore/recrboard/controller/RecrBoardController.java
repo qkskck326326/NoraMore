@@ -367,23 +367,27 @@ public class RecrBoardController {
 			HttpServletRequest request, HttpServletResponse response) {
 			
 			String articleId = "RecrBoardReport_" + boardId;
-			boolean isViewed = false;
+			boolean isReported = false;
 		// 쿠키에서 해당 게시물의 신고 여부를 확인
-		        Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
+		        Cookie viewCookie = WebUtils.getCookie(request, articleId);
 		        if (viewCookie != null) {
-		            isViewed = true;
+		        	isReported = true;
 		        }
 
-		        if (!isViewed) {
+		        if (!isReported) {
 		            // 여기에 신고 증가 처리
-		            
+		            if(recrBoardService.boardReport(boardId) > 0) {
+		            	// 새 쿠키 생성 및 설정
+			            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+			            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
+			            newCookie.setPath("/");
+			            response.addCookie(newCookie);
+			            model.addAttribute("message", "신고 처리되었습니다.");
+		            }else {
+			            model.addAttribute("message", "신고 처리중 오류가 발생하였습니다.");
+		            }
 
-		            // 새 쿠키 생성 및 설정
-		            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
-		            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
-		            newCookie.setPath("/");
-		            response.addCookie(newCookie);
-		            model.addAttribute("message", "신고 처리되었습니다.");
+		            
 		        }else {
 		        	model.addAttribute("message", "이미 신고 처리된 게시물 입니다.");
 		        }
@@ -430,7 +434,7 @@ public class RecrBoardController {
 	@RequestMapping("rbdetail.do")
 	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId,
 			@RequestParam("page") String currentPage1, @RequestParam("categoryId") String categoryId1, 
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response, @RequestParam(name="message", required = false) String message) {
 		int currentPage = 1;
 		if (currentPage1 != null) {
 			currentPage = Integer.parseInt(currentPage1);
@@ -467,9 +471,10 @@ public class RecrBoardController {
 		model.addAttribute("RecrBoard", recrBoard);
 		model.addAttribute("page", currentPage);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("message", message);
 		return "recrBoard/RecrBoardDetail";
 	}
-
+	
 	// 글 작성 폼으로 이동
 	@RequestMapping("rbwriteform.do")
 	public String moveRecrBoardWriteForm(@RequestParam("page") String page, Model model, @RequestParam("categoryId") int categoryId) {
@@ -481,4 +486,14 @@ public class RecrBoardController {
 //	Board board, Model model, HttpServletRequest request, 
 //	@RequestParam(name="upfile", required=false) MultipartFile mfile
 
+	
+	/// 마이페이지에 활동기록 확인용 메소드
+	@RequestMapping("selectRecrBoadMemberId.do")
+	public String selectRecrBoadMemberId(@RequestParam("memberId") String memberId) {
+		ArrayList<RecrBoard> recrBoardList = recrBoardService.selectRecrBoardId(memberId);
+		return"";
+	}//
+	
+	
+	
 }// CLASS
