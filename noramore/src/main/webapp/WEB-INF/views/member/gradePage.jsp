@@ -13,22 +13,31 @@
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" /> 
 
+<div id="gradeBox">
 <h1>회원등급</h1>
 <hr>
 <br>
-<div>당신은 "${ memAdd.grade }" 등급입니다!</div>
+<div id="title">당신은 "${ memAdd.grade }" 등급입니다!</div>
 
-<div>활동한 횟수는 "${ memAdd.articleCount }" 입니다.</div>
+<div id="result">활동한 횟수는 "${ memAdd.articleCount }" 입니다.</div>
 
-<div>
-<span>1 ~ 30</span>
-<span>31 ~ 50</span>
-<span>51 ~ 70</span>
-<span>71 ~ 90</span>
-<span>91 ~ 110</span>
+<div id="count">
+	<span>1 ~ 30</span>
+	<span>31 ~ 50</span>
+	<span>51 ~ 70</span>
+	<span>71 ~ 90</span>
+	<span>91 ~ 110</span>
+</div >
+
+<div id="img">
+	<img src="resources/images/sprout.png" alt="새싹" class="img"> &nbsp; -> &nbsp;
+	<img src="resources/images/grass.png" alt="잔디" class="img"> &nbsp; -> &nbsp;
+	<img src="resources/images/flower.png" alt="꽃" class="img"> &nbsp; -> &nbsp;
+	<img src="resources/images/tree.png" alt="나무" class="img"> &nbsp; -> &nbsp;
+	<img src="resources/images/forest.png" alt="숲" class="img"> 
 </div>
-<img src="resource/images/sprout.png" alt="새싹">
 
+</div>
 
 </body>
 </html>

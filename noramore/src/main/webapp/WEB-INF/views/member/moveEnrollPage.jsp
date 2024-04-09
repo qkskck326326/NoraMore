@@ -94,11 +94,11 @@ function validate(){
 	
 	
 	
-	if (!/^[A-Za-z0-9][A-Za-z0-9]{5,50}$/.test(dmemberid)){
-		document.getElementById("memberid").value = "";
+	 /* if (!/^[A-Za-z0-9][a-z\d]{5,50}$/.test(memberid)){
+	    document.getElementById("memberid").value = "";
 		document.getElementById("memberid").select();
 	    return false;
-	}
+	} */ 
 	
 	
 	 if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
@@ -177,7 +177,7 @@ function dupIDCheck(){
 			if(data == "ok"){   
 					alert("사용 가능한 아이디입니다.");
 					 $('#memberpwd').focus();
-					$('#memberid').attr("readonly", true); 
+					/* $('#memberid').attr("readonly", true);  */
 					$('#registerBtn').attr("disabled", false); 
 			}
 			if(data == "dup"){

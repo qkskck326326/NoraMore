@@ -4,7 +4,7 @@ public class MemAdd implements java.io.Serializable{
 	private static final long serialVersionUID = 5681507755826042927L;
 	
 	//Field
-	private String memberId;     //회원아이디
+	private String memberID;     //회원아이디
 	private int heartBeat;     //하트비트
 	private String grade;       //등급
 	private int articleCount;  //활동건수
@@ -19,9 +19,9 @@ public class MemAdd implements java.io.Serializable{
 	}
 
 
-	public MemAdd(String memberId, int heartBeat, String grade, int articleCount, int reportCount) {
+	public MemAdd(String memberID, int heartBeat, String grade, int articleCount, int reportCount) {
 		super();
-		this.memberId = memberId;
+		this.memberID = memberID;
 		this.heartBeat = heartBeat;
 		this.grade = grade;
 		this.articleCount = articleCount;
@@ -31,13 +31,13 @@ public class MemAdd implements java.io.Serializable{
 
 	
 	//getters and setters
-	public String getMemberId() {
-		return memberId;
+	public String getMemberID() {
+		return memberID;
 	}
 
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
 	}
 
 
@@ -85,7 +85,7 @@ public class MemAdd implements java.io.Serializable{
 	
 	@Override
 	public String toString() {
-		return "MemAdd [memberId=" + memberId + ", heartBeat=" + heartBeat + ", grade=" + grade + ", articleCount="
+		return "MemAdd [memberID=" + memberID + ", heartBeat=" + heartBeat + ", grade=" + grade + ", articleCount="
 				+ articleCount + ", reportCount=" + reportCount + "]";
 	}
 
