@@ -130,7 +130,10 @@
 		where BOARD_ID = #{ boardId }
 	</select>
 	
-	 
+	<select id="selectfreeBoardId" parameterType="String" resultMap="resultfreeList"> 
+		select * from free_board
+		where MEMBER_ID = #{ memberId }
+	 </select>
 	
 	<!-- <insert id="insertFreeBoard" parameterType="FreeBoard">
 		insert into free_board
