@@ -1,9 +1,12 @@
 package com.develup.noramore.admin.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.develup.noramore.admin.model.service.AdminService;
 import com.develup.noramore.admin.model.vo.BoardManage;
+import com.develup.noramore.admin.model.vo.Flow;
+import com.develup.noramore.admin.model.vo.ReportMember;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.common.SearchDate;
 import com.develup.noramore.freeboard.model.service.FreeBoardService;
-import com.develup.noramore.memadd.model.service.MemAddService;
 import com.develup.noramore.member.model.service.MemberService;
-import com.develup.noramore.admin.model.vo.Flow;
 import com.develup.noramore.member.model.vo.Member;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
-import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
 @Controller
 public class AdminController {
@@ -63,9 +65,9 @@ public class AdminController {
 	//페이지별 목록 조회
 	
 	//관리자 페이지 메인 (가입&탈퇴 유동 목록)
-/*	@RequestMapping("adminPage.do")
+	@RequestMapping("adminPage.do")
 	public String selectEnrollandWithdrawalFlowList(Model model) {
-		Flow flow = memberService.selectEWFlowCount();
+		Flow flow = adminService.selectEWFlowCount();
 		model.addAttribute("flow", flow);
 		return "admin/adminView";
 	}
@@ -86,12 +88,12 @@ public class AdminController {
 			 limit = Integer.parseInt(slimit); 
 		 }
 		 
-		 int listCount = memberService.selectListCount(); //페이징 계산 처리 실행
+		 int listCount = adminService.selectListCount(); //페이징 계산 처리 실행
 		 Paging paging = new Paging(listCount, currentPage, limit, "memberlist.do");
 		 paging.calculate();
 		 
 		 //목록 조회
-		List<Member> mlist = memberService.selectMemList(paging);
+		List<ReportMember> mlist = adminService.selectMemList(paging);
 		
 		if(mlist != null & mlist.size() >0) {
 			model.addAttribute("mlist", mlist);
@@ -142,13 +144,13 @@ public class AdminController {
 		int listCount = 0;
 		switch(action) {
 		case "id":  		
-			listCount = memberService.selectSearchMemberIdCount(keyword);  break;
+			listCount = adminService.selectSearchMemberIdCount(keyword);  break;
 		case "gender":  	
-			listCount = memberService.selectSearchGenderCount(keyword);  break;
+			listCount = adminService.selectSearchGenderCount(keyword);  break;
 		case "age":  		
-			listCount = memberService.selectSearchAgeCount(Integer.parseInt(keyword));  break;
+			listCount = adminService.selectSearchAgeCount(Integer.parseInt(keyword));  break;
 		case "enrolldate": 
-			listCount = memberService.selectSearchEnrollDateCount(searchDate);  break;
+			listCount = adminService.selectSearchEnrollDateCount(searchDate);  break;
 		}
 		
 		//뷰 페이지와 쿼리문에서 사용할 페이징 관련 값 계산 처리
@@ -156,7 +158,7 @@ public class AdminController {
 		paging.calculate();
 		
 		//서비스 메소드 호출하고 리턴 결과 받기
-		List<Member> list = null;
+		List<ReportMember> list = null;
 		
 		//마이바티스 매퍼 쿼리문으로는 객체 한 개만 전달할 수 있음 => 별도의 클래스 만들어서 사용함
 		Search search = new Search();
@@ -165,14 +167,14 @@ public class AdminController {
 		
 		switch(action) {
 		case "id":  		search.setKeyword(keyword);
-						list = memberService.selectSearchMemberId(search);  break;
+						list = adminService.selectSearchMemberId(search);  break;
 		case "gender":  	search.setKeyword(keyword);
-						list = memberService.selectSearchGender(search);  break;
+						list = adminService.selectSearchGender(search);  break;
 		case "age":  		search.setAge(Integer.parseInt(keyword));
-						list = memberService.selectSearchAge(search);  break;
+						list = adminService.selectSearchAge(search);  break;
 		case "enrolldate":  search.setBegin(Date.valueOf(begin));
 		                search.setEnd(Date.valueOf(end));
-						list = memberService.selectSearchEnrollDate(search);  break;
+						list = adminService.selectSearchEnrollDate(search);  break;
 		}
 		
 		//받은 결과에 따라 성공/실패 페이지 내보내기
@@ -204,10 +206,10 @@ public class AdminController {
 		
 		return mv;
 	}
-*/	
+	
 	
 	//신고 회원 목록 조회
-/*	@RequestMapping("reportedMemlist.do")
+	@RequestMapping("reportedMemlist.do")
 	public String selectReportedMemList(
 			@RequestParam(name="page", required=false) String page, 
 			@RequestParam(name="limit", required=false) String slimit, Model model) {
@@ -222,12 +224,12 @@ public class AdminController {
 			 limit = Integer.parseInt(slimit); 
 		 }
 		 
-		 int listCount = memAddService.selectReportedListCount(); //페이징 계산 처리 실행
+		 int listCount = adminService.selectReportedMemListCount(); //페이징 계산 처리 실행
 		 Paging paging = new Paging(listCount, currentPage, limit, "reportedMemlist.do");
 		 paging.calculate();
 		 
 		 //목록 조회
-		List<Member> mlist = memAddService.selectReportedMemList(paging);
+		List<ReportMember> mlist = adminService.selectReportedMemList(paging);
 		
 		if(mlist != null & mlist.size() >0) {
 			model.addAttribute("mlist", mlist);
@@ -240,7 +242,7 @@ public class AdminController {
 		}
 		
 	}
-*/
+
 	
 	//신고 게시글 목록 조회
 	@RequestMapping("reportedBoardlist.do")
@@ -284,21 +286,48 @@ public class AdminController {
 	// DML (UPDATE, DELETE)
 	
 	//회원 활동 제한
-/*	@RequestMapping("restrict.do")
-	public String updateRestrict(
+	@RequestMapping(value="restrict.do", method=RequestMethod.POST)
+	public void updateRestrict(
 			@RequestParam("memberID") String memberID, 
-			@RequestParam("restrict") String restrict, Model model) {
-		Member member = null;
+			@RequestParam("restrict") String restrict, HttpServletResponse response) throws IOException {
+		Member member = new Member();
 		member.setMemberID(memberID);
 		member.setActLimit(restrict);
 		
-		if(memberService.updateRestrict(member) > 0) {
-			//memAddService.updateReport(memberID);
-			model.addAttribute("success", "회원 활동 제한 정보가 갱신되었습니다. 회원의 누적 신고 수를 0으로 초기화합니다.");
+		String returnStr = null;
+		if(adminService.updateRestrict(member) > 0) {
+			adminService.updateReport(memberID);
+			returnStr = "restrict";
 		}else {
-			model.addAttribute("error", "회원 활동 제한 설정 에러");
+			returnStr = "failed";
 		}
-		return "redirect:reportMemlist.do";
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.append(returnStr);
+		out.flush();
+		out.close();
 	}
-*/	
+	
+	//회원 활동 제한
+	@RequestMapping(value="restrictrollback.do", method=RequestMethod.POST)
+	public void rollbackRestrict(
+			@RequestParam("memberID") String memberID, 
+			@RequestParam("restrict") String restrict, HttpServletResponse response) throws IOException {
+		Member member = new Member();
+		member.setMemberID(memberID);
+		member.setActLimit(restrict);
+		
+		String returnStr = null;
+		if(adminService.updateRestrictRollback(member) > 0) {
+			returnStr = "rollback";
+		}else {
+			returnStr = "failed";
+		}
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.append(returnStr);
+		out.flush();
+		out.close();
+	}
+	
 }

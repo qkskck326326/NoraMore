@@ -4,7 +4,11 @@ import java.sql.Date;
 
 import com.develup.noramore.common.Paging;
 
-public class Alarm {
+public class Alarm implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8135339567012332208L;
 	private int alarmId;
 	private String alarmKind;
 	private int nativeId;

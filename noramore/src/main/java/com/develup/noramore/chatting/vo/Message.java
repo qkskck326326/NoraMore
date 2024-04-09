@@ -1,7 +1,11 @@
 package com.develup.noramore.chatting.vo;
 
-public class Message {
-    private int messageNo; // 메시지 번호
+public class Message implements java.io.Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7057981510274684605L;
+	private int messageNo; // 메시지 번호
     private String messageContent; // 메시지 내용
     private String readFlag; // 읽음 여부
     private String senderId; // 보낸 회원 아이디
