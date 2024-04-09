@@ -20,6 +20,7 @@ a {
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/common/sideSample.jsp"/>
 <br><br><br><br><br><br>
 <h2 class="title">알람</h2>
 <br>
@@ -76,7 +77,7 @@ a {
 			   	
 			</tr>
 		</c:forEach>
-
+<c:import url="/WEB-INF/views/common/pagingView.jsp" />
 	</table>
 </body>
 </html>
