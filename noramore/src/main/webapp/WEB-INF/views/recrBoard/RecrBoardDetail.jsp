@@ -377,6 +377,10 @@ function updatecomment(commentId1, context1){
 	location.reload(); 
 }
 
+function showApplList(){
+	var applList = document.getElementById("applList");
+        applList.style.display = "block";
+}
 
 </script>
 <style>
@@ -489,14 +493,13 @@ textarea.commentForm:hover {
 
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
-						<button id="showRecrAppl" class="whiteBtn" style="float: right;">모집목록
-							보기</button>
+						<button class="whiteBtn" style="float: right;" onclick="showApplList()">모집목록 보기</button>
 
-						<table style='width: 600px;'>
+						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
-								<th>신청자ID</th>
-								<th>거절</th>
-								<th>수락</th>
+								<th width="150px">신청자ID</th>
+								<th width="120px">거절</th>
+								<th width="120px">수락</th>
 							</tr>
 							<c:if test="${empty applList}">
 								<tr>
