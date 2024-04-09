@@ -130,21 +130,22 @@
 }
 
 .header {
-  z-index: 1000; /* 헤더를 위로 */
+
+  z-index: 100; /* 헤더를 위로 */
 }
 
 .sidebar {
-  z-index: 1000; /* 사이드바를 위로 */
+
+  z-index: 100; /* 사이드바를 위로 */
 }
 
 .content {
-  z-index: 1001; /* 메인 컨텐츠를 아래로 */
+	position: relative;
+    margin-right: 100px; /* 사이드바의 폭에 따라 조정할 수 있습니다 */
 }
 
-.whiteBtn {
-  z-index: 1100; /* Higher z-index than sidebar and header */
-  position: relative; /* Ensure proper positioning */
-}
+
+
 
 </style>
 
@@ -204,7 +205,7 @@
 
 -->
 
-
+<div class=content>
 	<section id="board">
 
 		<h1>자유게시판</h1>
@@ -320,12 +321,15 @@
 			
 
 		</table>
+		
+
 		<!-- 추가한 부분 **************** -->
 <br>
  <c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
 
 <!-- 추가한 부분 **************** -->
 	</section>
+</div>
 
 </body>
 </html>

@@ -44,7 +44,7 @@
 
 <c:url var="freeboardlist" value="freeboardlist.do">
 	<c:param name="page" value="${page}" />
-	<c:param name="categoryId" value="${categoryId}" />
+	
 	
 </c:url>
 
@@ -327,6 +327,10 @@ async function translateText() {
 	function Alert(message) {
 	    alert(message);
 	}
+	
+	function moveListPage(){
+		location.href = "${freeboardlist}";
+	}
 
 	
 </script>
@@ -417,13 +421,14 @@ textarea.commentForm:hover {
 </head>
 <body>
 
+	<div class="container">
+		<div class="boardFree-div">
 	
-	
-	<form action="freeboardlist.do" method="post"
-		enctype="multipart/form-data">
+<%--<form action="freeboardlist.do" method="post"
+		enctype="multipart/form-data">  --%>
 		<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	
-		<div id="write">
+		<div id="write" style="margin-bottom: 20px;">
 			<h1 style="text-align: left;">${FreeBoard.title}</h1>
 			<div class="line"></div>
 			<div>
@@ -488,8 +493,9 @@ textarea.commentForm:hover {
 		
 	
 		
-	</form>
-
+	<%-- </form> --%>
+</div>
+</div>
 
 	<%-- 가져온 부분 ****************************** --%>
 			
