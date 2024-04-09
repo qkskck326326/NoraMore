@@ -51,15 +51,21 @@ public class AdminController {
 	
 	//관리자 페이지 메인 (가입&탈퇴 유동 목록)
 	@RequestMapping("adminPage.do")
-	public String selectEnrollandWithdrawalFlowList(Model model) {
-		Flow flow = adminService.selectEWFlowCount();
-		model.addAttribute("flow", flow);
-		return "admin/adminView";
+	public String selectEnrollandWithdrawalFlowList(HttpServletRequest request, Model model) {{
+
+			Flow flow = adminService.selectEWFlowCount();
+			int mlistCount = adminService.selectReportedMemListCount();
+			int blistCount = adminService.selectReportedListCount();
+			model.addAttribute("flow", flow);
+			model.addAttribute("mlist", mlistCount);
+			model.addAttribute("blist", blistCount);
+			return "admin/adminView";
+		}
 	}
 
 	//회원 목록 조회
 	@RequestMapping("memberlist.do")
-	public String selectMemberManageList(
+	public String selectMemberManageList(HttpServletRequest request,
 			@RequestParam(name="page", required=false) String page,
 			 @RequestParam(name="limit", required=false) String slimit,  Model model) {
 		
@@ -96,6 +102,7 @@ public class AdminController {
 	@RequestMapping(value="memSearch.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView selectSearchMemberList(
 			HttpServletRequest request, ModelAndView mv) {
+	
 		//전송온 값 꺼내기
 		String action = request.getParameter("action");
 		//필요한 변수 선언
@@ -190,15 +197,16 @@ public class AdminController {
 		}
 		
 		return mv;
+		
+		
 	}
 	
 	
 	//신고 회원 목록 조회
 	@RequestMapping("reportedMemlist.do")
-	public String selectReportedMemList(
+	public String selectReportedMemList(HttpServletRequest request,
 			@RequestParam(name="page", required=false) String page, 
 			@RequestParam(name="limit", required=false) String slimit, Model model) {
-		
 		 int currentPage = 1;
 		 if(page != null && page.trim().length() > 0) {
 			 currentPage = Integer.parseInt(page);
@@ -231,9 +239,10 @@ public class AdminController {
 	
 	//신고 게시글 목록 조회
 	@RequestMapping("reportedBoardlist.do")
-	public String selectRecrBoardManageList(
+	public String selectRecrBoardManageList(HttpServletRequest request,
 			@RequestParam(name="page", required=false) String page, 
 			@RequestParam(name="limit", required=false) String slimit, Model model) {
+
 		int currentPage = 1;
 		if(page != null && page.trim().length() > 0) {
 			currentPage = Integer.parseInt(page);
@@ -272,9 +281,10 @@ public class AdminController {
 	
 	//회원 활동 제한
 	@RequestMapping(value="restrict.do", method=RequestMethod.POST)
-	public void updateRestrict(
+	public void updateRestrict(HttpServletRequest request,
 			@RequestParam("memberID") String memberID, 
 			@RequestParam("restrict") String restrict, HttpServletResponse response) throws IOException {
+
 		Member member = new Member();
 		member.setMemberID(memberID);
 		member.setActLimit(restrict);
@@ -291,13 +301,14 @@ public class AdminController {
 		out.append(returnStr);
 		out.flush();
 		out.close();
-	}
+		}
 	
-	//회원 활동 제한
+	//회원 활동 제한 해제
 	@RequestMapping(value="restrictrollback.do", method=RequestMethod.POST)
-	public void rollbackRestrict(
+	public void rollbackRestrict(HttpServletRequest request,
 			@RequestParam("memberID") String memberID, 
 			@RequestParam("restrict") String restrict, HttpServletResponse response) throws IOException {
+
 		Member member = new Member();
 		member.setMemberID(memberID);
 		member.setActLimit(restrict);
@@ -313,6 +324,6 @@ public class AdminController {
 		out.append(returnStr);
 		out.flush();
 		out.close();
-	}
+		}
 	
 }

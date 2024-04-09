@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+h2.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
 .popup {
   display: none; /* 기본적으로 숨겨진 상태 */
   position: fixed; /* 화면에 고정된 위치에 배치 */

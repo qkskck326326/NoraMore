@@ -46,7 +46,7 @@
 	<c:forEach begin="${ startPage }" end="${ endPage }" step="1" var="p">
 		<c:if test="${ p eq currentPage }">
 			<font color="blue" size="4"><b>${ p }</b></font>
-		</c:if>	
+		</c:if>
 		<c:if test="${ p ne currentPage }">
 			<a href="/noramore/${ urlMapping }?page=${ p }">${ p }</a>
 		</c:if>

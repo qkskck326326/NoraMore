@@ -8,6 +8,7 @@
 <title>관리자 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 <style type="text/css">
+
 .container {
     position: relative;
     width: 100%;
@@ -15,6 +16,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: auto; /* 중앙 정렬 */
 }
 
 .statics {
@@ -40,14 +42,19 @@
 .statics th {
     background-color: #f2f2f2;
 }
+
+body {
+    text-align: center; /* 내부 요소들을 가로로 가운데 정렬 */
+}
+
 </style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
-<br><br><br><br><br><br>
+<br><br><br><br>
 <h2 class="title">관리자 메인</h2>
-<br>
+<br><br>
 <div class="container">
     <div class="statics">
         <table>
@@ -72,6 +79,18 @@
             <tr>
                 <th>오늘 탈퇴한 회원</th>
                 <td>${ flow.withdrawalToday } 명</td>
+            </tr>
+        </table>
+                 <table>
+            <tr>
+                <th>신고된 회원</th>
+                <td>${ mlist } 명</td>
+            </tr>
+        </table>
+         <table>
+            <tr>
+                <th>신고된 게시글</th>
+                <td>${ blist } 개</td>
             </tr>
         </table>
     </div>
