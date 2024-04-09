@@ -374,6 +374,10 @@ public class FreeBoardController {
 		@RequestParam(name="categoryId", required = false) String categoryId1,
 		ModelAndView mv
 			) {
+		
+		ArrayList<Category> categoryList = categoryService.selectAll();
+
+		
 		int currentPage = 1;
 		if(page != null && page.trim().length() > 0) {
 			currentPage = Integer.parseInt(page);
@@ -408,6 +412,9 @@ public class FreeBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("limit", limit);
+		mv.addObject("categoryList", categoryList);
+		mv.addObject("categoryId", categoryId);
+
 		return mv;
 	
 	}
@@ -422,6 +429,9 @@ public class FreeBoardController {
 		@RequestParam(name="categoryId", required = false) String categoryId1,
 		ModelAndView mv
 			) {
+		
+		ArrayList<Category> categoryList = categoryService.selectAll();
+
 		int currentPage = 1;
 		if(page != null && page.trim().length() > 0) {
 			currentPage = Integer.parseInt(page);
@@ -457,7 +467,8 @@ public class FreeBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("limit", limit);
-		
+		mv.addObject("categoryId", categoryId);
+		mv.addObject("categoryList", categoryList);
 		return mv;
 	
 	}
@@ -471,6 +482,11 @@ public class FreeBoardController {
 			@RequestParam(name="categoryId", required = false) String categoryId1,
 			ModelAndView mv
 				) {
+			
+			ArrayList<Category> categoryList = categoryService.selectAll();
+
+			
+			
 			int currentPage = 1;
 			if(page != null && page.trim().length() > 0) {
 				currentPage = Integer.parseInt(page);
@@ -505,6 +521,9 @@ public class FreeBoardController {
 			mv.addObject("currentPage", currentPage);
 			mv.addObject("paging", paging);
 			mv.addObject("limit", limit);
+			mv.addObject("categoryId", categoryId);
+			mv.addObject("categoryList", categoryList);
+
 			
 			return mv;
 		 
