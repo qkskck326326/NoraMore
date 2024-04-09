@@ -16,10 +16,15 @@
 
 	<span id="nicname">사용자 닉네임</span>
 	<div class="box" style="background: #BDBDBD;">
-	    <img class="profile_img" src="/images/health.png">
+	   <!--  <img class="profile_img" src="/images/health.png"> -->
 	</div>
 	<span id="heart">♡ 하트수</span>
-	<span id="grade">등급</span>
+		
+	
+	<span id="grade">
+		
+	
+	</span>
 	<hr>
 	
 	<div id="profileBtn" class="moveBtn">
@@ -37,10 +42,10 @@
 	</div>
 	
 	<div id="acticleBtn" class="moveBtn">
-		<c:url var="articel" value="articel.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
+		<c:url var="article" value="selectRecrBoadMemberId.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
 			<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
 		</c:url>
-		<a href="${ articel }">활동기록</a>
+		<a href="${ article }">활동기록</a>
 		
 	</div>
 	
@@ -52,4 +57,71 @@
 
 
 </body>
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
+<script type="text/javascript">
+
+
+/* window.onload = function(){
+	//선택한 사진파일 이미지 미리보기 처리
+	var photofile = document.getElementById("photofile");
+	photofile.addEventListener('change', function(event){		
+		const files = event.currentTarget.files;
+	    const file = files[0];
+	    const myphoto = document.getElementById("photo");	    
+	    console.log(file.name);
+	    
+	    const reader = new FileReader();
+        reader.onload = (e) => {          
+          myphoto.setAttribute('src', e.target.result);
+          myphoto.setAttribute('data-file', file.name);
+        };
+        reader.readAsDataURL(file);    
+	}); 
+	
+	 */
+	 
+	
+	<%-- window.onload = function(){
+		//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함
+		
+		 <% var memberid = "${loginMember.memberID}"; %> 
+		
+		$.ajax({  
+			url: "gradeImage.do",
+			type: "post",
+			data: { memberid: $('memberid').val() },
+			success: function(data){ 
+				console.log("success : " + data);
+				
+				if(data =="sprout"){
+					$('#grade').html('<img src="resources/images/sprout.png" alt="sprout">');
+				
+				}
+				 if(data == "grass"){   
+					 $('#grade').html('<img src="resources/images/grass.png" alt="sprout">'); 
+						
+				}
+				if(data == "flower"){
+					$('#grade').html('<img src="resources/images/flower.png" alt="sprout">'); 
+				}
+				if(data == "tree"){
+					$('#grade').html('<img src="resources/images/tree.png" alt="sprout">'); 
+				
+				}
+				if(data == "forest"){
+					$('#grade').html('<img src="resources/images/forest.png" alt="sprout">'); 
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
+		});
+		return false;
+	}
+
+ --%>
+
+</script>
+
+
 </html>

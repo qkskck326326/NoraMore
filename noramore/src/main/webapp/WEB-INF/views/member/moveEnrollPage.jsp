@@ -94,11 +94,11 @@ function validate(){
 	
 	
 	
-	 /* if (!/^[A-Za-z0-9][a-z\d]{5,50}$/.test(memberid)){
+	  if (!/^[A-Za-z0-9][a-z\d]{5,50}$/.test(idValue)){
 	    document.getElementById("memberid").value = "";
 		document.getElementById("memberid").select();
 	    return false;
-	} */ 
+	} 
 	
 	
 	 if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
