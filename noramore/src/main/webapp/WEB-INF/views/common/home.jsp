@@ -107,7 +107,7 @@
 					</figcaption>
 				</figure>
 			</li>
-			<c:forEach var="category" items="${list}">
+			<c:forEach var="category" items="${categoryList}">
 				<c:url var="goBaord" value="rblist.do">
 					<c:param name="categoryId" value="${category.categoryId}" />
 				</c:url>
