@@ -87,7 +87,7 @@ public interface FreeBoardService {
 	void countcoment(CommentFreeBoard commentFreeBoard);
 
 
-
+	ArrayList<FreeBoard> selectfreeBoardId(String memberid);
 
 	
 

@@ -179,6 +179,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		
 	}
 
+	@Override
+	public ArrayList<FreeBoard> selectfreeBoardId(String memberid) {
+		// TODO Auto-generated method stub
+		return freeBoardDao.selectfreeBoardId(memberid);
+	}
+
 	
 	
 	
