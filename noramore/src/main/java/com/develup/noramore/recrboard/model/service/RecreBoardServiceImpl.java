@@ -100,6 +100,16 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.selectLocation(categoryId);
 	}
 
+	@Override
+	public ArrayList<RecrBoard> selectRecrBoardId(String memberId) {
+		return recreBoardDao.selectRecrBoardId(memberId);
+	}
+
+	@Override
+	public int boardReport(int boardId) {
+		return recreBoardDao.boardReport(boardId);
+	}
+
 
 
 }//
