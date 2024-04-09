@@ -21,7 +21,7 @@ ul {
     display: flex;
     justify-content: space-between; /* 요소 사이의 간격을 최대화하여 양쪽 끝에 배치합니다. */
     align-items: center;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     right: 0;
     width: 100%;
@@ -807,7 +807,7 @@ td {
 
 body {
     display: flex;
-    justify-content: center;
+   /*  justify-content: center; */
 }
 
 #chatbot>.chatbot-container {
@@ -891,6 +891,7 @@ body {
   
   #input-field {
     flex: 1;
+    width : 500px;
     height: 60px;
     border: 1px solid #eef1f5;
     border-radius: 4px;
