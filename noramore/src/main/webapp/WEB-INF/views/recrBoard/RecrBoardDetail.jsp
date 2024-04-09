@@ -44,8 +44,44 @@
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=ko"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script type="text/javascript">
+
+async function translateText(text, sourceLang, targetLang) {
+    const response = await fetch('https://libretranslate.de/translate', {
+        method: 'POST',
+        body: JSON.stringify({
+            q: text,
+            source: sourceLang,
+            target: targetLang,
+            format: 'text'
+        }),
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    const data = await response.json();
+    return data.translatedText; // 번역된 텍스트를 반환
+}
+
+async function translateAndDisplay() {
+    const sourceTextElement = document.getElementById('context');
+    const translatedTextElement = document.getElementById('context');
+    
+    // 입력된 텍스트와 소스/타겟 언어를 가져옵니다.
+    const sourceText = sourceTextElement.value;
+    const sourceLang = 'ko';
+    const targetLang = 'en';
+
+    // 텍스트를 번역합니다.
+    const translatedText = await translateText(sourceText, sourceLang, targetLang);
+
+    // 번역된 텍스트를 화면에 표시합니다.
+    translatedTextElement.innerText = translatedText;
+    
+    return false;
+}
+
+
 function googleSectionalElementInit() {
     new google.translate.SectionalElement({
         sectionalNodeClassName: 'goog-trans-section',
@@ -177,7 +213,8 @@ function selectrecrcomment() {
                 	    '<input type="hidden" name="boardId" value="' + "${RecrBoard.boardId}" + '">' +
                 	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
                 	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
-                	    '<textarea class="commentForm" name="context" cols="50" rows="5" required></textarea>' +
+                	    '<input type="hidden" name="categoryId" value="' + "${categoryId}" + '">' +
+                	    '<textarea class="commentWriteForm" name="context" cols="50" rows="5" required></textarea>' +
                 	    '<br>' +
                 	    '<button type="submit" >대댓글 등록</button>' +
                 	    '</form>' +
@@ -399,7 +436,7 @@ button:hover {
 	color: white; /* 마우스 오버시 글자색 변경 */
 }
 
-textarea.commentForm {
+textarea.commentWriteForm {
 	width: 100%;
 	height: 150px;
 	padding: 10px;
@@ -410,6 +447,19 @@ textarea.commentForm {
 	resize: none; /* 크기 조절 비활성화 */
 	font-family: Arial, sans-serif; /* 폰트 설정 */
 }
+
+textarea.commentForm {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #666;
+	border-radius: 5px;
+	box-sizing: border-box;
+	resize: none; /* 크기 조절 비활성화 */
+	font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
 
 /* 마우스 호버 효과 */
 textarea.commentForm:hover {
@@ -502,7 +552,8 @@ textarea.commentForm:hover {
 										value="${sessionScope.loginMember.memberID}"> <input
 										type="hidden" name="boardId" value="${RecrBoard.boardId}">
 									<input type="hidden" name="page" value="${page}">
-									<textarea class="commentForm" name="context" cols="50" rows="5"
+									<input type="hidden" name="categoryId" value="${categoryId}">
+									<textarea class="commentWriteForm" name="context" cols="50" rows="5"
 										required></textarea>
 									<br>
 									<button type="submit">댓글 등록</button>
@@ -530,14 +581,12 @@ textarea.commentForm:hover {
 	<div class="goog-trans-section">
 		<div class="goog-trans">
 			<div class="goog-trans-control"></div>
-			<div class="goog-trans-info">[번역]을 누르시면 번역이 됩니다.</div>
+			<div class="goog-trans-info">[번역]</div>
 		</div>
-		<div id="google_translate_element_area">The page you are looking
-			at is being generated dynamically by CodeIgniter.</div>
+		<div id="google_translate_element_area">The page you are looking.</div>
 	</div>
 
-	<button onclick="googleSectionalElementInit()">번역하기</button>
+	<button onclick="translateAndDisplay()">번역하기</button>
 
 </body>
 </html>
-0

@@ -27,7 +27,8 @@ public class CommentRecrBoardController {
 	// 대댓글 달기
 	@RequestMapping(value = "insertrecrcocomment.do", method = RequestMethod.POST)
 	public String insertRecrComment(CommentRecrBoard commentRecrBoard, Model model, @RequestParam("page") String page, 
-									@RequestParam("refCommentId1") String refCommentId1) {
+									@RequestParam("refCommentId1") String refCommentId1, 
+									@RequestParam("categoryId") int categoryId) {
 		System.out.println("들어온 값" + refCommentId1);
 		int refCommentId = Integer.parseInt(refCommentId1);
 		commentRecrBoard.setRefCommentId(refCommentId);
@@ -41,6 +42,7 @@ public class CommentRecrBoardController {
 			model.addAttribute("message", "error! 댓글이 등록에 실패하였습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);
+			model.addAttribute("categoryId", categoryId);
 			return "redirect:rbdetail.do";
 		}
 	}//
@@ -48,7 +50,7 @@ public class CommentRecrBoardController {
 	// 댓글 달기
 	@RequestMapping(value = "insertrecrcomment.do", method = RequestMethod.POST)
 	public String insertRecrCocoment(CommentRecrBoard commentRecrBoard, Model model,
-			@RequestParam("page") String page) {
+			@RequestParam("page") String page, @RequestParam("categoryId") int categoryId ) {
 		if (commentRecrBoardService.insertRecrComment(commentRecrBoard) > 0
 				&& recrBoardService.upCountComment(commentRecrBoard.getBoardId()) > 0) {
 			commentRecrBoardService.upcountcocoment(commentRecrBoard);
@@ -60,6 +62,7 @@ public class CommentRecrBoardController {
 			model.addAttribute("message", "error! 대댓글이 등록에 실패하였습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);
+			model.addAttribute("categoryId", categoryId);
 			return "redirect:rbdetail.do";
 		}
 	}//
@@ -104,27 +107,7 @@ public class CommentRecrBoardController {
 		return jarr.toJSONString();
 	}//
 
-	// 대댓글 출력
-	@RequestMapping(value = "selectrecrcocomment.do", method = RequestMethod.POST)
-	@ResponseBody
-	public String selectRecrCocomment(CommentRecrBoard commentRecrBoard) {
-		ArrayList<CommentRecrBoard> list = commentRecrBoardService.selectRecrCocomment(commentRecrBoard);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-		JSONArray jarr = new JSONArray();
-		for (CommentRecrBoard commentRecr : list) {
-			JSONObject job = new JSONObject();
-			String lud = dateFormat.format(commentRecr.getLastUpdateDate());
-			job.put("rci", commentRecr.getRefCommentId());
-			job.put("memberId", commentRecr.getMemberId());
-			job.put("context", commentRecr.getContext());
-			job.put("lastUpdateDate", lud);
-
-			jarr.add(job);
-		}
-
-		return jarr.toJSONString();
-	}//
 	
 	//댓글 삭제
 	@RequestMapping(value="deletecomment.do", method = RequestMethod.POST)
