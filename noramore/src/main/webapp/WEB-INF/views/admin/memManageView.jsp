@@ -135,7 +135,7 @@
                         <td>
                             <c:choose>
                                 <c:when test="${ a.actLimit eq 0 }">
-                                    일반
+                                    일 반
                                 </c:when>
                                 <c:otherwise>
                                     로그인 제한

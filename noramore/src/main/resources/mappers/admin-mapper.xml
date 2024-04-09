@@ -33,13 +33,13 @@
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
 		<result property="resign" column="resign" />
-		<result property="actLimit" column="actLimit" />
+		<result property="actLimit" column="act_Limit" />
 		<result property="adminYN" column="ADMIN_YN" />
-		<result property="registDate" column="registDate" />
-		<result property="heartBeat" column="heartBeat" />
+		<result property="registDate" column="regist_Date" />
+		<result property="heartBeat" column="heart_Beat" />
 		<result property="grade" column="grade" />
-		<result property="articleCount" column="articleCount" />
-		<result property="reportCount" column="reportCount" />
+		<result property="articleCount" column="article_Count" />
+		<result property="reportCount" column="report_Count" />
 	</resultMap>
 	
 	<select id="selectEWFlowCount" resultMap="resultFlow">
