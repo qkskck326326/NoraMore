@@ -258,11 +258,11 @@ public class FreeBoardController {
 	
 	
 	// 제목으로 검색
-	@RequestMapping("fbsearchTitle.do")
+	@RequestMapping(value = "fbsearchTitle.do", method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView searchFreeTitle(Search search, 
 			@RequestParam(name="limit", required=false) String slimit,
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
-			@RequestParam(name="categoryId", required = false) String categoryId1) {
+			@RequestParam(name="categoryId") int categoryId1) {
 		
 		
 		int currentPage = 1;
@@ -287,13 +287,15 @@ public class FreeBoardController {
 		
 		
 		
+		
+		
 		int listCount = freeBoardService.searchTitleCount(search);
 		Paging paging = new Paging(listCount, currentPage, limit, "fbsearchTitle.do");
 		paging.calculate();
 		
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
-		search.setCategoryId(categoryId);
+		//search.setCategoryId(categoryId);
 
 		
 		ArrayList<FreeBoard> list = freeBoardService.selectSearchTitle(search);
@@ -304,15 +306,16 @@ public class FreeBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
+		 //mv.addObject("categoryId", search.getCategoryId());
 		return mv;
 	}
 	
 		// 이름으로 검색
-	@RequestMapping("fbsearchWriter.do")
+	@RequestMapping(value = "fbsearchWriter.do", method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView searchFreeWriter(Search search, 
 			@RequestParam(name="limit", required=false) String slimit,
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
-			@RequestParam(name="categoryId", required = false) String categoryId1) {
+			@RequestParam(name="categoryId") int categoryId1) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -333,7 +336,7 @@ public class FreeBoardController {
 		
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
-		search.setCategoryId(categoryId);
+		//search.setCategoryId(categoryId);
 
 		
 		ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);

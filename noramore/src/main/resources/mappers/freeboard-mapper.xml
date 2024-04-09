@@ -103,7 +103,7 @@
 		           FREE_RENAME_FILENAME, READ_COUNT, LIKE_COUNT, REPORT_COUNT, REGIST_DATE, 
 		           LAST_UPD_DATE, COMMENT_COUNT
 		     from free_board where category_id = #{categoryId} 
-		     	   and title like '%' || #{ keyword } || '%'
+		     and title like '%' || #{ keyword } || '%'
 		          )
 		where rnum between #{ startRow } and #{ endRow } 
 	</select>
