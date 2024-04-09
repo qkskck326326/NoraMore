@@ -157,6 +157,14 @@ public class FreeBoardDao {
 	}
 
 
+	public ArrayList<FreeBoard> selectfreeBoardId(String memberid) {
+		// TODO Auto-generated method stub
+		List<FreeBoard> list = sqlSessionTemplate.selectList("freeboard.selectfreeBoardId", memberid);
+		return (ArrayList<FreeBoard>)list;
+		
+	}
+
+
 	
 
 

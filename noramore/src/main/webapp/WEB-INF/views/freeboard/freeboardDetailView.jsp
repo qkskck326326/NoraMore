@@ -401,12 +401,24 @@ button:hover {
 	color: white; /* 마우스 오버시 글자색 변경 */
 }
 
-textarea.commentForm {
+textarea.commentWriteForm {
 	width: 100%;
 	height: 150px;
 	padding: 10px;
 	font-size: 16px;
 	border: 2px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	resize: none; /* 크기 조절 비활성화 */
+	font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
+textarea.commentForm {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #666;
 	border-radius: 5px;
 	box-sizing: border-box;
 	resize: none; /* 크기 조절 비활성화 */
@@ -422,7 +434,7 @@ textarea.commentForm:hover {
 <body>
 
 	<div class="container">
-		<div class="boardFree-div">
+		<div class="boardRecr-div">
 	
 <%--<form action="freeboardlist.do" method="post"
 		enctype="multipart/form-data">  --%>
@@ -430,6 +442,7 @@ textarea.commentForm:hover {
 	
 		<div id="write" style="margin-bottom: 20px;">
 			<h1 style="text-align: left;">${FreeBoard.title}</h1>
+			<div style="text-align: left; margin-bottom: 10px;">
 			<div class="line"></div>
 			<div>
 				<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
@@ -465,14 +478,14 @@ textarea.commentForm:hover {
 			
 			<c:if test="${ !empty loginMember }">
 				<c:if test="${ loginMember.memberID eq FreeBoard.memberId }">
-					<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
-					<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+					<button class="whiteBtn" onclick="moveUpdatePage(); return false;">수정하기</button> &nbsp;
+					<button class="whiteBtn" onclick="requestDelete(); return false;">삭제하기</button> &nbsp;
 				</c:if>
 				
 				<%-- 로그인한 경우 : 관리자인 경우 글삭제 버튼과 댓글달기 버튼 표시함 --%>
 			 
 				<c:if test="${ loginMember.adminYN eq 'Y' and loginMember.memberID ne FreeBoard.memberId  }">
-					<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+					<button class="whiteBtn" onclick="requestDelete(); return false;">삭제하기</button> &nbsp;
 					
 					<%-- <button onclick="requestReply(); return false;">댓글달기</button> &nbsp;--%>
 					
@@ -495,7 +508,6 @@ textarea.commentForm:hover {
 		
 	<%-- </form> --%>
 </div>
-</div>
 
 	<%-- 가져온 부분 ****************************** --%>
 			
@@ -508,7 +520,7 @@ textarea.commentForm:hover {
 					value="${sessionScope.loginMember.memberID}"> <input
 					type="hidden" name="boardId" value="${FreeBoard.boardId}">
 				<input type="hidden" name="page" value="${page}">
-				<textarea class="commentForm" name="context" cols="50" rows="5"
+				<textarea class="commentWriteForm" name="context" cols="50" rows="5"
 					required></textarea>
 				<br>
 				<button type="submit">댓글 등록</button>
@@ -521,7 +533,10 @@ textarea.commentForm:hover {
 		</div>
 		
 	</div>
-				 
+	
+</div>
+</div>
+			 
 	
 </body>
 </html>
