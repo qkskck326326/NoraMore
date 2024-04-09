@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
+
+<%@ include file="/WEB-INF/views/common/sideSample.jsp"%> 
+
+<%@ include file="/WEB-INF/views/common/header.jsp"%> 
+
 <%--
 <c:set var="currentLimit" value="${ requestScope.limit }" />
 <c:set var="nowpage" value="1" />
@@ -79,6 +84,7 @@
     	location.href = "freeboardwrite.do?page=" + ${page};
     }
     
+    /*
     function check(){
     	var limitSelect = document.getElementById('limitSelect');
         var limi = limitSelect.value;
@@ -92,11 +98,14 @@
         var action = actionE.value;
         console.log(action);
     }
+    */
 
     function changeFormAction() {
         var selectedValue = document.getElementById("action").value;
         document.getElementById("searchaction").action = selectedValue;
     }
+    
+    
 </script>
 
 <style>
@@ -109,6 +118,23 @@
     flex-direction: row;
     align-items: center;
     height: 27px;
+}
+
+.header {
+  z-index: 1000; /* 헤더를 위로 */
+}
+
+.sidebar {
+  z-index: 1000; /* 사이드바를 위로 */
+}
+
+.content {
+  z-index: 1001; /* 메인 컨텐츠를 아래로 */
+}
+
+.whiteBtn {
+  z-index: 1100; /* Higher z-index than sidebar and header */
+  position: relative; /* Ensure proper positioning */
 }
 
 </style>
@@ -195,6 +221,7 @@
 			    </select>
 			</div>
 		<form id="searchaction" action="fbsearchTitle.do" method="post" >
+		
 			<fieldset style='width: 1200px; border: 0px;'>
 				<div class="search" style='width: 180px;'>
 					<input id="keyword" name="keyword" style="width:140; height:25;">
@@ -209,8 +236,12 @@
 			</fieldset>
 			<input  type="hidden" name="categoryId" value="${categoryId}">
 		</form>
+		
+		
 	</section>
-<button onclick="check()">정보 확인</button>
+	
+	
+<%-- <button onclick="check()">정보 확인</button>--%>
 		
 		
 		<!--  <button onclick="location.href='freeboardwrite.do';" class="blueBtn">글쓰기</button>-->
@@ -230,6 +261,7 @@
    	     
    	 
    	<!-- 추가한 부분 *********************************** -->
+   	<%-- 
    	<br>
    	<br>
    	
@@ -244,6 +276,9 @@
         <a onclick="selectCategory('등산')">등산</a>
     </div>
 </div>
+
+--%>
+
 		<!-- ****************************************** -->
 		<table>
 			<thead>
