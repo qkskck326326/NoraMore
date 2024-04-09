@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.develup.noramore.commentqnaboard.model.vo.CommentQnaBoard;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.common.SearchDate;
-import com.develup.noramore.notice.model.vo.Notice;
 import com.develup.noramore.qna.model.dao.QnaDao;
 import com.develup.noramore.qna.model.vo.Qna;
 
@@ -104,12 +104,17 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public int upCountComment(int boardId) {
 		// TODO Auto-generated method stub
-		return 0;
+		return qnaDao.upCountComment(boardId);
 	}
 
 	@Override
 	public int downCount(int boardId) {
 		// TODO Auto-generated method stub
-		return 0;
+		return qnaDao.downCount(boardId);
+	}
+	
+	@Override
+	public void countcoment(CommentQnaBoard commentQnaBoard) {
+		qnaDao.countcoment(commentQnaBoard);
 	}
 }

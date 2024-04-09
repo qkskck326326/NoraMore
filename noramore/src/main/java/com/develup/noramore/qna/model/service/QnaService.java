@@ -2,6 +2,7 @@ package com.develup.noramore.qna.model.service;
 
 import java.util.ArrayList;
 
+import com.develup.noramore.commentqnaboard.model.vo.CommentQnaBoard;
 import com.develup.noramore.commentrecrboard.model.vo.CommentRecrBoard;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
@@ -34,4 +35,6 @@ public interface QnaService {
 	 
 	 int upCountComment(int boardId);
 	 int downCount(int boardId);
+
+	void countcoment(CommentQnaBoard commentQnaBoard);
 }
