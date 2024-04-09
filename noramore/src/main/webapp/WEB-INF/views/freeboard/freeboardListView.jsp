@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
+
+<%-- <%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
+
+<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
+
 <%--
 <c:set var="currentLimit" value="${ requestScope.limit }" />
 <c:set var="nowpage" value="1" />
@@ -230,6 +235,7 @@
    	     
    	 
    	<!-- 추가한 부분 *********************************** -->
+   	<%-- 
    	<br>
    	<br>
    	
@@ -244,6 +250,9 @@
         <a onclick="selectCategory('등산')">등산</a>
     </div>
 </div>
+
+--%>
+
 		<!-- ****************************************** -->
 		<table>
 			<thead>

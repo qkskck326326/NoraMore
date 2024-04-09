@@ -311,7 +311,8 @@ public class FreeBoardController {
 	@RequestMapping("fbsearchWriter.do")
 	public ModelAndView searchFreeWriter(Search search, 
 			@RequestParam(name="limit", required=false) String slimit,
-			@RequestParam(name="page", required=false) String page, ModelAndView mv) {
+			@RequestParam(name="page", required=false) String page, ModelAndView mv,
+			@RequestParam(name="categoryId", required = false) String categoryId1) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -332,6 +333,8 @@ public class FreeBoardController {
 		
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
+		search.setCategoryId(categoryId);
+
 		
 		ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
 
