@@ -39,7 +39,7 @@
 
 	<select id="selectBoardId" parameterType="RecrAppl" resultMap="recrBoardResultMap">
 		select * from RECR_APPL 
-		WHERE BOARD_ID = #{boardId} 
+		WHERE BOARD_ID = #{boardId}
 		and RECR_STATE = 1 
 	</select>
 	
