@@ -21,7 +21,7 @@
 
 	<table style='width: 1200px;'>
 		<tr>
-			<th>활동여부</th>
+			<th>활동여부1</th>   
 			<th>제목</th>
 			<th>활동 시작일</th>
 		
