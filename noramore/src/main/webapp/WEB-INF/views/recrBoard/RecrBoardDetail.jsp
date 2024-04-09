@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:import url="/WEB-INF/views/common/header.jsp" />
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
