@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.develup.noramore.category.model.service.CategoryService;
+import com.develup.noramore.category.model.vo.Category;
 import com.develup.noramore.commentfreeboard.model.service.CommentFreeBoardService;
 import com.develup.noramore.common.FileNameChange;
 import com.develup.noramore.common.Paging;
@@ -45,6 +47,9 @@ public class FreeBoardController {
 	@Autowired
 	CommentFreeBoardService commentFreeBoardService;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	
 	//게시글 목록 보기 요청 처리용
 	@RequestMapping("freeboardlist.do")
@@ -53,6 +58,9 @@ public class FreeBoardController {
 			@RequestParam(name = "limit", required = false) String slimit,
 			@RequestParam(name="categoryId", required = false) String categoryId1) {
 		//ArrayList<FreeBoard> list = freeBoardService.selectFreeBoard();
+		
+		ArrayList<Category> categoryList = categoryService.selectAll();
+		
 		int currentPage = 1;
 		/*
 		if(page != null) {
@@ -96,6 +104,8 @@ public class FreeBoardController {
 		mv.setViewName("freeboard/freeboardListView");
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
+		mv.addObject("categoryId", categoryId);
+		mv.addObject("categoryList", categoryList);
 		return mv;
 		
 	}
@@ -242,7 +252,8 @@ public class FreeBoardController {
 	@RequestMapping("fbdetail.do")
 	public String moveFreeBoardDetail(Model model,
 									@RequestParam("boardId") int boardId,
-									@RequestParam("page") String currentPage) {
+									@RequestParam("page") String currentPage
+									) {
 		
 		//조회수 1증가 처리
 		freeBoardService.updateAddReadCount(boardId);
@@ -262,7 +273,7 @@ public class FreeBoardController {
 	public ModelAndView searchFreeTitle(Search search, 
 			@RequestParam(name="limit", required=false) String slimit,
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
-			@RequestParam(name="categoryId") int categoryId1) {
+			@RequestParam(name="categoryId") int categoryId) {
 		
 		
 		int currentPage = 1;
@@ -280,7 +291,7 @@ public class FreeBoardController {
 		
 		
 		
-		int categoryId = 1;
+		
 		if(search.getCategoryId() != 0) {
 			categoryId = search.getCategoryId();
 		}
@@ -306,7 +317,7 @@ public class FreeBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
-		 //mv.addObject("categoryId", search.getCategoryId());
+		mv.addObject("keyword", search.getKeyword());
 		return mv;
 	}
 	
@@ -315,7 +326,7 @@ public class FreeBoardController {
 	public ModelAndView searchFreeWriter(Search search, 
 			@RequestParam(name="limit", required=false) String slimit,
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
-			@RequestParam(name="categoryId") int categoryId1) {
+			@RequestParam(name="categoryId") int categoryId) {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -325,7 +336,7 @@ public class FreeBoardController {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
 		}
 		
-		int categoryId = 1;
+		
 		if(search.getCategoryId() != 0) {
 			categoryId = search.getCategoryId();
 		}
@@ -336,7 +347,7 @@ public class FreeBoardController {
 		
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
-		//search.setCategoryId(categoryId);
+		
 
 		
 		ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
@@ -347,6 +358,7 @@ public class FreeBoardController {
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
+		mv.addObject("keyword", search.getKeyword());
 		return mv;
 	}
 
