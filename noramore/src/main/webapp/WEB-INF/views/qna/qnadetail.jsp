@@ -42,6 +42,98 @@
 		// 목록 페이지로 이동하는 코드
 		window.location.href = 'qlist.do';
 	}
+	
+	// 댓글 작성 function
+	function toggleCommentForm() {
+		// writecommentForm 요소를 선택
+		var writecommentForm = document.getElementById("writecommentForm");
+
+		// writecommentForm의 display 속성 값을 확인하여 표시되어 있는지 여부를 확인
+		if (writecommentForm.style.display === "none") {
+			// 표시되어 있지 않다면 보이도록 설정
+			writecommentForm.style.display = "block";
+		} else {
+			// 표시되어 있다면 숨김
+			writecommentForm.style.display = "none";
+		}
+
+		// comment-list 요소를 선택
+		var commentList = document.querySelector(".comment-list");
+
+		// comment-list의 display 속성 값을 확인하여 표시되어 있는지 여부를 확인
+		if (commentList.style.display === "none") {
+			// 표시되어 있지 않다면 보이도록 설정
+			commentList.style.display = "block";
+		} else {
+			// 표시되어 있다면 숨김
+			commentList.style.display = "none";
+		}
+	}
+	
+	function selectrecrcomment() {
+	    var bId;
+	    if (${!empty RecrBoard.boardId}) {
+	        bId = "${RecrBoard.boardId}";
+	    } else {
+	        bId = "${boardId}";
+	    }
+	    $.ajax({
+	        url: "selectqnacomment.do",
+	        type: "POST",
+	        dataType: "json",
+	        data: { BoardId: bId },
+	        success: function(data) {
+	        	
+	            for (var i = 0; i < data.length; i++) {
+	                var comment = data[i];
+	                
+	                var memberIdInput = $('<input type="hidden" name="memberId" value="' + comment.memberId + '">');
+	                var commentIdInput = $('<input type="hidden" name="commentId" value="' + comment.commentId + '">');
+	                var contextTextarea = $('<textarea class="commentForm" rows="5" cols="20" readonly>' + comment.context + '</textarea><br>');
+	                var lastUpdateDateParagraph = $('<p style="font-size: 10pt;">' + "작성자ID : " + comment.memberId + "&nbsp;&nbsp;&nbsp; 작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
+
+	                if(comment.refCommentId == 0){
+	                	var commentDiv = $("<div id='commentForm' style=''>");
+	                }else{
+	                	var commentDiv = $("<div id='cocommentForm' style='left-margin: 100px;'>");
+	                }
+	                commentDiv.append(lastUpdateDateParagraph);
+	                commentDiv.append(memberIdInput);
+	                commentDiv.append(commentIdInput);
+	                commentDiv.append(contextTextarea);  
+	                if("${RecrBoard.memberId}" === "${sessionScope.loginMember.memberID}"){
+	                commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
+	                commentDiv.append("<button onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
+	                }
+	                var refCommentId1 = parseInt(comment.commentId);
+	                
+	                
+	                if(comment.refCommentId == 0 && ${!empty sessionScope.loginMember}){
+	                commentDiv.append('<div id="cocomment" style="width: 500px; height: 200px;">' +
+	                	    '<form id="cocommentForm" action="insertrecrcocomment.do" method="post" style="">' +
+	                	    '<input type="hidden" name="memberId" value="' + "${sessionScope.loginMember.memberID}" + '">' +
+	                	    '<input type="hidden" name="boardId" value="' + "${RecrBoard.boardId}" + '">' +
+	                	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
+	                	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
+	                	    '<textarea class="commentForm" name="context" cols="50" rows="5" required></textarea>' +
+	                	    '<br>' +
+	                	    '<button type="submit" >대댓글 등록</button>' +
+	                	    '</form>' +
+	                	    '<div id="commentList"></div>' +
+	                	    '</div>');
+	                }
+	                
+	                
+	                $('.comment-list').append(commentDiv);
+	            }
+	            
+	            
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("Error occurred:", error);
+	        }
+	    });
+	}
 </script>
 </head>
 <body>
@@ -55,12 +147,11 @@
 		<br>
 		<table>
 			<tr>
-				<th colspan="2">
-					<c:if
+				<th colspan="2"><c:if
 						test="${!empty sessionScope.loginMember and 
 						sessionScope.loginMember.memberID == qna.memberID or
 						sessionScope.loginMember.adminYN == 'Y'}">
- 						<button class="blueBtn"
+						<button class="blueBtn"
 							style="float: right; margin-right: 30px; margin-left: 10px;"
 							onclick="requestDelete(); return false;">삭제</button>
 						<button class="blueBtn" style="float: right; margin-left: 10px;"
@@ -92,9 +183,35 @@
 				</c:url>
 				<a href="${ qfd }">${qna.originalFilePath }</a>
 			</c:if> <c:if test="${ empty qna.originalFilePath }">&nbsp;	</c:if></td>
+		<div class="comment-div">
+			<button onclick="toggleCommentForm(); return false;">댓글(${RecrBoard.commentCount})개</button>
+			<!-- 댓글 작성 폼 -->
+
+			<div id="writecommentForm" style="display: none;">
+				<c:if test="${!empty sessionScope.loginMember}">
+					<form action="insertrecrcomment.do" method="post">
+						<input type="hidden" name="memberId"
+							value="${sessionScope.loginMember.memberID}"> <input
+							type="hidden" name="boardId" value="${RecrBoard.boardId}">
+						<input type="hidden" name="page" value="${page}">
+						<textarea class="commentForm" name="context" cols="50" rows="5"
+							required></textarea>
+						<br>
+						<button type="submit">댓글 등록</button>
+					</form>
+				</c:if>
+				<div id="commentList"></div>
+				<div class="comment-list"
+					style='display: none; text-align: left; padding: 0;'>
+					<br>
+				</div>
+			</div>
+
+
+		</div>
 
 	</section>
-	</form>
+
 
 
 	<!-- <script>
@@ -179,5 +296,6 @@
 </script>
 	 -->
 </body>
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+<%-- 
+<%@ include file="/WEB-INF/views/common/footer.jsp"%> --%>
 </html>

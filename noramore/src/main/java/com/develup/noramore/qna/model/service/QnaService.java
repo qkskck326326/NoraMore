@@ -2,6 +2,7 @@ package com.develup.noramore.qna.model.service;
 
 import java.util.ArrayList;
 
+import com.develup.noramore.commentrecrboard.model.vo.CommentRecrBoard;
 import com.develup.noramore.common.Paging;
 import com.develup.noramore.common.Search;
 import com.develup.noramore.common.SearchDate;
@@ -31,4 +32,6 @@ public interface QnaService {
 	 int selectSearchContentCount(String keyword);
 	 int selectSearchDateCount(SearchDate date);
 	 
+	 int upCountComment(int boardId);
+	 int downCount(int boardId);
 }

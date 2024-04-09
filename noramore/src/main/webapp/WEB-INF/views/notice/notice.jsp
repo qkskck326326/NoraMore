@@ -78,7 +78,7 @@ form.sform {
 				type="radio" name="item" id="date"> 등록날짜 &nbsp; 
 				<br><br>
 				<b style="color: blue;">출력할 목록 갯수를 선택하세요</b> 
-				<br>				
+				<br>		
 				<select id="limit"
 				onchange="changeLimit(this.value);">
 				<c:if test="${ currentLimit eq 10 }">
@@ -143,6 +143,7 @@ form.sform {
 				<th>No</th>
 				<th>제목</th>
 				<th>작성자</th>
+				<th>내용</th>
 				<th>조회수</th>
 				<th>작성일자</th>
 			</tr>
@@ -153,6 +154,7 @@ form.sform {
 						href="${ pageContext.servletContext.contextPath }/noticedetail.do?no=${ n.boardId }">
 							${ n.title }</a></td>
 					<td align="right">${ n.memberID }</td>
+					<td align="right">${ n.substance }</td>
 					<td align="right">${ n.readCount }</td>
 					<td align="center"><fmt:formatDate value="${ n.registDt }"
 							pattern="yyyy-MM-dd" /></td>
@@ -166,5 +168,5 @@ form.sform {
 	<c:import url="/WEB-INF/views/common/pagingView.jsp" />
 </body>
 
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+<%-- <%@ include file="/WEB-INF/views/common/footer.jsp"%> --%>
 </html>
