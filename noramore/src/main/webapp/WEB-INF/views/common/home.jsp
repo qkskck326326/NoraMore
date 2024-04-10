@@ -36,6 +36,7 @@
 			 <h1 class="logo">
 				<img src="resources/images/noramore_main.png" width=460 height=220>
 			</h1>
+			<div class="line"></div>
 			<c:if test="${ empty sessionScope.loginMember }">
 				<div class="loginSign">
 					<button class='button' onclick="movePage();">로그인</button><br>

@@ -18,7 +18,7 @@ body, html { font-size: 100%; padding: 0; margin: 0;}
 
 body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
-	background: #E6E6FA;
+	background: #ffffff;
 }
 
 a {
@@ -32,13 +32,13 @@ a:active {
 }
 
 /* Header Style */
-.container > header h1{
+.container > header h1{	
 	margin: 0 auto;
 	padding: 0;
 	text-align: center;
-	valign: bottom;
-	background: rgba(0,0,0,0.01);
+	valign: bottom;	
 }
 .container > header {
-	height: 300px;
+	background-color: #1e3a57;
+    height: 350px;
 }
