@@ -129,7 +129,7 @@ function changeFormAction() {
 	<section id="board">
 		<h1>모집게시판 전체 목록</h1>
 	
-	<div id="map" style="width:100%;height:350px;"></div>   
+	<div id="map" style="width:1200px;height:350px;"></div>   
 
 	<!-- <div class="dropdown">
 		    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
