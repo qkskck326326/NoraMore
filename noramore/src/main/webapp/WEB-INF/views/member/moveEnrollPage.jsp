@@ -90,7 +90,15 @@ function validate(){
 	var nicnameValue= $('#memberNicname').val(); 
 	var nameValue = $('#membername').val();
 	var birthValue = $('#birth').val();
+	var checkValue = $('#check').val();
+	var nenecheckValue = $('#nonecheck').val();
 
+	
+	if(checkValue == "" && nenecheckValue != null){
+		alert("개인정보를 동의해주세요!");
+		return false;
+	}
+	
 	
 	
 	
@@ -428,7 +436,7 @@ window.onload = function(){
 				style="padding:0;margin:0;"><br>				
 			</div>	
 	
-	<div align="right"><input type="file" name="photofile" id="photofile" value=""></div>
+	<div align="right"><input type="file" name="photoFile" id="photofile" value=""></div>
 
 	
 	<div>
@@ -479,8 +487,7 @@ window.onload = function(){
 	</div>
 
 
-	<input type="file" name="photoFilename" id="photoFilename" value="첨부파일"><br>
-	<br>
+	
 	
 	
 	<div>

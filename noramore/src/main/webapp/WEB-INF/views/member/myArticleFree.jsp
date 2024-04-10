@@ -5,16 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
-
+<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources/css/myArticle.css" />
 </head>
 <body>
- <c:import url="/WEB-INF/views/common/header.jsp" /> 
 
- <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" /> 
+<c:import url="/WEB-INF/views/common/header.jsp" /> 
 
-
+ <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" />
 
 
 <div id="box_act">
@@ -36,51 +34,31 @@
 		</c:url>
 		<a href="${ moveFreeBoard }" onclick="loadFreeBoard();">자유게시판</a>
 </div>
-	
-
 
 
 <hr>
-	<table>
-		<tr>
-			<th class="title">활동여부</th>   
-			<th class="title">제목</th>
-			<th class="title">활동 시작일</th>
-		</tr>
-		<c:forEach var="rl" items="${list}">
-		<c:url var="rbd" value="rbdetail.do">
-			<c:param name="boardId" value="${rl.boardId}" />
-			<c:param name="page" value="${page}" />
-			<c:param name="categoryId" value="${categoryId}" />
-		</c:url>
-		<tr>
-			<th>
-			<c:if test="${rl.recrActStartDate != null && rl.recrActEndDate == null}">
-				활동중
-			</c:if>
-			<c:if test="${rl.recrActStartDate != null && rl.recrActEndDate != null}">
-				활동종료
-			</c:if>
-			
-			</th>
-			<th><a href="${rbd}">${rl.title}</a></th>
-			<th>${rl.recrActStartDate}</th>
-		</tr>
-		</c:forEach>
-	</table>
-	
-	
+<table>
+	<tr>
+		<th class="title">좋아요</th>   
+		<th class="title">제목</th>
+		<th class="title">등록일</th>
+	</tr>
+	<c:forEach var="fl" items="${list}">
+	<c:url var="fbd" value="fbdetail.do">
+		<c:param name="boardId" value="${fl.boardId}" />
+		<c:param name="page" value="${page}" />
+		<c:param name="categoryId" value="${categoryId}" />
+	</c:url>
+	<tr>
+		<th>${fl.likeCount}</th>
+		<th><a href="${fbd}">${fl.title}</a></th>
+		<th>${fl.registDate}</th>
+	</tr>
+	</c:forEach>
+</table>
 
-	
-	
-	
-	
-	 
-	
-	
-	
+
 </div>
-
 
 </body>
 </html>
