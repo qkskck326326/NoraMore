@@ -15,10 +15,10 @@ import com.develup.noramore.recrboard.model.vo.RecrBoard;
 public class RecreBoardDao {
 	@Autowired
 	SqlSessionTemplate SqlSessionTemplate;
-	
+
 	public ArrayList<RecrBoard> selectRecrBoard() {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectRecrBoard");
-		return (ArrayList<RecrBoard>)list;
+		return (ArrayList<RecrBoard>) list;
 	}
 
 	public RecrBoard selectBoardId(int boardId) {
@@ -31,7 +31,7 @@ public class RecreBoardDao {
 
 	public ArrayList<RecrBoard> selectSearchList(Search search) {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectSearchList", search);
-		return (ArrayList<RecrBoard>)list;
+		return (ArrayList<RecrBoard>) list;
 	}
 
 	public int insertRecrBoard(RecrBoard recrBoard) {
@@ -68,7 +68,7 @@ public class RecreBoardDao {
 
 	public ArrayList<RecrBoard> searchtitleList(Search search) {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.searchtitleList", search);
-		return (ArrayList<RecrBoard>)list;
+		return (ArrayList<RecrBoard>) list;
 	}
 
 	public int searchwritercount(Search search) {
@@ -77,7 +77,7 @@ public class RecreBoardDao {
 
 	public ArrayList<RecrBoard> searchwriterList(Search search) {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.searchwriterList", search);
-		return (ArrayList<RecrBoard>)list;
+		return (ArrayList<RecrBoard>) list;
 	}
 
 	public void upReadCount(int boardId) {
@@ -86,7 +86,7 @@ public class RecreBoardDao {
 
 	public ArrayList<RecrBoard> selectLocation(int categoryId) {
 		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectLocation", categoryId);
-		return (ArrayList<RecrBoard>)list;
+		return (ArrayList<RecrBoard>) list;
 	}
 
 	public int boardReport(int boardId) {
@@ -101,5 +101,9 @@ public class RecreBoardDao {
 		return SqlSessionTemplate.update("recrboard.closerecr", boardId);
 	}
 
+	public ArrayList<RecrBoard> selectRecrBoardId(String memberid) {
+		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectRecrBoardId", memberid);
+		return (ArrayList<RecrBoard>) list;
+	}
 
 }//

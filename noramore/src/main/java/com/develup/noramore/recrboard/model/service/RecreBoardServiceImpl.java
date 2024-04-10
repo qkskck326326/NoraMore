@@ -11,10 +11,10 @@ import com.develup.noramore.recrboard.model.vo.RecrBoard;
 import com.develup.noramore.recrservice.model.dao.RecreBoardDao;
 
 @Service("recrBoardSevice")
-public class RecreBoardServiceImpl implements RecrBoardService{
+public class RecreBoardServiceImpl implements RecrBoardService {
 	@Autowired
 	RecreBoardDao recreBoardDao;
-	
+
 	@Override
 	public ArrayList<RecrBoard> selectRecrBoard() {
 		return recreBoardDao.selectRecrBoard();
@@ -115,6 +115,9 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.closerecr(boardId);
 	}
 
-
+	@Override
+	public ArrayList<RecrBoard> selectRecrBoardId(String memberid) {
+		return recreBoardDao.selectRecrBoardId(memberid);
+	}
 
 }//
