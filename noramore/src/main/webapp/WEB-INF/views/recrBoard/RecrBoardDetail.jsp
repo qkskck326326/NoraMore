@@ -197,7 +197,7 @@ function deletecomment(commentId) {
     var boardId = "${RecrBoard.boardId}"; // JSP 변수를 JavaScript 문자열로 가져옵니다.
     var page = "${page}"; // JSP 변수를 JavaScript 문자열로 가져옵니다.
     var deleteCommentUrl = "deletecomment.do?boardId=" + boardId + "&commentId=" + commentId + "&page=" + page;
-
+	
     // 생성된 URL로 리디렉션
     location.href = deleteCommentUrl;
 }
@@ -437,7 +437,7 @@ textarea.commentForm:hover {
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="margin-left: 30%">
 		<div class="boardRecr-div">
 			<div id="write" style="margin-bottom: 20px;">
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
@@ -488,8 +488,13 @@ textarea.commentForm:hover {
 						</table>
 						</div>
 					</c:if>
-
+					<br>
+				
 				</div>
+					<section>
+						<p1 style="font-weight: bold;">작성자: ${RecrBoard.memberId}</p1>
+						<p2 style="float: right; font-weight: bold;">모집상태 : [${RecrBoard.recrStatus}]</p2>
+					</section>
 				<textarea id="context" cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 				<div>
 					<p>첨부파일:</p>
