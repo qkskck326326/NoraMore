@@ -1,11 +1,15 @@
 package com.develup.noramore.notice.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +42,49 @@ public class NoticeBoardController {
 		return "notice/noticewrite";
 	}//
 
+
+	//요청 결과 처리용 --------------------------------------------------------------
+	@RequestMapping(value="ntop5.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String noticeNewTop3Method() throws UnsupportedEncodingException {
+		//ajax 요청시 리턴방법은 여러가지가 있음
+		//response 객체 이용시에는 2가지중 선택 가능
+		//1. 출력스트림으로 응답하는 방법 (아이디 중복 체크 예)
+		//2. 뷰리졸버로 리턴하는 방법 : response body 에 내보낼 값을 저장함
+		//	JSONView 클래스 등록 처리되어 있어야 함 : servlet-context.xml  
+		
+		//최근 등록된 공지글 3개 조회해 옴
+		ArrayList<Notice> list = noticeBoardService.selectTop5();
+		
+		//전송용 json 객체 준비
+		JSONObject sendJson = new JSONObject();
+		//list 저장할 json 배열 객체 준비
+		JSONArray jarr = new JSONArray();
+		
+		//list 를 jarr 로 옮기기
+		for(Notice notice : list) {
+			//notice 의 각 필드값 저장할 json 객체 생성
+			JSONObject job = new JSONObject();
+			
+			job.put("no", notice.getBoardId());
+			
+			//한글에 대해서는 인코딩해서 json에 담음 (한글 깨짐 방지)
+			job.put("title", URLEncoder.encode(notice.getTitle(), "utf-8"));
+			//날짜는 반드시 toString() 으로 문자열로 바꿔서 json 에 담아야 함
+			job.put("date", notice.getRegistDt().toString());
+			
+			//job 를 jarr 에 추가함
+			jarr.add(job);
+		}
+		
+		//전송용 객체에 jarr 을 담음
+		sendJson.put("nlist", jarr);
+		
+		//전송용 json 을 json string 으로 바꿔서 전송되게 함
+		return sendJson.toJSONString();  //뷰리졸버로 리턴함
+		//servlet-context.xml 에 jsonString 내보내는 JSONView 라는 뷰리졸버를 추가 등록해야 함
+	}
+	
 	// 공지글 수정페이지로 이동 처리용
 	@RequestMapping("nmoveup.do")
 	public ModelAndView moveUpdatePage(@RequestParam("boardId") int boardId, ModelAndView mv) {

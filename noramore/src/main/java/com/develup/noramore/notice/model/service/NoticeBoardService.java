@@ -37,4 +37,6 @@ public interface NoticeBoardService {
 	int selectSearchContentCount(String keyword);
 
 	int selectSearchDateCount(SearchDate date);
+	
+	 ArrayList<Notice> selectTop5();
 }

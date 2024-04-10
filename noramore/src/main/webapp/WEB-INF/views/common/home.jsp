@@ -30,6 +30,39 @@
     function my(){
     	location.href = "selectRecrBoadMemberId.do";    	
     }
+    
+    $(function(){
+    	//최근 등록된 공지글 3개 전송받아서 출력 처리
+    	$.ajax({
+    		url: "ntop5.do",
+    		type: "post",
+    		dataType: "json",
+    		success: function(data){
+    			console.log("success : " + data);
+    			
+    			//object --> string
+    			var str = JSON.stringify(data);
+    			
+    			//string --> json
+    			var json = JSON.parse(str);
+    			
+    			values = "";			
+    			for(var i in json.nlist){
+    				values += "<tr><td>" + json.nlist[i].no 
+    						+ "</td><td><a href='ndetail.do?no=" 
+    						+ json.nlist[i].no + "'>"
+    						+ decodeURIComponent(json.nlist[i].title).replace(/\+/gi, " ") 
+    						+ "</a></td><td>"
+    						+ json.nlist[i].date + "</td></tr>";
+    			}
+    			
+    			$('#newnotice').html($('#newnotice').html() + values);
+    			//$('#newnotice').append(values);
+    		},
+    		error: function(jqXHR, textStatus, errorThrown){
+    			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+    		}
+    	});
 </script>
 </head>
 
@@ -62,12 +95,7 @@
 				<a href="${ mypage }" style="margin-right: 10px; margin-top: 20px;">${ sessionScope.loginMember.memberName }
 					님</a>
 				<button class='button' onclick="logout()">로그아웃</button>
-
-				<c:url var="mypage" value="my.do">
-					<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
-				</c:url>
-				<!--  마이 페이지 들어갈때 자기자신의 정보를 가지고 올 수 있게 함 -->
-				<a href="${ mypage }">My Page</a>
+				
 			</div>
 		</c:if>
 		<c:if
@@ -79,66 +107,13 @@
 				</c:url>
 				<a href="${ mypage }" style="margin-right: 10px; margin-top: 20px;">${ sessionScope.loginMember.memberName }
 					님</a>
+				<a href="${ pageContext.servletContext.contextPath }/adminPage.do" style="margin-right: 10px; margin-top: 20px;"> 관리자 페이지 </a>
+				
 				<button class='button' onclick="logout()">로그아웃</button>
-
-				<button class='button'
-					onclick="${ pageContext.servletContext.contextPath }/adminPage.do">관리자</button>
 			</div>
 		</c:if>
 
 		<ul class="grid cs-style-3">
-			<li>
-				<figure>
-					<a href="rblist.do"> <img src="resources/images/balling.png"
-						alt="img04">
-					</a>
-					<figcaption>
-						<h3>모집</h3>
-					</figcaption>
-				</figure>
-			</li>
-			<li>
-				<figure>
-					<a href="freeboardlist.do"> <img
-						src="resources/images/climbing.png" alt="img01">
-					</a>
-					<figcaption>
-						<h3>자유</h3>
-					</figcaption>
-				</figure>
-			</li>
-			<li>
-				<figure>
-					<img src="resources/images/cycle.png" alt="img02">
-					<figcaption>
-						<h3>사이클</h3>
-					</figcaption>
-				</figure>
-			</li>
-			<li>
-				<figure>
-					<img src="resources/images/health.png" alt="img05">
-					<figcaption>
-						<h3>헬스</h3>
-					</figcaption>
-				</figure>
-			</li>
-			<li>
-				<figure>
-					<img src="resources/images/lessure.png" alt="img03">
-					<figcaption>
-						<h3>수상레져</h3>
-					</figcaption>
-				</figure>
-			</li>
-			<li>
-				<figure>
-					<img src="resources/images/hiking.png" alt="img06">
-					<figcaption>
-						<h3>등산</h3>
-					</figcaption>
-				</figure>
-			</li>
 			<c:forEach var="category" items="${categoryList}">
 				<c:url var="goBaord" value="rblist.do">
 					<c:param name="categoryId" value="${category.categoryId}" />
@@ -167,10 +142,12 @@
 			<div class="an1">
 				<a href="nlist.do">공지사항</a>
 			</div>
-
+			
 			<div class="inan1">
 				<ul>
-					
+					<table id="newnotice" border="1" cellspacing="0" width="350">
+				<tr><th>번호</th><th>제목</th><th>날짜</th></tr>
+			</table>
 				</ul>
 			</div>
 		</div>
@@ -186,6 +163,7 @@
 				</ul>
 			</div>
 		</div>
+		
 	</div>
 	<hr>
 
@@ -194,6 +172,7 @@
 	</div>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<div class="admin"></div>
-
+	
 </body>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>

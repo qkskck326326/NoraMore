@@ -50,11 +50,11 @@ function generateResponse(input, checkedItems) {
     // Check for specific conditions
     if (input.includes("안녕")) {
         response = "안녕하세요! 반가워요. 😊";
-    } else if (input.includes("오늘 날씨")) {
+    } else if (input.includes("날씨")) {
         response = "오늘의 날씨는 맑습니다. 🌞";
     } else if (input.includes("좋아하는 음식")) {
         response = "저는 피자를 좋아해요! ";
-    } else if (input.includes("카테고리 추천")) {
+    } else if (input.includes("카테고리")) {
         response = "야외활동과 실내활동 중 어떤 것을 선호하시나요? ";
     }else if (input.includes("야외활동")) {
         response = "저희 사이트의 항목 중 야외활동은 사이클, 수상레져, 등산 등이 있습니다.";

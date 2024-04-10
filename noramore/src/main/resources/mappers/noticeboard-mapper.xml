@@ -4,6 +4,12 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noticeMapper">
 
+	<resultMap type="Notice" id="resultTop5">
+		<result property="boardId" column="BOARD_ID" />
+		<result property="title" column="TITLE" />
+		<result property="registDt" column="REGIST_DT" />
+	</resultMap>	
+
 	<resultMap type="Notice" id="resultNotice">
 		<result property="boardId" column="BOARD_ID" />
 		<result property="memberID" column="MEMBER_ID" />
@@ -15,6 +21,17 @@
 		<result property="originalFilePath" column="ORIGINAL_FILENAME" />
 		<result property="renameFilePath" column="RENAME_FILENAME" />
 	</resultMap>
+
+	<select id="selectTop5" resultMap="resultTop5">
+		select *
+		from (select rownum rnum, board_id, member_id,
+		title,
+		substance, read_count, regist_dt, last_upd_dt
+		from (select * from
+		notice_board
+		order by regist_dt desc, board_id desc))
+		WHERE RNUM BETWEEN 1 AND 5
+	</select>
 
 	<select id="selectListCount" resultType="_int">
 		select count(*) from
