@@ -149,7 +149,7 @@ function changeFormAction() {
 </style>
 </head>
 <body>
-	<section id="board">
+	<section id="board" style="margin-left: 200px">
 		<h1>모집게시판 전체 목록</h1>
 	
 	<div id="map" style="width:1200px;height:350px;"></div>   
