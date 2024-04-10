@@ -75,6 +75,7 @@ function deleteRboard(boardId, categoryId) {
         		categoryId: categoryId },
         success: function(response) {
                 alert("게시글이 삭제되었습니다.");
+                location.reload();
         },
         error: function(xhr, status, error) {
             	console.error("에러 : ", error);
@@ -90,6 +91,7 @@ function deleteFboard(boardId, categoryId) {
         		categoryId: categoryId },
         success: function(response) {
                 alert("게시글이 삭제되었습니다.");
+                location.reload();
         },
         error: function(xhr, status, error) {
             	console.error("에러 : ", error);

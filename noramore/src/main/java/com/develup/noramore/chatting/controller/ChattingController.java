@@ -35,7 +35,7 @@ public class ChattingController {
         List<ChattingRoom> roomList = chattingService.selectRoomList(loginMember.getMemberID());
         model.addAttribute("roomList", roomList);
         
-        return "chatting/chatting";
+        return "chatting/unicast";
     }
     
     // 채팅 상대 검색

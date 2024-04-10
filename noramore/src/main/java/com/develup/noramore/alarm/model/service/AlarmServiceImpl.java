@@ -22,8 +22,8 @@ public class AlarmServiceImpl implements AlarmService{
 
 
 	@Override
-	public int updateAlarm(Alarm alarm) {
-		return alarmDao.updateAlarm(alarm);
+	public int updateAlarm(int alarmId) {
+		return alarmDao.updateAlarm(alarmId);
 	}
 
 	@Override

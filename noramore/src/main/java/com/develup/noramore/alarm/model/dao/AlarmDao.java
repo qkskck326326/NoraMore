@@ -22,8 +22,8 @@ public class AlarmDao {
 
 
 
-	public int updateAlarm(Alarm alarm) {
-		return sqlSessionTemplate.update("alarm.updateAlarm", alarm);
+	public int updateAlarm(int alarmId) {
+		return sqlSessionTemplate.update("alarm.updateAlarm", alarmId);
 	}
 
 	public int selectListCount(String memberId) {

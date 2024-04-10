@@ -24,7 +24,6 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
 
 	private Logger logger = LoggerFactory.getLogger(ChattingWebsocketHandler.class);
     	
-	
    @Autowired
     private ChattingService chattingService;
    

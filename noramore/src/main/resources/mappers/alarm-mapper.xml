@@ -91,9 +91,9 @@
 				#{ senderId }, 'N', sysdate)
 	</insert>
 
-	<update id="updateAlarm" parameterType="string">
+	<update id="updateAlarm" parameterType="_int">
 		update alarm
-		set check_YN = #{ checkedYN }
+		set checked_YN = 'Y'
 		where alarm_id = #{ alarmId }
 	</update>
 </mapper>
