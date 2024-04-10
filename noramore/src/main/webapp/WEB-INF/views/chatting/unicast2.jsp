@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
@@ -124,13 +124,20 @@ function connection(){
     // 웹 소켓을 통해 연결이 이루어 질 때 동작할 메소드
     webSocket.onopen = function(event){
         
-/*         $textarea.html("<p class='chat_content'>"
-                +$('#chat_id').val()+"님이 입장하셨습니다.</p><br>"); */
+		$textarea.html("<p class='chat_content'>"
+                +$('#chat_id').val()+"님이 입장하셨습니다.</p><br>");
         
         // 웹 소켓을 통해 만든 채팅 서버에 참여한 내용을
         // 메시지로 전달
         // 내가 보낼 때에는 send / 서버로부터 받을 때에는 message
         webSocket.send($('#chat_id').val()+"|님이 입장하셨습니다.");
+        
+        $.ajax({
+        	url:"removeRequest.do"
+        	type: "post"
+        	data: {	sender : $('#chat_id').val(),
+        			receiver : $('#recvUser').val()}
+        });
         
     };
     
@@ -171,15 +178,6 @@ function send(){
             +$inputMessage.val()+"</p><br>");
         
         webSocket.send($('#chat_id').val()+"|"+$inputMessage.val());
-        
-        $.ajax({
-        	url:"chatRequest.do"
-        	type: "post"
-        	data: { textMessage : $inputMessage.val(), 
-        			sender : $('#chat_id').val(),
-        			receiver : $('#recvUser').val()}
-        });
-        
         
         $inputMessage.val("");
        

@@ -5,91 +5,66 @@ public class Message implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 7057981510274684605L;
-	private int messageNo; // 메시지 번호
-    private String messageContent; // 메시지 내용
-    private String readFlag; // 읽음 여부
-    private String senderId; // 보낸 회원 아이디
-    private String targetId; // 받는 회원 아이디
-    private int chattingNo; // 채팅방 번호
-    private String sendTime; // 메시지 보낸 시간
+    private String textMessage; // 메시지 내용
+    private String sender; // 보낸 회원 아이디
+    private String receiver; // 받는 회원 아이디
+    private String connectYN;	// 대기 중 여부
     
 	public Message() {
 		super();
 	}
 
-	public Message(int messageNo, String messageContent, String readFlag, String senderId, String targetId, int chattingNo,
-			String sendTime) {
+	public Message(String textMessage, String sender, String receiver, String connectYN) {
 		super();
-		this.messageNo = messageNo;
-		this.messageContent = messageContent;
-		this.readFlag = readFlag;
-		this.senderId = senderId;
-		this.targetId = targetId;
-		this.chattingNo = chattingNo;
-		this.sendTime = sendTime;
+		this.textMessage = textMessage;
+		this.sender = sender;
+		this.receiver = receiver;
+		this.connectYN = connectYN;
 	}
 
-	public int getMessageNo() {
-		return messageNo;
+	public String getTextMessage() {
+		return textMessage;
 	}
 
-	public void setMessageNo(int messageNo) {
-		this.messageNo = messageNo;
+	public void setTextMessage(String textMessage) {
+		this.textMessage = textMessage;
 	}
 
-	public String getMessageContent() {
-		return messageContent;
+	public String getSender() {
+		return sender;
 	}
 
-	public void setMessageContent(String messageContent) {
-		this.messageContent = messageContent;
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 
-	public String getReadFlag() {
-		return readFlag;
+	public String getReceiver() {
+		return receiver;
 	}
 
-	public void setReadFlag(String readFlag) {
-		this.readFlag = readFlag;
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
 
-	public String getSenderId() {
-		return senderId;
+	public String getConnectYN() {
+		return connectYN;
 	}
 
-	public void setSenderId(String senderId) {
-		this.senderId = senderId;
+	public void setConnectYN(String connectYN) {
+		this.connectYN = connectYN;
 	}
 
-	public String getTargetId() {
-		return targetId;
-	}
-
-	public void setTargetNo(String targetId) {
-		this.targetId = targetId;
-	}
-
-	public int getChattingNo() {
-		return chattingNo;
-	}
-
-	public void setChattingNo(int chattingNo) {
-		this.chattingNo = chattingNo;
-	}
-
-	public String getSendTime() {
-		return sendTime;
-	}
-
-	public void setSendTime(String sendTime) {
-		this.sendTime = sendTime;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
 	public String toString() {
-		return "Message [messageNo=" + messageNo + ", messageContent=" + messageContent + ", readFlag=" + readFlag
-				+ ", senderId=" + senderId + ", targetId=" + targetId + ", chattingNo=" + chattingNo + ", sendTime="
-				+ sendTime + "]";
+		return "Message [textMessage=" + textMessage + ", sender=" + sender + ", receiver=" + receiver + ", connectYN="
+				+ connectYN + "]";
 	}
-    
+
+	
+	
+	
 }
