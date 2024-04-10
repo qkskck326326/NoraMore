@@ -70,13 +70,74 @@
     }
 </script>
 
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
+<script type="text/javascript">
+
+	 
+
+
+
+function dupNicnameCheck(){
+	//사용 가능한 닉네임인지 확인하는 함수 : ajax 기술 사용해야 함
+	$.ajax({  
+		url: "nicnamechk.do",
+		type: "post",
+		data: { memberNicname: $('#membernicname').val() },
+		success: function(data){ 
+			console.log("success : " + data);
+			
+			if(data =="null"){
+				alert("닉네임을 입력해주세요.");
+				$('#membernicname').select();
+				$('#save').attr("disabled", true); 	
+			
+			}
+			 if(data == "ok"){   
+					alert("사용 가능한 닉네임입니다.");
+					$('#membernicname').attr("readonly", true); 
+					$('#save').attr("disabled", false); 
+			
+			}
+			if(data == "dup"){
+				alert("이미 사용중인 닉네임입니다.");
+				$('#membernicname').select();
+				$('#save').attr("disabled", true); 
+			
+			}
+			
+		
+			
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+		}
+	});
+	return false;
+	
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <body>
+
 <c:import url="/WEB-INF/views/common/header.jsp" />
 
- <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" /> 
+<c:import url="/WEB-INF/views/member/mypageSidebar.jsp" /> 
 
 <form action="memberUpdate.do" method="post" id="form"  onsubmit="return validate();" >
 
@@ -102,6 +163,9 @@
 		<span>닉네임</span>
 		<input type="text" name="memberNicname" id="membernicname" value="${ member.memberNicname }">
 	</div>
+	<input type="button" value="중복체크" onclick="return dupNicnameCheck();">
+	
+	
 	<div>
 		<span>비밀번호<span id="pwError" ></span></span>
 		<input type="password" name="memberPWD" id= "memberpwd" required>
@@ -162,6 +226,7 @@ function validate(){
 	var pwdValue = $('#memberpwd').val(); 
 	var pwdValue2 = $('#memberpwd2').val();
 	var nicnameValue= $('#membernicname').val(); 
+
 	
 	
 	if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
@@ -180,19 +245,73 @@ function validate(){
 	}
 	
 	
+
+		
+		
+		//닉네임
+		/* if(!/^[가-힝]{2,}$/.test(nicnameValue)){ */
+		if(!/^[가-힝a-zA-Z]{2,}$/.test(nicnameValue)){
+			alert("닉네임 : 2글자 이상을 넣으세요");
+			document.getElementById("membernicname").value = "";  
+			document.getElementById("membernicname").select(); 
+			return false;
+		}
+		
 	
-	
-	//닉네임
-	if(!/^[가-힝]{2,}$/.test(nicnameValue)){
-		alert("닉네임 : 한글로 2글자 이상을 넣으세요");
-		document.getElementById("membernicname").value = "";  
-		document.getElementById("membernicname").select(); 
-		return false;
-	}
 
 	return true;
 }
 </script>
+
+
+
+<script type="text/javascript">
+
+
+//닉네임 제출 클릭시 중복 막음
+$(document).ready(function() {
+$('#limit').on('submit', function(e) {
+    e.preventDefault(); // 폼 기본 제출 동작을 막습니다.
+    
+    var memberNicname = $('#membernicname').val(); 
+    
+    // AJAX 요청
+    $.ajax({
+        url: 'nicnamechk.do', // 중복 검사를 처리할 서버의 URL
+        type: 'POST',
+        data: { memberNicname: memberNicname }, // 서버로 보낼 데이터
+        success: function(data) {
+            // 여기서 data는 서버에서 보낸 응답입니다.
+            // 서버 응답 예: {isDuplicated: true} or {isDuplicated: false}
+            if(data == "dup") {
+                alert('이미 사용 중인 닉네임입니다.'); // 중복 알림
+            } else {
+                // ID 중복이 아닌 경우, 폼 제출을 진행합니다.
+                // 이를 위해 폼의 제출 이벤트를 다시 트리거하거나,
+                // 폼 데이터를 AJAX로 전송할 수 있습니다.
+               $('#limit')[0].submit();// 폼 제출
+            }
+        },
+        error: function(request, status, error) {
+            // 오류 처리
+            alert('오류가 발생했습니다. 다시 시도해주세요.');
+        }
+        
+    });
+    return false;
+    
+});
+return false;
+
+});
+
+</script>
+
+
+
+
+
+
 <script type="text/javascript">
 //1. 비밀번호 입력창 정보 가져오기
 let elInputPassword = document.querySelector('#memberpwd'); // input#password
@@ -212,39 +331,7 @@ function isMatch (password1, password2) {
 	}
 	
 	
-/* 	elInputUsername.addEventListener('keyup', function(){
-	//elInputUsername.onkeyup = function () {
-		console.log("keyup");
-		  // 값을 입력한 경우
-		  if (elInputUsername.value.length !== 0) {
-		    // 영어 또는 숫자 외의 값을 입력했을 경우
-		    if(onlyNumberAndEnglish(elInputUsername.value) === false) {
-		      elSuccessMessage.classList.add('hide');
-		      elFailureMessage.classList.add('hide');
-		      elFailureMessageTwo.classList.remove('hide'); // 영어 또는 숫자만 가능합니다
-		    }
-		    // 글자 수가 6~50글자가 아닐 경우
-		    else if(idLength(elInputUsername.value) === false) {
-		      elSuccessMessage.classList.add('hide'); // 성공 메시지가 가려져야 함
-		      elFailureMessage.classList.remove('hide'); // 아이디는 4~12글자이어야 합니다
-		      elFailureMessageTwo.classList.add('hide'); // 실패 메시지2가 가려져야 함
-		    }
-		    // 조건을 모두 만족할 경우
-		    else if(idLength(elInputUsername.value) || onlyNumberAndEnglish(elInputUsername.value)) {
-		      elSuccessMessage.classList.remove('hide'); // 사용할 수 있는 아이디입니다
-		      elFailureMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
-		      elFailureMessageTwo.classList.add('hide'); // 실패 메시지2가 가려져야 함
-		    }
-		  }
-		  // 값을 입력하지 않은 경우 (지웠을 때)
-		  // 모든 메시지를 가린다.
-		  else {
-		    elSuccessMessage.classList.add('hide');
-		    elFailureMessage.classList.add('hide');
-		    elFailureMessageTwo.classList.add('hide');
-		  }
-		}); */
-		
+
 		
 	elInputPassword.onkeyup = function () {
 
