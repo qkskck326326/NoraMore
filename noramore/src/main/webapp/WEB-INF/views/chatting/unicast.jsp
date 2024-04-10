@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Unicast</title>
-<script type="text/javascript" src="resources/js/jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 <style>
 
 .container {
-    position: relative;
+	position:relative;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -20,7 +20,7 @@
 
 #messageWindow {
     background: LightSkyBlue;
-    height: 300px;
+    height: 500px;
     overflow: auto;
 }
 
@@ -71,14 +71,14 @@
     margin-left: -10px;
 }
 </style>
-<c:import url="/WEB-INF/views/common/header.jsp" />
+<%-- <c:import url="/WEB-INF/views/common/header.jsp" /> --%> 
 <c:import url="/WEB-INF/views/common/sideSample.jsp" />
 </head>
 <body>
 <div class="container">
     <h2>채팅</h2>
-    <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/> <br> 
-    상대방 ID : <input type="text" id="recvUser" size="12"/> &nbsp;
+    <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/>
+    <span>상대방 ID : </span><input type="text" id="recvUser" size="12"/> &nbsp;
     <button type="button" id="startBtn">채팅하기</button><br>
     
     <!-- 채팅 창 구현 부분 -->
@@ -94,18 +94,52 @@
 </div>
 
 <script>
+
+
 $('#startBtn').on('click',function(){
-    $('#chatbox').css('display', 'block');
-    $(this).css('display', 'none');
-    connection();
-});
+
+    $.ajax({
+    	url: "checkMember.do",
+    	type: "POST",
+    	data: {memberID: $('#recvUser').val()},
+    	success: function(response) {
+    		if(response == "exist"){
+    			alert("연결 완료! 상대방이 접속할 때까지 기다려주십시오.");
+   			    $('#chatbox').css('display', 'block');
+    			$(this).css('display', 'none');
+    			$('#startBtn').css('display', 'block');
+    			connection();
+    		}else{
+    			alert("없는 회원이거나 잘못된 입력입니다. 다시 입력해주세요.");
+    			$('#recvUser').val("");
+    		}
+    	},
+        error: function(xhr, status, error) {
+            console.error("에러 : ", error);
+        }
+    });
+})
 
 $('#endBtn').on('click',function(){
     $('#chatbox').css('display', 'none');
     $('#startBtn').css('display', 'inline');
     webSocket.send($('#chat_id').val()
             +"|님이 채팅방을 퇴장하였습니다.");
-    webSocket.close();
+    $.ajax({
+    	url: "removeRequest.do",
+    	type: "POST",
+    	data: {receiver: $('#recvUser').val(),
+    			sender: $('#chat_id').val()},
+    	success: function(response) {
+    		if(response == "exit"){
+    			webSocket.close();
+    		}
+    	},
+        error: function(xhr, status, error) {
+            console.error("에러 : ", error);
+        }
+    });
+    
 });
 
 // 채팅창 내용 부분
@@ -118,12 +152,14 @@ var webSocket = null;
 var $inputMessage = $('#inputMessage');
 
 function connection(){
+
+    
     webSocket = new WebSocket('ws://localhost:8080'+
     '<%=request.getContextPath()%>/chat');
     
     // 웹 소켓을 통해 연결이 이루어 질 때 동작할 메소드
     webSocket.onopen = function(event){
-        
+
 /*         $textarea.html("<p class='chat_content'>"
                 +$('#chat_id').val()+"님이 입장하셨습니다.</p><br>"); */
         
@@ -131,7 +167,7 @@ function connection(){
         // 메시지로 전달
         // 내가 보낼 때에는 send / 서버로부터 받을 때에는 message
         webSocket.send($('#chat_id').val()+"|님이 입장하셨습니다.");
-        
+
     };
     
     // 서버로부터 메시지를 전달 받을 때 동작하는 메소드
@@ -173,12 +209,12 @@ function send(){
         webSocket.send($('#chat_id').val()+"|"+$inputMessage.val());
         
         $.ajax({
-        	url:"chatRequest.do"
-        	type: "post"
+        	url:"chatRequest.do",
+        	type: "POST",
         	data: { textMessage : $inputMessage.val(), 
         			sender : $('#chat_id').val(),
         			receiver : $('#recvUser').val()}
-        });
+        }); 
         
         
         $inputMessage.val("");
@@ -217,10 +253,12 @@ function onMessage(event) {
 }
 
 function onError(event) {
+	event.code
     alert(event.data);
 }
 
 function onClose(event) {
+	event.code
     alert(event);
 }
 

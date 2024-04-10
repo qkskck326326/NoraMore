@@ -22,5 +22,20 @@ public class ChattingServiceImpl implements ChattingService{
         return chattingDao.insertMessage(msg);
     }
 
+	@Override
+	public Message selectChatRequest(String memberID) {
+		return chattingDao.selectChatRequest(memberID);
+	}
+
+	@Override
+	public int deleteMessage(Message message) {
+		return chattingDao.deleteMessage(message);
+	}
+
+	@Override
+	public int selectReceiver(String memberID) {
+		return chattingDao.selectReceiver(memberID);
+	}
+
     
 }

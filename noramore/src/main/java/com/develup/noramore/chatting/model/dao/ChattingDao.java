@@ -13,10 +13,22 @@ import com.develup.noramore.chatting.vo.Message;
 public class ChattingDao {
     
     @Autowired
-    private SqlSessionTemplate sqlSession;
+    private SqlSessionTemplate sqlSessionTemplate;
 
     public int insertMessage(Message msg) {
-        return sqlSession.insert("chatting.insertMessage", msg);
+        return sqlSessionTemplate.insert("chatting.insertMessage", msg);
     }
+
+	public Message selectChatRequest(String memberID) {
+		return sqlSessionTemplate.selectOne("chatting.selectChatRequest", memberID);
+	}
+
+	public int deleteMessage(Message message) {
+		return sqlSessionTemplate.delete("chatting.deleteMessage", message);
+	}
+
+	public int selectReceiver(String memberID) {
+		return sqlSessionTemplate.selectOne("chatting.selectReceiver", memberID);
+	}
 
 }
