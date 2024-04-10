@@ -48,7 +48,7 @@
 		</header>
 		<c:if test="${ empty sessionScope.loginMember }">
 			<div class="loginMenu">
-				<button class='button' onclick="movePage();">로그인 </button>
+				<button class='button' onclick="movePage();">로그인</button>
 				<button class='button' id=two onclick="enroll();">회원가입</button>
 			</div>
 		</c:if>
