@@ -15,7 +15,7 @@
 
 	<select id="selectAll" resultMap="categoryResultMap">
 		select * from category 
-
+		order by CATEGORY_ID
 	</select>
 	
 	<select id="nextCategoryId" resultType="_int">
