@@ -59,7 +59,8 @@
 		<c:if test="${ !empty freeBoard.freeOriginalFileName }">
 		
 		${ freeBoard.freeOriginalFileName } &nbsp; 
-			<input type="checkbox" name="deleteFlag" value="yes"> 파일삭제 <br>
+		
+		<input type="checkbox" name="deleteFlag" value="yes" style="width: 16px; height: 16px;"> 파일삭제 <br>
 			변경 : <input type="file" name="upfile">
 		</c:if>
 		<c:if test="${ empty freeBoard.freeOriginalFileName }">
@@ -67,7 +68,7 @@
 			추가 : <input type="file" name="upfile">
 		</c:if>			
 		
-
+		<br><br>
 		<button type="submit">수정하기</button> &nbsp; 
 		<button type="reset">수정취소</button> &nbsp; 
 

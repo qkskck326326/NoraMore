@@ -488,8 +488,9 @@ textarea.commentForm:hover {
 				<%-- 로그인한 경우 : 관리자인 경우 글삭제 버튼과 댓글달기 버튼 표시함 --%>
 			 
 				<c:if test="${ loginMember.adminYN eq 'Y' and loginMember.memberID ne FreeBoard.memberId  }">
+				<div>
 					<button class="whiteBtn" onclick="requestDelete(); return false;">삭제하기</button> &nbsp;
-					
+				</div>	
 					<%-- <button onclick="requestReply(); return false;">댓글달기</button> &nbsp;--%>
 					
 				</c:if>

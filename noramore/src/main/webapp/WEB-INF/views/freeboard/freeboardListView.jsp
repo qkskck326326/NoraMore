@@ -142,6 +142,7 @@
 .content {
 	position: relative;
     margin-right: 100px; /* 사이드바의 폭에 따라 조정할 수 있습니다 */
+    display: flex; 
 }
 
 
