@@ -31,7 +31,7 @@
 <script type="text/javascript">
 
 
-
+ 
 //마커 표시 함수 호출
 
 
@@ -59,7 +59,6 @@ window.onload = function(){
 	var locationList = JSON.parse('${locationListJSON}');
 	
 	locationList.forEach(function(RecrBoard) {
-		console.log(RecrBoard.recrLocation);
 	    geocoder.addressSearch(RecrBoard.recrLocation, function(result, status) {
 	        if (status === kakao.maps.services.Status.OK) {
 	            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
