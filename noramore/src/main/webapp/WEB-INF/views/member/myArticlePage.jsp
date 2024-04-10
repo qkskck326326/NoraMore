@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +13,7 @@
 <body>
  <c:import url="/WEB-INF/views/common/header.jsp" /> 
 
- <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" /> 
-
-
+ <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" />
 
 
 <div id="box_act">
@@ -38,14 +37,12 @@
 </div>
 	
 
-
-
 <hr>
 	<table>
 		<tr>
-			<th class="title">활동여부</th>   
+			<th class="title">활동 시작일</th>   
 			<th class="title">제목</th>
-			<th class="title">활동 시작일</th>
+			<th class="title">활동 마감일</th>
 		</tr>
 		<c:forEach var="rl" items="${list}">
 		<c:url var="rbd" value="rbdetail.do">
@@ -53,18 +50,10 @@
 			<c:param name="page" value="${page}" />
 			<c:param name="categoryId" value="${categoryId}" />
 		</c:url>
-		<tr>
-			<th>
-			<c:if test="${rl.recrActStartDate != null && rl.recrActEndDate == null}">
-				활동중
-			</c:if>
-			<c:if test="${rl.recrActStartDate != null && rl.recrActEndDate != null}">
-				활동종료
-			</c:if>
-			
-			</th>
-			<th><a href="${rbd}">${rl.title}</a></th>
+		<tr>	
 			<th>${rl.recrActStartDate}</th>
+			<th><a href="${rbd}">${rl.title}</a></th>
+			<th>${rl.recrActEndDate}</th>
 		</tr>
 		</c:forEach>
 	</table>

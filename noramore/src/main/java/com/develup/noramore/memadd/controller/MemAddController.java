@@ -1,17 +1,15 @@
 package com.develup.noramore.memadd.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.develup.noramore.freeboard.model.service.FreeBoardService;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
@@ -20,7 +18,7 @@ import com.develup.noramore.memadd.model.vo.MemAdd;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
 
-import net.sf.json.JSONArray;
+
 
 
 @Controller
@@ -59,12 +57,28 @@ public class MemAddController {
 	@RequestMapping(value = "selectRecrBoadMemberId.do", method = { RequestMethod.GET, RequestMethod.POST })
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
 	public String articleRecrListPage(@RequestParam("memberID") String memberid, Model model) {
+		
+		
+		/* String memberid = request.getSession().getAttribute("memberID"); */
+		
 		System.out.println("memberid : " + memberid);
 		System.out.println();
 		ArrayList<RecrBoard> recrBoardList = recrBoardService.selectRecrBoardId(memberid);
 		
+//	    Date now = new Date();
+//       
+//        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+//        String formattedDate = sdf.format(now);
+//		
+//		if(formattedDate )
+		
+		
 		System.out.println("list : " + recrBoardList);
 		if (recrBoardList != null) { 
+			
+			
+			
+			
 			model.addAttribute("list", recrBoardList); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
 			return "member/myArticlePage";
 		} else {

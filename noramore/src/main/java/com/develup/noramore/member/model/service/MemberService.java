@@ -31,6 +31,8 @@ public interface MemberService {
 
 	int updateResign(String memberID);
 
+	int updatePhotofileName(Member member);
+
 
 
 

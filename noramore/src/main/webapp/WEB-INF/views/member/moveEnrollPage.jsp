@@ -90,16 +90,24 @@ function validate(){
 	var nicnameValue= $('#memberNicname').val(); 
 	var nameValue = $('#membername').val();
 	var birthValue = $('#birth').val();
-	var checkValue = $('#check').val();
-	var nenecheckValue = $('#nonecheck').val();
+
 
 	
-	if(checkValue == "" && nenecheckValue != null){
-		alert("개인정보를 동의해주세요!");
+	
+	if(!$("#agreement2").prop("checked")) {
+		$("label[for=agreement2]").text("동의 해주시기 바랍니다.");
+		$("label[for=agreement2]").css("color","red");
 		return false;
 	}
 	
 	
+	if(!$("#agreement1").prop("checked")) {
+		$("label[for=agreement1]").text("동의 해주시기 바랍니다.");
+		$("label[for=agreement1]").css("color","red");
+		return false;
+	}
+
+
 	
 	
 	  if (!/^[A-Za-z0-9][a-z\d]{5,50}$/.test(idValue)){
@@ -128,8 +136,9 @@ function validate(){
 	
 	
 	//닉네임
+	/* if(!/^[가-힝]{2,}$/.test(nicnameValue)){ */
 	if(!/^[가-힝]{2,}$/.test(nicnameValue)){
-		alert("닉네임 : 한글로 2글자 이상을 넣으세요");
+		alert("닉네임 : 2글자 이상을 넣으세요");
 		document.getElementById("memberNicname").value = "";  
 		document.getElementById("memberNicname").select(); 
 		return false;
@@ -146,16 +155,7 @@ function validate(){
 	}
 	
 	
-	
-    
-	
 
-	
-	
-	
-	
-	
-	
 	//아이디의 값 형식이 요구한 대로 작성되었는지 검사
 	//암호의 값 형식이 요구한 대로 작성되었는지 검사
 	//정규표현식(Regular Expression) 사용함	
@@ -185,8 +185,8 @@ function dupIDCheck(){
 			if(data == "ok"){   
 					alert("사용 가능한 아이디입니다.");
 					 $('#memberpwd').focus();
-					/* $('#memberid').attr("readonly", true);  */
-					$('#registerBtn').attr("disabled", false); 
+				     $('#memberid').attr("readonly", true); 
+					 $('#registerBtn').attr("disabled", false); 
 			}
 			if(data == "dup"){
 				alert("이미 사용중인 아이디입니다.");
@@ -236,7 +236,7 @@ function dupNicnameCheck(){
 					alert("사용 가능한 닉네임입니다.");
 					$('#nicname').attr("readonly", true); 
 					$('#registerBtn').attr("disabled", false); 
-					
+			
 			}
 			if(data == "dup"){
 				alert("이미 사용중인 닉네임입니다.");
@@ -363,6 +363,26 @@ window.onload = function(){
 
 </script>
 
+
+<script type="text/javascript">
+
+$("input:checkbox").click(checkedChange);
+function checkedChange() {
+    if($(this).prop("checked")){
+        $("label[for="+this.id+"]").text("동의되었습니다.");
+        $("label[for="+this.id+"]").css("color","blue");
+    }else{
+        $("label[for="+this.id+"]").text("동의 해주시기 바랍니다.");
+        $("label[for="+this.id+"]").css("color","red");
+    }
+}
+
+
+</script>
+
+
+
+
 </head>
 <body>
 
@@ -418,9 +438,9 @@ window.onload = function(){
 	
 	<div>
 		<h3 class="list">*닉네임<span id="nameError"></span></h3>
-		<spn class="box int_id">
+		<span class="box int_id">
 			<input type="text" name="memberNicname" id="memberNicname" class="input" autocomplete="off" maxlength="20">
-		</spn>
+		</span>
 		<input type="button" value="중복체크" onclick="return dupNicnameCheck();">
 	</div>
 	
@@ -509,17 +529,27 @@ window.onload = function(){
     
 	<br><br>
 	<!-- 개인정보 수집 동의 -->
-    <div class="userInput">
-       <h3 class="list">개인정보 수집/이용동의<span id="consentError"></span></h3>
-       <div id="informationConsent">
-          <span id="consentBox">
-              <h3>개인정보 처리방침<span id="consentError"></span></h3>
-              <!-- 세부내용 중략 -->
-          </span>
-       </div>
-       <label class="select"><input type="radio" id="check" name="check" value="동의">동의</label>
-       <label class="select"><input type="radio" id="noneCheck"name="check" value="비동의" checked="checked">비동의</label>
-   </div>
+    <fieldset class="fieldarea f2">
+	<legend><span>이용</span>약관</legend>
+	<p class="agreeText">
+		<label for="agreement1">아래 사항에 동의 합니다.</label>
+		<input id="agreement1" type="checkbox" name="agreement1"/>
+		<textarea id="text1" readonly>
+			이용약관
+		</textarea>
+	</p>
+	</fieldset>
+	<fieldset class="fieldarea f3">
+		<legend><span>개인정보</span>취급방침</legend>
+		<p class="agreeText">
+			<label for="agreement2">아래 사항에 동의 합니다.</label>
+			<input id="agreement2" type="checkbox" name="agreement2"/>
+			<textarea id="text2" readonly>
+				개인정보 방침 및 안내
+			</textarea>
+		</p>
+	</fieldset>
+
    
    <div >
    		<c:if test="${ !empty param.signType }">

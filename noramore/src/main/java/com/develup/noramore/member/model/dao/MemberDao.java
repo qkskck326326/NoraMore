@@ -57,6 +57,10 @@ public class MemberDao {
 		return sqlSessionTemplate.update("memberMapper.updateResign", memberID);
 	}
 
+	public int updatePhotofileName(Member member) {
+		return sqlSessionTemplate.update("memberMapper.updatePhotofileName", member);
+	}
+
 
 
 	
