@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
-<c:if test="${!empty requestScope.message}">
+<c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
 <c:if test="${!empty requestScope.message}">
-	<c:set var="message" value="${requestScope.message}" />
+	<c:set var="message" value="${message}" />
 </c:if>
+ <c:out value="${message}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,17 +107,14 @@ function toggleCommentForm() {
     }
 }
 
-function Alert(message) {
-    alert(message);
-}
 
 // 페이지 로딩 시 alert 창 띄우기
 window.onload = function() {
 	selectrecrcomment();
-    var message = "${message}";
-    if (message) {
-        alert(message);
-    }
+	var message = "${message}";
+	if(message != ""){
+		alert(message);
+	}     
 }; 
 
 
@@ -337,7 +334,7 @@ function toggleApplList(){
 	}else{
 		applList.style.display = "none";
 	}
-        
+         
 }
 
 </script>

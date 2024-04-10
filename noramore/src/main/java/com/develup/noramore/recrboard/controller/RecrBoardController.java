@@ -436,7 +436,7 @@ public class RecrBoardController {
 	@RequestMapping("rbdetail.do")
 	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId,
 			@RequestParam("page") String currentPage1, @RequestParam("categoryId") String categoryId1, 
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response, @RequestParam("message") String message) {
 		int currentPage = 1;
 		if (currentPage1 != null) {
 			currentPage = Integer.parseInt(currentPage1);
@@ -473,6 +473,7 @@ public class RecrBoardController {
 		model.addAttribute("RecrBoard", recrBoard);
 		model.addAttribute("page", currentPage);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("message", message);
 		return "recrBoard/RecrBoardDetail";
 	}
 
