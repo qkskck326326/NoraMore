@@ -52,14 +52,14 @@ public class RecrApplController {
 			  model.addAttribute("message", "현재 모집중이 아닙니다.");
 			  model.addAttribute("page", page);
 			  model.addAttribute("categoryId", categoryId);
-			  model.addAttribute("boardId", recrBoard.getBoardId());
+			  model.addAttribute("boardId", recrAppl.getBoardId());
 			  return "redirect:rbdetail.do";
 		  }
 		  if(recrBoard.getNowRecr() >= recrBoard.getMaxRecr()) {
 			  model.addAttribute("message", "모집 인원이 가득 찼습니다.");
 			  model.addAttribute("page", page);
 			  model.addAttribute("categoryId", categoryId);
-			  model.addAttribute("boardId", recrBoard.getBoardId());
+			  model.addAttribute("boardId", recrAppl.getBoardId());
 			  return "redirect:rbdetail.do";
 		  }
 		  
@@ -68,7 +68,7 @@ public class RecrApplController {
 			  model.addAttribute("message", "이미 신청한 모집입니다.");
 			  model.addAttribute("page", page);
 			  model.addAttribute("categoryId", categoryId);
-			  model.addAttribute("boardId", recrBoard.getBoardId());
+			  model.addAttribute("boardId", recrAppl.getBoardId());
 			  return "redirect:rbdetail.do";
 		  }
 		  if(age > maxAgeCon || age < minAgeCon) {
@@ -84,13 +84,13 @@ public class RecrApplController {
 				  model.addAttribute("message", "신청이 완료되었습니다.");
 				  model.addAttribute("page", page);
 				  model.addAttribute("categoryId", categoryId);
-				  model.addAttribute("boardId", recrBoard.getBoardId());
+				  model.addAttribute("boardId", recrAppl.getBoardId());
 				  return "recrBoard/RecrBoardDetail";			  
 			  }else {
 				  model.addAttribute("message", "error! 신청에 실패하였습니다");
 				  model.addAttribute("page", page);
 				  model.addAttribute("categoryId", categoryId);
-				  model.addAttribute("boardId", recrBoard.getBoardId());
+				  model.addAttribute("boardId", recrAppl.getBoardId());
 				  return "redirect:rbdetail.do";
 			  }
 		  }else {
