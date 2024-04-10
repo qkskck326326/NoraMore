@@ -148,10 +148,10 @@ function changeFormAction() {
 </style>
 </head>
 <body>
-	<section id="board" style="margin-left: 200px">
+	<section id="board" style="margin-left: 200px;">
 		<h1>모집게시판 전체 목록</h1>
 	
-	<div id="map" style="width:1200px;height:350px;"></div>   
+	<div id="map" style="width:1200px;height:350px; left: 20%;"></div>   
 
 	<!-- <div class="dropdown">
 		    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
@@ -167,56 +167,57 @@ function changeFormAction() {
 		
 
 	<%-- 검색 --%>
-	<section style='width: 1200px; border: 0px; margin: 10px 0;'>
-	검색 기준: <div class="dropdown">
-			    <select id="action" name="action" onchange="changeFormAction()">
-			        <option value="searchrecrtitle.do">글제목</option>
-			        <option value="searchrecrwriter.do">작성자ID</option>
-			    </select>
-			</div>
-		<form id="searchaction" action="searchrecrtitle.do" method="post" >
-			<fieldset style='width: 1200px; border: 0px;'>
-				<div class="search" style='width: 180px;'>
-					<input id="keyword" name="keyword" style="width:140; height:25;">
-					<button type="submit">검색</button>
-				</div> &nbsp; 
-				한 페이지에 출력할 목록 갯수 : <select name="limit" id="limitSelect">
-					<option value="10" selected>10</option>
-					<option value="15">15</option>
-					<option value="20">20</option>
-					<c:set var="limi" value="${limit}" ></c:set>
-				</select> &nbsp; 
-				
-			</fieldset>
-			<input  type="hidden" name="categoryId" value="${categoryId}">
-		</form>
-		<button class="whiteBtn" style="float: right;" onclick="rbwriteform()">글작성</button>
-	</section>
-		
-		<table style='width: 1200px;'>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자ID</th>
-				<th>모집상황</th>
-				<th>조회수</th>
-			</tr>
-			<c:forEach var="rl" items="${list}">
-				<c:url var="rbd" value="rbdetail.do">
-					<c:param name="boardId" value="${rl.boardId}" />
-					<c:param name="page" value="${page}" />
-					<c:param name="categoryId" value="${categoryId}" />
-				</c:url>
+		<section style='width: 1200px; border: 0px; margin: 10px 0; left: 20%;'>
+		검색 기준: <div class="dropdown">
+				    <select id="action" name="action" onchange="changeFormAction()">
+				        <option value="searchrecrtitle.do">글제목</option>
+				        <option value="searchrecrwriter.do">작성자ID</option>
+				    </select>
+				</div>
+			<form id="searchaction" action="searchrecrtitle.do" method="post" >
+				<fieldset style='width: 1200px; border: 0px;'>
+					<div class="search" style='width: 180px;'>
+						<input id="keyword" name="keyword" style="width:140; height:25;">
+						<button type="submit">검색</button>
+					</div> &nbsp; 
+					한 페이지에 출력할 목록 갯수 : <select name="limit" id="limitSelect">
+						<option value="10" selected>10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+						<c:set var="limi" value="${limit}" ></c:set>
+					</select> &nbsp; 
+					
+				</fieldset>
+				<input  type="hidden" name="categoryId" value="${categoryId}">
+			</form>
+			<button class="whiteBtn" style="float: right;" onclick="rbwriteform()">글작성</button>
+		</section>
+		<section style='width: 1200px; left: 20%;'>
+			<table style='width: 1200px;'>
 				<tr>
-					<th>${rl.boardId}</th>
-					<th><a href="${rbd}">${rl.title}</a></th>
-					<th>${rl.memberId}</th>
-					<th>${rl.nowRecr}명 / ${rl.maxRecr}명 [${rl.recrStatus}]</th>
-					<th>${rl.readCount}</th>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자ID</th>
+					<th>모집상황</th>
+					<th>조회수</th>
 				</tr>
-			</c:forEach>
-
-		</table>
+				<c:forEach var="rl" items="${list}">
+					<c:url var="rbd" value="rbdetail.do">
+						<c:param name="boardId" value="${rl.boardId}" />
+						<c:param name="page" value="${page}" />
+						<c:param name="categoryId" value="${categoryId}" />
+					</c:url>
+					<tr>
+						<th>${rl.boardId}</th>
+						<th><a href="${rbd}">${rl.title}</a></th>
+						<th>${rl.memberId}</th>
+						<th>${rl.nowRecr}명 / ${rl.maxRecr}명 [${rl.recrStatus}]</th>
+						<th>${rl.readCount}</th>
+					</tr>
+				</c:forEach>
+	
+			</table>
+		</section>
 		<br>
 		<c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
 	</section>
