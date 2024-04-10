@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%--<%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="categoryId" value="1"/>
 <c:if test="${!empty requestScope.message}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
@@ -98,10 +98,14 @@ $(function(){
 		
 		<p>글 제목</p>
 		<input type="text" placeholder="글 제목을 입력하세요." name="title" <%--id = "title"--%>>
+		<!--
+		<p>카테고리번호</p>
+		<input type="text" placeholder="카테고리 번호를 입력하세요." name="categoryId" <%--id = "title"--%>>
+		-->
 		
 		<p>본문</p>
-		<textarea rows="10" cols="5" placeholder="본문을 입력하세요." name="context" ></textarea> 
-		
+		<textarea rows="50" cols="100" placeholder="본문을 입력하세요." name="context" ></textarea> 
+		<%-- 10 5 --%>
 		<p>첨부파일</p>
 		<input type="file" id="file" name="upfile">
 						

@@ -21,8 +21,8 @@
 
 
 <c:set var="categoryId" value="1"/>
-<c:if test="${!empty requestScope.message}">
-	<c:set var="category" value="${requestScope.category}" />
+<c:if test="${!empty requestScope.categoryId}">
+	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
 
 <!DOCTYPE html >
@@ -88,7 +88,7 @@
     	var page = ${page};
         var categoryId = ${categoryId};
         
-    	location.href = "freeboardwrite.do?page=" + ${page} + '&categoryId=' + categoryId;
+    	location.href = "freeboardwrite.do?page=" + page + '&categoryId=' + categoryId;
     	
     	return false;
     }
@@ -308,6 +308,7 @@
 	            <c:url var="fbd" value="fbdetail.do">
 					<c:param name="boardId" value="${fl.boardId}" />
 					<c:param name="page" value="${nowpage}" />
+					<c:param name="categoryId" value="${categoryId}" />
 				</c:url>
                 <tr>
                     <td>${fl.boardId}</td>

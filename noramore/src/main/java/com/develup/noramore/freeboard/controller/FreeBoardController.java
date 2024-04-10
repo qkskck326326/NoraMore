@@ -234,8 +234,9 @@ public class FreeBoardController {
 }
 	
 	@RequestMapping("freeboardwrite.do")
-	public String selectWriteFreeBoard() {
-		
+	public String selectWriteFreeBoard(@RequestParam("page") String page, Model model, @RequestParam("categoryId") int categoryId) {
+		model.addAttribute("page", page);
+		model.addAttribute("categoryId", categoryId);
 		return "freeboard/freeboardWriteForm"; 
 	}
 	
@@ -536,7 +537,10 @@ public class FreeBoardController {
 	@RequestMapping(value = "freeboardinsert.do", method = RequestMethod.POST)
 	public String freeBoardInsertMethod(FreeBoard freeBoard, Model model, HttpServletRequest request,
 			@RequestParam(name="upfile", required= false) MultipartFile mfile,
-			@RequestParam("page") String page) {
+			@RequestParam("page") String page,
+			@RequestParam("categoryId") int categoryId) {
+		// input을 number 로 해도 이쪽으로 보낼 때는 String 형태로 넘어와서 취한 조취
+		
 		
 		//게시글 첨부파일 저장용 폴더 지정 : 톰켓이 구동하고 있는 애플리케이션 프로젝트 안의 폴더 지정
 		//el 절대경로 표기인 ${ pageContext.servletContext.contextPath } 와 같은 의미의 코드임
@@ -579,13 +583,16 @@ public class FreeBoardController {
 			//*******추가한 부분**********
 			model.addAttribute("message", " 글이 등록되었습니다.");
 			model.addAttribute("FreeBoard", freeBoard);
-			model.addAttribute("page", page);
+			//model.addAttribute("page", page);
+			model.addAttribute("currentPage", page);
 			//**************************
 			//게시글 등록 성공시 목록 보기 페이지로 이동
 			return "redirect:freeboardlist.do";
 			
 		} else {
+			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("message", "새 게시 원글 등록 실패!");
+			model.addAttribute("currentPage", page);
 			return "common/error";
 		}
 				
