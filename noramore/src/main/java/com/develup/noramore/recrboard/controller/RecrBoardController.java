@@ -416,6 +416,25 @@ public class RecrBoardController {
 		mv.addObject("originFile", originFile);
 		return mv;
 	}
+	
+	// 글 모집 종료 처리 
+	@RequestMapping("closerecr.do")
+	public String closerecr(@RequestParam("page") int page, 
+			@RequestParam("categoryId") int categoryId, 
+			@RequestParam("boardId") int boardId,
+			Model model) {
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
+		model.addAttribute("categoryId", categoryId);
+		if(recrBoardService.closerecr(boardId) > 0) {
+			model.addAttribute("message", "모집이 종료되었습니다.");
+			return "redirect:rbdetail.do";
+		}else {
+			model.addAttribute("message", "error! 글 모집 종료에 실패하였습니다!");
+			return "redirect:rbdetail.do";
+		}
+			
+	}//
 
 	// ****************************** 이동용 *********************************
 
@@ -436,7 +455,7 @@ public class RecrBoardController {
 	@RequestMapping("rbdetail.do")
 	public String moveRecrBoardDetail(Model model, @RequestParam("boardId") int boardId,
 			@RequestParam("page") String currentPage1, @RequestParam("categoryId") String categoryId1, 
-			HttpServletRequest request, HttpServletResponse response, @RequestParam("message") String message) {
+			HttpServletRequest request, HttpServletResponse response, @RequestParam(name="message", required = false) String message) {
 		int currentPage = 1;
 		if (currentPage1 != null) {
 			currentPage = Integer.parseInt(currentPage1);

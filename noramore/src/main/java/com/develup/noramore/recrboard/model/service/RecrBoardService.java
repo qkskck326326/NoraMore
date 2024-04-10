@@ -45,5 +45,8 @@ public interface RecrBoardService {
 	int boardReport(int boardId);
 
 	int countAppl(int boardId);
+
+	int closerecr(int boardId);
+
 	
 }

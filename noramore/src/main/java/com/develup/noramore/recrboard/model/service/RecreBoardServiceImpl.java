@@ -110,6 +110,11 @@ public class RecreBoardServiceImpl implements RecrBoardService{
 		return recreBoardDao.countAppl(boardId);
 	}
 
+	@Override
+	public int closerecr(int boardId) {
+		return recreBoardDao.closerecr(boardId);
+	}
+
 
 
 }//

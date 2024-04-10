@@ -97,7 +97,9 @@ public class RecreBoardDao {
 		return SqlSessionTemplate.update("recrboard.countAppl", boardId);
 	}
 
-
+	public int closerecr(int boardId) {
+		return SqlSessionTemplate.update("recrboard.closerecr", boardId);
+	}
 
 
 }//

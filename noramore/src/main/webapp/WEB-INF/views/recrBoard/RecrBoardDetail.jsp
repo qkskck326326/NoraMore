@@ -42,6 +42,11 @@
 	<c:param name="categoryId" value="${categoryId}" />
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
 </c:url>
+<c:url var="closeRecr" value="closerecr.do">
+	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}" />
+	<c:param name="boardId" value="${RecrBoard.boardId}" />
+</c:url>
 <link rel="stylesheet" href="resources/css/style.css">
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
@@ -74,11 +79,6 @@ async function translateText() {
     
     alert("translate complete!");
 }
-
-
-
-
-
 
 
 function toggleCommentForm() {
@@ -337,6 +337,15 @@ function toggleApplList(){
          
 }
 
+function closeRecr() {
+    const confirmation = confirm("모집을 종료하시겠습니까?");
+    if (confirmation) {
+        location.href="${closeRecr}";
+    } else {
+        return;
+    }
+}
+
 </script>
 <style>
 .container {
@@ -434,6 +443,7 @@ textarea.commentForm:hover {
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
 				<div style="text-align: left; margin-bottom: 10px;">
 					<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
+					
 					<button onclick="translateText()">translate context</button>
 					<c:if
 						test="${sessionScope.loginMember.memberID ne RecrBoard.memberId}">
@@ -449,6 +459,7 @@ textarea.commentForm:hover {
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
 						<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
+						<button class="whiteBtn" style="float: right;" onclick="closeRecr()">모집종료</button>
 						<div id="scrollableTable" style="width: 800px;overflow-y: auto;">
 						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
