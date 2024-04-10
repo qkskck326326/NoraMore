@@ -452,7 +452,7 @@ textarea.commentForm:hover {
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
 						<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
-
+						<div id="scrollableTable" style="width: 600px; height: 200px; overflow-y: auto;">
 						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
 								<th width="150px">신청자ID</th>
@@ -476,7 +476,7 @@ textarea.commentForm:hover {
 								</tr>
 							</c:if>
 						</table>
-
+						</div>
 					</c:if>
 
 				</div>
