@@ -54,15 +54,7 @@ function generateResponse(input, checkedItems) {
         response = "오늘의 날씨는 맑습니다. 🌞";
     } else if (input.includes("좋아하는 음식")) {
         response = "저는 피자를 좋아해요! 🍕";
-    } else if (input.includes("A")) {
-        if (checkedItems.includes("A")) {
-            response = "사용자가 A를 선택했습니다.";
-        } else if (checkedItems.includes("B")) {
-            response = "사용자가 B를 선택했습니다.";
-        } else {
-            response = "아무것도 선택되지 않았습니다.";
-        }
-    } else {
+    }  else {
         // Default response
         const responses = [
             "정확한 질문을 입력해주세요"

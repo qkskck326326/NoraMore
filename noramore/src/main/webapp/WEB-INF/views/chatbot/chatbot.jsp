@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:import url="/WEB-INF/views/common/header.jsp" />
+<%-- <c:import url="/WEB-INF/views/common/header.jsp" /> --%>
 <c:set var="currentLimit" value="${ requestScope.limit }" />
 <c:set var="nowpage" value="1" />
 <c:if test="${ !empty requestScope.currentPage }">
