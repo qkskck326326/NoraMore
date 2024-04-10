@@ -78,8 +78,8 @@
 <div class="container">
     <h2>채팅</h2>
     <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/> <br> 
-    상대방 ID : <input type="text" id="recvUser" size="12"/> &nbsp;
-    <button type="button" id="startBtn">채팅하기</button><br>
+    <span>상대방 ID : </span><span><input type="text" id="recvUser" size="12" value="${ sender }" readonly/> &nbsp;</span>
+    <button type="button" id="startBtn">응답하기</button><br>
     
     <!-- 채팅 창 구현 부분 -->
     
@@ -95,9 +95,10 @@
 
 <script>
 $('#startBtn').on('click',function(){
-    $('#chatbox').css('display', 'block');
-    $(this).css('display', 'none');
-    connection();
+		alert("채팅 요청을 승인하셨습니다.");
+	    $('#chatbox').css('display', 'block');
+		$(this).css('display', 'none');
+		connection();
 });
 
 $('#endBtn').on('click',function(){
@@ -131,14 +132,6 @@ function connection(){
         // 메시지로 전달
         // 내가 보낼 때에는 send / 서버로부터 받을 때에는 message
         webSocket.send($('#chat_id').val()+"|님이 입장하셨습니다.");
-        
-        $.ajax({
-        	url:"removeRequest.do"
-        	type: "post"
-        	data: {	sender : $('#chat_id').val(),
-        			receiver : $('#recvUser').val()}
-        });
-        
     };
     
     // 서버로부터 메시지를 전달 받을 때 동작하는 메소드

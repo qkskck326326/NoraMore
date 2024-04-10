@@ -5,31 +5,39 @@
 <mapper namespace="chatting">
 
    <resultMap type="Message" id="chatRequest">
-      <result property="messageContent" column="message_Content" />
+      <result property="textMessage" column="message_Content" />
       <result property="sender" column="sender" />
-      <result property="reciever" column="reciever" />
-      <result property="connectYN" column="connectYN" />
+      <result property="receiver" column="receiver" />
+      <result property="connectYN" column="connect_YN" />
    </resultMap>
-
-   <resultMap type="Member" id="member_rm">
-      <id property="memberID" column="MEMBER_ID"/>
-     
-      <result property="photoFilename" column="PICTURE_FILE"/>
-   </resultMap>   
-
 
    <!--=========================================================================================-->
 
    <!-- 채팅 요청 삽입 -->
-<!--    <insert id="insertMessage" parameterType="Message">
+    <insert id="insertMessage" parameterType="Message">
       INSERT INTO MESSAGE
-      VALUES(#{textMessage}, #{sender}, #{receiver), #{ connectYN }, sysdate)
-   </insert> -->
+      VALUES(#{textMessage}, #{sender}, #{receiver}, #{connectYN}, sysdate)
+   </insert>
    
-<!--    <select id="selectChatRequest" parameterType="string" resultType="chatRequest">
-   		select max(regist_date)
-   		from message
-   		where receiver = #{memberID}
-   </select> -->
+    <select id="selectChatRequest" parameterType="string" resultMap="chatRequest">
+   		select *
+   		from (select rownum rnum, message_Content, sender, receiver, connect_YN
+	   			from message
+	   			where receiver = #{memberID}
+	   			order by regist_date desc)
+	   			where rnum = 1
+   </select>
+
+	<delete id="deleteMessage" parameterType="Message">
+		delete from message
+		where sender = #{sender}
+		and receiver = #{receiver}
+	</delete>
+	
+	<select id="selectReceiver" resultType="_int">
+		select count(*)
+		from member
+		where member_id = #{memberID}
+	</select>
 
 </mapper>
