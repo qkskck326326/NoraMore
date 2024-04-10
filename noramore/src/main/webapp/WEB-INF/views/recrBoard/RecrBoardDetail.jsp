@@ -153,7 +153,7 @@ function selectrecrcomment() {
                 commentDiv.append(memberIdInput);
                 commentDiv.append(commentIdInput);
                 commentDiv.append(contextTextarea);  
-                if("${RecrBoard.memberId}" === "${sessionScope.loginMember.memberID}"){
+                if(comment.memberId === "${sessionScope.loginMember.memberID}"){
                 commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
                 commentDiv.append("<button onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
                 }

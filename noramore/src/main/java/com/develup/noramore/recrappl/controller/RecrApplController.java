@@ -64,7 +64,7 @@ public class RecrApplController {
 		  
 		  
 		  if(validate) {
-			  if(recrApplService.insertAppl(recrAppl) > 0) {		
+			  if(recrApplService.insertAppl(recrAppl) > 0 && recrBoardService.countAppl(recrAppl.getBoardId()) > 0) {		
 				  model.addAttribute("message", "신청이 완료되었습니다.");
 				  model.addAttribute("currentPage", page);
 				  model.addAttribute("categoryId", categoryId);
