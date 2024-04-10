@@ -459,7 +459,9 @@ textarea.commentForm:hover {
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
 						<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
-						<button class="whiteBtn" style="float: right;" onclick="closeRecr()">모집종료</button>
+						<c:if test="${RecrBoard.recrStatus eq '모집중'}">
+							<button class="whiteBtn" style="float: right;" onclick="closeRecr()">모집종료</button>
+						</c:if>
 						<div id="scrollableTable" style="width: 800px;overflow-y: auto;">
 						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
