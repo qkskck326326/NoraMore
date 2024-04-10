@@ -22,7 +22,7 @@ function showmodal(memberId){
 	 $.ajax({
 			url : "otherMember.do",  //DispatcherServlet로 보냄
 			type : "post",     
-			data: { memberId : memberId },
+			data: { memberId : memberId },  
 			dataType : "json",
 			success : function(data) {
 				console.log("success : " + data);   //String 리턴되온것을 Object로 받음
