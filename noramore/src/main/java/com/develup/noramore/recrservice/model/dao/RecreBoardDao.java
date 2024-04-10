@@ -89,6 +89,10 @@ public class RecreBoardDao {
 		return (ArrayList<RecrBoard>)list;
 	}
 
+	public int boardReport(int boardId) {
+		return SqlSessionTemplate.update("recrboard.boardReport", boardId);
+	}
+
 
 
 

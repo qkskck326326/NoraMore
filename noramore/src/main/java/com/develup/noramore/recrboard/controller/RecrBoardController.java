@@ -367,26 +367,30 @@ public class RecrBoardController {
 			HttpServletRequest request, HttpServletResponse response) {
 			
 			String articleId = "RecrBoardReport_" + boardId;
-			boolean isViewed = false;
-		// 쿠키에서 해당 게시물의 신고 여부를 확인
-		        Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
-		        if (viewCookie != null) {
-		            isViewed = true;
-		        }
+			boolean isReported = false;
+			// 쿠키에서 해당 게시물의 신고 여부를 확인
+			        Cookie viewCookie = WebUtils.getCookie(request, articleId);
+			        if (viewCookie != null) {
+			        	isReported = true;
+			        }
 
-		        if (!isViewed) {
-		            // 여기에 신고 증가 처리
-		            
+			        if (!isReported) {
+			            // 여기에 신고 증가 처리
+			            if(recrBoardService.boardReport(boardId) > 0) {
+			            	// 새 쿠키 생성 및 설정
+				            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+				            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
+				            newCookie.setPath("/");
+				            response.addCookie(newCookie);
+				            model.addAttribute("message", "신고 처리되었습니다.");
+			            }else {
+				            model.addAttribute("message", "신고 처리중 오류가 발생하였습니다.");
+			            }
 
-		            // 새 쿠키 생성 및 설정
-		            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
-		            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
-		            newCookie.setPath("/");
-		            response.addCookie(newCookie);
-		            model.addAttribute("message", "신고 처리되었습니다.");
-		        }else {
-		        	model.addAttribute("message", "이미 신고 처리된 게시물 입니다.");
-		        }
+			            
+			        }else {
+			        	model.addAttribute("message", "이미 신고 처리된 게시물 입니다.");
+			        }
 		
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
@@ -440,7 +444,7 @@ public class RecrBoardController {
 			categoryId = Integer.parseInt(categoryId1);
 		}
 		
-		String articleId = "RecrBoardCount_" + boardId;
+		String articleId = "RecrBoard" + boardId;
 		boolean isViewed = false;
 		
 		Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);

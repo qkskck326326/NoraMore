@@ -163,6 +163,12 @@
 		WHERE BOARD_ID = #{boardId}
 	</update>
 	
+	<update id="boardReport">
+		UPDATE RECR_BOARD 
+		SET REPORT_COUNT = REPORT_COUNT + 1 
+		WHERE BOARD_ID = #{boardId} 
+	</update>
+	
 	<delete id="deleteBoard" parameterType="_int">
 		DELETE FROM RECR_BOARD
 		WHERE BOARD_ID = #{boardId} 

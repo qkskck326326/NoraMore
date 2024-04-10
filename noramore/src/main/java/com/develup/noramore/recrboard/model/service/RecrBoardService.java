@@ -41,5 +41,7 @@ public interface RecrBoardService {
 	void upReadCount(int boardId);
 
 	ArrayList<RecrBoard> selectLocation(int categoryId);
+
+	int boardReport(int boardId);
 	
 }
