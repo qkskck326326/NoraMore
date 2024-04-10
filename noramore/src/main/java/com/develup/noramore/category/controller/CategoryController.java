@@ -1,16 +1,21 @@
 package com.develup.noramore.category.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.develup.noramore.category.model.service.CategoryService;
@@ -71,4 +76,41 @@ public class CategoryController {
 		return"common/categoryWriteForm";
 	}
 	
+	@RequestMapping(value="selectCategory.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String selecrCategory() {
+		ArrayList<Category> list = categoryService.selectCategory();
+		
+		JSONArray jarr = new JSONArray();
+		for(Category category : list) {
+			JSONObject job = new JSONObject();
+			job.put("categoryId", category.getCategoryId());
+			job.put("categoryName", category.getCategoryName());
+			
+			jarr.add(job);
+		}
+		
+		return jarr.toJSONString();
+	}//
+	
 }//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,6 +18,11 @@
 		order by CATEGORY_ID
 	</select>
 	
+	<select id="selectCategory" resultMap="categoryResultMap">
+		select CATEGORY_ID, CATEGORY_NAME from CATEGORY 
+		order by CATEGORY_ID
+	</select>
+	
 	<select id="nextCategoryId" resultType="_int">
 		select NVL(max(CATEGORY_ID), 0) +1 from CATEGORY
 	</select>

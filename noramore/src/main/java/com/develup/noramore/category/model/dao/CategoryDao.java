@@ -27,4 +27,9 @@ public class CategoryDao {
 		return sqlSessionTemplate.selectOne("category.nextCategoryId");
 	}
 
+	public ArrayList<Category> selectCategory() {
+		List<Category> list = sqlSessionTemplate.selectList("category.selectCategory");
+		return (ArrayList<Category>)list;
+	}
+
 }

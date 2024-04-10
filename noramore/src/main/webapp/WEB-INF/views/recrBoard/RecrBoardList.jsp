@@ -218,8 +218,8 @@ function changeFormAction() {
 
 		</table>
 		<br>
+		<c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
 	</section>
-
-	<c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
+	
 </body>
 </html>

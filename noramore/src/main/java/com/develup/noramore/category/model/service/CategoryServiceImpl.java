@@ -27,5 +27,10 @@ public class CategoryServiceImpl implements CategoryService{
 	public int nextCategoryId() {
 		return categoryDao.nextCategoryId();
 	}
+
+	@Override
+	public ArrayList<Category> selectCategory() {
+		return categoryDao.selectCategory();
+	}
 	
 }//
