@@ -37,6 +37,7 @@
 .statics th, .statics td {
     padding: 10px;
     border: 1px solid #ddd;
+    width: 50%;'
 }
 
 .statics th {
@@ -50,7 +51,7 @@ body {
 </style>
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
+
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
 <br><br><br><br>
 <h2 class="title">관리자 메인</h2>

@@ -93,7 +93,7 @@ public class AdminController {
 			return "admin/memManageView";
 		}else {
 			model.addAttribute("error", "Error : 회원 목록 조회 실패");
-			return "admin/memManageView";
+			return "common/error";
 		}
 
 	}
@@ -230,7 +230,7 @@ public class AdminController {
 			model.addAttribute("currentPage", currentPage);
 			return "admin/reportedMemView";
 		}else {
-			model.addAttribute("error", "Error : 신고 회원 목록 조회 실패");
+			model.addAttribute("message", "Error : 신고 회원 목록 조회 실패");
 			return "admin/reportedMemView";
 		}
 		

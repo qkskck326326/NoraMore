@@ -94,11 +94,10 @@
             background-color: #45a049;
         }
     </style>
-<c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
 </head>
 <body>
-<br><br><br><br><br>
+<br><br>
 <div class="container">
     <h2 class="title">신고된 회원</h2>
     <table>

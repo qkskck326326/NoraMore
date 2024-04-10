@@ -138,9 +138,8 @@ function dupFbCheck(){
 
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
-<br><br><br><br><br>
+<br><br>
 <h2 class="title" style="padding-top: 100px">금지어 관리</h2>
 
 		<div class="search" >

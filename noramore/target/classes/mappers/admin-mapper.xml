@@ -46,22 +46,20 @@
 		select (select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate - 1, 'YYYY-MM-DD')
-				and resign = 'N'
 				and admin_yn = 'N') as enroll_Yesterday ,
 				(select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
-				and resign = 'N'
 				and admin_yn = 'N')  as enroll_Today,
 				(select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate - 1, 'YYYY-MM-DD')
-				and resign = 'Y'
+				and resign is not null
 				and admin_yn = 'N')  as withdrawal_Yesterday, 
 				(select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
-				and resign = 'Y'
+				and resign is not null
 				and admin_yn = 'N')  as withdrawal_Today
 		from dual
 	</select>
