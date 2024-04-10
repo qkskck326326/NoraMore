@@ -58,13 +58,13 @@ public class RecrApplController {
 		  if(age > maxAgeCon || age < minAgeCon) {
 			  validate = false;
 		  }
-		  if(!(genderCon.equals(gender))){
+		  if(genderCon != null && !(gender.equals(genderCon))){
 			  validate = false;
 		  }
 		  
 		  
 		  if(validate) {
-			  if(recrApplService.insertAppl(recrAppl) > 0) {		
+			  if(recrApplService.insertAppl(recrAppl) > 0 && recrBoardService.countAppl(recrAppl.getBoardId()) > 0) {		
 				  model.addAttribute("message", "신청이 완료되었습니다.");
 				  model.addAttribute("currentPage", page);
 				  model.addAttribute("categoryId", categoryId);

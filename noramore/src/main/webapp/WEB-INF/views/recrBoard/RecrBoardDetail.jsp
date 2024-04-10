@@ -153,7 +153,7 @@ function selectrecrcomment() {
                 commentDiv.append(memberIdInput);
                 commentDiv.append(commentIdInput);
                 commentDiv.append(contextTextarea);  
-                if("${RecrBoard.memberId}" === "${sessionScope.loginMember.memberID}"){
+                if(comment.memberId === "${sessionScope.loginMember.memberID}"){
                 commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
                 commentDiv.append("<button onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
                 }
@@ -330,9 +330,14 @@ function updatecomment(commentId1, context1){
 	location.reload(); 
 }
 
-function showApplList(){
+function toggleApplList(){
 	var applList = document.getElementById("applList");
-        applList.style.display = "block";
+	if(applList.style.display == "none"){
+		applList.style.display = "block";
+	}else{
+		applList.style.display = "none";
+	}
+        
 }
 
 </script>
@@ -446,7 +451,7 @@ textarea.commentForm:hover {
 
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
-						<button class="whiteBtn" style="float: right;" onclick="showApplList()">모집목록 보기</button>
+						<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
 
 						<table id="applList" style='width: 600px; display: none;'>
 							<tr>

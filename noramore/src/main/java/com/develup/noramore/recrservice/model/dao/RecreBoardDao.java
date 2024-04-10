@@ -89,9 +89,12 @@ public class RecreBoardDao {
 		return (ArrayList<RecrBoard>)list;
 	}
 
-	public ArrayList<RecrBoard> selectRecrBoardId(String memberid) {
-		List<RecrBoard> list = SqlSessionTemplate.selectList("recrboard.selectRecrBoardId", memberid);
-		return (ArrayList<RecrBoard>)list;
+	public int boardReport(int boardId) {
+		return SqlSessionTemplate.update("recrboard.boardReport", boardId);
+	}
+
+	public int countAppl(int boardId) {
+		return SqlSessionTemplate.update("recrboard.countAppl", boardId);
 	}
 
 

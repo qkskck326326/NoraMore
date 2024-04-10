@@ -284,7 +284,7 @@ public class RecrBoardController {
 					e.printStackTrace();
 					model.addAttribute("message", "첨부파일 파일명 변환 중 에러가 발생했습니다. ");
 					model.addAttribute("categoryId", categoryId);
-					model.addAttribute("currentPage", page);
+					model.addAttribute("page", page);
 					return "recerBoarad/RecrBoardList";
 				}
 			} /// 파일명 바꾸기
@@ -322,12 +322,12 @@ public class RecrBoardController {
 
 		// 입력한 정보 update
 		if (recrBoardService.updateBoard(recrBoard) > 0) {
-			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("page", currentPage);
 			model.addAttribute("boardId", recrBoard.getBoardId());
 			model.addAttribute("categoryId", categoryId);
 			return "redirect: rbdetail.do";
 		} else {
-			model.addAttribute("currentPage", page);
+			model.addAttribute("page", page);
 			model.addAttribute("boardId", recrBoard.getBoardId());
 			model.addAttribute("message", "오류! 수정에 실패하였습니다");
 			model.addAttribute("categoryId", categoryId);
@@ -367,26 +367,30 @@ public class RecrBoardController {
 			HttpServletRequest request, HttpServletResponse response) {
 			
 			String articleId = "RecrBoardReport_" + boardId;
-			boolean isViewed = false;
-		// 쿠키에서 해당 게시물의 신고 여부를 확인
-		        Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
-		        if (viewCookie != null) {
-		            isViewed = true;
-		        }
+			boolean isReported = false;
+			// 쿠키에서 해당 게시물의 신고 여부를 확인
+			        Cookie viewCookie = WebUtils.getCookie(request, articleId);
+			        if (viewCookie != null) {
+			        	isReported = true;
+			        }
 
-		        if (!isViewed) {
-		            // 여기에 신고 증가 처리
-		            
+			        if (!isReported) {
+			            // 여기에 신고 증가 처리
+			            if(recrBoardService.boardReport(boardId) > 0) {
+			            	// 새 쿠키 생성 및 설정
+				            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+				            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
+				            newCookie.setPath("/");
+				            response.addCookie(newCookie);
+				            model.addAttribute("message", "신고 처리되었습니다.");
+			            }else {
+				            model.addAttribute("message", "신고 처리중 오류가 발생하였습니다.");
+			            }
 
-		            // 새 쿠키 생성 및 설정
-		            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
-		            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
-		            newCookie.setPath("/");
-		            response.addCookie(newCookie);
-		            model.addAttribute("message", "신고 처리되었습니다.");
-		        }else {
-		        	model.addAttribute("message", "이미 신고 처리된 게시물 입니다.");
-		        }
+			            
+			        }else {
+			        	model.addAttribute("message", "이미 신고 처리된 게시물 입니다.");
+			        }
 		
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
@@ -417,12 +421,14 @@ public class RecrBoardController {
 
 	// 글 수정 페이지로 이동
 	@RequestMapping("updateboard.do")
-	public String moveUpdateBoard(@RequestParam("boardId") String boardID, Model model, @RequestParam("categoryId") int categoryId) {
+	public String moveUpdateBoard(@RequestParam("boardId") String boardID, Model model, @RequestParam("categoryId") int categoryId, 
+									@RequestParam("page") int page) {
 		int boardId = Integer.parseInt(boardID);
 
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("page", page);
 		return "recrBoard/RecrBoardUpdateForm";
 	}
 
@@ -440,7 +446,7 @@ public class RecrBoardController {
 			categoryId = Integer.parseInt(categoryId1);
 		}
 		
-		String articleId = "RecrBoardCount_" + boardId;
+		String articleId = "RecrBoard" + boardId;
 		boolean isViewed = false;
 		
 		Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);

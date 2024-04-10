@@ -42,6 +42,8 @@ public interface RecrBoardService {
 
 	ArrayList<RecrBoard> selectLocation(int categoryId);
 
-	ArrayList<RecrBoard> selectRecrBoardId(String memberid);
+	int boardReport(int boardId);
+
+	int countAppl(int boardId);
 	
 }
