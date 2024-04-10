@@ -47,6 +47,21 @@ public class RecrApplController {
 		  
 		  int age = Period.between(birthLocalDate, currentDate).getYears();
 		  
+		  if(recrBoard.getRecrStatus() != "모집중") {
+			  model.addAttribute("message", "현재 모집중이 아닙니다.");
+			  model.addAttribute("currentPage", page);
+			  model.addAttribute("categoryId", categoryId);
+			  model.addAttribute("RecrBoard", recrBoard);
+			  return "recrBoard/RecrBoardDetail";
+		  }
+		  if(recrBoard.getNowRecr() >= recrBoard.getMaxRecr()) {
+			  model.addAttribute("message", "모집 인원이 가득 찼습니다.");
+			  model.addAttribute("currentPage", page);
+			  model.addAttribute("categoryId", categoryId);
+			  model.addAttribute("RecrBoard", recrBoard);
+			  return "recrBoard/RecrBoardDetail";
+		  }
+		  
 		  Boolean validate = true;
 		  if(recrApplService.searchAppl(recrAppl) > 0) {
 			  model.addAttribute("message", "이미 신청한 모집입니다.");

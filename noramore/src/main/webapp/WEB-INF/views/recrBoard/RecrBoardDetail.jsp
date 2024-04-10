@@ -452,7 +452,7 @@ textarea.commentForm:hover {
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
 						<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
-						<div id="scrollableTable" style="width: 600px; height: 200px; overflow-y: auto;">
+						<div id="scrollableTable" style="width: 800px;overflow-y: auto;">
 						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
 								<th width="150px">신청자ID</th>
@@ -464,16 +464,16 @@ textarea.commentForm:hover {
 									<th>신청자가 없습니다</th>
 								</tr>
 							</c:if>
-							<c:if test="${!empty applList}">
-								<tr>
-									<c:forEach var="appl" items="${applList}">
+							<c:if test="${!empty applList}">								
+								<c:forEach var="appl" items="${applList}">
+									<tr>
 										<th>${appl.memberId}</th>
 										<th><button
 												onclick="applyAppl('${appl.memberId}', ${appl.boardId})">수락</button></th>
 										<th><button
 												onclick="cancelAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
-									</c:forEach>
-								</tr>
+									</tr>
+								</c:forEach>								
 							</c:if>
 						</table>
 						</div>

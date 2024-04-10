@@ -212,7 +212,7 @@ function changeFormAction() {
 					<th>${rl.boardId}</th>
 					<th><a href="${rbd}">${rl.title}</a></th>
 					<th>${rl.memberId}</th>
-					<th>${rl.nowRecr}명 / ${rl.maxRecr}명</th>
+					<th>${rl.nowRecr}명 / ${rl.maxRecr}명 [${rl.recrStatus}]</th>
 					<th>${rl.readCount}</th>
 				</tr>
 			</c:forEach>

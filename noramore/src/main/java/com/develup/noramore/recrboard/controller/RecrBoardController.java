@@ -216,7 +216,7 @@ public class RecrBoardController {
 			model.addAttribute("message", " 글이 등록되었습니다.");
 			model.addAttribute("RecrBoard", recrBoard);
 			model.addAttribute("currentPage", page);
-			
+			model.addAttribute("categoryId", categoryId);
 			return "redirect:rblist.do";
 		} else {
 			model.addAttribute("categoryId", categoryId);
@@ -378,7 +378,7 @@ public class RecrBoardController {
 			            // 여기에 신고 증가 처리
 			            if(recrBoardService.boardReport(boardId) > 0) {
 			            	// 새 쿠키 생성 및 설정
-				            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+				            Cookie newCookie = new Cookie(articleId, "true");
 				            newCookie.setMaxAge(3 * 24 * 60 * 60); // 쿠키 유효 시간: 3일
 				            newCookie.setPath("/");
 				            response.addCookie(newCookie);
@@ -449,17 +449,17 @@ public class RecrBoardController {
 		String articleId = "RecrBoard" + boardId;
 		boolean isViewed = false;
 		
-		Cookie viewCookie = WebUtils.getCookie(request, "viewed_" + articleId);
+		Cookie viewCookie = WebUtils.getCookie(request, articleId);
         if (viewCookie != null) {
             isViewed = true;
         }
 
         if (!isViewed) {
-        	// 여기에 조회수 증가 처리
+        	// 조회수 증가 처리
         	recrBoardService.upReadCount(boardId);
         	
             // 새 쿠키 생성 및 설정
-            Cookie newCookie = new Cookie("viewed_" + articleId, "true");
+            Cookie newCookie = new Cookie(articleId, "true");
             newCookie.setMaxAge(24 * 60 * 60); // 쿠키 유효 시간: 24시간
             newCookie.setPath("/");
             response.addCookie(newCookie);
