@@ -183,7 +183,7 @@ $(function(){
 	<input  type="hidden" name="page" value="${page}">
 	
 	
-	<section id="write">
+	<section id="write" style="width: 800px;">
 		<h1>모집글</h1>
 		<div class="line"></div>
 		
@@ -198,10 +198,10 @@ $(function(){
 		
 		<div style="margin: 20px">			
 		    <p id="sDate" style="display: inline-block; width: 110px;">활동시작 날짜*</p>
-		    <input  type="date" name="recrActStartDate" style="display: inline-block; width: 200px;"> &nbsp;
+		    <input  type="date" name="recrActStartDate" style="display: inline-block; width: 120px;"> &nbsp;
 				
 		    <p id="eDate" style="display: inline-block; width: 110px;">활동마감 날짜*</p>
-		    <input type="date" name="recrActEndDate" style="display: inline-block;; width: 200px;">
+		    <input type="date" name="recrActEndDate" style="display: inline-block;; width: 120px;">
 		    
 		    <div>
 			    <div>
