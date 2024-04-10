@@ -33,7 +33,6 @@ public interface QnaService {
 	 int selectSearchContentCount(String keyword);
 	 int selectSearchDateCount(SearchDate date);
 	 
-	 int upCountComment(int boardId);
 	 int downCount(int boardId);
 
 	void countcoment(CommentQnaBoard commentQnaBoard);

@@ -101,11 +101,6 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.selectSearchDateCount(date);
 	}
 
-	@Override
-	public int upCountComment(int boardId) {
-		// TODO Auto-generated method stub
-		return qnaDao.upCountComment(boardId);
-	}
 
 	@Override
 	public int downCount(int boardId) {
