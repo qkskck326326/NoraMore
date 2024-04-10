@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 
-<%@ include file="/WEB-INF/views/common/sideSample.jsp"%> 
+<%-- <%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%> 
 
@@ -259,9 +259,10 @@
 		
 		
 			<div class="position2">
-        <p>정렬 기준</p>
+        <%--<p>정렬 기준</p> --%>
     <div class="dropdown">
         <select id="sortingSelect">
+        	<option value="index">정렬기준</option>
             <option value="recent">최신순</option>
             <option value="views">조회순</option>
             <option value="likes">좋아요순</option>
