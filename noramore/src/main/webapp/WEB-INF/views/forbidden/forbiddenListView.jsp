@@ -78,27 +78,8 @@ function dupFbCheck(){
 	        success: function(result) {
 	            if (result == "delete") {
 	                alert("금지어 < " + fbWord + " > 가 삭제되었습니다");
-	                
-	                // 삭제 후, 현재 페이지와 검색어를 유지한 채로 검색을 다시 요청
-	                var currentPage = $("#currentPage").val(); // 현재 페이지 정보를 가져옴
-	                var keyword = $("#keyword").val(); // 검색어를 가져옴
-
-	                $.ajax({
-	                    url: "fbsearch.do",
-	                    type: "GET", // 이 부분은 GET 요청으로 변경
-	                    data: {
-	                        action: "search", // 적절한 액션 값 전달
-	                        keyword: keyword,
-	                        page: currentPage
-	                    },
-	                    success: function(response) {
-	                        // 성공 시, 검색 결과를 업데이트
-	                        $("#yourSearchResultContainer").html(response);
-	                    },
-	                    error: function(jqXHR, textStatus, errorThrown) {
-	                        console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-	                    }
-	                });
+	                location.reload();
+	              
 	            } else {
 	                alert("오류! 금지어 삭제를 실패했습니다.");
 	            }
@@ -138,11 +119,9 @@ function dupFbCheck(){
 
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
-<br><br><br><br><br>
 <h2 class="title" style="padding-top: 100px">금지어 관리</h2>
-
+<div class="container">
 		<div class="search" >
 		<a class="listRollback" href="${ pageContext.servletContext.contextPath }/fblist.do">전체 목록</a>
 		&nbsp; &nbsp;
@@ -188,7 +167,7 @@ function dupFbCheck(){
 				</tr>
 			</c:forEach>
 		</table>
-
+</div>
 <br>
 <c:import url="/WEB-INF/views/common/pagingView.jsp" />
 </body>

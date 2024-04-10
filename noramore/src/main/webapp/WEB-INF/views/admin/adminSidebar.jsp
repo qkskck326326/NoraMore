@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="resources/css/side.css" rel="stylesheet">
+<link href="resources/css/adminSidebar.css" rel="stylesheet">
 <script src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
-
 <title>noramore</title>
 </head>
 <body>
@@ -21,7 +19,8 @@
 			</section>
 		</section>
 		<ul>
-			<li><a href="${ pageContext.servletContext.contextPath }/adminPage.do"><i class="fa-solid fa-cat"></i> 메인으로</a> <br>
+			<li><a href="${ pageContext.servletContext.contextPath }/home.do"><i class="fa-solid fa-cat"></i> 홈으로</a> <br>
+			<li><a href="${ pageContext.servletContext.contextPath }/adminPage.do"><i class="fa-solid fa-cat"></i> 관리자 홈</a> <br>
 			<li><a href="${ pageContext.servletContext.contextPath }/memberlist.do"><i class="fa-solid fa-cat"></i> 회원</a>
 				<ul>
 					<li><a href="${ pageContext.servletContext.contextPath }/memberlist.do">회원 목록</a></li>

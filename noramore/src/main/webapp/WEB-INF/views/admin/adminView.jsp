@@ -9,6 +9,12 @@
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 <style type="text/css">
 
+        body {
+            font-family: Arial, sans-serif;
+            margin-top: 300px;
+            padding: 0;
+            background-color: #E0F8EC;
+        }
 .container {
     position: relative;
     width: 100%;
@@ -37,25 +43,48 @@
 .statics th, .statics td {
     padding: 10px;
     border: 1px solid #ddd;
+    width: 50%;
 }
 
 .statics th {
     background-color: #f2f2f2;
 }
 
-body {
-    text-align: center; /* 내부 요소들을 가로로 가운데 정렬 */
+.linkbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 }
 
+.linkbox .box {
+    width: 150px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin: 0 10px;
+}
+
+.linkbox .box a {
+    display: block;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.linkbox .box a:hover {
+    color: #007bff;
+}
 </style>
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
-<br><br><br><br>
-<h2 class="title">관리자 메인</h2>
-<br><br>
 <div class="container">
+<p><br><p><br>
+<h1 class="title" sle="top-margin:100px;">관리자 메인</h1>
+<br><br>
     <div class="statics">
         <table>
             <tr>
@@ -81,18 +110,33 @@ body {
                 <td>${ flow.withdrawalToday } 명</td>
             </tr>
         </table>
-                 <table>
+        <table>
             <tr>
                 <th>신고된 회원</th>
                 <td>${ mlist } 명</td>
             </tr>
         </table>
-         <table>
+        <table>
             <tr>
                 <th>신고된 게시글</th>
                 <td>${ blist } 개</td>
             </tr>
         </table>
+    </div>
+</div>
+<br><br><br>
+<div class="linkbox">
+    <div class="box">
+        <a href="${ pageContext.servletContext.contextPath }/memberlist.do">회원</a>
+    </div>
+    <div class="box">
+        <a href="${ pageContext.servletContext.contextPath }/reportedBoardlist.do">신고된 게시글</a>
+    </div>
+    <div class="box">
+        <a href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a>
+    </div>
+    <div class="box">
+        <a href="${ pageContext.servletContext.contextPath }/qlist.do">QnA</a>
     </div>
 </div>
 </body>

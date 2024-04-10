@@ -46,22 +46,20 @@
 		select (select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate - 1, 'YYYY-MM-DD')
-				and resign = 'N'
 				and admin_yn = 'N') as enroll_Yesterday ,
 				(select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
-				and resign = 'N'
 				and admin_yn = 'N')  as enroll_Today,
 				(select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate - 1, 'YYYY-MM-DD')
-				and resign = 'Y'
+				and resign is not null
 				and admin_yn = 'N')  as withdrawal_Yesterday, 
 				(select count(*)
 				from member
 				where to_char(regist_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
-				and resign = 'Y'
+				and resign is not null
 				and admin_yn = 'N')  as withdrawal_Today
 		from dual
 	</select>
@@ -130,7 +128,7 @@
 		<select id="selectSearchEnrollDateCount" resultType="_int" parameterType="SearchDate">
 			select count(*) from member 
 			where admin_yn = 'N'
-			and enroll_date between #{ begin } and #{ end }
+			and regist_date between #{ begin } and #{ end }
 		</select>
 		
 		<!-- 관리자용 회원 목록 검색용 쿼리 시작 -->
@@ -140,7 +138,7 @@
 				RESIGN, SIGNTYPE, ACT_LIMIT, regist_date, heart_beat, grade, article_count, report_count
 				 from (select * from member join member_add using (member_id)
 					  where admin_yn = 'N' and member_id like '%' || #{ keyword } || '%'
-					  order by enroll_date desc))
+					  order by regist_date desc))
 			where rnum between #{ startRow } and #{ endRow }
 		</select>
 		
@@ -149,7 +147,7 @@
 			from (select rownum rnum, MEMBER_ID, MEMBER_NICNAME, MEMBER_NAME, BIRTH, GENDER, EMAIL, ADDRESS, 
 				RESIGN, SIGNTYPE, ACT_LIMIT, regist_date, heart_beat, grade, article_count, report_count
 				 from (select * from member join member_add using (member_id) where admin_yn = 'N' and gender = #{ keyword }
-					  order by enroll_date desc))
+					  order by regist_date desc))
 			where rnum between #{ startRow } and #{ endRow }
 		</select>
 
@@ -166,7 +164,7 @@
 						<if test="keyword != 60">
 							and age between #{ age } and #{ age } + 9
 						</if>	
-					  order by enroll_date desc))
+					  order by regist_date desc))
 			where rnum between #{ startRow } and #{ endRow }	
 		</select>
 		
@@ -176,7 +174,7 @@
 				RESIGN, SIGNTYPE, ACT_LIMIT, regist_date, heart_beat, grade, article_count, report_count
 				 from (select * from member join member_add using (member_id)
 					  where admin_yn = 'N' and enroll_date between #{ begin } and #{ end }
-					  order by enroll_date desc))
+					  order by regist_date desc))
 			where rnum between #{ startRow } and #{ endRow }
 		</select>
 	

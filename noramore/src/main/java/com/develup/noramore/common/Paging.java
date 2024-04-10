@@ -28,13 +28,13 @@ public class Paging implements java.io.Serializable {
 		// 총 페이지수 계산 :
 		// 목록의 총 갯수가 21개인 경우, 한 페이지에 출력할 목록이 10개인 경우 총 페이지 수 == 3
 		//this.maxPage = (int)((double)listCount / limit + 0.9);
-		this.maxPage = (int)Math.ceil((double)listCount / limit);
+		this.maxPage = (int)((double)listCount / limit + 0.9);
 		
 		// 뷰 페이지 출력에 사용할 페이지 그룹의 시작값 지정
 		// 페이지 그룹의 페이지 숫자를 10개씩 출력한다면,
 		// 현재 페이지가 3이면 페이지 그룹은 1페이지부터 10페이지가 됨
 		// 현재 페이지가 25 페이지이면 페이지 그룹은 21~30 페이지가 된다
-		this.startPage = ((int)Math.ceil((double)currentPage / limit) -1 ) * limit + 1;
+		this.startPage = (int)(((double)currentPage / limit + 0.9) -1 ) * limit + 1;
 		this.endPage = startPage + limit -1;
 		
 		// 마지막 그룹의 끝값은 마지막 페이지와 맞춘다
