@@ -127,7 +127,7 @@
 
 	<select id="selectRecrBoardId" parameterType="String"
 		resultMap="resultRecr">
-		SELECT * FROM recr_board
+		SELECT * FROM recr_board 
 		WHERE MEMBER_ID = #{ memberid }
 	</select>
 
