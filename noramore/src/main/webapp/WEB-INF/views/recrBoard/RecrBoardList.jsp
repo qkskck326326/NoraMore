@@ -43,15 +43,19 @@ window.onload = function(){
 	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 	    level: 3 // 지도의 확대 레벨
 	};  
-
+	
 	//지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption); 
-
+	
+	
+	
 
 	//주소로부터 좌표를 얻어 마커를 표시하는 함수
 	function displayMarkers() {
 	var geocoder = new kakao.maps.services.Geocoder();
 	
+	
+	// 모집게시판에 등록한 조수들 표시
 	var locationList = JSON.parse('${locationListJSON}');
 	
 	locationList.forEach(function(RecrBoard) {
@@ -72,6 +76,25 @@ window.onload = function(){
 	        } 
 	    });
 	});
+	
+	// 집주소 마크
+	geocoder.addressSearch("${sessionScope.loginMember.address}", function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            map.setCenter(coords);
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="padding:5px;">우리집</div>'
+            });
+            infowindow.open(map, marker);
+        } 
+    });
+	
+	
 	
 	}
 	
@@ -126,10 +149,10 @@ function changeFormAction() {
 </style>
 </head>
 <body>
-	<section id="board">
+	<section id="board" style="margin-left: 200px">
 		<h1>모집게시판 전체 목록</h1>
 	
-	<div id="map" style="width:100%;height:350px;"></div>   
+	<div id="map" style="width:1200px;height:350px;"></div>   
 
 	<!-- <div class="dropdown">
 		    <button class="dropbtn" id="category" name="category" value="">Dropdown</button>
@@ -189,7 +212,7 @@ function changeFormAction() {
 					<th>${rl.boardId}</th>
 					<th><a href="${rbd}">${rl.title}</a></th>
 					<th>${rl.memberId}</th>
-					<th>${rl.nowRecr}명 / ${rl.maxRecr}명</th>
+					<th>${rl.nowRecr}명 / ${rl.maxRecr}명 [${rl.recrStatus}]</th>
 					<th>${rl.readCount}</th>
 				</tr>
 			</c:forEach>

@@ -14,7 +14,7 @@
 
 	
 	<insert id="insertAppl" parameterType="RecrAppl">
-		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID) VALUES (#{boardId}, #{memberId})
+		INSERT INTO RECR_APPL (BOARD_ID, MEMBER_ID, RECR_STATE, REGIST_DATE, LAST_UPD_DT) VALUES (#{boardId}, #{memberId}, 1, SYSDATE, SYSDATE)
 	</insert>
 	
 	<update id="cancelAppl">

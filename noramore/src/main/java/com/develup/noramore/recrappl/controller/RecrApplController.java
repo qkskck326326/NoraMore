@@ -47,35 +47,50 @@ public class RecrApplController {
 		  
 		  int age = Period.between(birthLocalDate, currentDate).getYears();
 		  
+		  if(recrBoard.getRecrStatus() != "모집중") {
+			  model.addAttribute("message", "현재 모집중이 아닙니다.");
+			  model.addAttribute("currentPage", page);
+			  model.addAttribute("categoryId", categoryId);
+			  model.addAttribute("boardId", recrBoard.getMemberId());
+			  return "redirect:rbdetail.do";
+		  }
+		  if(recrBoard.getNowRecr() >= recrBoard.getMaxRecr()) {
+			  model.addAttribute("message", "모집 인원이 가득 찼습니다.");
+			  model.addAttribute("currentPage", page);
+			  model.addAttribute("categoryId", categoryId);
+			  model.addAttribute("boardId", recrBoard.getMemberId());
+			  return "redirect:rbdetail.do";
+		  }
+		  
 		  Boolean validate = true;
 		  if(recrApplService.searchAppl(recrAppl) > 0) {
 			  model.addAttribute("message", "이미 신청한 모집입니다.");
 			  model.addAttribute("currentPage", page);
 			  model.addAttribute("categoryId", categoryId);
-			  model.addAttribute("RecrBoard", recrBoard);
-			  return "recrBoard/RecrBoardDetail";
+			  model.addAttribute("boardId", recrBoard.getMemberId());
+			  return "redirect:rbdetail.do";
 		  }
 		  if(age > maxAgeCon || age < minAgeCon) {
 			  validate = false;
 		  }
-		  if(!(genderCon.equals(gender))){
+		  if(genderCon != null && !(gender.equals(genderCon))){
 			  validate = false;
 		  }
 		  
 		  
 		  if(validate) {
-			  if(recrApplService.insertAppl(recrAppl) > 0) {		
+			  if(recrApplService.insertAppl(recrAppl) > 0 && recrBoardService.countAppl(recrAppl.getBoardId()) > 0) {		
 				  model.addAttribute("message", "신청이 완료되었습니다.");
 				  model.addAttribute("currentPage", page);
 				  model.addAttribute("categoryId", categoryId);
-				  model.addAttribute("RecrBoard", recrBoard);
+				  model.addAttribute("boardId", recrBoard.getMemberId());
 				  return "recrBoard/RecrBoardDetail";			  
 			  }else {
 				  model.addAttribute("message", "error! 신청에 실패하였습니다");
 				  model.addAttribute("currentPage", page);
 				  model.addAttribute("categoryId", categoryId);
-				  model.addAttribute("RecrBoard", recrBoard);
-				  return "recrBoard/RecrBoardDetail";
+				  model.addAttribute("boardId", recrBoard.getMemberId());
+				  return "redirect:rbdetail.do";
 			  }
 		  }else {
 			  model.addAttribute("message", "신청에 실패하였습니다! 모집 조건을 확인해 주세요");
@@ -93,6 +108,12 @@ public class RecrApplController {
 		  model.addAttribute("categoryId", categoryId);
 		  model.addAttribute("boardId", recrAppl.getBoardId());
 		  model.addAttribute("page", page);
+		  RecrBoard recrBoard = recrBoardService.selectBoardId(recrAppl.getBoardId());
+		  
+		  if(recrBoard.getNowRecr() >= recrBoard.getMaxRecr()) {
+			  model.addAttribute("message", "모집 인원이 가득 찼습니다.");
+			  return"redirect:rbdetail.do";
+		  }
 		  
 		  if(recrApplService.applyAppl(recrAppl) > 0) {
 			  model.addAttribute("message", "모집 신청을 수락하였습니다.");

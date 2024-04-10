@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>
-<c:if test="${!empty requestScope.message}">
+<c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
 <c:if test="${!empty requestScope.message}">
-	<c:set var="message" value="${requestScope.message}" />
+	<c:set var="message" value="${message}" />
 </c:if>
+ <c:out value="${message}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +38,11 @@
 	<c:param name="categoryId" value="${categoryId}" />
 </c:url>
 <c:url var="rbreport" value="rbreport.do">
+	<c:param name="page" value="${page}" />
+	<c:param name="categoryId" value="${categoryId}" />
+	<c:param name="boardId" value="${RecrBoard.boardId}" />
+</c:url>
+<c:url var="closeRecr" value="closerecr.do">
 	<c:param name="page" value="${page}" />
 	<c:param name="categoryId" value="${categoryId}" />
 	<c:param name="boardId" value="${RecrBoard.boardId}" />
@@ -76,11 +81,6 @@ async function translateText() {
 }
 
 
-
-
-
-
-
 function toggleCommentForm() {
     // writecommentForm 요소를 선택
     var writecommentForm = document.getElementById("writecommentForm");
@@ -107,17 +107,14 @@ function toggleCommentForm() {
     }
 }
 
-function Alert(message) {
-    alert(message);
-}
 
 // 페이지 로딩 시 alert 창 띄우기
 window.onload = function() {
 	selectrecrcomment();
-    var message = "${message}";
-    if (message) {
-        alert(message);
-    }
+	var message = "${message}";
+	if(message != ""){
+		alert(message);
+	}     
 }; 
 
 
@@ -153,7 +150,7 @@ function selectrecrcomment() {
                 commentDiv.append(memberIdInput);
                 commentDiv.append(commentIdInput);
                 commentDiv.append(contextTextarea);  
-                if("${RecrBoard.memberId}" === "${sessionScope.loginMember.memberID}"){
+                if(comment.memberId === "${sessionScope.loginMember.memberID}"){
                 commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
                 commentDiv.append("<button onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
                 }
@@ -330,9 +327,23 @@ function updatecomment(commentId1, context1){
 	location.reload(); 
 }
 
-function showApplList(){
+function toggleApplList(){
 	var applList = document.getElementById("applList");
-        applList.style.display = "block";
+	if(applList.style.display == "none"){
+		applList.style.display = "block";
+	}else{
+		applList.style.display = "none";
+	}
+         
+}
+
+function closeRecr() {
+    const confirmation = confirm("모집을 종료하시겠습니까?");
+    if (confirmation) {
+        location.href="${closeRecr}";
+    } else {
+        return;
+    }
 }
 
 </script>
@@ -432,6 +443,7 @@ textarea.commentForm:hover {
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
 				<div style="text-align: left; margin-bottom: 10px;">
 					<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
+					
 					<button onclick="translateText()">translate context</button>
 					<c:if
 						test="${sessionScope.loginMember.memberID ne RecrBoard.memberId}">
@@ -446,8 +458,11 @@ textarea.commentForm:hover {
 
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
-						<button class="whiteBtn" style="float: right;" onclick="showApplList()">모집목록 보기</button>
-
+						<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
+						<c:if test="${RecrBoard.recrStatus eq '모집중'}">
+							<button class="whiteBtn" style="float: right;" onclick="closeRecr()">모집종료</button>
+						</c:if>
+						<div id="scrollableTable" style="width: 800px;overflow-y: auto;">
 						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
 								<th width="150px">신청자ID</th>
@@ -459,19 +474,19 @@ textarea.commentForm:hover {
 									<th>신청자가 없습니다</th>
 								</tr>
 							</c:if>
-							<c:if test="${!empty applList}">
-								<tr>
-									<c:forEach var="appl" items="${applList}">
+							<c:if test="${!empty applList}">								
+								<c:forEach var="appl" items="${applList}">
+									<tr>
 										<th>${appl.memberId}</th>
 										<th><button
 												onclick="applyAppl('${appl.memberId}', ${appl.boardId})">수락</button></th>
 										<th><button
 												onclick="cancelAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
-									</c:forEach>
-								</tr>
+									</tr>
+								</c:forEach>								
 							</c:if>
 						</table>
-
+						</div>
 					</c:if>
 
 				</div>

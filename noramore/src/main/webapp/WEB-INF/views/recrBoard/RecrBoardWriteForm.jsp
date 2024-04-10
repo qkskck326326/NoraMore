@@ -4,8 +4,11 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="categoryId" value="1"/>
-<c:if test="${!empty requestScope.message}">
+<c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
+</c:if>
+<c:if test="${!empty requestScope.page}">
+	<c:set var="page" value="${requestScope.page}" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -19,7 +22,7 @@
 
 
 function sample4_execDaumPostcode() {
-    new daum.Postcode({
+	new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -43,30 +46,10 @@ function sample4_execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('searchAddress').value = data.zonecode;
+            document.getElementById("searchAddress").value = roadAddr;
             document.getElementById("searchAddress").value = data.jibunAddress;
-            
-            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-            if(roadAddr !== ''){
-                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-            } else {
-                document.getElementById("sample4_extraAddress").value = '';
-            }
-
-            var guideTextBox = document.getElementById("guide");
-            // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-            if(data.autoRoadAddress) {
-                var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                guideTextBox.style.display = 'block';
-
-            } else if(data.autoJibunAddress) {
-                var expJibunAddr = data.autoJibunAddress;
-                guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                guideTextBox.style.display = 'block';
-            } else {
-                guideTextBox.innerHTML = '';
-                guideTextBox.style.display = 'none';
-            }
+       
         }
     }).open();
 }
@@ -183,7 +166,7 @@ $(function(){
 	<input  type="hidden" name="page" value="${page}">
 	
 	
-	<section id="write">
+	<section id="write" style="width: 800px;">
 		<h1>모집글</h1>
 		<div class="line"></div>
 		
@@ -198,10 +181,10 @@ $(function(){
 		
 		<div style="margin: 20px">			
 		    <p id="sDate" style="display: inline-block; width: 110px;">활동시작 날짜*</p>
-		    <input  type="date" name="recrActStartDate" style="display: inline-block; width: 200px;"> &nbsp;
+		    <input  type="date" name="recrActStartDate" style="display: inline-block; width: 120px;"> &nbsp;
 				
 		    <p id="eDate" style="display: inline-block; width: 110px;">활동마감 날짜*</p>
-		    <input type="date" name="recrActEndDate" style="display: inline-block;; width: 200px;">
+		    <input type="date" name="recrActEndDate" style="display: inline-block;; width: 120px;">
 		    
 		    <div>
 			    <div>
@@ -224,14 +207,14 @@ $(function(){
 
 		</div>
 		
-		<p>장소</p>
+		<p>활동 장소</p>
 		<div style="display: flex; align-items: center;">
     		<input type="text" placeholder="주소를 입력해주세요" id="searchAddress" name="recrLocation" readonly 
     		style="width: 100%; height: 45px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px;">
    			<button style="width: 150px; height: 45px; margin-left: 10px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px; font-size: 16px;
     font-weight: bold;" onclick="sample4_execDaumPostcode(); return false;" >주소 검색</button>
 		</div>
-		<button type="submit" id="savebutton" onclick="insertRecrBoard()">글쓰기</button>
+		<button type="submit" id="savebutton" onclick="insertRecrBoard(); return false;">글쓰기</button>
 	</section>
 </form>
 
