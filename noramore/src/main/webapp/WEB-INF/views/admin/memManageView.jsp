@@ -155,31 +155,7 @@
          }
      });
  }
- window.onload = function() {
-	    // URL의 쿼리 문자열에서 keyword 값을 가져옴
-	    var urlParams = new URLSearchParams(window.location.search);
-	    var keyword = urlParams.get('keyword');
 
-	    // 가져온 keyword 값을 입력 필드에 설정
-	    if (keyword) {
-	        document.getElementById('memsearch').value = keyword;
-	    }
-	}
-
-	// 검색어 입력 필드가 변경될 때 실행되는 함수
-	document.getElementById('memsearch').addEventListener('input', function() {
-	    // 입력 필드의 값
-	    var keyword = this.value;
-
-	    // 현재 URL의 쿼리 문자열을 가져옴
-	    var urlParams = new URLSearchParams(window.location.search);
-	    
-	    // 검색어를 쿼리 문자열에 추가 또는 업데이트
-	    urlParams.set('keyword', keyword);
-
-	    // 변경된 쿼리 문자열을 현재 페이지의 URL에 적용하여 업데이트
-	    history.replaceState(null, null, "?" + urlParams.toString());
-	});
 </script>
 </head>
 <body>
@@ -188,16 +164,14 @@
     <h2 class="title">전체 회원</h2>
     <div class="search-form">
     	<a class="listRollback" href="${ pageContext.servletContext.contextPath }/memberlist.do">전체 목록</a>&nbsp; &nbsp;
-        <form class="form" action="memSearch.do">
-            <input type="hidden" name="action" value="member">
-            <select>
+        <form class="form" action="memSearch.do" >
+           	<select name="action">
                 <option value="id">아이디</option>
                 <option value="gender">성별</option>
-                <option value="age">나이</option>
                 <option value="enrolldate">가입일자</option>
             </select>
             <input type="search" name="keyword" id="memsearch" placeholder="검색할 회원 정보를 입력하세요">
-            <input type="submit" class="searchMem" value="검색">
+            <input type="submit" class="searchMem" value="검 색">
             <select name="limit">
                 <option value="10" selected>10</option>
                 <option value="15">15</option>
@@ -221,7 +195,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.mlist}" var="a">
+        <c:forEach items="${requestScope.list}" var="a">
             <tr>
                 <td>${a.grade}</td>
                 <td>${a.memberID}</td>

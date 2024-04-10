@@ -65,7 +65,7 @@ public class AdminController {
 
 	//회원 목록 조회
 	@RequestMapping("memberlist.do")
-	public String selectMemberManageList(HttpServletRequest request,
+	public String selectMemberManageList(
 			@RequestParam(name="page", required=false) String page,
 			 @RequestParam(name="limit", required=false) String slimit,  Model model) {
 		
@@ -82,12 +82,12 @@ public class AdminController {
 		 int listCount = adminService.selectListCount(); //페이징 계산 처리 실행
 		 Paging paging = new Paging(listCount, currentPage, limit, "memberlist.do");
 		 paging.calculate();
-		 
+		 System.out.println(paging.getUrlMapping());
 		 //목록 조회
-		List<ReportMember> mlist = adminService.selectMemList(paging);
-		
-		if(mlist != null & mlist.size() >0) {
-			model.addAttribute("mlist", mlist);
+		List<ReportMember> list = adminService.selectMemList(paging);
+
+		if(list != null & list.size() >0) {
+			model.addAttribute("list", list);
 			model.addAttribute("paing", paging);
 			model.addAttribute("currentPage", currentPage);
 			return "admin/memManageView";
@@ -131,16 +131,14 @@ public class AdminController {
 		if(request.getParameter("limit") != null) {
 			limit = Integer.parseInt(request.getParameter("limit"));
 		}
-		
+		System.out.println(action);
 		//총 페이지수 계산을 위해 검색 결과가 적용된 총 목록 갯수 조회
 		int listCount = 0;
 		switch(action) {
 		case "id":  		
-			listCount = adminService.selectSearchMemberIdCount(keyword);  break;
+			listCount = adminService.selectSearchMemberIdCount(keyword); System.out.println(listCount); break;
 		case "gender":  	
 			listCount = adminService.selectSearchGenderCount(keyword);  break;
-		case "age":  		
-			listCount = adminService.selectSearchAgeCount(Integer.parseInt(keyword));  break;
 		case "enrolldate": 
 			listCount = adminService.selectSearchEnrollDateCount(searchDate);  break;
 		}
@@ -162,8 +160,6 @@ public class AdminController {
 						list = adminService.selectSearchMemberId(search);  break;
 		case "gender":  	search.setKeyword(keyword);
 						list = adminService.selectSearchGender(search);  break;
-		case "age":  		search.setAge(Integer.parseInt(keyword));
-						list = adminService.selectSearchAge(search);  break;
 		case "enrolldate":  search.setBegin(Date.valueOf(begin));
 		                search.setEnd(Date.valueOf(end));
 						list = adminService.selectSearchEnrollDate(search);  break;
@@ -204,7 +200,7 @@ public class AdminController {
 	
 	//신고 회원 목록 조회
 	@RequestMapping("reportedMemlist.do")
-	public String selectReportedMemList(HttpServletRequest request,
+	public String selectReportedMemList(
 			@RequestParam(name="page", required=false) String page, 
 			@RequestParam(name="limit", required=false) String slimit, Model model) {
 		 int currentPage = 1;
@@ -222,10 +218,10 @@ public class AdminController {
 		 paging.calculate();
 		 
 		 //목록 조회
-		List<ReportMember> mlist = adminService.selectReportedMemList(paging);
+		List<ReportMember> list = adminService.selectReportedMemList(paging);
 		
-		if(mlist != null & mlist.size() >0) {
-			model.addAttribute("mlist", mlist);
+		if(list != null & list.size() >0) {
+			model.addAttribute("list", list);
 			model.addAttribute("paing", paging);
 			model.addAttribute("currentPage", currentPage);
 			return "admin/reportedMemView";
@@ -239,7 +235,7 @@ public class AdminController {
 	
 	//신고 게시글 목록 조회
 	@RequestMapping("reportedBoardlist.do")
-	public String selectRecrBoardManageList(HttpServletRequest request,
+	public String selectRecrBoardManageList(
 			@RequestParam(name="page", required=false) String page, 
 			@RequestParam(name="limit", required=false) String slimit, Model model) {
 
@@ -281,7 +277,7 @@ public class AdminController {
 	
 	//회원 활동 제한
 	@RequestMapping(value="restrict.do", method=RequestMethod.POST)
-	public void updateRestrict(HttpServletRequest request,
+	public void updateRestrict(
 			@RequestParam("memberID") String memberID, 
 			@RequestParam("restrict") String restrict, HttpServletResponse response) throws IOException {
 
@@ -305,7 +301,7 @@ public class AdminController {
 	
 	//회원 활동 제한 해제
 	@RequestMapping(value="restrictrollback.do", method=RequestMethod.POST)
-	public void rollbackRestrict(HttpServletRequest request,
+	public void rollbackRestrict(
 			@RequestParam("memberID") String memberID, 
 			@RequestParam("restrict") String restrict, HttpServletResponse response) throws IOException {
 

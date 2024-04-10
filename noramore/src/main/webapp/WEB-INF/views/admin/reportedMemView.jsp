@@ -113,7 +113,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${ requestScope.mlist }" var="a">
+            <c:forEach items="${ requestScope.list }" var="a">
                 <tr>
                	 	<td>${ a.grade }</td>
                     <td>${ a.memberID }</td>

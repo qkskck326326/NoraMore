@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
     <header id="header" style="height: 90px">
         <c:if test="${ empty sessionScope.loginMember }">
             <div class="header-left">

@@ -19,7 +19,8 @@
 			</section>
 		</section>
 		<ul>
-			<li><a href="${ pageContext.servletContext.contextPath }/adminPage.do"><i class="fa-solid fa-cat"></i> 메인으로</a> <br>
+			<li><a href="${ pageContext.servletContext.contextPath }/home.do"><i class="fa-solid fa-cat"></i> 홈으로</a> <br>
+			<li><a href="${ pageContext.servletContext.contextPath }/adminPage.do"><i class="fa-solid fa-cat"></i> 관리자 홈</a> <br>
 			<li><a href="${ pageContext.servletContext.contextPath }/memberlist.do"><i class="fa-solid fa-cat"></i> 회원</a>
 				<ul>
 					<li><a href="${ pageContext.servletContext.contextPath }/memberlist.do">회원 목록</a></li>
