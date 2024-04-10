@@ -2,12 +2,19 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
 @font-face {
-	font-family: 'codropsicons';
-	src:url('../fonts/codropsicons/codropsicons.eot');
-	src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/codropsicons/codropsicons.woff') format('woff'),
-		url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
-		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
+	font-family: 'SF_IceLemon';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_IceLemon.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'ELAND_Choice_M';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff')
+		format('woff');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -21,9 +28,11 @@ body {
 	background: #ffffff;
 }
 
-a {
-	color: #888;
-	text-decoration: none;
+a {	
+    font-family: 'ELAND_Choice_M';
+    font-size: 33px;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 a:hover,

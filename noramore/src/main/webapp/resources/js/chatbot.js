@@ -53,8 +53,15 @@ function generateResponse(input, checkedItems) {
     } else if (input.includes("오늘 날씨")) {
         response = "오늘의 날씨는 맑습니다. 🌞";
     } else if (input.includes("좋아하는 음식")) {
-        response = "저는 피자를 좋아해요! 🍕";
-    }  else {
+        response = "저는 피자를 좋아해요! ";
+    } else if (input.includes("카테고리 추천")) {
+        response = "야외활동과 실내활동 중 어떤 것을 선호하시나요? ";
+    }else if (input.includes("야외활동")) {
+        response = "저희 사이트의 항목 중 야외활동은 사이클, 수상레져, 등산 등이 있습니다.";
+    }else if (input.includes("실내활동")) {
+        response = "저희 사이트의 항목 중 야외활동은 헬스, 클라이밍, 실내서핑 등이 있습니다";
+    }  
+     else {
         // Default response
         const responses = [
             "정확한 질문을 입력해주세요"
