@@ -94,13 +94,8 @@ public class QnaDao {
 	}
 
 	public int downCount(int boardId) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public int upCountComment(int boardId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

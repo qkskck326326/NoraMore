@@ -14,13 +14,15 @@
 		<result property="lastUpdDt" column="LAST_UPD_DT" />
 		<result property="originalFilePath" column="ORIGINAL_FILENAME" />
 		<result property="renameFilePath" column="RENAME_FILENAME" />
+		<result property="renameFilePath" column="RENAME_FILENAME" />
+		<result property="commentCount" column="COMMENT_COUNT" />
 	</resultMap>
 
 	<update id="countcoment" parameterType="_int">
 		UPDATE QNA_BOARD
 		SET COMMENT_COUNT = (
 		    SELECT COUNT(*)
-		    FROM COMM_RECR
+		    FROM COMM_QNA
 		    WHERE BOARD_ID = #{boardId}
 		)
 		WHERE BOARD_ID = #{boardId}

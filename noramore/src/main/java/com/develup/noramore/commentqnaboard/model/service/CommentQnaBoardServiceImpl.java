@@ -39,4 +39,9 @@ public class CommentQnaBoardServiceImpl implements CommentQnaBoardService {
 		commentQnaBoardDao.deleteBoardComment(boardId);
 		
 	}
+
+	@Override
+	public int insertQnaCocomment(CommentQnaBoard commentQnaBoard) {
+		return commentQnaBoardDao.insertQnaCocomment(commentQnaBoard);
+	}
 }

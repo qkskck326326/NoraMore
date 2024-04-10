@@ -108,17 +108,13 @@ public class NoticeBoardController {
 		// 페이지에 출력할 목록 조회해 옴
 		ArrayList<Notice> list = noticeBoardService.selectList(paging);
 
-		if (list != null && list.size() > 0) {
 			model.addAttribute("list", list);
 			model.addAttribute("paging", paging);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("limit", limit);
-
+			
 			return "notice/notice";
-		} else {
-			model.addAttribute("message", currentPage + "페이지 목록 조회 실패!");
-			return "common/error";
-		}
+		
 	}
 
 	@RequestMapping("noticedetail.do")

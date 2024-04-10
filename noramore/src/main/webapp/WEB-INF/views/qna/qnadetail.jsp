@@ -11,6 +11,94 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/style.css">
+<style>
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.boardRecr-div {
+	width: 1000px;
+	padding: 20px;
+	margin: 10px;
+	margin-left: 10px;
+	border: 1px;
+}
+
+.comment-div {
+	width: 100%; /* 원하는 너비로 조정하세요 */
+	margin-top: 20px; /* 위쪽 여백 */
+	margin-bottom: 20px; /* 아래쪽 여백 */
+	/* 그 외 필요한 스타일링 추가 */
+}
+
+.comment-list {
+	width: 700px;
+	margin: 10px;
+	margin-top: 20px;
+	/*margin-left: '.boardRecr-div'와 동일한 값;  '.boardRecr-div'의 왼쪽 여백과 일치하도록 값 조정 */
+}
+
+#commentForm {
+	text-align: left;
+	margin-bottom: 15px;
+}
+
+#cocommentForm {
+	text-align: left;
+	margin-left: 100px;
+}
+
+button {
+	padding: 8px 16px; /* 버튼 내부 여백 설정 */
+	font-size: 12px; /* 글자 크기 설정 */
+	border: 2px solid #45d3b6; /* 테두리 설정 */
+	background-color: white; /* 기본 배경색 설정 */
+	color: black; /* 기본 글자 색 설정 */
+	border-radius: 4px; /* 버튼 모서리 둥글게 만들기 */
+	cursor: pointer; /* 마우스 커서를 포인터로 설정하여 클릭 가능한 상태로 만듦 */
+	transition: background-color 0.3s, color 0.3s;
+	/* 배경색과 글자색이 바뀔 때 부드럽게 전환 */
+	margin-right: 10px;
+	text-align: right;
+}
+
+button:hover {
+	background-color: #45d3b6; /* 마우스 오버시 배경색 변경 */
+	color: white; /* 마우스 오버시 글자색 변경 */
+}
+
+textarea.commentWriteForm {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	resize: none; /* 크기 조절 비활성화 */
+	font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
+textarea.commentForm {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #666;
+	border-radius: 5px;
+	box-sizing: border-box;
+	resize: none; /* 크기 조절 비활성화 */
+	font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+
+
+/* 마우스 호버 효과 */
+textarea.commentForm:hover {
+	border-color: #666;
+}
+</style>
 <script type="text/javascript"
 	src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <title>Insert title here</title>
@@ -26,6 +114,11 @@
 
 <!-- button 기능들  -->
 <script>
+
+window.onload = function() {
+    selectqnacomment();
+};
+
 	function moveUpdatePage() {
 		// 수정 페이지로 이동하는 코드
 		/* var form = document.createElement('form');
@@ -72,16 +165,16 @@
 	
 	function selectqnacomment() {
 	    var bId;
-	    if (${!empty Qna.boardId}) {
-	        bId = "${Qna.boardId}";
+	    if (${!empty qna.boardId}) {
+	        bId = "${qna.boardId}";
 	    } else {
-	        bId = "${boardId}";
+	        bId = "${no}";
 	    }
 	    $.ajax({
 	        url: "selectqnacomment.do",
 	        type: "POST",
 	        dataType: "json",
-	        data: { BoardId: bId },
+	        data: { boardId: bId },
 	        success: function(data) {
 	        	
 	            for (var i = 0; i < data.length; i++) {
@@ -89,7 +182,7 @@
 	                
 	                var memberIdInput = $('<input type="hidden" name="memberId" value="' + comment.memberId + '">');
 	                var commentIdInput = $('<input type="hidden" name="commentId" value="' + comment.commentId + '">');
-	                var contextTextarea = $('<textarea class="commentForm" rows="5" cols="20" readonly>' + comment.context + '</textarea><br>');
+	                var contextTextarea = $('<textarea class="commentForm" rows="5" cols="20" readonly>' + comment.substance + '</textarea><br>');
 	                var lastUpdateDateParagraph = $('<p style="font-size: 10pt;">' + "작성자ID : " + comment.memberId + "&nbsp;&nbsp;&nbsp; 작성/수정 날짜: " + comment.lastUpdateDate + '</p>');
 
 	                if(comment.refCommentId == 0){
@@ -101,21 +194,21 @@
 	                commentDiv.append(memberIdInput);
 	                commentDiv.append(commentIdInput);
 	                commentDiv.append(contextTextarea);  
-	                if("${Qna.memberId}" === "${sessionScope.loginMember.memberID}"){
-	                commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.context + "\")'>수정하기</button>");
+	                if("${qna.memberID}" === "${sessionScope.loginMember.memberID}"){
+	                commentDiv.append("<button onclick='updatecomment(" + comment.commentId + ", \"" + comment.substance + "\")'>수정하기</button>");
 	                commentDiv.append("<button onclick='deletecomment(" + comment.commentId + ")'>삭제하기</button>");
 	                }
 	                var refCommentId1 = parseInt(comment.commentId);
 	                
 	                
 	                if(comment.refCommentId == 0 && ${!empty sessionScope.loginMember}){
-	                commentDiv.append('<div id="cocomment" style="width: 500px; height: 200px;">' +
+	                commentDiv.append('<div id="cocomment" style="width: 500px; height: 200px;">' + 
 	                	    '<form id="cocommentForm" action="insertqnacocomment.do" method="post" style="">' +
 	                	    '<input type="hidden" name="memberId" value="' + "${sessionScope.loginMember.memberID}" + '">' +
-	                	    '<input type="hidden" name="boardId" value="' + "${Qna.boardId}" + '">' +
-	                	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' +
+	                	    '<input type="hidden" name="boardId" value="' + "${qna.boardId}" + '">' +
+	                	    '<input type="hidden" name="refCommentId1" value="' + comment.commentId + '">' + 
 	                	    '<input type="hidden" name="page" value="' + "${page}" + '">' +
-	                	    '<textarea class="commentForm" name="context" cols="50" rows="5" required></textarea>' +
+	                	    '<textarea class="commentForm" name="substance" cols="50" rows="5" required></textarea>' +
 	                	    '<br>' +
 	                	    '<button type="submit" >대댓글 등록</button>' +
 	                	    '</form>' +
@@ -138,7 +231,7 @@
 </head>
 <body>
 	<br>
-
+	
 
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<section id="write">
@@ -184,7 +277,7 @@
 				<a href="${ qfd }">${qna.originalFilePath }</a>
 			</c:if> <c:if test="${ empty qna.originalFilePath }">&nbsp;	</c:if></td>
 		<div class="comment-div">
-			<button onclick="toggleCommentForm(); return false;">댓글(${Qna.commentCount})개</button>
+			<button onclick="toggleCommentForm(); return false;">댓글(${qna.commentCount})개</button>
 			<!-- 댓글 작성 폼 -->
 
 			<div id="writecommentForm" style="display: none;">
@@ -192,9 +285,9 @@
 					<form action="insertqnacomment.do" method="post">
 						<input type="hidden" name="memberId"
 							value="${sessionScope.loginMember.memberID}"> <input
-							type="hidden" name="boardId" value="${Qna.boardId}">
+							type="hidden" name="boardId" value="${qna.boardId}">
 						<input type="hidden" name="page" value="${page}">
-						<textarea class="commentForm" name="context" cols="50" rows="5"
+						<textarea class="commentForm" name="substance" cols="50" rows="5"
 							required></textarea>
 						<br>
 						<button type="submit">댓글 등록</button>

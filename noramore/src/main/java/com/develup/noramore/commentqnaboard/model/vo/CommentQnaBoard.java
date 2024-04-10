@@ -3,12 +3,12 @@ package com.develup.noramore.commentqnaboard.model.vo;
 import java.sql.Date;
 
 public class CommentQnaBoard implements java.io.Serializable{
-	private static final long serialVersionUID = 1L;
-
-    private int boardId;            // 게시판 ID
+	private static final long serialVersionUID = 8301082631266725585L;
+	
+	private int boardId;            // 게시판 ID
     private int commentId;          // 댓글 ID
     private String memberId;        // 회원 ID
-    private String context;         // 내용
+    private String substance;         // 내용
     private int refCommentId;       // 상위 댓글 ID
     private int countSubComment;	// 하위 댓글 갯수
     private int reportCount;        // 신고 횟수
@@ -17,16 +17,15 @@ public class CommentQnaBoard implements java.io.Serializable{
 	
     public CommentQnaBoard() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public CommentQnaBoard(int boardId, int commentId, String memberId, String context, int refCommentId,
+	public CommentQnaBoard(int boardId, int commentId, String memberId, String substance, int refCommentId,
 			int countSubComment, int reportCount, Date registDate, Date lastUpdateDate) {
 		super();
 		this.boardId = boardId;
 		this.commentId = commentId;
 		this.memberId = memberId;
-		this.context = context;
+		this.substance = substance;
 		this.refCommentId = refCommentId;
 		this.countSubComment = countSubComment;
 		this.reportCount = reportCount;
@@ -58,12 +57,12 @@ public class CommentQnaBoard implements java.io.Serializable{
 		this.memberId = memberId;
 	}
 
-	public String getContext() {
-		return context;
+	public String getSubstance() {
+		return substance;
 	}
 
-	public void setContext(String context) {
-		this.context = context;
+	public void setSubstance(String substance) {
+		this.substance = substance;
 	}
 
 	public int getRefCommentId() {
@@ -106,17 +105,13 @@ public class CommentQnaBoard implements java.io.Serializable{
 		this.lastUpdateDate = lastUpdateDate;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public String toString() {
 		return "CommentQnaBoard [boardId=" + boardId + ", commentId=" + commentId + ", memberId=" + memberId
-				+ ", context=" + context + ", refCommentId=" + refCommentId + ", countSubComment=" + countSubComment
+				+ ", substance=" + substance + ", refCommentId=" + refCommentId + ", countSubComment=" + countSubComment
 				+ ", reportCount=" + reportCount + ", registDate=" + registDate + ", lastUpdateDate=" + lastUpdateDate
 				+ "]";
 	}
-	
+
     
-}
+}//
