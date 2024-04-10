@@ -8,20 +8,58 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="resources/css/mypageSidebar.css" />
-<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
+
+
 </head>
 <body>
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+	//선택한 사진파일 이미지 미리보기 처리
+	var photofile = document.getElementById("photofile");
+	photofile.addEventListener('change', function(event){		
+		const files = event.currentTarget.files;
+	    const file = files[0];
+	    const myphoto = document.getElementById("photo");	    
+	    console.log(file.name);
+	    
+	    const reader = new FileReader();
+        reader.onload = (e) => {          
+          myphoto.setAttribute('src', e.target.result);
+          myphoto.setAttribute('data-file', file.name);
+        };
+        reader.readAsDataURL(file);    
+	});
+}
+
+
+
+
+
+
+</script>
+
+
+
+
 
 
 
 <div id="boxLine">
 
-	<span id="nicname">사용자 닉네임</span>
-	<div class="box" style="background: #BDBDBD;">
-	   <!--  <img class="profile_img" src="/images/health.png"> -->
-	</div>
+	<div id="nicname">사용자 닉네임</div>
+	
+	
+	<form action = "profileUpdate.do" method="post" enctype="multipart/form-data" enctype="multipart/form-data">	
+		<div class="box" id="myphoto" style="background: #BDBDBD;">
+			<img src="/noramore/resources/images/photofile.png" id="photo" class="box" alt="사진을 드래그 드롭하세요."><br>				
+		</div>	
+		<input type="hidden" name="memberID" value="${ loginMember.memberID }">
+		<div align="right"><input type="file" name="photoFile" id="photofile" value=""></div>
 		
-	</span>
+	</form>
+		
+
 	<hr>
 	
 	<div id="profileBtn" class="moveBtn">
@@ -58,28 +96,27 @@
 
 
 </body>
-<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script> <!--  절대경로를 el로 처리함 -->
+
 <script type="text/javascript">
 
 
-/* window.onload = function(){
-	//선택한 사진파일 이미지 미리보기 처리
-	var photofile = document.getElementById("photofile");
-	photofile.addEventListener('change', function(event){		
-		const files = event.currentTarget.files;
-	    const file = files[0];
-	    const myphoto = document.getElementById("photo");	    
-	    console.log(file.name);
-	    
-	    const reader = new FileReader();
-        reader.onload = (e) => {          
-          myphoto.setAttribute('src', e.target.result);
-          myphoto.setAttribute('data-file', file.name);
-        };
-        reader.readAsDataURL(file);    
-	}); 
-	
-	 */
+
+
+
+$(document).ready(function() {
+    // 'photofile' input 요소에 대한 참조를 가져옵니다.
+    $('#photofile').change(function() {
+        // 사용자가 파일을 선택했는지 확인합니다.
+        if(this.files.length > 0) {
+            // 파일이 선택되면, 폼을 제출합니다.
+            $(this.form).submit();
+        }
+    });
+});
+
+
+
+
 	 
 	
 	<%-- window.onload = function(){

@@ -12,7 +12,7 @@
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
-		<result property="photoFilename" column="PHOTOFILE_NAME" />
+		<result property="photoFilename" column="PICTURE_FILE" />
 		<result property="resign" column="RESIGN" />
 		<result property="adminYN" column="ADMIN_YN" />
 		<result property="signType" column="SIGNTYPE" />
@@ -33,7 +33,7 @@
 		<result property="gender" column="GENDER" />
 		<result property="email" column="EMAIL" />
 		<result property="address" column="ADDRESS" />
-		<result property="photoFilename" column="PHOTOFILE_NAME" />
+		<result property="photoFilename" column="PICTURE_FILE" />
 		<result property="resign" column="RESIGN" />
 		<result property="adminYN" column="ADMIN_YN" />
 		<result property="signType" column="SIGNTYPE" />
@@ -52,7 +52,7 @@
 	<!-- 로그인용 쿼리 -->
 	<select id="selectMember" parameterType="string" resultMap="resultMember">
 		select * from member 
-		where MEMBER_ID = #{ memberID } and ACT_LIMIT in(0,1) and resign is null
+		where MEMBER_ID = #{ memberID } and ACT_LIMIT = 0 and resign is null
 		
 	</select>
 	
@@ -112,6 +112,11 @@
 		where MEMBER_ID = #{ memberID }
 	</update>
 	
+	<update id="updatePhotofileName" parameterType="Member">
+		update member
+		set PICTURE_FILE = #{ photoFilename }
+		where MEMBER_ID = #{ memberID }
+	</update>
 	
 	
 <!-- 	

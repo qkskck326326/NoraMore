@@ -79,6 +79,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.updateResign(memberID);
 		
 	}
+
+	@Override
+	public int updatePhotofileName(Member member) {
+		return memberDao.updatePhotofileName(member);
+	}
 	
 	
 	

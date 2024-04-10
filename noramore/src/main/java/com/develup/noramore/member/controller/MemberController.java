@@ -3,6 +3,8 @@ package com.develup.noramore.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -21,6 +23,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -352,8 +355,7 @@ public class MemberController {
 				}
 
 
-	
-	
+
 
 		
 		
@@ -546,31 +548,31 @@ public class MemberController {
 	
 	
 		
-		//비밀번호 재설정
-		@RequestMapping(value = "pwChange.do", method = RequestMethod.POST)
-		public String pwChange(Member member, Model model) throws Exception {
-			System.out.println("pwChange.do : " + member);
-			
-			
-			// 패스워드 암호화 처리
-			member.setMemberPWD(bcryptPasswordEncoder.encode(member.getMemberPWD()));
-			System.out.println("after encode : " + member.getMemberPWD());
-			System.out.println("pwd length : " + member.getMemberPWD().length());
-			
-			
-			logger.info("반환값 : " + memberService.updatePw(member));
-			
-			
-			System.out.println("반환값 : " + memberService.updatePw(member));
-			
-			if ( memberService.updatePw(member) > 0) {
+	//비밀번호 재설정
+	@RequestMapping(value = "pwChange.do", method = RequestMethod.POST)
+	public String pwChange(Member member, Model model) throws Exception {
+		System.out.println("pwChange.do : " + member);
+		
+		
+		// 패스워드 암호화 처리
+		member.setMemberPWD(bcryptPasswordEncoder.encode(member.getMemberPWD()));
+		System.out.println("after encode : " + member.getMemberPWD());
+		System.out.println("pwd length : " + member.getMemberPWD().length());
+		
+		
+		logger.info("반환값 : " + memberService.updatePw(member));
+		
+		
+		System.out.println("반환값 : " + memberService.updatePw(member));
+		
+		if ( memberService.updatePw(member) > 0) {
 
-				return "member/moveLoginPage";
-			} else {
-				model.addAttribute("message", "없는 회원입니다. 다시 확인해 주세요!");
-				return "member/pwUpdatePage";
-			}
+			return "member/moveLoginPage";
+		} else {
+			model.addAttribute("message", "없는 회원입니다. 다시 확인해 주세요!");
+			return "member/pwUpdatePage";
 		}
+	}
 		
 	
 	
@@ -693,6 +695,7 @@ public class MemberController {
 		} 
 	}
 		
+	
 		
 		
 
@@ -755,7 +758,36 @@ public class MemberController {
 
 
 		
+	//회원프로필 변경처리
+	@RequestMapping(value = "profileUpdate.do", method =  RequestMethod.POST )
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String updatePhotofile(Member member, 
+								@RequestParam("photoFile") MultipartFile file,
+								@RequestParam("memberID") String memberid,
+									Model model) {
 		
+		System.out.println(" 파일이지롱 : " + file + "  " + memberid);
+		
+		String filename = file.getOriginalFilename();
+		
+		member.setPhotoFilename(filename);
+		
+		
+		member.setMemberID(memberid);
+		System.out.println("member : " + member);
+		
+		int photofileNameUpdate = memberService.updatePhotofileName(member);
+			
+	
+		if( photofileNameUpdate > 0) { 
+			
+			return "/member/memberUpdatePage";
+		
+		}else {
+			model.addAttribute("message", "프로필사진 저장에 실패하였습니다. 다시 넣어주세요.");
+			return "member/memberDetailPage";
+		} 
+	}
 
 		
 		
@@ -776,26 +808,26 @@ public class MemberController {
 		
 		
 		
-	@RequestMapping(value="otherMember.do", method=RequestMethod.POST)
-	@ResponseBody      //response 객체에 JSONString 담아 보내기 위함
-	public String otherMemberBring(@RequestParam("memberId") String otherID, Model model) {
-	 
-		System.out.println("otherID: " + otherID);
-		
-		Member member = memberService.selectMember(otherID);
-		
-		MemAdd memAdd = memAddService.selectMemAdd(otherID); 
-		  
-		
-		JSONObject job = new JSONObject(); 
-		job.put("grade", memAdd.getGrade());
-		job.put("heart", memAdd.getHeartBeat());
-		job.put("id", member.getMemberID());
-		job.put("photoFile", member.getPhotoFilename());
-
-	
-		return job.toJSONString();
-	}
+//	@RequestMapping(value="otherMember.do", method=RequestMethod.POST)
+//	@ResponseBody      //response 객체에 JSONString 담아 보내기 위함
+//	public String otherMemberBring(@RequestParam("memberId") String otherID, Model model) {
+//	 
+//		System.out.println("otherID: " + otherID);
+//		
+//		Member member = memberService.selectMember(otherID);
+//		
+//		MemAdd memAdd = memAddService.selectMemAdd(otherID); 
+//		  
+//		
+//		JSONObject job = new JSONObject(); 
+//		job.put("grade", memAdd.getGrade());
+//		job.put("heart", memAdd.getHeartBeat());
+//		job.put("id", member.getMemberID());
+//		job.put("photoFile", member.getPhotoFilename());
+//
+//	
+//		return job.toJSONString();
+//	}
 	
 	
 	
