@@ -21,15 +21,15 @@
    <!--=========================================================================================-->
 
    <!-- 채팅 요청 삽입 -->
-   <insert id="insertMessage" parameterType="Message">
+<!--    <insert id="insertMessage" parameterType="Message">
       INSERT INTO MESSAGE
       VALUES(#{textMessage}, #{sender}, #{receiver), #{ connectYN }, sysdate)
-   </insert>
+   </insert> -->
    
-   <select id="selectChatRequest" parameterType="string" resultType="chatRequest">
+<!--    <select id="selectChatRequest" parameterType="string" resultType="chatRequest">
    		select max(regist_date)
    		from message
    		where receiver = #{memberID}
-   </select>
+   </select> -->
 
 </mapper>
