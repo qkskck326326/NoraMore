@@ -3,7 +3,7 @@
 
  <%--<%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%> 
 
-<%--<%@ include file="/WEB-INF/views/common/header.jsp"%>--%>
+ <%@ include file="/WEB-INF/views/common/header.jsp"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
@@ -434,7 +434,7 @@ textarea.commentForm:hover {
 <body>
 
 	<div class="container">
-		<div class="boardRecr-div">
+		<div class="boardFree-div">
 	
 <%--<form action="freeboardlist.do" method="post"
 		enctype="multipart/form-data">  --%>
@@ -443,18 +443,19 @@ textarea.commentForm:hover {
 		<div id="write" style="margin-bottom: 20px;">
 			<h1 style="text-align: left;">${FreeBoard.title}</h1>
 			<div style="text-align: left; margin-bottom: 10px;">
-			<div class="line"></div>
+			<br>
+			<%-- <div class="line"></div>--%>
 			<div>
 				<button class="whiteBtn" onclick="moveListPage(); return false;">목록으로</button>
 				<button onclick="translateText()">translate context</button>
 				<button style="float: right; background-color: pink; color: black;"
-					class="whiteBtn" onclick="report(${FreeBoard.boardId}); return false;">신고하기</button>
+					class="whiteBtn" onclick="report(${FreeBoard.boardId}); return false;"><span style="font-weight: normal;">신고하기</span></button>
 				<button id="likeButton_${FreeBoard.boardId}" style="float: right; background-color: pink; color: black;"
-					class="whiteBtn" onclick="like(${FreeBoard.boardId}); return false;">좋아요</button>
+					class="whiteBtn" onclick="like(${FreeBoard.boardId}); return false;"><span style="font-weight: normal;">좋아요</span></button>
 			</div>
-			
-			<textarea id="context" cols="30" rows="40" readonly>${FreeBoard.context}</textarea>
-			</div>
+			<br>
+			<textarea id="context" cols="100" rows="50" readonly>${FreeBoard.context}</textarea>
+			</div><%-- 30 / 40 --%>
 			<c:if test="${ !empty FreeBoard.freeOriginalFileName}">
 				<p>첨부파일</p>
 				<c:url var="fbdown" value="fbdown.do">
@@ -475,11 +476,13 @@ textarea.commentForm:hover {
 		
 			
 			<%-- 로그인한 경우 : 본인 글 상세보기 일때는 수정페이지로 이동과 삭제 버튼 표시함 --%>
-			
+		
 			<c:if test="${ !empty loginMember }">
 				<c:if test="${ loginMember.memberID eq FreeBoard.memberId }">
+				<div>
 					<button class="whiteBtn" onclick="moveUpdatePage(); return false;">수정하기</button> &nbsp;
 					<button class="whiteBtn" onclick="requestDelete(); return false;">삭제하기</button> &nbsp;
+					</div>
 				</c:if>
 				
 				<%-- 로그인한 경우 : 관리자인 경우 글삭제 버튼과 댓글달기 버튼 표시함 --%>
@@ -507,7 +510,7 @@ textarea.commentForm:hover {
 	
 		
 	<%-- </form> --%>
-</div>
+
 
 	<%-- 가져온 부분 ****************************** --%>
 			
@@ -533,7 +536,7 @@ textarea.commentForm:hover {
 		</div>
 		
 	</div>
-	
+	</div>
 </div>
 </div>
 			 

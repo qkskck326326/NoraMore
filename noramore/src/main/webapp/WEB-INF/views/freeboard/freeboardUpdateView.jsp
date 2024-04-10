@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%-- <%@ include file="/WEB-INF/views/common/header.jsp"%> --%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="currentPage" value="${ requestScope.page }" />
@@ -36,14 +36,23 @@
 	
 	<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
 	<div id="write">
-		<!-- <h1 style="text-align: left;">${freeBoard.title}</h1> -->
-		<th>제 목</th>
-		<td><input type="text" name="title" size="50" value="${ freeBoard.title }"></td>
-		
+	
+		<h1>자유게시판글</h1>
 		<div class="line"></div>
 		
-		<th>내 용</th>
-		<td><textarea rows="5" cols="50" name="context">${ freeBoard.context }</textarea></td>
+		<!-- <h1 style="text-align: left;">${freeBoard.title}</h1> -->
+		<%--<th>제 목</th> --%>
+		<p>글제목</p>
+		<%--<td>--%>
+		<input type="text" name="title"  size="100"  style="display: inline-block;" value="${ freeBoard.title }">
+		
+		<%-- </td>--%>
+		
+		<%--<div class="line"></div> --%>
+		
+		<%--<th>내 용</th> --%>
+		<p>내 용</p>
+		<textarea rows="30" cols="70" name="context">${ freeBoard.context }</textarea>
 		<!-- <textarea cols="30" rows="40" name="context">${freeBoard.context}</textarea> -->
 		
 		<p>첨부파일</p>
