@@ -58,7 +58,7 @@ public class RecrApplController {
 		  if(age > maxAgeCon || age < minAgeCon) {
 			  validate = false;
 		  }
-		  if(!(genderCon.equals(gender))){
+		  if(genderCon != null && !(gender.equals(genderCon))){
 			  validate = false;
 		  }
 		  
