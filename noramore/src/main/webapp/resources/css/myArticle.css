@@ -1,130 +1,75 @@
-/* @charset "UTF-8";
+ @charset "UTF-8";
 
 
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	color: #000;
-	font-family: 'ELAND_Choice_M';
-}
-
-body {
-	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-	margin: 0;
-	padding: 0;
-}
-
-
-#boxLine {
-    background-color: white;
-    position: absolute;
-    top: 156px;
-    left: 36px;
-    width: 308px;
+#box_act {
+    position: relative;
+    top: 135px;
+    left: -441px;
+    font-family: 'Noto Sans', sans-serif;
+    max-width: 600px;
     height: 560px;
-    box-shadow: 0 13px 17px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
-#nicname {
-    position: absolute;
-    top: 58px;
-    left: 169px;
-    font-size: 17px;
-    font-weight: bold;
+#box_act h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-#heart {
-	position: absolute;
-    top: 100px;
-    left: 164px;
-    font-size: 15px;
-    font-weight: bold;
+#box_act button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 24px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#grade {
-	position: absolute;
-    top: 100px;
-    left: 237px;
+#box_act button:hover {
+    background-color: #45a049;
 }
 
-.box {
-    width: 130px;
-    height: 130px; 
-    border-radius: 70%;
-    overflow: hidden;
-}
-.profile {
+table {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-hr{
-	margin-top:10px;
-	
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color:white;
 }
 
-#profileBtn {
-    position: absolute;
-    top: 205px;
-    left: 63px;
-    width: 178px;
-    height: 34px;
-    border: 2px solid black;
-    line-height: 30px;
+th, td {
     text-align: center;
-    border-radius: 5%;
-    font-weight: bold;
-    box-shadow: 0 6px 7px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
 }
 
-
-#gradeBtn {
-    position: absolute;
-    top: 256px;
-    left: 63px;
-    width: 178px;
-    height: 34px;
-    border: 2px solid black;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 5%;
-    font-weight: bold;
-    box-shadow: 0 6px 7px rgba(0, 0, 0, 0.1);
-	
+th {
+    background-color: white;
 }
 
-#acticleBtn {
-    position: absolute;
-    top: 307px;
-    left: 63px;
-    width: 178px;
-    height: 34px;
-    border: 2px solid black;
-    line-height: 30px;
-    text-align: center;
-    border-radius: 5%;
-    font-weight: bold;
-    box-shadow: 0 6px 7px rgba(0, 0, 0, 0.1);
+th.title {
+    color: #555;
 }
 
-#resign {
-    position: absolute;
-    top: 524px;
-    left: 17px;
-    width: 76px;
-    height: 22px;
-    line-height: 20px;
-    border: 1px solid black;
-    text-align: center;
-    font-size: 13px;
-    border-radius: 9%;
-    box-shadow: 0 6px 7px rgba(0, 0, 0, 0.1);
+a {
+    color: #337ab7;
+    text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
 
- */
+/* 활동 상태에 따른 색상 구분 */
+th:contains('활동중') {
+    color: #f39c12; /* Orange */
+}
+
+th:contains('활동종료') {
+    color: #c0392b; /* Red */
+}

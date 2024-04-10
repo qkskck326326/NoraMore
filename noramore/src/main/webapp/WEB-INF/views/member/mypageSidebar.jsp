@@ -42,15 +42,19 @@
 	</div>
 	
 	<div id="acticleBtn" class="moveBtn">
-		<c:url var="article" value="selectRecrBoadMemberId.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
+		<c:url var="moveRecrBoard" value="selectRecrBoadMemberId.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
 			<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
 		</c:url>
-		<a href="${ article }">활동기록</a>
+		<a href="${ moveRecrBoard }">활동기록</a>
 		
 	</div>
 	
 	<div id="resign">
-		회원탈퇴
+		<c:url var="resign" value="moveResign.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
+			<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
+		</c:url>
+		<a href="${ resign }">회원탈퇴</a>
+		
 	</div>
 
 </div>

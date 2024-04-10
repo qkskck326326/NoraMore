@@ -16,7 +16,7 @@ public class Member implements java.io.Serializable  {
 	private String email;          //이메일
 	private String address;        //주소
 	private String photoFilename;    //회원사진파일명
-	private String resign;         //회원탈퇴
+	private Date resign;         //회원탈퇴
 	private String adminYN;        //관리자여부
 	private String signType;       //로그인 종류
 	private String actLimit;        //사용제약
@@ -36,7 +36,7 @@ public class Member implements java.io.Serializable  {
 
 
 	public Member(String memberID, String memberPWD, String memberNicname, String memberName, Date birth, String gender, String email,
-			String address, String photoFilename, String resign, String adminYN, String signType, String actLimit, Date registDate,
+			String address, String photoFilename, Date resign, String adminYN, String signType, String actLimit, Date registDate,
 			Date modifiedDate, int memberAuth) {
 		super();
 		this.memberID = memberID;
@@ -158,13 +158,13 @@ public class Member implements java.io.Serializable  {
 
 
 
-	public String getResign() {
+	public Date getResign() {
 		return resign;
 	}
 
 
 
-	public void setResign(String resign) {
+	public void setResign(Date resign) {
 		this.resign = resign;
 	}
 

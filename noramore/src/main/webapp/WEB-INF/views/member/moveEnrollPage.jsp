@@ -204,24 +204,7 @@ function dupIDCheck(){
 
  
 
-/* 
- 	window.onload = function(){
-	//선택한 사진파일 이미지 미리보기 처리
-	var photofile = document.getElementById("photofile");
-	photofile.addEventListener('change', function(event){		
-		const files = event.currentTarget.files;
-	    const file = files[0];
-	    const myphoto = document.getElementById("photo");	    
-	    console.log(file.name);
-	    
-	    const reader = new FileReader();
-        reader.onload = (e) => {          
-          myphoto.setAttribute('src', e.target.result);
-          myphoto.setAttribute('data-file', file.name);
-        };
-        reader.readAsDataURL(file);    
-	}); 
-} */
+
 
 
 
@@ -265,9 +248,61 @@ function dupNicnameCheck(){
 	
 }
 
+/* 스크립트 시작 */
+/* 
+window.onload = function(){
+	//선택한 사진파일 이미지 미리보기 처리
+	var photofile = document.getElementById("photofile");
+	photofile.addEventListener('change', function(event){		
+		const files = event.currentTarget.files;
+	    const file = files[0];
+	    const myphoto = document.getElementById("photo");	    
+	    console.log(file.name);
+	    
+	    const reader = new FileReader();
+        reader.onload = (e) => {          
+          myphoto.setAttribute('src', e.target.result);
+          myphoto.setAttribute('data-file', file.name);
+        };
+        reader.readAsDataURL(file);    
+	});
+}
+ */
+/* 스크립트 끝 */
 
+/* 
+파일 입력 필드의 변경 사건을 감지하고, 선택된 이미지 파일의 미리보기를 제공하는 스크립트입니다. */
+/* document.getElementById('profilePhoto').addEventListener('change', function(event) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const preview = document.getElementById('photoPreview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
+ */
 
+ /*프로필 파일 업로드 및 미리보기*/
+/*function previewImage() {
+    const reader = new FileReader();
+    const file = document.getElementById("profilePhoto").files[0];
+    const preview = document.getElementById("photoPreview");
+    
+    reader.onloadend = function() {
+        preview.src = reader.result;
+        preview.style.display = 'block';
+    };
+    
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+        preview.style.display = 'none';
+    }
+}
 
+ */
 
 
 </script>
@@ -312,7 +347,7 @@ function dupNicnameCheck(){
 <h1 align="center">회원가입</h1>
 <br>
 <!-- 사진파일 첨부시 enctype="multipart/form-data" 속성 추가함 -->
-<form action="enroll.do" id="limit" class="enrollForm" method="post" onsubmit="return validate();">  
+<form action="enroll.do" id="limit" class="enrollForm" method="post"  onsubmit="return validate();">  <!-- enctype="multipart/form-data" -->
 <!-- form에는 submit버튼 1개만 만들수 있음 --> <!--  return을 붙여야 이 값을 보낼지 말지 가능함. -->
 
 	<h5>회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</h5>
@@ -348,12 +383,6 @@ function dupNicnameCheck(){
 	</div>
 	<div class="strongPassword-message hide">8글자 이상, 첫글자 영대문자, 소문자와 숫자 그리고 특수문자(@$!%*#?&)를 사용하세요</div>
 	
-	<div id="myphoto">
-		<img src="/first/resources/member_photofiles/" id="photo" 				
-		style="width:150px;height:160px;border:1px solid navy;display:block;"
-		alt="사진을 드래그 드롭하세요."
-		style="padding:0; margin:0;">  
-	</div>
 	<br>
 	
 	<div>
@@ -374,6 +403,20 @@ function dupNicnameCheck(){
 	
 	
 	
+<!-- <label for="profilePhoto">프로필 사진:</label>
+    <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" onchange="previewImage();">
+    <img id="photoPreview" src="#" alt="프로필 사진 미리보기" style="display:none; width:100px; height:100px;"/> -->
+	
+	
+	
+	<!-- <div id="myphoto" 
+		style="margin:0;width:150px;height:160px;padding:0;border:1px solid navy;">
+		<img src="/noramore/resources/images/photofile.png" id="photo" 				
+		style="width:150px;height:160px;border:1px solid navy;display:block;padding:0;margin:0;"
+		alt="사진을 드래그 드롭하세요."><br>				
+	</div>	
+	
+	<div align="right"><input type="file" name="photoFilename" id="photofile" value=""></div> -->
 	
 	<div>
 		<h3 class="list">성명<span id="nameError"></span></h3>

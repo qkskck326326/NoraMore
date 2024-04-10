@@ -103,6 +103,12 @@
 	
 	</select>
 	
+	<select id="selectRecrBoardId" parameterType="String" resultMap="resultRecr">
+		SELECT * FROM recr_board
+		WHERE MEMBER_ID = #{ memberid }
+	</select>
+	
+	
 	<insert id="insertRecrBoard" parameterType="RecrBoard">
 	    INSERT INTO RECR_BOARD 
 	    VALUES (

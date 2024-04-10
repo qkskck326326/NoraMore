@@ -27,6 +27,10 @@ public interface MemberService {
 
 	int updateMember(Member member);
 
+	int selectPwMatch(Member member);
+
+	int updateResign(String memberID);
+
 
 
 
