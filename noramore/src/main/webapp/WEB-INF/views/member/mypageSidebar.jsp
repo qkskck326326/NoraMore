@@ -50,7 +50,7 @@
 	</div>
 	
 	<div id="resign">
-		<c:url var="resign" value="memberResign.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
+		<c:url var="resign" value="moveResign.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
 			<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
 		</c:url>
 		<a href="${ resign }">회원탈퇴</a>
