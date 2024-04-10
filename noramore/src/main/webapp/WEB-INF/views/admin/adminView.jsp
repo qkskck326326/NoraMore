@@ -55,7 +55,7 @@
     padding: 10px;
     background-color: #f0f0f0;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     text-align: center;
     margin: 0 10px;
 }
@@ -76,6 +76,7 @@
 <body>
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
 <div class="container">
+<p><br><p><br>
 <h1 class="title" sle="top-margin:100px;">관리자 메인</h1>
 <br><br>
     <div class="statics">

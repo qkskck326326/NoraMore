@@ -52,7 +52,6 @@ public class AdminController {
 	//관리자 페이지 메인 (가입&탈퇴 유동 목록)
 	@RequestMapping("adminPage.do")
 	public String selectEnrollandWithdrawalFlowList(HttpServletRequest request, Model model) {{
-
 			Flow flow = adminService.selectEWFlowCount();
 			int mlistCount = adminService.selectReportedMemListCount();
 			int blistCount = adminService.selectReportedListCount();
