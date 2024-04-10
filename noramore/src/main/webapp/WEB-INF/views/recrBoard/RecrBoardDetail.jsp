@@ -330,9 +330,14 @@ function updatecomment(commentId1, context1){
 	location.reload(); 
 }
 
-function showApplList(){
+function toggleApplList(){
 	var applList = document.getElementById("applList");
-        applList.style.display = "block";
+	if(applList.style.display == "none"){
+		applList.style.display = "block";
+	}else{
+		applList.style.display = "none";
+	}
+        
 }
 
 </script>
