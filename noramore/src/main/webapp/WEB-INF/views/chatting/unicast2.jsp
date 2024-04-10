@@ -132,6 +132,13 @@ function connection(){
         // 내가 보낼 때에는 send / 서버로부터 받을 때에는 message
         webSocket.send($('#chat_id').val()+"|님이 입장하셨습니다.");
         
+        $.ajax({
+        	url:"removeRequest.do"
+        	type: "post"
+        	data: {	sender : $('#chat_id').val(),
+        			receiver : $('#recvUser').val()}
+        });
+        
     };
     
     // 서버로부터 메시지를 전달 받을 때 동작하는 메소드

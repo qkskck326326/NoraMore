@@ -44,7 +44,11 @@ public class ChattingController {
         return "chatting/unicast2";
     }
     
-    // 채팅 요청 응답 후 채팅 접속
+    // 채팅 요청 응답 후 요청대기 삭제
+    @RequestMapping(value="removeRequest.do", method=RequestMethod.POST)
+    public void removeRequest() {
+    	
+    }
     
     
 }
