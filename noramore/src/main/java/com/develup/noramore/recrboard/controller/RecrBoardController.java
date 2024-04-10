@@ -284,7 +284,7 @@ public class RecrBoardController {
 					e.printStackTrace();
 					model.addAttribute("message", "첨부파일 파일명 변환 중 에러가 발생했습니다. ");
 					model.addAttribute("categoryId", categoryId);
-					model.addAttribute("currentPage", page);
+					model.addAttribute("page", page);
 					return "recerBoarad/RecrBoardList";
 				}
 			} /// 파일명 바꾸기
@@ -322,12 +322,12 @@ public class RecrBoardController {
 
 		// 입력한 정보 update
 		if (recrBoardService.updateBoard(recrBoard) > 0) {
-			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("page", currentPage);
 			model.addAttribute("boardId", recrBoard.getBoardId());
 			model.addAttribute("categoryId", categoryId);
 			return "redirect: rbdetail.do";
 		} else {
-			model.addAttribute("currentPage", page);
+			model.addAttribute("page", page);
 			model.addAttribute("boardId", recrBoard.getBoardId());
 			model.addAttribute("message", "오류! 수정에 실패하였습니다");
 			model.addAttribute("categoryId", categoryId);
@@ -421,12 +421,14 @@ public class RecrBoardController {
 
 	// 글 수정 페이지로 이동
 	@RequestMapping("updateboard.do")
-	public String moveUpdateBoard(@RequestParam("boardId") String boardID, Model model, @RequestParam("categoryId") int categoryId) {
+	public String moveUpdateBoard(@RequestParam("boardId") String boardID, Model model, @RequestParam("categoryId") int categoryId, 
+									@RequestParam("page") int page) {
 		int boardId = Integer.parseInt(boardID);
 
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("RecrBoard", recrBoard);
 		model.addAttribute("categoryId", categoryId);
+		model.addAttribute("page", page);
 		return "recrBoard/RecrBoardUpdateForm";
 	}
 

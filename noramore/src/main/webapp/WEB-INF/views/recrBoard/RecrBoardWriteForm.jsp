@@ -4,8 +4,11 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="categoryId" value="1"/>
-<c:if test="${!empty requestScope.message}">
+<c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
+</c:if>
+<c:if test="${!empty requestScope.page}">
+	<c:set var="page" value="${requestScope.page}" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -46,9 +49,7 @@ function sample4_execDaumPostcode() {
             document.getElementById('searchAddress').value = data.zonecode;
             document.getElementById("searchAddress").value = roadAddr;
             document.getElementById("searchAddress").value = data.jibunAddress;
-            
-
-           
+       
         }
     }).open();
 }
@@ -213,7 +214,7 @@ $(function(){
    			<button style="width: 150px; height: 45px; margin-left: 10px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px; font-size: 16px;
     font-weight: bold;" onclick="sample4_execDaumPostcode(); return false;" >주소 검색</button>
 		</div>
-		<button type="submit" id="savebutton" onclick="insertRecrBoard()">글쓰기</button>
+		<button type="submit" id="savebutton" onclick="insertRecrBoard(); return false;">글쓰기</button>
 	</section>
 </form>
 
