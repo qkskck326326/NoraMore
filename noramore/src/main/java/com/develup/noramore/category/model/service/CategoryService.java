@@ -12,4 +12,6 @@ public interface CategoryService {
 
 	int nextCategoryId();
 
+	ArrayList<Category> selectCategory();
+
 }
