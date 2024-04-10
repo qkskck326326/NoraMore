@@ -8,7 +8,7 @@ import com.develup.noramore.common.Paging;
 public interface AlarmService {
 	ArrayList<Alarm> selectAlarmList(Alarm alarm);
 
-	int updateAlarm(Alarm alarm);
+	int updateAlarm(int boardId);
 	int selectListCount(String memberId);
 	ArrayList<Alarm> selectList(Alarm alarm);
 	int insertCommAlarm(Alarm alarm);

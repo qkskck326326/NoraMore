@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.develup.noramore.alarm.model.service.AlarmService;
@@ -65,7 +66,7 @@ public class AlarmController {
 		
 		//출력할 페이지에 대한 목록 조회
 		ArrayList<Alarm> list = alarmService.selectList(alarm);
-		
+		System.out.println(list);
 		//받은 결과로 성공/실패 페이지 내보냄
 		if(list != null && list.size() > 0) {
 			model.addAttribute("list", list);
@@ -124,18 +125,10 @@ public class AlarmController {
 	}
 	
 	//알람 확인 (y/n 수정)
-	@RequestMapping("alarmCheck.do")
+	@RequestMapping(value="alarmCheck.do", method=RequestMethod.POST)
 	public void alarmChecked(
-			@RequestParam("check") String check,
 			@RequestParam("alarmId") int alarmId) {
-		Alarm alarm = new Alarm();
-		alarm.setAlarmId(alarmId);
-		
-		if(check != null) {
-			alarm.setCheckedYN("Y");
-		}
-		
-		alarmService.updateAlarm(alarm);
+		alarmService.updateAlarm(alarmId);
 	}
 
 }

@@ -51,7 +51,7 @@
     <style type="text/css">
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
+            margin-top: 300px;
             padding: 0;
             background-color: #f5f5f5;
         }
@@ -94,11 +94,11 @@
             background-color: #45a049;
         }
     </style>
-</head>
-<body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
-<br><br><br><br><br><br><br>
+</head>
+<body>
+<br><br><br><br><br>
 <div class="container">
     <h2 class="title">신고된 회원</h2>
     <table>
