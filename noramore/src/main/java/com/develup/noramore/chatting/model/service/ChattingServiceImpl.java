@@ -19,52 +19,11 @@ public class ChattingServiceImpl implements ChattingService{
 
     @Autowired
     private ChattingDao chattingDao;
-
-    @Override
-    public List<ChattingRoom> selectRoomList(String memberID) {
-        return chattingDao.selectRoomList(memberID);
-    }
     
     @Override
-    public int checkChattingNo(Map<String, Object> map) {
-        return chattingDao.checkChattingNo(map);
-    }
-
-    @Override
-    public int createChattingRoom(Map<String, Object> map) {
-        return chattingDao.createChattingRoom(map);
-    }
-
-
-    @Override
     public int insertMessage(Message msg) {
-		/* msg.setMessageContent(Util.XSSHandling(msg.getMessageContent())); */
         return chattingDao.insertMessage(msg);
     }
-
-    @Override
-    public int updateReadFlag(Map<String, Object> paramMap) {
-        return chattingDao.updateReadFlag(paramMap);
-    }
-
-    @Override
-    public List<Message> selectMessageList( Map<String, Object> paramMap) {
-        System.out.println(paramMap);
-        
-        List<Message> messageList = chattingDao.selectMessageList(  Integer.parseInt( String.valueOf(paramMap.get("chattingNo") )));
-        
-        if(!messageList.isEmpty()) {
-            int result = chattingDao.updateReadFlag(paramMap);
-        }
-        
-        return messageList;
-    }
-
-    // 채팅 상대 검색
-   @Override
-   public List<Member> selectTarget(Map<String, Object> map) {
-      return chattingDao.selectTarget(map);
-   }
 
     
 }

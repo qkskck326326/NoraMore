@@ -18,36 +18,9 @@ public class ChattingDao {
     
     @Autowired
     private SqlSessionTemplate sqlSession;
-    
-    public List<ChattingRoom> selectRoomList(String memberID) {
-        return sqlSession.selectList("chatting.selectRoomList", memberID);
-    }
-
-    public int checkChattingNo(Map<String, Object> map) {
-        return sqlSession.selectOne("chatting.checkChattingNo", map);
-    }
-
-    public int createChattingRoom(Map<String, Object> map) {
-        int result = sqlSession.insert("chatting.createChattingRoom", map);
-        int chattingNo = 0;
-        if(result > 0)  chattingNo = (int)map.get("chattingNo");
-        return chattingNo;
-    }
-
 
     public int insertMessage(Message msg) {
         return sqlSession.insert("chatting.insertMessage", msg);
     }
 
-    public int updateReadFlag(Map<String, Object> paramMap) {
-        return sqlSession.update("chatting.updateReadFlag", paramMap);
-    }
-
-    public List<Message> selectMessageList(int chattingNo) {
-       return sqlSession.selectList("chatting.selectMessageList", chattingNo);
-    }
-
-	public List<Member> selectTarget(Map<String, Object> map) {
-		return sqlSession.selectList("chatting.selectTarget", map);
-	}
 }

@@ -41,8 +41,8 @@
   }   
     
 </style>
-<%-- <c:import url="/WEB-INF/views/common/header.jsp" /> --%>
-<%-- <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" /> --%>
+<c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/common/sideSample.jsp" />
 </head>
 <body>
 <br><br><br><br><br><br>

@@ -51,7 +51,10 @@ public class AdminController {
 	
 	//관리자 페이지 메인 (가입&탈퇴 유동 목록)
 	@RequestMapping("adminPage.do")
-	public String selectEnrollandWithdrawalFlowList(HttpServletRequest request, Model model) {{
+	public String selectEnrollandWithdrawalFlowList(HttpServletRequest request, Model model) {
+		Member member = (Member)request.getSession().getAttribute("loginMember");
+		System.out.println(member.getAdminYN());
+		/* if (member.getAdminYN() == "Y") { */
 			Flow flow = adminService.selectEWFlowCount();
 			int mlistCount = adminService.selectReportedMemListCount();
 			int blistCount = adminService.selectReportedListCount();
@@ -59,7 +62,9 @@ public class AdminController {
 			model.addAttribute("mlist", mlistCount);
 			model.addAttribute("blist", blistCount);
 			return "admin/adminView";
-		}
+			/*
+			 * }else { model.addAttribute("error", "잘못된 접근입니다."); return "common/error";
+			 }*/
 	}
 
 	//회원 목록 조회

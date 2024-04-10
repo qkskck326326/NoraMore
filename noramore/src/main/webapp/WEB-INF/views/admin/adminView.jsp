@@ -83,7 +83,7 @@
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
 <div class="container">
 <p><br><p><br>
-<h1 class="title" sle="top-margin:100px;">관리자 메인</h1>
+<h1 class="title" style="top-margin:100px;">관리자 메인</h1>
 <br><br>
     <div class="statics">
         <table>
