@@ -97,4 +97,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService{
 		// TODO Auto-generated method stub
 		return noticeBoardDao.selectSearchDate(search);
 	}
+
+	@Override
+	public ArrayList<Notice> selectTop5() {
+		// TODO Auto-generated method stub
+		return noticeBoardDao.selectTop5();
+	}
 }

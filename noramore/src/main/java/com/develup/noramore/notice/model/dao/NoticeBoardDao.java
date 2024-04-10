@@ -87,6 +87,11 @@ public class NoticeBoardDao {
 		return (ArrayList<Notice>)list;
 	}
 
+	public ArrayList<Notice> selectTop5() {
+		List<Notice> list = sqlSessionTemplate.selectList("noticeMapper.selectTop5");
+		return (ArrayList<Notice>)list;
+	}
+
 	
 }
 
