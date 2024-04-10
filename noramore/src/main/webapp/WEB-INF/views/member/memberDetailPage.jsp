@@ -108,7 +108,7 @@ the_other_person.addEventListener('click', function (event) {
 	</div>
 	
 	<div class="form">
-		<span class="title">아이디</span> <span class="input">${ member.memberName }</span>
+		<span class="title">닉네임</span> <span class="input">${ member.memberNicname }</span>
 	</div>
 	
 	<div class="form">

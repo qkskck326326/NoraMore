@@ -30,6 +30,21 @@ body {
 	
 }
 
+
+
+
+#photofile{
+	position: absolute; 
+	top: 0; 
+	right: 0; 
+	margin: 0; 
+	opacity: 0; 
+	font-size: 100px; 
+	cursor: pointer;
+}
+
+
+
 #nicname {
     position: absolute;
     top: 58px;

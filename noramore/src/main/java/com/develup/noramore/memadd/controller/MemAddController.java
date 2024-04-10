@@ -105,6 +105,12 @@ public class MemAddController {
 
 
 	
+	
+	
+	
+	
+	
+	
 //	@RequestMapping(value="selectFreeBoadMemberId.do", method={ RequestMethod.GET, RequestMethod.POST })
 //	   @ResponseBody      //response 객체에 JSONString 담아 보내기 위함
 //	   public String articleFreeListPage(@RequestParam("memberID") String memberid, Model model) throws UnsupportedEncodingException {

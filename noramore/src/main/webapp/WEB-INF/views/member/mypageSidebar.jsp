@@ -40,27 +40,31 @@ window.onload = function(){
 </script>
 
 <script type="text/javascript">
-/* String memberid = ${ loginMember.memberID}
 
+$(document).ready(function() {
+
+
+ 
 $.ajax({
-	url : "otherMember.do",  //DispatcherServlet로 보냄
+	url : "memberProfile.do",  //DispatcherServlet로 보냄
 	type : "post",     
-	data: { memberid : memberid },  
+	data: { memberid : "${ loginMember.memberID}" },  
 	dataType : "json",
 	success : function(data) {
 		console.log("success : " + data);   //String 리턴되온것을 Object로 받음
 
-		console.log("success11 : " + data.grade); 
-		console.log("success11 : " + data.heart); 
 		console.log("success11 : " + data.id); 
 		console.log("success11 : " + data.photoFile); 
 		
 		
-		values += data.grade + " " + data.heart + " " + data.id + " " + data.photoFile
+		values = "/noramore/resources/images/" +data.photoFile;
 		
+		console.log("success22 : " + values);
+		
+		$('#photo').attr('src', values);
 		
 
-		$('#context').html($('#context').html() + values);
+
 		
 	},
 	error : function(jqXHR, textStatus, errorThrown) {
@@ -68,11 +72,26 @@ $.ajax({
 				+ errorThrown);
 	}
 }); //ajax
- */
+
+
+});
 
 
 
+</script>
 
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('#customButton').click(function() {
+        $('#photofile').click();
+    });
+    $('#photofile').change(function() {
+        var filePath = $(this).val();
+        var fileName = filePath.split('\\').pop(); // 파일 경로에서 파일 이름만 추출
+        $('#fileName').text(fileName); // 파일 이름을 표시
+    });
+});
 
 </script>
 
@@ -86,8 +105,12 @@ $.ajax({
 			<img src="/noramore/resources/images/photofile.png" id="photo" class="box" alt="사진을 드래그 드롭하세요."><br>				
 		</div>	
 		<input type="hidden" name="memberID" value="${ loginMember.memberID }">
-		<div align="right"><input type="file" name="photoFile" id="photofile" value=""></div>
 		
+		<div align="left" style="position: relative; overflow: hidden;">		
+			<button type="button" id="customButton">프로필이미지 수정</button>
+		<input type="file" name="photoFile" id="photofile" style="position: absolute; top: 0; right: 0; margin: 0; opacity: 0; font-size: 100px; cursor: pointer;">
+		</div>
+		<div id="fileName"></div>
 	</form>
 		
 
