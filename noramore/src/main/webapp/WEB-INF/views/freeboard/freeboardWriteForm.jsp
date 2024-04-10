@@ -3,7 +3,7 @@
 <%--<%@ include file="/WEB-INF/views/common/sideSample.jsp"%> --%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="categoryId" value="1"/>
+<%-- <c:set var="categoryId" value="1"/>--%>
 <c:if test="${!empty requestScope.message}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
