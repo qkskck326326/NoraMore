@@ -27,9 +27,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.develup.noramore.alarm.model.service.AlarmService;
+import com.develup.noramore.memadd.model.service.MemAddService;
 import com.develup.noramore.memadd.model.vo.MemAdd;
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
@@ -48,6 +50,9 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@Autowired
+	private MemAddService memAddService;
+	
+	@Autowired
 	private AlarmService alarmService;
 
 	@Autowired
@@ -58,9 +63,7 @@ public class MemberController {
 	@Autowired
 	private KakaoLoginAuth kakaoLoginAuth;
 
-//	@Autowired
-//	private GoogleLoginAuth googleLoginAuth;
-//
+
 	@Autowired
 	private NaverLoginAuth naverLoginAuth;
 
@@ -359,11 +362,16 @@ public class MemberController {
 	// 회원 가입 요청 처리용 메소드
 	@RequestMapping(value = "enroll.do", method = RequestMethod.POST)
 	public String memberInsertMethod(Member member,
-			/* @RequestParam("email2") String email2, */
+			@RequestParam("photoFile") MultipartFile file,
 			@RequestParam("road") String road, @RequestParam("street") String street,
 			@RequestParam("detail") String detail, @RequestParam("ref") String ref, Model model) throws Exception {
 		logger.info("enroll.do : " + member);
 
+		
+		String filename = file.getOriginalFilename();
+		
+		member.setPhotoFilename(filename);
+		
 		// 패스워드 암호화 처리
 		member.setMemberPWD(bcryptPasswordEncoder.encode(member.getMemberPWD()));
 		logger.info("after encode : " + member.getMemberPWD());
@@ -648,42 +656,42 @@ public class MemberController {
 	
 	
 	//내 프로필 가기
-		@RequestMapping(value = "myinfo.do", method = { RequestMethod.GET, RequestMethod.POST })
-		// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-		public String memberDetailPage(@RequestParam("memberID") String memberid, Model model) {
-			
-			Member member = memberService.selectMember(memberid);
-			
-			if (member != null) {
-				model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
-				return "member/memberDetailPage";
-			} else {
-				return "redirect:home.do";
-			}
-		}
+	@RequestMapping(value = "myinfo.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String memberDetailPage(@RequestParam("memberID") String memberid, Model model) {
 		
+		Member member = memberService.selectMember(memberid);
+		
+		if (member != null) {
+			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "member/memberDetailPage";
+		} else {
+			return "redirect:home.do";
+		}
+	}
+	
 		
 		
 
-		//회원정보 수정페이지로 이동
-		@RequestMapping(value = "updatePage.do", method = { RequestMethod.GET, RequestMethod.POST })
-		// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-		public String updatePage(Member member, Model model) {
-			
-			
-			String memberid = member.getMemberID();
-			Member member1 = memberService.selectMember(memberid);
-				
+	//회원정보 수정페이지로 이동
+	@RequestMapping(value = "updatePage.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String updatePage(Member member, Model model) {
 		
-			if( member != null) { 
-				model.addAttribute("member", member1); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
-				return "/member/memberUpdatePage";
+		
+		String memberid = member.getMemberID();
+		Member member1 = memberService.selectMember(memberid);
 			
-			}else {
-				model.addAttribute("message", "비밀번호를 다시 입력해주세요.");
-				return "member/memberDetailPage";
-			} 
-		}
+	
+		if( member != null) { 
+			model.addAttribute("member", member1); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "/member/memberUpdatePage";
+		
+		}else {
+			model.addAttribute("message", "비밀번호를 다시 입력해주세요.");
+			return "member/memberDetailPage";
+		} 
+	}
 		
 		
 		
@@ -751,23 +759,43 @@ public class MemberController {
 
 		
 		
+	//활동기록 페이지
+	@RequestMapping(value = "articel.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String myArticlePage(@RequestParam("memberID") String memeberid, Model model) {
 		
-		@RequestMapping(value = "articel.do", method = { RequestMethod.GET, RequestMethod.POST })
-		// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-		public String myArticlePage(@RequestParam("memberID") String memeberid, Model model) {
-			
-			Member member = memberService.selectMember(memeberid);
-			
-			if (member != null) {
-				model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
-				return "member/myArticlePage";
-			} else {
-				return "redirect:home.do";
-			}
+		Member member = memberService.selectMember(memeberid);
+		
+		if (member != null) {
+			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "member/myArticlePage";
+		} else {
+			return "redirect:home.do";
 		}
+	}
 		
 		
 		
+	@RequestMapping(value="otherMember.do", method=RequestMethod.POST)
+	@ResponseBody      //response 객체에 JSONString 담아 보내기 위함
+	public String otherMemberBring(@RequestParam("memberId") String otherID, Model model) {
+	 
+		System.out.println("otherID: " + otherID);
+		
+		Member member = memberService.selectMember(otherID);
+		
+		MemAdd memAdd = memAddService.selectMemAdd(otherID); 
+		  
+		
+		JSONObject job = new JSONObject(); 
+		job.put("grade", memAdd.getGrade());
+		job.put("heart", memAdd.getHeartBeat());
+		job.put("id", member.getMemberID());
+		job.put("photoFile", member.getPhotoFilename());
+
+	
+		return job.toJSONString();
+	}
 	
 	
 	
@@ -817,6 +845,11 @@ public class MemberController {
 				return "member/resignPage";
 			}
 		}
+		
+		
+		
+		
+		
 		
 
 }

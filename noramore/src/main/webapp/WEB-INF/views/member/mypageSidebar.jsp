@@ -8,9 +8,11 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="resources/css/mypageSidebar.css" />
-
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 </head>
 <body>
+
+
 
 <div id="boxLine">
 
@@ -18,12 +20,7 @@
 	<div class="box" style="background: #BDBDBD;">
 	   <!--  <img class="profile_img" src="/images/health.png"> -->
 	</div>
-	<span id="heart">♡ 하트수</span>
 		
-	
-	<span id="grade">
-		
-	
 	</span>
 	<hr>
 	
