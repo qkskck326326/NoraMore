@@ -136,8 +136,7 @@ function validate(){
 	
 	
 	//닉네임
-	/* if(!/^[가-힝]{2,}$/.test(nicnameValue)){ */
-	if(!/^[가-힝]{2,}$/.test(nicnameValue)){
+	if(!/^[가-힝a-zA-Z]{2,}$/.test(nicnameValue)){
 		alert("닉네임 : 2글자 이상을 넣으세요");
 		document.getElementById("memberNicname").value = "";  
 		document.getElementById("memberNicname").select(); 
@@ -209,6 +208,11 @@ function dupIDCheck(){
 
 
 
+</script>
+
+
+
+<script type="text/javascript">
 
  
 
@@ -218,7 +222,7 @@ function dupIDCheck(){
 
 
 function dupNicnameCheck(){
-	//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함
+	//사용 가능한 닉네임인지 확인하는 함수 : ajax 기술 사용해야 함
 	$.ajax({  
 		url: "nicnamechk.do",
 		type: "post",
@@ -257,47 +261,9 @@ function dupNicnameCheck(){
 }
 
 
- 
-
- 
-
-
-/* 
-파일 입력 필드의 변경 사건을 감지하고, 선택된 이미지 파일의 미리보기를 제공하는 스크립트입니다. */
-/* document.getElementById('profilePhoto').addEventListener('change', function(event) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const preview = document.getElementById('photoPreview');
-        preview.src = e.target.result;
-        preview.style.display = 'block';
-    };
-    reader.readAsDataURL(event.target.files[0]);
-});
- */
-
- /*프로필 파일 업로드 및 미리보기*/
-/* function previewImage() {
-    const reader = new FileReader();
-    const file = document.getElementById("profilePhoto").files[0];
-    const preview = document.getElementById("photoPreview");
-    
-    reader.onloadend = function() {
-        preview.src = reader.result;
-        preview.style.display = 'block';
-    };
-    
-    if (file) {
-        reader.readAsDataURL(file);
-    } else {
-        preview.src = "";
-        preview.style.display = 'none';
-    }
-}
- */
- 
-
-
 </script>
+
+
 
  <script type="text/javascript">
 
@@ -341,6 +307,92 @@ function dupNicnameCheck(){
 	
 </script>
 
+
+<script type="text/javascript">
+//아이디 중복 될시 제출막음
+$(document).ready(function() {
+    $('#limit').on('submit', function(e) {
+        e.preventDefault(); // 폼 기본 제출 동작을 막습니다.
+        
+        var memberID = $('#memberid').val(); 
+        
+        // AJAX 요청
+        $.ajax({
+            url: 'idchk.do', // 중복 검사를 처리할 서버의 URL
+            type: 'POST',
+            data: { memberID: memberID }, // 서버로 보낼 데이터
+            success: function(data) {
+                // 여기서 data는 서버에서 보낸 응답입니다.
+                // 서버 응답 예: {isDuplicated: true} or {isDuplicated: false}
+                if(data == "dup") {
+                    alert('이미 사용 중인 ID입니다.'); // 중복 알림
+                } else {
+                    // ID 중복이 아닌 경우, 폼 제출을 진행합니다.
+                    // 이를 위해 폼의 제출 이벤트를 다시 트리거하거나,
+                    // 폼 데이터를 AJAX로 전송할 수 있습니다.
+                   $('#limit')[0].submit();// 폼 제출
+                }
+            },
+            error: function(request, status, error) {
+                // 오류 처리
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+    });
+    return false;
+});
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+//닉네임 제출 클릭시 중복 막음
+$(document).ready(function() {
+    $('#limit').on('submit', function(e) {
+        e.preventDefault(); // 폼 기본 제출 동작을 막습니다.
+        
+        var memberNicname = $('#memberNicname').val(); 
+        
+        // AJAX 요청
+        $.ajax({
+            url: 'nicnamechk.do', // 중복 검사를 처리할 서버의 URL
+            type: 'POST',
+            data: { memberNicname: memberNicname }, // 서버로 보낼 데이터
+            success: function(data) {
+                // 여기서 data는 서버에서 보낸 응답입니다.
+                // 서버 응답 예: {isDuplicated: true} or {isDuplicated: false}
+                if(data == "dup") {
+                    alert('이미 사용 중인 닉네임입니다.'); // 중복 알림
+                } else {
+                    // ID 중복이 아닌 경우, 폼 제출을 진행합니다.
+                    // 이를 위해 폼의 제출 이벤트를 다시 트리거하거나,
+                    // 폼 데이터를 AJAX로 전송할 수 있습니다.
+                   $('#limit')[0].submit();// 폼 제출
+                }
+            },
+            error: function(request, status, error) {
+                // 오류 처리
+                alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+            
+        });
+        return false;
+        
+    });
+    return false;
+   
+});
+
+</script>
+
+
+
+
+
+
 <script type="text/javascript">
 
 window.onload = function(){
@@ -379,6 +431,11 @@ function checkedChange() {
 
 
 </script>
+
+
+
+
+
 
 
 

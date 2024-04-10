@@ -831,6 +831,24 @@ public class MemberController {
 	
 	
 	
+	@RequestMapping(value="memberProfile.do", method=RequestMethod.POST)
+	@ResponseBody      //response 객체에 JSONString 담아 보내기 위함
+	public String memberProfile(@RequestParam("memberid") String memberid, Model model) {
+	 
+		System.out.println("otherID: " + memberid);
+		
+		Member member = memberService.selectMember(memberid);
+		
+		  
+		
+		JSONObject job = new JSONObject(); 
+		job.put("id", member.getMemberID());
+		job.put("photoFile", member.getPhotoFilename());
+
+	
+		return job.toJSONString();
+	}	
+	
 	
 	
 	//회원탈퇴 페이지로 이동
