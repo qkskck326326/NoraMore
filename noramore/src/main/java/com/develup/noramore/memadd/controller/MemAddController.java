@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.develup.noramore.freeboard.model.service.FreeBoardService;
+import com.develup.noramore.freeboard.model.vo.FreeBoard;
 import com.develup.noramore.memadd.model.service.MemAddService;
 import com.develup.noramore.memadd.model.vo.MemAdd;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
@@ -24,6 +26,9 @@ public class MemAddController {
 	
 	@Autowired
 	private RecrBoardService recrBoardService;
+	
+	@Autowired
+	private FreeBoardService freeBoardService;
 	
 	
 	//등급페이지로 이동
@@ -44,24 +49,39 @@ public class MemAddController {
 	}
 
 
-//	//활동기록 페이지로 이동
+	//활동기록 페이지로 이동 >> 회원의 모집게시판
+	@RequestMapping(value = "selectRecrBoadMemberId.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String articleRecrListPage(@RequestParam("memberID") String memberid, Model model) {
+		System.out.println("memberid : " + memberid);
+		System.out.println();
+		ArrayList<RecrBoard> recrBoardList = recrBoardService.selectRecrBoardId(memberid);
+		
+		System.out.println("list : " + recrBoardList);
+		if (recrBoardList != null) { 
+			model.addAttribute("list", recrBoardList); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+			return "member/myArticlePage";
+		} else {
+			return "redirect:home.do";
+		}
+	}
+
+//	//회원의 자유게시판
 //	@RequestMapping(value = "selectRecrBoadMemberId.do", method = { RequestMethod.GET, RequestMethod.POST })
 //	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-//	public String articleListPage(@RequestParam("memberID") String memberid, Model model) {
+//	public String articleFreeListPage(@RequestParam("memberID") String memberid, Model model) {
 //		System.out.println("memberid : " + memberid);
+//		System.out.println();
+//		ArrayList<FreeBoard> freeBoardList = freeBoardService.selectfreeBoardId(memberid);
 //		
-//		ArrayList<RecrBoard> recrBoardList = recrBoardService.selectRecrBoardId(memberid);
-//		
-//		System.out.println("list : " + recrBoardList);
-//		if (recrBoardList != null) { 
-//			model.addAttribute("list", recrBoardList); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
+//		System.out.println("list : " + freeBoardList);
+//		if (freeBoardList != null) { 
+//			model.addAttribute("list", freeBoardList); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
 //			return "member/myArticlePage";
 //		} else {
 //			return "redirect:home.do";
 //		}
 //	}
-
-
 
 
 

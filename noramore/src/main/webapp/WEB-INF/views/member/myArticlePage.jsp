@@ -10,21 +10,61 @@
 <link rel="stylesheet" type="text/css" href="resources/css/myArticle.css" />
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
+ <c:import url="/WEB-INF/views/common/header.jsp" /> 
 
  <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" /> 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#recr').click(function() {
+        fetchBoardData('recruitment');
+    });
+
+    $('#free').click(function() {
+        fetchBoardData('free');
+    });
+});
+
+function fetchBoardData(boardType) {
+    $.ajax({
+        url: 'selectRecrBoadMemberId.do', // 서버의 URL 주소 (예시)
+        type: 'GET',
+        dataType: "json",
+        data: {
+            type: boardType,
+            memberID: '사용자ID' // 로그인한 사용자의 ID를 어떻게 가져올지에 따라 달라질 수 있습니다.
+        },
+        success: function(data) {
+            $('#box_act').html(data); // 가져온 데이터로 활동기록 테이블을 업데이트합니다.
+        },
+        error: function() {
+            alert('데이터를 불러오는데 실패했습니다.');
+        }
+    });
+}
+</script>
+
+
+
+<div id="box_act">
 <h1>활동기록</h1>
 
-<button id="recr">모집게시판</button>
-<button id="free">자유게시판</button>
+<button id="recr">
+	모집게시판
+</button>
 
-	<table style='width: 1200px;'>
+<button id="free">
+	자유게시판
+</button>
+
+
+<hr>
+	<table>
 		<tr>
-			<th>활동여부1</th>   
-			<th>제목</th>
-			<th>활동 시작일</th>
-		
+			<th class="title">활동여부</th>   
+			<th class="title">제목</th>
+			<th class="title">활동 시작일</th>
 		</tr>
 		<c:forEach var="rl" items="${list}">
 		<c:url var="rbd" value="rbdetail.do">
@@ -46,9 +86,8 @@
 			<th>${rl.recrActStartDate}</th>
 		</tr>
 		</c:forEach>
-
 	</table>
-
+</div>
 
 
 </body>

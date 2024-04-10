@@ -7,6 +7,6 @@
 <title>회원탈퇴</title>
 </head>
 <body>
-
+sdfsfsdf
 </body>
 </html>
