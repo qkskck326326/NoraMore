@@ -85,7 +85,7 @@ public class RecrApplController {
 				  model.addAttribute("page", page);
 				  model.addAttribute("categoryId", categoryId);
 				  model.addAttribute("boardId", recrAppl.getBoardId());
-				  return "recrBoard/RecrBoardDetail";			  
+				  return "redirect:rbdetail.do";			  
 			  }else {
 				  model.addAttribute("message", "error! 신청에 실패하였습니다");
 				  model.addAttribute("page", page);
