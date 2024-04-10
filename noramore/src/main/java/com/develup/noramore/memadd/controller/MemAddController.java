@@ -1,13 +1,17 @@
 package com.develup.noramore.memadd.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.develup.noramore.freeboard.model.service.FreeBoardService;
 import com.develup.noramore.freeboard.model.vo.FreeBoard;
@@ -15,6 +19,8 @@ import com.develup.noramore.memadd.model.service.MemAddService;
 import com.develup.noramore.memadd.model.vo.MemAdd;
 import com.develup.noramore.recrboard.model.service.RecrBoardService;
 import com.develup.noramore.recrboard.model.vo.RecrBoard;
+
+import net.sf.json.JSONArray;
 
 
 @Controller
@@ -67,7 +73,7 @@ public class MemAddController {
 	}
 
 //	//회원의 자유게시판
-//	@RequestMapping(value = "selectRecrBoadMemberId.do", method = { RequestMethod.GET, RequestMethod.POST })
+//	@RequestMapping(value = "selectFreeBoadMemberId.do", method = { RequestMethod.GET, RequestMethod.POST })
 //	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
 //	public String articleFreeListPage(@RequestParam("memberID") String memberid, Model model) {
 //		System.out.println("memberid : " + memberid);
@@ -84,6 +90,41 @@ public class MemAddController {
 //	}
 
 
+	
+	@RequestMapping(value="selectFreeBoadMemberId.do", method={ RequestMethod.GET, RequestMethod.POST })
+	   @ResponseBody      //response 객체에 JSONString 담아 보내기 위함
+	   public String articleFreeListPage(@RequestParam("memberID") String memberid, Model model) throws UnsupportedEncodingException {
+	        
+		System.out.println("memberid : " + memberid);
+		  ArrayList<FreeBoard> freeBoardList = freeBoardService.selectfreeBoardId(memberid);
+	      
+	      //list를 json 배열로 옮기기
+	      JSONArray jarr = new JSONArray();         //import 시 org.json.simple.JSONArray 와
+	      for(FreeBoard fboard : freeBoardList) {
+	         //board 객체 저장용 json 객체 생성
+	         JSONObject job = new JSONObject();
+	         job.put("flikeCount", fboard.getLikeCount());
+	         //한글에 대해서는 인코딩해서 json에 담음 (한글 깨짐 방지)
+	         job.put("ftitle", URLEncoder.encode(fboard.getTitle(), "utf-8"));
+	      // 날짜 데이터는 반드시 문자열로 바꿔서 저장할 것 : 날짜 그대로 저장하면 뷰에서 json 전체가 출력이 안됨 >> 날짜를 기록한
+	 		// json객체는 출력이 안됨
+	 		job.put("fregist", fboard.getRegistDate().toString());
+	 		job.put("fboardId", fboard.getBoardId());
+			/* job.put("fregist", fboard.getPage()); */
+	 		job.put("categoryId", fboard.getCategoryId());
+	  
+	         //job 를 jarr 에 추가
+	         jarr.add(job);
+	      }
+	      
+	      //전송용 json 객체 준비
+	      JSONObject sendJson = new JSONObject();
+	      //전송용 객체에 jarr 담음
+	      sendJson.put("list", jarr);
+	      
+	      //전송용 json 을 JSONString 으로 전송
+	      return sendJson.toJSONString();
+	   }
 
 
 
@@ -126,8 +167,11 @@ public class MemAddController {
 //	}
 //
 
-
-
-
+	
+	
+	
+	
+	
+	
 	
 }

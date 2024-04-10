@@ -49,9 +49,15 @@ public class MemberDao {
 		return sqlSessionTemplate.update("memberMapper.updateMember", member);
 	}
 
-//	public void insertKakaoMember(Member kakaovo) {
-//		sqlSessionTemplate.insert("memberMapper.insertKakaoMember", kakaovo);
-//	}
+	public int selectPwMatch(Member member) {
+		return sqlSessionTemplate.selectOne("memberMapper.selectPwMatch", member);
+	}
+
+	public int updateResign(String memberID) {
+		return sqlSessionTemplate.update("memberMapper.updateResign", memberID);
+	}
+
+
 
 	
 

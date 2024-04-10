@@ -52,15 +52,9 @@
 	<!-- 로그인용 쿼리 -->
 	<select id="selectMember" parameterType="string" resultMap="resultMember">
 		select * from member 
-		where MEMBER_ID = #{ memberID } and ACT_LIMIT in(0,1) <!-- and SIGNTYPE = "DIRECT" -->
+		where MEMBER_ID = #{ memberID } and ACT_LIMIT in(0,1) and resign is null
 		
 	</select>
-	
-	<insert id="insertMember" parameterType="Member">
-		insert into member 
-		values (#{ memberID }, #{ memberPWD }, #{ memberNicname }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
-				#{ address }, #{ photoFilename }, default, default, #{ signType }, default, default, default)
-	</insert>
 	
 	<!-- 회원가입시 아이디 중복 여부 검사용 쿼리 -->
 	<select id="selectCheckId" parameterType="string" resultType="_int">
@@ -79,6 +73,30 @@
 		select * from member 
 		where EMAIL = #{ email } AND MEMBER_NAME = #{ memberName }
 	</select>
+	
+	
+	<select id="selectKakaoLogin" parameterType="String" resultMap="resultMember" >
+		select * from member
+		where MEMBER_ID = #{ memberID }
+	</select>
+	
+	<select id="selectCheckNicname" parameterType="String" resultType="_int">
+		select count(*) from member 
+		where MEMBER_NICNAME = #{ memberNicname }
+	</select>
+	
+	<select id="selectPwMatch" parameterType="Member" resultType="_int"> 
+		select count(*) from member
+		where MEMBER_ID = #{ memberID } AND MEMBER_PWD = #{ memberPWD }
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		insert into member 
+		values (#{ memberID }, #{ memberPWD }, #{ memberNicname }, #{ memberName }, #{ birth },  #{ gender }, #{ email }, 
+				#{ address }, #{ photoFilename }, default, default, #{ signType }, default, default, default)
+	</insert>
+	
+	
 
 	<!-- 비밀번호 재설정 --> 
 	<update id="updatePw" parameterType="Member">
@@ -87,15 +105,12 @@
 		where MEMBER_ID = #{ memberID }
 	</update>
 	
-
-	<select id="selectKakaoLogin" parameterType="String" resultMap="resultMember" >
-		select * from member
-		where MEMBER_ID = #{ memberID }
-	</select>
 	
-	<select id="selectCheckNicname" parameterType="String" resultType="_int">
-		select count(*) from member where MEMBER_NICNAME = #{ memberNicname }
-	</select>
+	<update id="updateResign" parameterType="String">
+		update member
+		set resign=SYSDATE + 30
+		where MEMBER_ID = #{ memberID }
+	</update>
 	
 	
 	

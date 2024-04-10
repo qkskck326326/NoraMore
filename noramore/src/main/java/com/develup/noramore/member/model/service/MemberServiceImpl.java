@@ -68,6 +68,17 @@ public class MemberServiceImpl implements MemberService {
 	public int updateMember(Member member) {
 		return memberDao.updateMember(member);
 	}
+
+	@Override
+	public int selectPwMatch(Member member) {
+		return memberDao.selectPwMatch(member);
+	}
+
+	@Override
+	public int updateResign(String memberID) {
+		return memberDao.updateResign(memberID);
+		
+	}
 	
 	
 	
