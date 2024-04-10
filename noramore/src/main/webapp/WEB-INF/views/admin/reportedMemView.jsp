@@ -53,7 +53,7 @@
             font-family: Arial, sans-serif;
             margin-top: 300px;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: #E0F8EC;
         }
         .container {
             max-width: 800px;

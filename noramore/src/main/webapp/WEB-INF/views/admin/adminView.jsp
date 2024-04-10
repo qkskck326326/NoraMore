@@ -9,6 +9,12 @@
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 <style type="text/css">
 
+        body {
+            font-family: Arial, sans-serif;
+            margin-top: 300px;
+            padding: 0;
+            background-color: #E0F8EC;
+        }
 .container {
     position: relative;
     width: 100%;
