@@ -39,11 +39,42 @@ window.onload = function(){
 
 </script>
 
+<script type="text/javascript">
+/* String memberid = ${ loginMember.memberID}
+
+$.ajax({
+	url : "otherMember.do",  //DispatcherServlet로 보냄
+	type : "post",     
+	data: { memberid : memberid },  
+	dataType : "json",
+	success : function(data) {
+		console.log("success : " + data);   //String 리턴되온것을 Object로 받음
+
+		console.log("success11 : " + data.grade); 
+		console.log("success11 : " + data.heart); 
+		console.log("success11 : " + data.id); 
+		console.log("success11 : " + data.photoFile); 
+		
+		
+		values += data.grade + " " + data.heart + " " + data.id + " " + data.photoFile
+		
+		
+
+		$('#context').html($('#context').html() + values);
+		
+	},
+	error : function(jqXHR, textStatus, errorThrown) {
+		console.log("error : " + jqXHR + ", " + textStatus + ", "
+				+ errorThrown);
+	}
+}); //ajax
+ */
 
 
 
 
 
+</script>
 
 <div id="boxLine">
 
