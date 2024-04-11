@@ -37,7 +37,7 @@
 </div>
 	
 
-<hr>
+<hr id="hr">
 	<table>
 		<tr>
 			<th class="title">활동 시작일</th>   

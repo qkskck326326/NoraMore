@@ -3,8 +3,6 @@ package com.develup.noramore.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -23,7 +21,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,8 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.develup.noramore.alarm.model.service.AlarmService;
+import com.develup.noramore.chatting.model.service.ChattingService;
+import com.develup.noramore.chatting.vo.Message;
 import com.develup.noramore.memadd.model.service.MemAddService;
-import com.develup.noramore.memadd.model.vo.MemAdd;
 import com.develup.noramore.member.model.service.MemberService;
 import com.develup.noramore.member.model.vo.Member;
 import com.develup.noramore.member.naver.api.NaverLoginAuth;
@@ -58,6 +56,10 @@ public class MemberController {
 	@Autowired
 	private AlarmService alarmService;
 
+   @Autowired
+   private ChattingService chattingService;
+	
+	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder; // spring-security.xml에서의 id를 가져다 변수 명으로 사용
 	// 암호를 암호화 함.
@@ -165,6 +167,11 @@ public class MemberController {
 			
 			session.setAttribute("loginMember", loginMember); // 세션이름에 loginMember을 저장함
 		      int listCount = alarmService.selectNewCount(member.getMemberID());
+		      
+		      Message message = chattingService.selectChatRequest(member.getMemberID());
+	            if(message != null) {
+	               session.setAttribute("chatOn", "chat request exist");
+	            }
 		      
 		      if(listCount > 0) {
 		         session.setAttribute("alarmCount", listCount);
@@ -764,6 +771,7 @@ public class MemberController {
 	public String updatePhotofile(Member member, 
 								@RequestParam("photoFile") MultipartFile file,
 								@RequestParam("memberID") String memberid,
+								
 									Model model) {
 		
 		System.out.println(" 파일이지롱 : " + file + "  " + memberid);

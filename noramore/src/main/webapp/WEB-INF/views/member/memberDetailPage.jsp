@@ -120,7 +120,7 @@ the_other_person.addEventListener('click', function (event) {
 	</div>
 	
 	<div>
-		<span class="title">주소</span> <span class="input">${ member.address }</span>
+		<span class="title">주소</span> <span id="adress" class="input">${ member.address }</span>
 	</div>
 	
 	<input type="submit" id="modifyBtn" value="수정하기">
