@@ -5,29 +5,34 @@
 <head>
 <meta charset="UTF-8">
 <title>채팅</title>
-<link href="resources/css/chat.css" rel="stylesheet">
+<c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/common/sideSample.jsp" />
+<link rel="stylesheet" type="text/css" href="resources/css/chat.css" />
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 </head>
 <body>
-<div class="body">
-<div class="chat">
-    <h2>채팅</h2>
-    <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/>
-    <span>상대방 ID : </span><input type="text" id="recvUser" size="12"/> &nbsp;
-    <button type="button" id="startBtn">채팅하기</button><br>
+
+	<div class="chat">
+	    <h2>채팅</h2>
+    
+	    <div class="startchat">
+	    <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/>
+	    <span>상대방 ID : </span><input type="text" id="recvUser"  style="width:100px;"/> &nbsp;
+	    <button type="button" id="startBtn">채팅하기</button><br>
+	    </div>
     
     <!-- 채팅 창 구현 부분 -->
     
-    <div style="display:none;" id="chatbox">
-        <fieldset>
-            <div id="messageWindow"></div><br>
-            <input type="text" id="inputMessage" onkeyup="enterKey()"/>
-            <input type="submit" value="보내기" onclick="send()">
-            <button type="button" id="endBtn">나가기</button>
-        </fieldset>
-    </div>
-</div>
-</div>
+	    <div style="display:none;" id="chatbox">
+	        <fieldset>
+	            <div id="messageWindow"></div><br>
+	            <input type="text" id="inputMessage" onkeyup="enterKey()"/>
+	            <input type="submit" value="보내기" onclick="send()">
+	            <button type="button" id="endBtn">나가기</button>
+	        </fieldset>
+	    </div>
+	</div>
+
 <script>
 
 
@@ -81,7 +86,6 @@ $('#endBtn').on('click',function(){
             console.error("에러 : ", error);
         }
     });
-
     
 });
 
