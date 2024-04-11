@@ -166,7 +166,7 @@ $(function(){
 	<input  type="hidden" name="page" value="${page}">
 	
 	
-	<section id="write" style="width: 800px;">
+	<section id="write" style="width: 800px; left-margin: 200px;">
 		<h1>모집글</h1>
 		<div class="line"></div>
 		
