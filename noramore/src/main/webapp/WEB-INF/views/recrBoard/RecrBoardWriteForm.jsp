@@ -156,7 +156,7 @@ $(function(){
 
 </head>
 <body>
-	
+<div class="container" style="margin-left: 35%">
 		
 <form action="insertrb.do" method="post" enctype="multipart/form-data" >
 
@@ -218,7 +218,7 @@ $(function(){
 	</section>
 </form>
 
-
+</div>
 
 </body>
 </html>
