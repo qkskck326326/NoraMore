@@ -134,12 +134,12 @@ function my() {
 				</c:url>
 				<li>
 					<figure>
-						<a href="${goBaord}"> <img
+						<a href="${goBaord}" > <img
 							src="resources/categoryImg/${category.renameFileName}"
-							alt="${category.originalFileName}">
+							alt="${category.originalFileName}" >
 						</a>
 						<figcaption>
-							<h3>${category.categoryName}</h3>
+							<h3 style="text-align: center;">${category.categoryName}</h3>
 						</figcaption>
 					</figure>
 				</li>
@@ -158,7 +158,9 @@ function my() {
 			</div>
 
 			<div class="inan1">
-				<ul id="noticeList"></ul>
+				<a href="nlist.do"> <img
+							src="resources/images/notice.png">
+						</a>
 			</div>
 		</div>
 		<div class="qna">
@@ -168,7 +170,10 @@ function my() {
 			</div>
 
 			<div class="inqnal">
-				<ul id="qnaList"></ul>
+				<a href="qlist.do"> <img
+							src="resources/images/Q&A.png"
+							>
+						</a>
 			</div>
 		</div>
 
