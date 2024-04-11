@@ -147,7 +147,7 @@ function changeFormAction() {
 </style>
 </head>
 <body>
-	<section id="board" style="margin-left: 200px;">
+	<section id="board" style="margin-left: 200px; height:1600px;">
 		<h1>모집게시판 전체 목록</h1>
 	
 	<div id="map" style="width:1200px;height:350px; left: 20%;"></div>   
@@ -216,10 +216,12 @@ function changeFormAction() {
 				</c:forEach>
 	
 			</table>
+		
 		</section>
 		<br>
 		<c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
+		
 	</section>
-	
+<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>
