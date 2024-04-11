@@ -86,7 +86,7 @@ window.onload = function(){
             });
 
             var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="padding:5px;">우리집</div>'
+                content: '<div style="padding:5px; color:blue;">우리집</div>'
             });
             infowindow.open(map, marker);
         } 

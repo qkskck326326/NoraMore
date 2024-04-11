@@ -447,7 +447,7 @@ textarea.commentForm:hover {
 					
 					<button onclick="translateText()">translate context</button>
 					<c:if
-						test="${sessionScope.loginMember.memberID ne RecrBoard.memberId}">
+						test="${sessionScope.loginMember.memberID ne RecrBoard.memberId and RecrBoard.recrStatus eq '모집중'}">
 						<button class="whiteBtn"
 							style="float: right; background-color: pink; color: black;"
 							onclick="rbreport(); return false;">신고하기</button>
@@ -459,8 +459,9 @@ textarea.commentForm:hover {
 
 					<c:if
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
-						<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
+						
 						<c:if test="${RecrBoard.recrStatus eq '모집중'}">
+							<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
 							<button class="whiteBtn" style="float: right;" onclick="closeRecr()">모집종료</button>
 						</c:if>
 						<div id="scrollableTable" style="width: 800px;overflow-y: auto;">
@@ -494,7 +495,7 @@ textarea.commentForm:hover {
 				</div>
 					<section>
 						<p1 style="font-weight: bold;">작성자: ${RecrBoard.memberId}</p1>
-						<p2 style="float: right; font-weight: bold;">모집상태 : [${RecrBoard.recrStatus}]</p2>
+						<p2 style="float: right; font-weight: bold;">   모집상태 : [${RecrBoard.recrStatus}] ( ${RecrBoard.nowRecr}명 / ${RecrBoard.maxRecr}명 )</p2>
 					</section>
 				<textarea id="context" cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 				<div>
@@ -557,6 +558,6 @@ textarea.commentForm:hover {
 
 
 	
-
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
