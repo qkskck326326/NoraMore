@@ -103,6 +103,7 @@ public class RecrApplController {
   
 	  } 
 	  
+	  // 모집 수락
 	  @RequestMapping("applyAppl.do")
 	  public String applyAppl(RecrAppl recrAppl, Model model, @RequestParam("page") int page, @RequestParam("categoryId") int categoryId) {
 		  
@@ -126,6 +127,7 @@ public class RecrApplController {
 		  
 	  }//
 	  
+	  // 모집 거절
 	  @RequestMapping("cancelAppl.do")
 	  public String cancelAppl(RecrAppl recrAppl, Model model, @RequestParam("page") int page, @RequestParam("categoryId") int categoryId) {
 		  

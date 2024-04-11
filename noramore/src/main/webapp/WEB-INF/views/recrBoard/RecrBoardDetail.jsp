@@ -438,7 +438,7 @@ textarea.commentForm:hover {
 </style>
 </head>
 <body>
-	<div class="container" style="margin-left: 30%">
+	<div class="container" style="margin-left: 30%; height: 1600;">
 		<div class="boardRecr-div">
 			<div id="write" style="margin-bottom: 20px;">
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
@@ -495,7 +495,7 @@ textarea.commentForm:hover {
 				</div>
 					<section>
 						<p1 style="font-weight: bold;">작성자: ${RecrBoard.memberId}</p1>
-						<p2 style="float: right; font-weight: bold;">   모집상태 : [${RecrBoard.recrStatus}]</p2>
+						<p2 style="float: right; font-weight: bold;">   모집상태 : [${RecrBoard.recrStatus}] (${RecrBoard.nowRecr}명/ ${RecrBoard.maxRecr}명)</p2>
 					</section>
 				<textarea id="context" cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 				<div>
