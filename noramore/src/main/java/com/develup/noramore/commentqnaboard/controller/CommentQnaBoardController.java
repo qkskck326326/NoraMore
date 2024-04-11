@@ -98,6 +98,39 @@ public class CommentQnaBoardController {
 			return jarr.toJSONString();
 		}
 	
-		
+		@RequestMapping(value="deleteqnacomment.do", method = RequestMethod.POST)
+		@ResponseBody
+		public String deleteQnaComment(CommentQnaBoard commentQnaBoard, @RequestParam("page") String page, Model model) {
+			if(commentQnaBoardService.deleteQnaComment(commentQnaBoard) >0 && qnaBoardServie.countComment(commentQnaBoard.getBoardId()) > 0) {
+				commentQnaBoardService.deleteQnaSubComment(commentQnaBoard);
+				qnaBoardServie.countcoment(commentQnaBoard);
+				model.addAttribute("message", "댓글이 삭제되었습니다.");
+				model.addAttribute("boardId", commentQnaBoard.getBoardId());
+				model.addAttribute("page", page);
+				return "redirect:rbdetail.do";
+			}else {
+				model.addAttribute("message", "오류! 댓글 삭제에 실패하였습니다.");
+				model.addAttribute("boardId", commentQnaBoard.getBoardId());
+				model.addAttribute("page", page);
+				return "redirect:rbdetail.do";
+			}
+			
+		}
+
 		
 }///
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

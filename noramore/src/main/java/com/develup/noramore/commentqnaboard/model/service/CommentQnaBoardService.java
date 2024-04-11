@@ -16,4 +16,8 @@ public interface CommentQnaBoardService {
 	void deleteBoardComment(int boardId);
 
 	int insertQnaCocomment(CommentQnaBoard commentQnaBoard);
+
+	int deleteQnaComment(CommentQnaBoard commentQnaBoard);
+
+	void deleteQnaSubComment(CommentQnaBoard commentQnaBoard);
 }

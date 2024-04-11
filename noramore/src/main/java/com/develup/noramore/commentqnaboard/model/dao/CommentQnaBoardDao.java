@@ -41,6 +41,14 @@ public class CommentQnaBoardDao {
 
 	public int insertQnaCocomment(CommentQnaBoard commentQnaBoard) {
 		return sqlSessionTemplate.insert("qnacomment.insertQnaCocomment", commentQnaBoard);
+	}
+
+	public int deleteQnaComment(CommentQnaBoard commentQnaBoard) {
+		return sqlSessionTemplate.delete("qnacomment.deleteQnaComment", commentQnaBoard);
+	}
+
+	public void deleteQnaSubComment(CommentQnaBoard commentQnaBoard) {
+		sqlSessionTemplate.delete("qnacomment.deleteQnaSubComment", commentQnaBoard);
 	}	
 	
 }

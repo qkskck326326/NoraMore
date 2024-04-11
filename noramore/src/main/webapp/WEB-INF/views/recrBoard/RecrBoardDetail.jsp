@@ -56,7 +56,7 @@
 async function translateText() {
     const textToTranslate = document.getElementById('context').value;
     const targetLanguage = "en";
-    const subscriptionKey = 'e863bfea42804c318d498eaf7322525d'; // Azure에서 발급받은 구독 키를 입력하세요.
+    const subscriptionKey = 'e863bfea42804c318d498eaf7322525d'; 
     const endpoint = 'https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=' + targetLanguage;
 
     try {
@@ -186,6 +186,8 @@ function selectrecrcomment() {
 }
 
 
+
+
 function moveListPage(){
 	location.href = "${rblist}";
 }
@@ -276,9 +278,11 @@ function rbreport(){
 }
 
 function applyAppl(memberId, boardId){
-	console.log(memberId);
-	console.log(boardId);
 	location.href = "applyAppl.do?memberId=" + memberId + "&boardId=" + boardId + "&page=" + ${page} + "&categoryId=" + ${categoryId};
+}
+
+function dropAppl(memberId, boardId){
+	location.href = "dropAppl.do?memberId=" + memberId + "&boardId=" + boardId + "&page=" + ${page} + "&categoryId=" + ${categoryId};
 }
 
 function cancelAppl(memberId, boardId){
@@ -330,12 +334,29 @@ function updatecomment(commentId1, context1){
 
 function toggleApplList(){
 	var applList = document.getElementById("applList");
+	var appledList = document.getElementById("appledList");
+	if(appledList.style.display == "block"){
+		appledList.style.display = "none";
+	}
 	if(applList.style.display == "none"){
 		applList.style.display = "block";
 	}else{
 		applList.style.display = "none";
 	}
          
+}
+
+function toggleAppledList(){
+	var applList = document.getElementById("applList");
+	var appledList = document.getElementById("appledList");
+	if(applList.style.display == "block"){
+		applList.style.display = "none";
+	}
+	if(appledList.style.display == "none"){
+		appledList.style.display = "block";
+	}else{
+		appledList.style.display = "none";
+	}
 }
 
 function closeRecr() {
@@ -435,10 +456,14 @@ textarea.commentForm {
 textarea.commentForm:hover {
 	border-color: #666;
 }
+
+th{
+	text-align: center;
+}
 </style>
 </head>
 <body>
-	<div class="container" style="margin-left: 30%">
+	<div class="container" style="margin-left: 30%; height: 1600;">
 		<div class="boardRecr-div">
 			<div id="write" style="margin-bottom: 20px;">
 				<h1 style="text-align: left;">${RecrBoard.title}</h1>
@@ -461,12 +486,15 @@ textarea.commentForm:hover {
 						test="${sessionScope.loginMember.memberID eq RecrBoard.memberId}">
 						
 						<c:if test="${RecrBoard.recrStatus eq '모집중'}">
-							<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">모집목록 보기</button>
+							<button class="whiteBtn" style="float: right;" onclick="toggleAppledList()">모집목록 보기</button>
+							<button class="whiteBtn" style="float: right;" onclick="toggleApplList()">신청자목록 보기</button>
 							<button class="whiteBtn" style="float: right;" onclick="closeRecr()">모집종료</button>
 						</c:if>
 						<div id="scrollableTable" style="width: 800px;overflow-y: auto;">
+						
 						<table id="applList" style='width: 600px; display: none;'>
 							<tr>
+								<th>번호</th>
 								<th width="150px">신청자ID</th>
 								<th width="120px">거절</th>
 								<th width="120px">수락</th>
@@ -478,16 +506,46 @@ textarea.commentForm:hover {
 							</c:if>
 							<c:if test="${!empty applList}">								
 								<c:forEach var="appl" items="${applList}">
+								<c:if test="${appl.recrState eq 1}">
 									<tr>
+										<th>${loop.index + 1}</th>
 										<th>${appl.memberId}</th>
 										<th><button
 												onclick="applyAppl('${appl.memberId}', ${appl.boardId})">수락</button></th>
 										<th><button
-												onclick="cancelAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
+												onclick="dropAppl('${appl.memberId}', ${appl.boardId})">거절</button></th>
 									</tr>
+								</c:if>
 								</c:forEach>								
 							</c:if>
 						</table>
+						
+						<table id="appledList" style='width: 600px; display: none;'>
+							<tr>
+								<th>번호</th>
+								<th width="150px">모집인원ID</th>
+								<th width="120px">모집 날짜</th>	
+								<th width="120px">모집취소</th>
+							</tr>
+							<c:if test="${empty applList}">
+								<tr>
+									<th>모집인원이 없습니다</th>
+								</tr>
+							</c:if>
+							<c:if test="${!empty applList}">								
+								<c:forEach var="appl" items="${applList}">
+								<c:if test="${appl.recrState eq 2}">
+									<tr>
+										<th style="text-align: center;">${loop.index + 1}</th>
+										<th>${appl.memberId}</th>
+										<th>${appl.lastUpdDate}</th>
+										<th><button onclick="cancelAppl('${appl.memberId}', ${appl.boardId})">모집취소</button></th>
+									</tr>
+								</c:if>
+								</c:forEach>								
+							</c:if>
+						</table>
+						
 						</div>
 					</c:if>
 					<br>
@@ -495,7 +553,7 @@ textarea.commentForm:hover {
 				</div>
 					<section>
 						<p1 style="font-weight: bold;">작성자: ${RecrBoard.memberId}</p1>
-						<p2 style="float: right; font-weight: bold;">   모집상태 : [${RecrBoard.recrStatus}]</p2>
+						<p2 style="float: right; font-weight: bold;">   모집상태 : [${RecrBoard.recrStatus}] (${RecrBoard.nowRecr}명/ ${RecrBoard.maxRecr}명)</p2>
 					</section>
 				<textarea id="context" cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 				<div>

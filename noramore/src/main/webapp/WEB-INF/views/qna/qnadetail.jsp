@@ -227,6 +227,27 @@ window.onload = function() {
 	        }
 	    });
 	}
+
+	function deletecomment(commentId1) {
+	    var commentId = commentId1;
+		console.log(commentId);
+	    // 삭제할 댓글의 commentId 값을 서버로 전송하는 AJAX 요청
+	    $.ajax({
+	        url: 'deleteqnacomment.do',
+	        type: 'POST',
+	        data: { commentId: commentId, boardId: "${qna.boardId}", page: "${page}"},
+	        success: function(response) {
+	            alert('댓글이 성공적으로 삭제되었습니다.');
+	        },
+	        error: function(xhr, status, error) {
+	            // 오류 처리
+	            console.error('댓글 삭제 중 오류가 발생했습니다:', error);
+	        }
+	    });
+
+	    location.reload(); 
+	    location.reload(); 
+	}
 </script>
 </head>
 <body>
