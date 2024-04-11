@@ -160,13 +160,16 @@ form.sform {
 							pattern="yyyy-MM-dd" /></td>
 			</c:forEach>
 		</table>
-
+		
+	<br><br>
+	<c:import url="/WEB-INF/views/common/pagingView.jsp" />
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</section>
 
 
 
-	<c:import url="/WEB-INF/views/common/pagingView.jsp" />
+	
 </body>
 
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+
 </html>
