@@ -10,7 +10,7 @@
 <c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
-<c:set var="href" value="rblist.do"/>
+<c:set var="href" value="searchrecrtitle.do"/>
 <c:if test="${!empty requestScope.href}">
 	<c:set var="href" value="${requestScope.href}" />
 </c:if>
