@@ -26,7 +26,7 @@ function movePage() {
 function enroll() {
     var form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'enroll.do';
+    form.action = 'enrollPage.do';
     document.body.appendChild(form);
     form.submit();
 }
@@ -47,7 +47,7 @@ function my() {
     form.submit();
 }
     
-$(function(){
+/* $(function(){
     // 최근 등록된 공지글 5개를 받아와서 출력 처리
     $.ajax({
         url: "ntop5.do",
@@ -69,7 +69,7 @@ $(function(){
             console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
         }
     });
-});
+}); */
 </script>
 </head>
 
@@ -91,7 +91,7 @@ $(function(){
 				<form method="POST" action="moveLoginPage.do">
 					<button type="submit" class="button">로그인</button>
 				</form>
-				<form method="POST" action="enroll.do">
+				<form method="POST" action="enrollPage.do">
 					<button type="submit" class="button">회원가입</button>
 				</form>
 			</div>

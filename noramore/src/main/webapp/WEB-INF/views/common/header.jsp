@@ -10,6 +10,8 @@
     <c:set var="nowpage" value="${ requestScope.currentPage }" />
 </c:if>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +33,7 @@
                 <nav>
                     <ul>
                         <li><a href="moveLoginPage.do">로그인</a></li>
-                        <li><a href="moveEnrollPage.do">회원가입</a></li>
+                        <li><a href="enrollPage.do">회원가입</a></li>
                     </ul>
                 </nav>
             </div>
