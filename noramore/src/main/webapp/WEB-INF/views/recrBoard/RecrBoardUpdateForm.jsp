@@ -161,7 +161,7 @@ function deleteFile(){
 
 </head>
 <body>
-	
+<div class="container" style="margin-left: 35%">
 		
 <form action="updaterb.do" method="post" enctype="multipart/form-data" style="">
 
@@ -182,7 +182,7 @@ function deleteFile(){
 		<input  type="text" placeholder="글 제목을 입력하세요." name="title" style="display: inline-block;" value="${RecrBoard.title}">
 		
 		<p id="context">본문*</p>
-		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context">"${RecrBoard.context}"</textarea>
+		<textarea rows="30" cols="70" placeholder="본문을 입력하세요." name="context">${RecrBoard.context}</textarea>
 		
 		<p>첨부파일</p>
 		<c:if test="${!empty RecrBoard.recrOriginalFilename}">
@@ -229,7 +229,7 @@ function deleteFile(){
 		<p>활동 장소</p>
 		<div style="display: flex; align-items: center;">
     		<input type="text" placeholder="주소를 입력해주세요" id="searchAddress" name="recrLocation" readonly 
-    		style="width: 100%; height: 45px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px;">
+    		style="width: 100%; height: 45px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px;" value="${RecrBoard.recrLocation}">
    			<button style="width: 150px; height: 45px; margin-left: 10px; margin-bottom: 21px; padding: 20px; border: 1px solid #000; border-radius: 7px; font-size: 16px;
     font-weight: bold;" onclick="sample4_execDaumPostcode(); return false;" >주소 검색</button>
 		</div>
@@ -238,7 +238,7 @@ function deleteFile(){
 	</section>
 </form>
 
-
+</div>
 
 </body>
 </html>

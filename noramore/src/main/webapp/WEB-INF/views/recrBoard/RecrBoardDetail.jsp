@@ -196,7 +196,8 @@ function deletecomment(commentId) {
     // deleteComment URL 생성
     var boardId = "${RecrBoard.boardId}"; // JSP 변수를 JavaScript 문자열로 가져옵니다.
     var page = "${page}"; // JSP 변수를 JavaScript 문자열로 가져옵니다.
-    var deleteCommentUrl = "deletecomment.do?boardId=" + boardId + "&commentId=" + commentId + "&page=" + page;
+    var categoryId = "${categoryId}";
+    var deleteCommentUrl = "deletecomment.do?boardId=" + boardId + "&commentId=" + commentId + "&page=" + page + "&categoryId=" + categoryId;
 	
     // 생성된 URL로 리디렉션
     location.href = deleteCommentUrl;
@@ -293,7 +294,7 @@ function deletecomment(commentId1) {
     $.ajax({
         url: 'deletecomment.do',
         type: 'POST',
-        data: { commentId: commentId, boardId: "${RecrBoard.boardId}", page: "${page}" },
+        data: { commentId: commentId, boardId: "${RecrBoard.boardId}", page: "${page}", categoryId: "${categoryId}" },
         success: function(response) {
             alert('댓글이 성공적으로 삭제되었습니다.');
         },
@@ -314,7 +315,7 @@ function updatecomment(commentId1, context1){
 	$.ajax({
         url: 'updatecomment.do',
         type: 'POST',
-        data: { commentId: commentId, boardId: "${RecrBoard.boardId}", page: "${page}", context: context },
+        data: { commentId: commentId, boardId: "${RecrBoard.boardId}", page: "${page}", context: context, categoryId: "${categoryId}" },
         success: function(response) {
             alert('댓글이 성공적으로 수정되었습니다.');
         },
