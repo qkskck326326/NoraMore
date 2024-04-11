@@ -28,7 +28,6 @@
 		<typeAlias type="com.develup.noramore.common.Search" alias="Search" />
 		<typeAlias type="com.develup.noramore.common.SearchDate" alias="SearchDate" />
 		<typeAlias type="com.develup.noramore.recrappl.model.vo.RecrAppl" alias="RecrAppl" />
-		<typeAlias type="com.develup.noramore.chatting.vo.ChattingRoom" alias="ChattingRoom" />
 		<typeAlias type="com.develup.noramore.chatting.vo.Message" alias="Message" />
 		<typeAlias type="com.develup.noramore.category.model.vo.Category" alias="Category" />
 		<typeAlias type="com.develup.noramore.admin.model.vo.Flow" alias="Flow" />
