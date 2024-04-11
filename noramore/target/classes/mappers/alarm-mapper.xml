@@ -55,8 +55,6 @@
 		and checked_YN = 'N'
 	</select>
 	
-	
-
 
 	<update id="updateAlarm" parameterType="_int">
 		update alarm

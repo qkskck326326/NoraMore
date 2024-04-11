@@ -190,7 +190,7 @@ function onMessage(event) {
     } else {
         $textarea.html(
             $textarea.html()
-           +"<p class='chat_content other-side'>"
+           +"<p class='other-side'>"
            +sender+" : "
            +content
            +"</p><br>");

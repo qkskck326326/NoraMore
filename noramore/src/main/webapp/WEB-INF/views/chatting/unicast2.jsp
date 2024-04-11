@@ -64,7 +64,7 @@ $('#endBtn').on('click',function(){
         }
     });
     $.ajax({
-    	url: "cleanChat.do".do",
+    	url: "cleanChat.do",
     	type: "POST"
     });
 });

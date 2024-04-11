@@ -43,8 +43,14 @@ public class AlarmController {
 		Member member = (Member)request.getSession().getAttribute("loginMember");
 		
 		int listCount = alarmService.selectListCount(member.getMemberID()); //페이징 계산 처리 실행
+		
+		System.out.println("listCount" + listCount);
+		
 		Paging paging = new Paging(listCount, currentPage, limit, "alarmlist.do");
 		paging.calculate();
+		
+		System.out.println("startPage" + paging.getStartPage());
+		System.out.println("currentPage" + currentPage);
 		
 		Alarm alarm = new Alarm();
 		alarm.setReceiverId(member.getMemberID());
@@ -53,14 +59,16 @@ public class AlarmController {
 		
 		//출력할 페이지에 대한 목록 조회
 		ArrayList<Alarm> list = alarmService.selectList(alarm);
-		System.out.println(list);
+		
+		System.out.println("list" + list);
+		System.out.println(list.size());
+		
 		//받은 결과로 성공/실패 페이지 내보냄
-		if(list != null && list.size() > 0) {
+		if(list != null && list.size() >= 0) {
 			model.addAttribute("list", list);
 			model.addAttribute("paging", paging);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("limit", limit);
-			
 			return "alarm/alarmListView";
 		}else {
 			return "alarm/alarmListView"; 

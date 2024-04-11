@@ -89,37 +89,37 @@
         <table>
             <tr>
                 <th>어제 가입한 회원</th>
-                <td>${ flow.enrollYesterday } 명</td>
+                <td>+ ${ flow.enrollYesterday } 명</td>
             </tr>
         </table>
         <table>
             <tr>
                 <th>오늘 가입한 회원</th>
-                <td>${ flow.enrollToday } 명</td>
+                <td>+ ${ flow.enrollToday } 명</td>
             </tr>
         </table>
         <table>
             <tr>
                 <th>어제 탈퇴한 회원</th>
-                <td>${ flow.withdrawalYesterday } 명</td>
+                <td>- ${ flow.withdrawalYesterday } 명</td>
             </tr>
         </table>
         <table>
             <tr>
                 <th>오늘 탈퇴한 회원</th>
-                <td>${ flow.withdrawalToday } 명</td>
+                <td>- ${ flow.withdrawalToday } 명</td>
             </tr>
         </table>
         <table>
             <tr>
                 <th>신고된 회원</th>
-                <td>${ mlist } 명</td>
+                <td>✔ ${ mlist } 명</td>
             </tr>
         </table>
         <table>
             <tr>
                 <th>신고된 게시글</th>
-                <td>${ blist } 개</td>
+                <td>✔ ${ blist } 개</td>
             </tr>
         </table>
     </div>

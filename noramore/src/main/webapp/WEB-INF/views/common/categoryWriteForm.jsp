@@ -35,7 +35,7 @@ $(function(){
 <title>카테고리 생성</title>
 </head>
 <body>
-<button onclick="home.do">돌아가기</button>
+<button class="whiteBtn" ><a href="${ pageContext.servletContext.contextPath }/adminPage.do">돌아가기</a></button>
 	
 		<form action="insertCategory.do" method="post" enctype="multipart/form-data">
 			<section id="write">
