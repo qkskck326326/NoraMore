@@ -29,6 +29,30 @@
             <div class="header-right">
                 <nav>
                     <ul>
+                    <li><button class="blueBtn" onclick="openSetting()">챗봇실행</button>
+                                
+                                <section id="chatbot">
+                                <div id="setting" style="display: none;">
+                                    <div class="chatbot-container">
+                                        <div id="chatbot">
+                                            <div id="conversation">
+                                                <div class="chatbot-message">
+                                                    <p class="chatbot-text">노라모아에 오신것을 환영합니다 !<br><br>원하시는 질문을 말씀하세요</p>
+                                                </div>
+                                            </div>
+                                            <form id="input-form">
+                                                <message-container> 
+                                                <input id="input-field" type="text"
+                                                    placeholder="Type your message here">
+
+                                                <button type="submit">제출</button>
+                                                </message-container>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </section>
+                            </li>
                         <li><a href="moveLoginPage.do">로그인</a></li>
                         <li><a href="enrollPage.do">회원가입</a></li>
                     </ul>
@@ -43,13 +67,38 @@
             <div class="header-right">
                 <nav>
                     <ul>
+                     <li><button class="blueBtn" onclick="openSetting()">챗봇실행</button>
+                                
+                                <section id="chatbot">
+                                <div id="setting" style="display: none;">
+                                    <div class="chatbot-container">
+                                        <div id="chatbot">
+                                            <div id="conversation">
+                                                <div class="chatbot-message">
+                                                    <p class="chatbot-text">노라모아에 오신것을 환영합니다 !<br><br>원하시는 질문을 말씀하세요</p>
+                                                </div>
+                                            </div>
+                                            <form id="input-form">
+                                                <message-container> 
+                                                <input id="input-field" type="text"
+                                                    placeholder="Type your message here">
+
+                                                <button type="submit">제출</button>
+                                                </message-container>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </section>
+                            </li>
+                            
                         <li><a href="chattingPage.do"><img
                                 src="resources/images/alarmIcon.png">채팅</a></li>
                         <c:if test="${ !empty chatOn }">
                         <li><a href="${ pageContext.servletContext.contextPath }/enterChat.do">요청(1)</a> </li>
                         </c:if>
                         <li><a href="receiveHome.jsp">문의내역</a></li>
-                        <li><a href="chatbot.do">챗봇</a></li>
+                        
                          <li>
                      <a href="my.do">마이페이지</a>
                      <c:if test="${ !(sessionScope.alarmCount > 0) }">
@@ -104,8 +153,8 @@
                     
                         <li><a href="chattingPage.do"><img
                                 src="resources/images/alarmIcon.png">채팅</a></li>
-                        <li><a href="receiveHome.jsp">문의내역</a></li>
-                        <li><a href="chatbot.do">챗봇</a></li>
+                        <li><a href="qlist.do">문의내역</a></li>
+                       
                         <li><a href="adminPage.do">관리자페이지</a></li>
                         <li><a href="logout.do">로그아웃</a></li>
                                     </ul>

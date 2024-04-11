@@ -175,12 +175,11 @@ function my() {
 	</div>
 	<hr>
 
-	<div class="adminF">
+	<!-- <div class="adminF">
 		<a href="goCategoryWriteForm.do">카테고리 추가</a>
-	</div>
+	</div> -->
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<div class="admin"></div>
 
 </body>
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>
