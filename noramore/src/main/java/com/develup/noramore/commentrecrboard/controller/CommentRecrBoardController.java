@@ -113,7 +113,8 @@ public class CommentRecrBoardController {
 	
 	//댓글 삭제
 	@RequestMapping(value="deletecomment.do", method = RequestMethod.POST)
-	public String deleteComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model) {
+	public String deleteComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model, 
+			@RequestParam("categoryId") int categoryId ) {
 		if(commentRecrBoardService.deleteComment(commentRecrBoard) >0 && recrBoardService.downCount(commentRecrBoard.getBoardId()) > 0) {
 			commentRecrBoardService.deleteSubComment(commentRecrBoard);
 			recrBoardService.countcoment(commentRecrBoard);
@@ -121,7 +122,9 @@ public class CommentRecrBoardController {
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";
 		}else {
+			model.addAttribute("message", "댓글이 삭제되었습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";
 		}
@@ -130,13 +133,16 @@ public class CommentRecrBoardController {
 	
 	//댓글 수정
 	@RequestMapping(value="updatecomment.do", method = RequestMethod.POST)
-	public String updateComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model) {
+	public String updateComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model, 
+			@RequestParam("categoryId") int categoryId ) {
 		if( commentRecrBoardService.updateComment(commentRecrBoard) >0 ) {
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";
 		}else {
+			model.addAttribute("message", "댓글이 수정되었습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";
 		}
