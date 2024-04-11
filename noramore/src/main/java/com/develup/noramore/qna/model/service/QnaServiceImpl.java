@@ -112,4 +112,9 @@ public class QnaServiceImpl implements QnaService {
 	public void countcoment(CommentQnaBoard commentQnaBoard) {
 		qnaDao.countcoment(commentQnaBoard);
 	}
+
+	@Override
+	public int countComment(int boardId) {
+		return qnaDao.countComment(boardId);
+	}
 }

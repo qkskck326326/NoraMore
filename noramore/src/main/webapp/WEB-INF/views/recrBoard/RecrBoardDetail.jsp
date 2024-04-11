@@ -186,6 +186,8 @@ function selectrecrcomment() {
 }
 
 
+
+
 function moveListPage(){
 	location.href = "${rblist}";
 }

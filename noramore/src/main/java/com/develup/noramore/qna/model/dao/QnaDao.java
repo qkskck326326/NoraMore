@@ -97,5 +97,9 @@ public class QnaDao {
 		return 0;
 	}
 
+	public int countComment(int boardId) {
+		return sqlSessionTemplate.update("qnaMapper.countComment", boardId);
+	}
+
 
 }

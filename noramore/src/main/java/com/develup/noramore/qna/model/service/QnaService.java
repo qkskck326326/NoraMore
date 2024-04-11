@@ -36,4 +36,6 @@ public interface QnaService {
 	 int downCount(int boardId);
 
 	void countcoment(CommentQnaBoard commentQnaBoard);
+
+	int countComment(int boardId);
 }

@@ -25,16 +25,30 @@
 		VALUES (#{boardId}, NVL((SELECT MAX(comment_no) FROM COMM_QNA), 0) + 1, #{memberId}, #{substance}, SYSDATE, SYSDATE, #{refCommentId})
 	</insert>
 	
-	<delete id="deleteComment">
+	<delete id="deleteComment" parameterType="CommentQnaBoard">
 		delete from COMM_QNA 
 		where comment_no = #{commentId} 
 		and BOARD_ID = #{boardId} 
 	</delete>	
 	
+	<delete id="deleteQnaComment" parameterType="CommentQnaBoard">
+		delete from COMM_QNA 
+		where comment_no = #{commentId} 
+		and BOARD_ID = #{boardId} 
+	</delete>
+	
+	<delete id="deleteQnaSubComment" parameterType="CommentQnaBoard">
+		delete from COMM_QNA 
+		where REF_comment_no = #{commentId} 
+		and BOARD_ID = #{boardId} 
+	</delete>
+	
 	<delete id="deleteBoardComment" parameterType="_int">
 		delete from COMM_QNA 
 		where BOARD_ID = #{boardId} 
 	</delete>
+	
+	
 
 	<select id="selectQnaComment" parameterType="_int" resultMap="CommentResultMap">
 		SELECT *

@@ -201,5 +201,10 @@
 		</if>
 		WHERE board_id = #{boardId}
 	</update>
+	
+	<update id="countComment" parameterType="_int">
+		update qna_board 
+		set comment_count = (select count(*) from comm_qna where board_Id = #{boardId}) 
+	</update>
 
 </mapper>
