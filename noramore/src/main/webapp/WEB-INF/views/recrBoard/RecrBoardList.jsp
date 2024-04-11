@@ -68,7 +68,7 @@ window.onload = function(){
 	            });
 
 	            var infowindow = new kakao.maps.InfoWindow({
-	                content: '<div style="padding:5px;">' + RecrBoard.title + ' <a href="rbdetail.do?page=1&categoryId=' + RecrBoard.categoryId + '&boardId=' + RecrBoard.boardId + '" target="_blank">(보기)</a></div>'
+	                content: '<a href="rbdetail.do?page=1&categoryId=' + RecrBoard.categoryId + '&boardId=' + RecrBoard.boardId + '" target="_blank"><div style="padding:5px;">' + RecrBoard.title + '</a></div>'
 	            });
 	            infowindow.open(map, marker);
 	        } 

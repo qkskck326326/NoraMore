@@ -115,14 +115,17 @@ public class CommentRecrBoardController {
 	@RequestMapping(value="deletecomment.do", method = RequestMethod.POST)
 	public String deleteComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model, 
 			@RequestParam("categoryId") int categoryId ) {
-		if(commentRecrBoardService.deleteComment(commentRecrBoard) >0 && recrBoardService.downCount(commentRecrBoard.getBoardId()) > 0) {
+		if(commentRecrBoardService.deleteComment(commentRecrBoard) >0 && recrBoardService.upCountComment(commentRecrBoard.getBoardId()) > 0) {
 			commentRecrBoardService.deleteSubComment(commentRecrBoard);
+			int result = recrBoardService.upCountComment(commentRecrBoard.getBoardId());
 			recrBoardService.countcoment(commentRecrBoard);
+			model.addAttribute("message", "댓글이 삭제되었습니다.");
+			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";
 		}else {
-			model.addAttribute("message", "댓글이 삭제되었습니다.");
+			model.addAttribute("message", "오류! 댓글 삭제에 실패하였습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("page", page);
@@ -136,11 +139,13 @@ public class CommentRecrBoardController {
 	public String updateComment(CommentRecrBoard commentRecrBoard, @RequestParam("page") String page, Model model, 
 			@RequestParam("categoryId") int categoryId ) {
 		if( commentRecrBoardService.updateComment(commentRecrBoard) >0 ) {
+			model.addAttribute("message", "댓글이 수정되었습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
+			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("page", page);
 			return "redirect:rbdetail.do";
 		}else {
-			model.addAttribute("message", "댓글이 수정되었습니다.");
+			model.addAttribute("message", "오류! 수정에 실패하였습니다.");
 			model.addAttribute("boardId", commentRecrBoard.getBoardId());
 			model.addAttribute("categoryId", categoryId);
 			model.addAttribute("page", page);
