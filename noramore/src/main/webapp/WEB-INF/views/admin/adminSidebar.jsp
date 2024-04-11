@@ -27,7 +27,8 @@
 					<li><a href="${ pageContext.servletContext.contextPath }/reportedMemlist.do">신고된 회원</a></li>
 				</ul></li>
 			<li><a href="${ pageContext.servletContext.contextPath }/reportedBoardlist.do">신고된 게시글</a></li>
-			<li><a href="${ pageContext.servletContext.contextPath }/fblist.do">금지어 관리</a></li>			
+			<li><a href="${ pageContext.servletContext.contextPath }/fblist.do">금지어 관리</a></li>
+			<li><a href="${ pageContext.servletContext.contextPath }/goCategoryWriteForm.do">카테고리 추가</a></li>			
 			<li><a href="${ pageContext.servletContext.contextPath }/nlist.do">공지사항</a></li>				
 			<li><a href="${ pageContext.servletContext.contextPath }/qlist.do">QnA</a></li>				
 		</ul>
