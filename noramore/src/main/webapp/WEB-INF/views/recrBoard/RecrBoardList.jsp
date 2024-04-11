@@ -194,7 +194,7 @@ function changeFormAction() {
 		<section style='width: 1200px; left: 20%;'>
 			<table style='width: 1200px;'>
 				<tr>
-					<th>번호</th>
+					<th>게시글 번호</th>
 					<th>제목</th>
 					<th>작성자ID</th>
 					<th>모집상황</th>

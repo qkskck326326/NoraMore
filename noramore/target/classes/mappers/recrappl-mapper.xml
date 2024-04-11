@@ -19,14 +19,14 @@
 	
 	<update id="cancelAppl">
 		UPDATE RECR_APPL 
-		SET RECR_STATE = 3 
+		SET RECR_STATE = 3, LAST_UPD_DT = sysdate 
 		WHERE BOARD_ID = #{boardId} 
 		AND MEMBER_ID = #{memberId} 
 	</update>
 		
 	<update id="applyAppl">
 		UPDATE RECR_APPL 
-		SET RECR_STATE = 2
+		SET RECR_STATE = 2, LAST_UPD_DT = sysdate 
 		WHERE BOARD_ID = #{boardId} 
 		AND MEMBER_ID = #{memberId} 
 	</update>
@@ -40,7 +40,6 @@
 	<select id="selectBoardId" parameterType="RecrAppl" resultMap="recrBoardResultMap">
 		select * from RECR_APPL 
 		WHERE BOARD_ID = #{boardId} 
-		and RECR_STATE = 1 
 	</select>
 	
 	<!-- <select id="selectRecrBoard" resultMap="resultRecr">
