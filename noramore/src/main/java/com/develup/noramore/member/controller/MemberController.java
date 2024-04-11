@@ -136,17 +136,17 @@ public class MemberController {
 	
 	
 	
-//
-//	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
-//	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-//	public String mypage(HttpServletRequest request, Model model) {
-//	      
-//	      model.addAttribute("memberID", request.getSession().getAttribute("memberID"));
-//		
-//		
-//		
-//		return "/member/myArticlePage";
-//	}
+
+	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+	public String mypage(HttpServletRequest request, Model model) {
+	      
+	      model.addAttribute("memberID", request.getSession().getAttribute("memberID"));
+		
+		
+		
+		return "/member/myArticlePage";
+	}
 	
 	
 
@@ -670,7 +670,7 @@ public class MemberController {
 	public String memberDetailPage(@RequestParam("memberID") String memberid, Model model) {
 		
 		Member member = memberService.selectMember(memberid);
-		
+		member.getBirth().toString();
 		if (member != null) {
 			model.addAttribute("member", member); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
 			return "member/memberDetailPage";
@@ -707,10 +707,10 @@ public class MemberController {
 		
 
 	//회원정보 수정페이지 처리
-	@RequestMapping(value = "memberUpdate.do", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "memberUpdate.do", method = RequestMethod.POST)
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
 	public String memberUpdate(Member member, Model model,
-		
+			@RequestParam("memberNicname") String memberNicname,
 			@RequestParam("originPwd") String originPwd,
 			@RequestParam("road") String road, @RequestParam("street") String street,
 			@RequestParam("detail") String detail, @RequestParam("ref") String ref) {
@@ -721,6 +721,11 @@ public class MemberController {
 		String addressAdd = road + street + detail + ref;
 		
 		System.out.println("주소 : " + member.getAddress());
+		
+		
+//		if(memberNicname == member.getMemberNicname())
+//			member.setMemberNicname(memberNicname);
+			
 		
 		//주소
 		if (addressAdd == "" || addressAdd == null) {
@@ -749,7 +754,7 @@ public class MemberController {
 		}else {  //새로운 암호가 null 또는 글자갯수가 0일때는
 			//기존 암호이면, 원래 암호화된 패스워드를 저장함
 			member.getMemberPWD();
-		
+		System.out.println("member.getMemberPWD();" + member.getMemberPWD());
 		}
 		
 		if(memberService.updateMember(member) > 0) {
@@ -838,7 +843,7 @@ public class MemberController {
 //	}
 	
 	
-	
+	//siderbar로 필요한 정보 가져옴
 	@RequestMapping(value="memberProfile.do", method=RequestMethod.POST)
 	@ResponseBody      //response 객체에 JSONString 담아 보내기 위함
 	public String memberProfile(@RequestParam("memberid") String memberid, Model model) {

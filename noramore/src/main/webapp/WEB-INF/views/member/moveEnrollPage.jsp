@@ -109,12 +109,23 @@ function validate(){
 
 
 	
-	
+	//아이디
 	  if (!/^[A-Za-z0-9][a-z\d]{5,50}$/.test(idValue)){
 	    document.getElementById("memberid").value = "";
 		document.getElementById("memberid").select();
 	    return false;
 	} 
+	
+	
+	  if(birthValue == null){   
+			alert("생일을 지정해 주세요!");
+		
+			document.getElementById("birth").select();  
+			return false; 
+		}
+	
+	
+	
 	
 	
 	 if(pwdValue !== pwdValue2){   // == : 값만 일치하는지, === : 값과 자료형이 일치하는지
@@ -203,11 +214,6 @@ function dupIDCheck(){
 	
 }
 
-
-
-
-
-
 </script>
 
 
@@ -215,12 +221,6 @@ function dupIDCheck(){
 <script type="text/javascript">
 
  
-
-
-
-
-
-
 function dupNicnameCheck(){
 	//사용 가능한 닉네임인지 확인하는 함수 : ajax 기술 사용해야 함
 	$.ajax({  
@@ -368,7 +368,7 @@ $(document).ready(function() {
                     alert('이미 사용 중인 닉네임입니다.'); // 중복 알림
                 } else {
                     // ID 중복이 아닌 경우, 폼 제출을 진행합니다.
-                    // 이를 위해 폼의 제출 이벤트를 다시 트리거하거나,
+                    // 이를 위해 폼의 제출 이벤트를 다시 트리거하거나, 
                     // 폼 데이터를 AJAX로 전송할 수 있습니다.
                    $('#limit')[0].submit();// 폼 제출
                 }
@@ -379,16 +379,12 @@ $(document).ready(function() {
             }
             
         });
-        return false;
-        
+       
     });
     return false;
-   
 });
 
 </script>
-
-
 
 
 
@@ -431,13 +427,6 @@ function checkedChange() {
 
 
 </script>
-
-
-
-
-
-
-
 
 
 </head>
@@ -486,7 +475,7 @@ function checkedChange() {
 	<br>
 	
 	<div>
-		<h3 class="list">비밀번호 재확인<span id="pwCheckError"></span></h3>
+		<h3 class="list">*비밀번호 재확인<span id="pwCheckError"></span></h3>
 		<span class="box int_id">
 			<input type="password" id="memberpwd2" class="input" maxlength="20" autocomplete="off" required><br>
 		</span>	
@@ -517,14 +506,14 @@ function checkedChange() {
 
 	
 	<div>
-		<h3 class="list">성명<span id="nameError"></span></h3>
+		<h3 class="list">*성명<span id="nameError"></span></h3>
 		<span class="box int_id">
 			<input type="text" name="memberName" id="membername" class="input" autocomplete="off" maxlength="20" required><br>
 		</span>
 	</div>
 	
 	<div>
-		<h3 class="list">생년월일<span id="birthError"></span></h3>
+		<h3 class="list">*생년월일<span id="birthError"></span></h3>
 		<span class="box int_id">
 			<input type="date" name="birth" id="birth" class="input" required></span>
 	</div>
@@ -532,7 +521,7 @@ function checkedChange() {
 	
 	
 	<div>
-		<h3 class="list">성별</h3>
+		<h3 class="list">*성별</h3>
 		<span class="box int_id">
 			<input type="radio" name="gender" value="M" id="m" checked > 남자 &nbsp; 
 			<input type="radio" name="gender" value="F" id="f" > 여자 
@@ -568,7 +557,7 @@ function checkedChange() {
 	
 	
 	<div>
-	   <h3 class="list">자택주소<span id="addressError"></span></h3>
+	   <h3 class="list">*자택주소<span id="addressError"></span></h3>
 	   <div id="address" class="int_id">
        <span>
        <input type="text" id="sample4_postcode" class="d_form mini line addressCheck" placeholder="우편번호" readonly>
@@ -587,7 +576,7 @@ function checkedChange() {
 	<br><br>
 	<!-- 개인정보 수집 동의 -->
     <fieldset class="fieldarea f2">
-	<legend><span>이용</span>약관</legend>
+	<legend><span>*이용</span>약관</legend>
 	<p class="agreeText">
 		<label for="agreement1">아래 사항에 동의 합니다.</label>
 		<input id="agreement1" type="checkbox" name="agreement1"/>
@@ -597,7 +586,7 @@ function checkedChange() {
 	</p>
 	</fieldset>
 	<fieldset class="fieldarea f3">
-		<legend><span>개인정보</span>취급방침</legend>
+		<legend><span>*개인정보</span>취급방침</legend>
 		<p class="agreeText">
 			<label for="agreement2">아래 사항에 동의 합니다.</label>
 			<input id="agreement2" type="checkbox" name="agreement2"/>
