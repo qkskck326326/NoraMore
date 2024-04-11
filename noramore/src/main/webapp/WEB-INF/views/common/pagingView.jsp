@@ -25,7 +25,7 @@
 <c:if test="${ empty action }">
 <div class = "pagingview" style="text-align:center;">
 	<%-- 첫 페이지로 이동 --%>	
-	<c:if test="${ currentPage eq 1 }">
+	<c:if test="${ currentPage le 1 }">
 		<img src="resources/images/firstPage.jpg" width="13" height="13"> &nbsp;
 	</c:if>	
 	<c:if test="${ currentPage gt 1 }">
