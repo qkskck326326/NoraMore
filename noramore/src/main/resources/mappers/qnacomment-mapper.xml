@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qnacomment">
 	<resultMap id="CommentResultMap" type="CommentQnaBoard">
-	    <id column="comment_no" property="commentId"/>
+	    <result column="comment_no" property="commentId"/>
 	    <result column="BOARD_ID" property="boardId"/>
 	    <result column="REF_comment_no" property="refCommentId"/>
 	    <result column="MEMBER_ID" property="memberId"/>
