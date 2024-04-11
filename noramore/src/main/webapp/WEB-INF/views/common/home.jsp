@@ -15,54 +15,61 @@
 	href="resources/css/component.css" />
 <script src="resources/js/modernizr.custom.js"></script>
 <script type="text/javascript">
-    function movePage() {    
-        location.href = "moveLoginPage.do";
-    }
+function movePage() {
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'moveLoginPage.do';
+    document.body.appendChild(form);
+    form.submit();
+}
 
-    function enroll() {   
-        location.href = "enrollPage.do";
-    }
+function enroll() {
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'enroll.do';
+    document.body.appendChild(form);
+    form.submit();
+}
 
-    function logout() {
-        location.href = "logout.do";
-    }
+function logout() {
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'logout.do';
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function my() {
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'selectRecrBoadMemberId.do';
+    document.body.appendChild(form);
+    form.submit();
+}
     
-    function my(){
-    	location.href = "selectRecrBoadMemberId.do";    	
-    }
-    
-    $(function(){
-    	//최근 등록된 공지글 3개 전송받아서 출력 처리
-    	$.ajax({
-    		url: "ntop5.do",
-    		type: "post",
-    		dataType: "json",
-    		success: function(data){
-    			console.log("success : " + data);
-    			
-    			//object --> string
-    			var str = JSON.stringify(data);
-    			
-    			//string --> json
-    			var json = JSON.parse(str);
-    			
-    			values = "";			
-    			for(var i in json.nlist){
-    				values += "<tr><td>" + json.nlist[i].no 
-    						+ "</td><td><a href='ndetail.do?no=" 
-    						+ json.nlist[i].no + "'>"
-    						+ decodeURIComponent(json.nlist[i].title).replace(/\+/gi, " ") 
-    						+ "</a></td><td>"
-    						+ json.nlist[i].date + "</td></tr>";
-    			}
-    			
-    			$('#newnotice').html($('#newnotice').html() + values);
-    			//$('#newnotice').append(values);
-    		},
-    		error: function(jqXHR, textStatus, errorThrown){
-    			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-    		}
-    	});
+$(function(){
+    // 최근 등록된 공지글 5개를 받아와서 출력 처리
+    $.ajax({
+        url: "ntop5.do",
+        type: "post",
+        dataType: "json",
+        success: function(data){
+            console.log("success : " + data);
+            
+            // JSON 데이터를 처리하여 HTML 코드로 변환
+            var html = "";
+            $.each(data.nlist, function(index, notice){
+                html += "<li><a href='ndetail.do?no=" + notice.no + "'>" + decodeURIComponent(notice.title).replace(/\+/gi, " ") + "</a></li>";
+            });
+            
+            // ul 요소에 변환된 HTML 코드 추가
+            $('#noticeList').html(html);
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+        }
+    });
+});
 </script>
 </head>
 
@@ -81,36 +88,43 @@
 		</header>
 		<c:if test="${ empty sessionScope.loginMember }">
 			<div class="loginMenu">
-				<button class='button' onclick="movePage();">로그인</button>
-				<button class='button' id=two onclick="enroll();">회원가입</button>
+				<form method="POST" action="moveLoginPage.do">
+					<button type="submit" class="button">로그인</button>
+				</form>
+				<form method="POST" action="enroll.do">
+					<button type="submit" class="button">회원가입</button>
+				</form>
 			</div>
 		</c:if>
 		<c:if
 			test="${ !empty sessionScope.loginMember && loginMember.adminYN eq 'N' }">
-			<div class="loginMenu">
-				<c:url var="mypage" value="selectRecrBoadMemberId.do">
-					<c:param name="memberID"
-						value="${ sessionScope.loginMember.memberID }"></c:param>
-				</c:url>
-				<a href="${ mypage }" style="margin-right: 10px; margin-top: 20px;">${ sessionScope.loginMember.memberName }
-					님</a>
-				<button class='button' onclick="logout()">로그아웃</button>
-				
-			</div>
+			<form id="logoutForm" method="POST" action="logout.do">
+				<div class="loginMenu">
+					<c:url var="mypage" value="selectRecrBoadMemberId.do">
+						<c:param name="memberID"
+							value="${ sessionScope.loginMember.memberID }"></c:param>
+					</c:url>
+					<a href="${ mypage }" style="margin-right: 10px; margin-top: 20px;">${ sessionScope.loginMember.memberName }
+						님</a>
+					<button type="submit" class='button'>로그아웃</button>
+				</div>
+			</form>
 		</c:if>
 		<c:if
 			test="${ !empty sessionScope.loginMember && loginMember.adminYN eq 'Y' }">
-			<div class="loginMenu">
-				<c:url var="mypage" value="selectRecrBoadMemberId.do">
-					<c:param name="memberID"
-						value="${ sessionScope.loginMember.memberID }"></c:param>
-				</c:url>
-				<a href="${ mypage }" style="margin-right: 10px; margin-top: 20px;">${ sessionScope.loginMember.memberName }
-					님</a>
-				<a href="${ pageContext.servletContext.contextPath }/adminPage.do" style="margin-right: 10px; margin-top: 20px;"> 관리자 페이지 </a>
-				
-				<button class='button' onclick="logout()">로그아웃</button>
-			</div>
+			<form id="logoutForm" method="POST" action="logout.do">
+				<div class="loginMenu">
+					<c:url var="mypage" value="selectRecrBoadMemberId.do">
+						<c:param name="memberID"
+							value="${ sessionScope.loginMember.memberID }"></c:param>
+					</c:url>
+					<a href="${ mypage }" style="margin-right: 10px; margin-top: 20px;">${ sessionScope.loginMember.memberName }
+						님</a> <a
+						href="${ pageContext.servletContext.contextPath }/adminPage.do"
+						style="margin-right: 10px; margin-top: 20px;"> 관리자 페이지 </a>
+					<button type="submit" class='button'>로그아웃</button>
+				</div>
+			</form>
 		</c:if>
 
 		<ul class="grid cs-style-3">
@@ -142,13 +156,9 @@
 			<div class="an1">
 				<a href="nlist.do">공지사항</a>
 			</div>
-			
+
 			<div class="inan1">
-				<ul>
-					<table id="newnotice" border="1" cellspacing="0" width="350">
-				<tr><th>번호</th><th>제목</th><th>날짜</th></tr>
-			</table>
-				</ul>
+				<ul id="noticeList"></ul>
 			</div>
 		</div>
 		<div class="qna">
@@ -158,12 +168,10 @@
 			</div>
 
 			<div class="inqnal">
-				<ul>
-					
-				</ul>
+				<ul id="qnaList"></ul>
 			</div>
 		</div>
-		
+
 	</div>
 	<hr>
 
@@ -172,7 +180,7 @@
 	</div>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<div class="admin"></div>
-	
+
 </body>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>

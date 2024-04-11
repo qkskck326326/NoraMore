@@ -147,6 +147,11 @@ form.sform {
 				</tr>
 			</c:forEach>
 		</table>
+		<br><br>
+		
+		<c:import url="/WEB-INF/views/common/pagingView.jsp" />
 	</section>
+	
 </body>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </html>
