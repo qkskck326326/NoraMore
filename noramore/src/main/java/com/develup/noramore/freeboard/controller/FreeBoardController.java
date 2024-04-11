@@ -148,7 +148,7 @@ public class FreeBoardController {
 	
 	
 	
-	
+	 
 	
 	//원글 수정처리용
 	@RequestMapping(value = "freeboardoriginupdate.do", method=RequestMethod.POST)

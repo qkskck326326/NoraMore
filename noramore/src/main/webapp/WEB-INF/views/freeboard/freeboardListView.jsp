@@ -20,7 +20,7 @@
 </c:if>
 
 
-<c:set var="categoryId" value="1"/>
+<%--<c:set var="categoryId" value="1"/> --%> 
 <c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
@@ -57,17 +57,17 @@
     };
 
     function sortRecent() {
-    	 location.href = "freerecentlist.do";
+    	 location.href = "freerecentlist.do?page=" + ${page} + '&categoryId=' + ${categoryId};
     	 console.log("최신순 정렬 실행");
     }
 
     function sortViews() {
-    	location.href = "freeviewslist.do";
+    	location.href = "freeviewslist.do?page=" + ${page} + '&categoryId=' + ${categoryId};
     	console.log("조회순 정렬 실행");
     }
 
     function sortLikes() {
-    	 location.href = "freelikeslist.do";
+    	 location.href = "freelikeslist.do?page=" + ${page} + '&categoryId=' + ${categoryId};
     	 console.log("좋아요순 정렬 실행");
     }
     
