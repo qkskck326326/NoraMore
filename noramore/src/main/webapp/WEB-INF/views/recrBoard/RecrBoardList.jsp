@@ -10,6 +10,10 @@
 <c:if test="${!empty requestScope.categoryId}">
 	<c:set var="categoryId" value="${requestScope.categoryId}" />
 </c:if>
+<c:set var="href" value="rblist.do"/>
+<c:if test="${!empty requestScope.href}">
+	<c:set var="href" value="${requestScope.href}" />
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +103,10 @@ window.onload = function(){
 	displayMarkers();
 	
 	
+	
+	
 }//
+
 
 
 function rbwriteform(){
@@ -114,24 +121,8 @@ function rbwriteform(){
         return false;
 }
 
-function check(){
-	var limitSelect = document.getElementById('limitSelect');
-    var limi = limitSelect.value;
-    console.log(limi);
-    
-    var keywordE = document.getElementById('keyword');
-    var keyword = keywordE.value;
-    console.log(keyword);
-    
-    var actionE = document.getElementById('action');
-    var action = actionE.value;
-    console.log(action);
-}
 
-function changeFormAction() {
-    var selectedValue = document.getElementById("action").value;
-    document.getElementById("searchaction").action = selectedValue;
-}
+
 </script>
 <style type="text/css">
 .search{
@@ -176,7 +167,7 @@ function changeFormAction() {
 			<form id="searchaction" action="searchrecrtitle.do" method="post" >
 				<fieldset style='width: 1200px; border: 0px;'>
 					<div class="search" style='width: 180px;'>
-						<input id="keyword" name="keyword" style="width:140; height:25;">
+						<input id="keyword" name="keyword" style="width:140; height:25;" value="${keyword}">
 						<button type="submit">검색</button>
 					</div> &nbsp; 
 					한 페이지에 출력할 목록 갯수 : <select name="limit" id="limitSelect">
@@ -224,4 +215,11 @@ function changeFormAction() {
 	</section>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
+<script type="text/javascript">
+document.getElementById("limitSelect").addEventListener("change", function() {
+    var limitValue = this.value; // 변경된 값 가져오기
+    var url = "${href}?categoryId=" + ${categoryId} + "&page=" + ${page} + "&limit=" + limitValue;
+    location.href = url; // 새로운 URL로 이동
+});
+</script>
 </html>

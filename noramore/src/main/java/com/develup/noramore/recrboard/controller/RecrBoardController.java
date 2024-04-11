@@ -101,12 +101,15 @@ public class RecrBoardController {
 	public ModelAndView searchRecrTitle(Search search, 
 			@RequestParam(name="limit", required=false) String limit1,
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
-			@RequestParam("categoryId") int categoryId) {
+			@RequestParam("categoryId") int categoryId) throws JsonGenerationException, JsonMappingException, IOException {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
 		int limit = 10;
+		if(limit1 != null) {
+			limit = Integer.parseInt(limit1);
+		}
 		if(search.getCategoryId() != 0) {
 			categoryId = search.getCategoryId();
 		}
@@ -121,12 +124,19 @@ public class RecrBoardController {
 		ArrayList<RecrBoard> list = recrBoardService.searchtitleList(search);
 
 
+		ArrayList<RecrBoard> locationList = recrBoardService.selectLocation(categoryId);
+		ObjectMapper objectMapper = new ObjectMapper();
+        String locationListJson = objectMapper.writeValueAsString(locationList);
+        mv.addObject("locationListJSON", locationListJson);
+		
+		
 		mv.addObject("list", list);
 		mv.setViewName("recrBoard/RecrBoardList");
 		mv.addObject("currentPage", currentPage);
 		mv.addObject("paging", paging);
 		mv.addObject("categoryId", categoryId);
 		mv.addObject("keyword", search.getKeyword());
+		mv.addObject("href", "searchrecrtitle.do");
 		return mv;
 	}
 	
@@ -135,12 +145,15 @@ public class RecrBoardController {
 		public ModelAndView searchRecrWriter(Search search, 
 				@RequestParam(name="limit", required=false) String limit1,
 				@RequestParam(name="page", required=false) String page, ModelAndView mv, 
-				@RequestParam("categoryId") int categoryId) {
+				@RequestParam("categoryId") int categoryId) throws JsonGenerationException, JsonMappingException, IOException {
 			int currentPage = 1;
 			if (page != null) {
 				currentPage = Integer.parseInt(page);
 			}
 			int limit = 10;
+			if(limit1 != null) {
+				limit = Integer.parseInt(limit1);
+			}
 			if(search.getCategoryId() != 0) {
 				categoryId = search.getCategoryId();
 			}
@@ -154,6 +167,12 @@ public class RecrBoardController {
 			
 			ArrayList<RecrBoard> list = recrBoardService.searchwriterList(search);
 
+			
+			ArrayList<RecrBoard> locationList = recrBoardService.selectLocation(categoryId);
+			ObjectMapper objectMapper = new ObjectMapper();
+	        String locationListJson = objectMapper.writeValueAsString(locationList);
+	        mv.addObject("locationListJSON", locationListJson);
+			
 
 			mv.addObject("list", list);
 			mv.setViewName("recrBoard/RecrBoardList");
@@ -161,6 +180,7 @@ public class RecrBoardController {
 			mv.addObject("paging", paging);
 			mv.addObject("categoryId", categoryId);
 			mv.addObject("keyword", search.getKeyword());
+			mv.addObject("href", "searchrecrwriter.do");
 			return mv;
 		}
 
