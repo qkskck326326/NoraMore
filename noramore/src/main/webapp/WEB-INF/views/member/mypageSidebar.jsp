@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" type="text/css" href="resources/css/mypageSidebar.css" />
-
+<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 
 </head>
 <body>
-<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
+
 <script type="text/javascript">
 window.onload = function(){
 	//선택한 사진파일 이미지 미리보기 처리
@@ -58,13 +58,13 @@ $.ajax({
 		
 		
 		values = "/noramore/resources/images/" +data.photoFile;
-		values =
+		value = data.membernicname;
 		console.log("success22 : " + values);
+		console.log("success22 : " + value);
 		
 		$('#photo').attr('src', values);
 		
-
-
+		$('#nicname').html(value);
 		
 	},
 	error : function(jqXHR, textStatus, errorThrown) {
@@ -96,8 +96,9 @@ $(document).ready(function() {
 </script>
 
 <div id="boxLine">
-
-	<div id="nicname">사용자 닉네임</div>
+	<div>
+		<span id="nicname"></span>
+	</div>
 	
 	
 	<form action = "profileUpdate.do" method="post" enctype="multipart/form-data" enctype="multipart/form-data">	
