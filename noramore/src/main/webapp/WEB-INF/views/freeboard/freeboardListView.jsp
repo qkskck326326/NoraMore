@@ -214,7 +214,7 @@
 </form>	
 
 -->
-
+<%-- <section style='width: 1200px; left: 20%;'>--%>
 <div class=content>
 	<section id="board" style="margin-left: 200px;">
 
@@ -301,6 +301,7 @@
 --%>
 
 		<!-- ****************************************** -->
+		
 		<table style='width: 1200px;'>
 			<thead>
 			
@@ -334,7 +335,6 @@
 
 		</table>
 		
-
 		<!-- 추가한 부분 **************** -->
 <br>
  <c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
@@ -342,6 +342,6 @@
 <!-- 추가한 부분 **************** -->
 	</section>
 </div>
-
+<%--</section>--%>
 </body>
 </html>
