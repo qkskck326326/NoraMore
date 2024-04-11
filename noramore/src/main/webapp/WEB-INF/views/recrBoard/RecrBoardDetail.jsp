@@ -495,7 +495,7 @@ textarea.commentForm:hover {
 				</div>
 					<section>
 						<p1 style="font-weight: bold;">작성자: ${RecrBoard.memberId}</p1>
-						<p2 style="float: right; font-weight: bold;">   모집상태 : [${RecrBoard.recrStatus}] ( ${RecrBoard.nowRecr}명 / ${RecrBoard.maxRecr}명 )</p2>
+						<p2 style="float: right; font-weight: bold;">   모집상태 : [${RecrBoard.recrStatus}]</p2>
 					</section>
 				<textarea id="context" cols="30" rows="40" readonly>${RecrBoard.context}</textarea>
 				<div>
@@ -557,7 +557,6 @@ textarea.commentForm:hover {
 	</div>
 
 
-	
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	6
 </body>
 </html>

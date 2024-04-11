@@ -260,8 +260,12 @@ h1 {
 
 
 #registerBtn {
-	margin-top: 20px;
-	width: 100%;
+	margin: 10px;
+    width: 11%;
+    height: 30px;
+    position: absolute;
+    top: 1150px;
+    left: 606px;
 }
 
 a {
