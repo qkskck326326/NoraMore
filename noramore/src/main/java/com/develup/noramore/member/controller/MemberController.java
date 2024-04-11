@@ -136,17 +136,17 @@ public class MemberController {
 	
 	
 	
-
-	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
-	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
-	public String mypage(HttpServletRequest request, Model model) {
-	      
-	      model.addAttribute("memberID", request.getSession().getAttribute("memberID"));
-		
-		
-		
-		return "/member/myArticlePage";
-	}
+//
+//	@RequestMapping(value = "my.do", method = { RequestMethod.GET, RequestMethod.POST })
+//	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
+//	public String mypage(HttpServletRequest request, Model model) {
+//	      
+//	      model.addAttribute("memberID", request.getSession().getAttribute("memberID"));
+//		
+//		
+//		
+//		return "/member/myArticlePage";
+//	}
 	
 	
 
@@ -211,7 +211,7 @@ public class MemberController {
 	
 	// 카카오 로그인 요청 처리용
 		// (카카오 로그인 클릭시 전달된 kakaourl 에 의해 실행됨)
-		@RequestMapping(value = "kcallback.do", produces = "application/json", method = { RequestMethod.GET, RequestMethod.POST })
+		@RequestMapping(value = "kcallback.do", produces = "application/json", method =  RequestMethod.GET )
 		public String kakaoLogin(@RequestParam String code, Model model, HttpSession session) {
 			logger.info("0. kcallback.do : " + code);  //카카오 OAuth 인증 코드
 			
@@ -274,92 +274,92 @@ public class MemberController {
 
 		// 네이버 로그인 요청 처리용
 				// (네이버 로그인 클릭시 전달된 naverurl 에 의해 실행됨)
-				@RequestMapping(value = "ncallback.do", method = { RequestMethod.GET, 	RequestMethod.POST })
-				public String naverLogin(Model model, 
-										HttpSession session, 
-										@RequestParam String code, 
-										@RequestParam String state ) throws IOException, ParseException, org.json.simple.parser.ParseException {
+	@RequestMapping(value = "ncallback.do", method = { RequestMethod.GET, 	RequestMethod.POST })
+	public String naverLogin(Model model, 
+							HttpSession session, 
+							@RequestParam String code, 
+							@RequestParam String state ) throws IOException, ParseException, org.json.simple.parser.ParseException {
 
-					System.out.println("session : " + session);
-					System.out.println("session : " + state);
-					
-					OAuth2AccessToken oauthToken;
-					oauthToken = naverLoginAuth.getAccessToken(session, code, state);
-					System.out.println("session//// : " + session);
-					System.out.println("oautnToken : " + oauthToken);
-					
-					//1. 로그인 사용자 정보를 읽어온다.
-					apiResult = naverLoginAuth.getUserProfile(oauthToken); //String형식의 json데이터
-					
-					
-					
-					/** apiResult json 구조
-					{"resultcode":"00",
-					"message":"success",
-					"response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
-					**/
-					
-					//2. String형식인 apiResult를 json형태로 바꿈
-					JSONParser parser = new JSONParser();
-					Object obj = parser.parse(apiResult);
-					JSONObject jsonObj = (JSONObject) obj;
-					
-					//3. 데이터 파싱
-					//Top레벨 단계 _response 파싱
-					JSONObject response_obj = (JSONObject)jsonObj.get("response");
-					
-					
-					
-					//response의 값 파싱
-					String id = (String)response_obj.get("id");
-					/* String name = (String)response_obj.get("name"); */
-					String email = (String)response_obj.get("email");
-					/*
-					 * String gender = (String)response_obj.get("gender"); String birthyear =
-					 * (String)response_obj.get("birthyear"); String birthday =
-					 * (String)response_obj.get("birthday");
-					 */
+		System.out.println("session : " + session);
+		System.out.println("session : " + state);
+		
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginAuth.getAccessToken(session, code, state);
+		System.out.println("session//// : " + session);
+		System.out.println("oautnToken : " + oauthToken);
+		
+		//1. 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginAuth.getUserProfile(oauthToken); //String형식의 json데이터
+		
+		
+		
+		/** apiResult json 구조
+		{"resultcode":"00",
+		"message":"success",
+		"response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
+		**/
+		
+		//2. String형식인 apiResult를 json형태로 바꿈
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		
+		//3. 데이터 파싱
+		//Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+		
+		
+		
+		//response의 값 파싱
+		String id = (String)response_obj.get("id");
+		/* String name = (String)response_obj.get("name"); */
+		String email = (String)response_obj.get("email");
+		/*
+		 * String gender = (String)response_obj.get("gender"); String birthyear =
+		 * (String)response_obj.get("birthyear"); String birthday =
+		 * (String)response_obj.get("birthday");
+		 */
 
-					String signType = "naver";
-					
-					
-					System.out.println("id라네 : " + id);
-					
-					//4.파싱된걸 세션으로 저장
-					session.setAttribute("sessionId",id); 
-					/* session.setAttribute("sessionName",name); */
-					session.setAttribute("sessionEmail",email);
-					session.setAttribute("sessionSignType",signType);
-					/*
-					 * session.setAttribute("sessionGender",gender);
-					 * session.setAttribute("sessionBirthyear",birthyear);
-					 * session.setAttribute("sessionBirthday",birthday);
-					 */
+		String signType = "naver";
+		
+		
+		System.out.println("id라네 : " + id);
+		
+		//4.파싱된걸 세션으로 저장
+		session.setAttribute("sessionId",id); 
+		/* session.setAttribute("sessionName",name); */
+		session.setAttribute("sessionEmail",email);
+		session.setAttribute("sessionSignType",signType);
+		/*
+		 * session.setAttribute("sessionGender",gender);
+		 * session.setAttribute("sessionBirthyear",birthyear);
+		 * session.setAttribute("sessionBirthday",birthday);
+		 */
 
+
+		
+		Member nmember = memberService.selectKakaoLogin(id);
+		
+		
+		
+		
+		Member loginMember = null;
+		
+		if(nmember == null) {  //회원테이블에 회원 정보가 없다면
 			
-					
-					Member nmember = memberService.selectKakaoLogin(id);
-					
-					
-					
-					
-					Member loginMember = null;
-					
-					if(nmember == null) {  //회원테이블에 회원 정보가 없다면
-						
-						
-						return "redirect:enrollPage.do?id="
-								+ id /* + "&name=" + name */
-								+ "&email=" + email + "&signType=" + signType; /*+"&gender=" + gender +"&birthyear=" + birthyear 
-								+"&birthday=" + birthday;*/
-						
-					}else {
-						loginMember = nmember;
+			
+			return "redirect:enrollPage.do?id="
+					+ id /* + "&name=" + name */
+					+ "&email=" + email + "&signType=" + signType; /*+"&gender=" + gender +"&birthyear=" + birthyear 
+					+"&birthday=" + birthday;*/
+			
+		}else {
+			loginMember = nmember;
 
-							session.setAttribute("loginMember", loginMember);
-							return "redirect:home.do";
-					}
-				}
+				session.setAttribute("loginMember", loginMember);
+				return "redirect:home.do";
+		}
+	}
 
 
 
@@ -396,10 +396,10 @@ public class MemberController {
 		
 	
 		if (memberService.insertMember(member) > 0 && dup == 0 ) {
-			return "member/moveLoginPage";
+			return "redirect:moveLoginPage.do";
 		} else {
 			model.addAttribute("message", "회원 가입 실패! 확인하고 다시 가입해 주세요.");
-			return "member/moveEnrollPage";
+			return "redirect:moveEnrollPage.do";
 		}
 	}
 
@@ -438,30 +438,30 @@ public class MemberController {
 	
 	
 	// ajax 통신으로 가입할 닉네임 중복 확인 요청 처리용 메소드
-		@RequestMapping(value = "nicnamechk.do", method = RequestMethod.POST)
-		public void dupNicnameCheck(@RequestParam("memberNicname") String memberNicname, HttpServletResponse response) throws IOException {
-			
-			
-			String returnStr = null;
-			int nicnameCount = memberService.selectCheckNicname(memberNicname);
-			
-			if(memberNicname != "" && nicnameCount == 0) {
-				returnStr = "ok";
-			}
-			if (memberNicname != "" && nicnameCount != 0) {
-			
-					returnStr = "dup";
-			}
-			if (memberNicname == ""){
-				returnStr = "null";
-			}
-			// response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.append(returnStr);
-			out.flush();
-			out.close();
+	@RequestMapping(value = "nicnamechk.do", method = RequestMethod.POST)
+	public void dupNicnameCheck(@RequestParam("memberNicname") String memberNicname, HttpServletResponse response) throws IOException {
+		
+		
+		String returnStr = null;
+		int nicnameCount = memberService.selectCheckNicname(memberNicname);
+		
+		if(memberNicname != "" && nicnameCount == 0) {
+			returnStr = "ok";
 		}
+		if (memberNicname != "" && nicnameCount != 0) {
+		
+				returnStr = "dup";
+		}
+		if (memberNicname == ""){
+			returnStr = "null";
+		}
+		// response 를 이용해서 클라이언트와 출력스트림을 열어서 문자열값 내보냄
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.append(returnStr);
+		out.flush();
+		out.close();
+	}
 
 	
 	
@@ -852,8 +852,12 @@ public class MemberController {
 		JSONObject job = new JSONObject(); 
 		job.put("id", member.getMemberID());
 		job.put("photoFile", member.getPhotoFilename());
-
+		job.put("membernicname", member.getMemberNicname());
 	
+		System.out.println("member.getMemberID() :  " + member.getMemberID());
+		System.out.println("member.getMemberNicname() :  " + member.getMemberNicname());
+		
+		
 		return job.toJSONString();
 	}	
 	
