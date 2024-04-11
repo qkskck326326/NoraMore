@@ -50,26 +50,7 @@ function dupFbCheck(){
 	return false;  //버튼 클릭이벤트 취소 (submit 버튼에 클릭이벤트 전달을 막기 위함)
 }
 
-/* function delFb(fbWord){
-	$.ajax({
-		url: "fbdelete.do",
-		type: "post",
-		data: { fbWord: fbWord },
-		success: function(result){
-			if(result == "delete"){
-				alert("금지어 < " + fbWord + " > 가 삭제되었습니다");
-				$('tr:has(td:contains("' + fbWord + '"))').remove();
-				});
-			}else{
-				alert("오류! 금지어 삭제를 실패했습니다.");
-			}
-		},
-		error: function(jqXHR, textStatus, errorThrown){
-			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-		}
-	});
-}
- */
+
  function delFb(fbWord) {
 	    $.ajax({
 	        url: "fbdelete.do",
@@ -101,20 +82,6 @@ function dupFbCheck(){
 	    }
 	}
 
-	// 검색어 입력 필드가 변경될 때 실행되는 함수
-	document.getElementById('fbsearch').addEventListener('input', function() {
-	    // 입력 필드의 값
-	    var keyword = this.value;
-
-	    // 현재 URL의 쿼리 문자열을 가져옴
-	    var urlParams = new URLSearchParams(window.location.search);
-	    
-	    // 검색어를 쿼리 문자열에 추가 또는 업데이트
-	    urlParams.set('keyword', keyword);
-
-	    // 변경된 쿼리 문자열을 현재 페이지의 URL에 적용하여 업데이트
-	    history.replaceState(null, null, "?" + urlParams.toString());
-	});
 </script>
 
 </head>

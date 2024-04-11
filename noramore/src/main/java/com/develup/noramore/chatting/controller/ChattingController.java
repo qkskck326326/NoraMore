@@ -40,7 +40,7 @@ public class ChattingController {
     	chattingService.insertMessage(message);
     }
     
-    // 채팅 요청 입력
+    // 채팅 대상 확인
     @RequestMapping(value="checkMember.do", method= RequestMethod.POST)
     public void checkMember(
     		@RequestParam("memberID") String memberID, HttpServletResponse response) throws IOException {
@@ -73,6 +73,7 @@ public class ChattingController {
     		model.addAttribute("sender", message.getSender());
     		return "chatting/unicast2";
     	}else {
+    		model.addAttribute("error", "잘못된 요청입니다.");
     		return "common/error";
     	}
     }

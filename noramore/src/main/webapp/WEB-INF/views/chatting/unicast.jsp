@@ -4,78 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Unicast</title>
+<title>채팅</title>
+<link href="resources/css/chat.css" rel="stylesheet">
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
-<style>
-
-.container {
-	position:relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: auto; /* 중앙 정렬 */
-}
-
-#messageWindow {
-    background: LightSkyBlue;
-    height: 500px;
-    overflow: auto;
-}
-
-.chat_content {
-    background: rgb(255, 255, 102);
-    padding: 10px;
-    border-radius: 10px;
-    display: inline-block;
-    position: relative;
-    margin: 10px;
-    float: right;
-    clear: both;
-}
-
-.chat_content:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-left-color: rgb(255, 255, 102);
-    border-right: 0;
-    border-top: 0;
-    margin-top: -3.5px;
-    margin-right: -10px;
-}
-
-.other-side {
-    background: white;
-    float: left;
-    clear: both;
-}
-
-.other-side:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-right-color: white;
-    border-left: 0;
-    border-top: 0;
-    margin-top: -3.5px;
-    margin-left: -10px;
-}
-</style>
-<%-- <c:import url="/WEB-INF/views/common/header.jsp" /> --%> 
-<c:import url="/WEB-INF/views/common/sideSample.jsp" />
 </head>
 <body>
-<div class="container">
+<div class="body">
+<div class="chat">
     <h2>채팅</h2>
     <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/>
     <span>상대방 ID : </span><input type="text" id="recvUser" size="12"/> &nbsp;
@@ -92,7 +27,7 @@
         </fieldset>
     </div>
 </div>
-
+</div>
 <script>
 
 
@@ -108,6 +43,13 @@ $('#startBtn').on('click',function(){
    			    $('#chatbox').css('display', 'block');
     			$(this).css('display', 'none');
     			$('#startBtn').css('display', 'block');
+    		    $.ajax({
+    		    	url:"chatRequest.do",
+    		    	type: "POST",
+    		    	data: { textMessage : 'start', 
+    		    			sender : $('#chat_id').val(),
+    		    			receiver : $('#recvUser').val()}
+    		    }); 
     			connection();
     		}else{
     			alert("없는 회원이거나 잘못된 입력입니다. 다시 입력해주세요.");
@@ -139,6 +81,7 @@ $('#endBtn').on('click',function(){
             console.error("에러 : ", error);
         }
     });
+
     
 });
 
