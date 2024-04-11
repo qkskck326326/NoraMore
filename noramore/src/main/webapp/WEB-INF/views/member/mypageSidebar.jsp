@@ -43,7 +43,7 @@ window.onload = function(){
 
 $(document).ready(function() {
 
-
+ 
  
 $.ajax({
 	url : "memberProfile.do",  //DispatcherServlet로 보냄
