@@ -113,7 +113,7 @@ public class FreeBoardController {
 	
 
 	//게시글(원글) 수정페이지로 이동 처리용
-	@RequestMapping("fbupview.do")
+	@RequestMapping("fbupview.do") 
 	public String moveFreeBoardUpdatePage(
 			@RequestParam("boardId") int boardId,
 			@RequestParam("page") String page, Model model) {
