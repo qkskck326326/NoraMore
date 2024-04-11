@@ -129,6 +129,7 @@
     height: 27px;
 }
 
+<%--
 .header {
 
   z-index: 100; /* 헤더를 위로 */
@@ -144,11 +145,19 @@
     margin-right: 100px; /* 사이드바의 폭에 따라 조정할 수 있습니다 */
     display: flex; 
 }
+--%>
 
-
+#boardfree {
+	top: 150px;
+	left: 10%;
+	margin-left: 200px;
+}
 
 
 </style>
+
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/dropdown.css">
 
 </head>
 <body>
@@ -207,7 +216,7 @@
 -->
 
 <div class=content>
-	<section id="board">
+	<section id="board" style="margin-left: 200px;">
 
 		<h1>자유게시판</h1>
 		<div class="line"></div>
