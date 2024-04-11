@@ -45,7 +45,6 @@ public class AlarmController {
 		int listCount = alarmService.selectListCount(member.getMemberID()); //페이징 계산 처리 실행
 		Paging paging = new Paging(listCount, currentPage, limit, "alarmlist.do");
 		paging.calculate();
-		
 		Alarm alarm = new Alarm();
 		alarm.setReceiverId(member.getMemberID());
 		alarm.setStartRow(paging.getStartRow());
@@ -60,7 +59,6 @@ public class AlarmController {
 			model.addAttribute("paging", paging);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("limit", limit);
-			
 			return "alarm/alarmListView";
 		}else {
 			return "alarm/alarmListView"; 

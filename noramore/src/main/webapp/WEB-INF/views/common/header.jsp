@@ -92,8 +92,7 @@
                                 </section>
                             </li>
                             
-                        <li><a href="chattingPage.do"><img
-                                src="resources/images/alarmIcon.png">채팅</a></li>
+                        <li><a href="chattingPage.do">채팅</a></li>
                         <c:if test="${ !empty chatOn }">
                         <li><a href="${ pageContext.servletContext.contextPath }/enterChat.do">요청(1)</a> </li>
                         </c:if>
@@ -102,10 +101,10 @@
                          <li>
                      <a href="my.do">마이페이지</a>
                      <c:if test="${ !(sessionScope.alarmCount > 0) }">
-                        <a href="alarmlist.do"><img src="resources/images/alarmIcon.png"> </a>
+                        <a href="alarmlist.do" ><img src="resources/images/alarmIcon.png" style="height:29px;width:auto;"></a>
                      </c:if>
                      <c:if test="${ sessionScope.alarmCount > 0 }">
-                        <a href="alarmlist.do"><img src="resources/images/alarmExist.png"> </a>
+                        <a href="alarmlist.do" style="align-items: center;"><img src="resources/images/alarmExist.png"style="height:29px;width:auto;align-items:center;"> </a>
                      </c:if>
                   </li>
                         <li><a href="logout.do">로그아웃</a></li>
@@ -151,8 +150,10 @@
                                 </section>
                             </li>
                     
-                        <li><a href="chattingPage.do"><img
-                                src="resources/images/alarmIcon.png">채팅</a></li>
+                        <li><a href="chattingPage.do">채팅</a></li>
+                      	<c:if test="${ !empty chatOn }">
+                        <li><a href="${ pageContext.servletContext.contextPath }/enterChat.do">요청(1)</a> </li>
+                        </c:if>
                         <li><a href="qlist.do">문의내역</a></li>
                        
                         <li><a href="adminPage.do">관리자페이지</a></li>
