@@ -28,7 +28,7 @@ public class AlarmController {
 				@RequestParam(name="page", required=false) String page,
 				 @RequestParam(name="limit", required=false) String slimit,
 				 HttpServletRequest request, Model model) {
-		
+		 
 		int currentPage = 1;
 		if(page != null && page.trim().length() > 0) {
 		currentPage = Integer.parseInt(page);
