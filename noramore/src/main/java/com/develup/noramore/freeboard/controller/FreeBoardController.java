@@ -249,7 +249,7 @@ public class FreeBoardController {
 	}
 
 */
-	//게시글 상세보기 요청 처리용 (이동용)
+	//게시글 상세보기 요청 처리용 (이동용) 
 	@RequestMapping("fbdetail.do")
 	public String moveFreeBoardDetail(Model model,
 									@RequestParam("boardId") int boardId,
