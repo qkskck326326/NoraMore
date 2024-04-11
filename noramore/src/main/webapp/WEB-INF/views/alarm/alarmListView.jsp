@@ -14,7 +14,6 @@
 </head>
 <body>
 
-
 <div class="table-container">
     <h2 class="title">알림</h2>
     <br>
