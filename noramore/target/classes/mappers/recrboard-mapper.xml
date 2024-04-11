@@ -38,7 +38,8 @@
 	</resultMap>
 
 	<select id="selectRecrBoard" resultMap="resultRecr">
-		select * from recr_board
+		select * from recr_board 
+		ORDER BY REGIST_DATE 
 	</select>
 
 	<select id="selectLocation" parameterType="_int"
