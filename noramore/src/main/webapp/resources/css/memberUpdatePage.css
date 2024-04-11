@@ -3,7 +3,7 @@
 
 
 body{
-	height: 1400px;
+	height: 1500px;
 }
 
 
@@ -13,7 +13,7 @@ body{
     top: 153px;
     left: 380px;
     width: 500px;
-    height: 1230px;
+    height: 1300px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -21,6 +21,13 @@ body{
     background-color: white;
     
 }
+
+.hide{
+	font-color: red;
+}
+
+
+
 
 /* Style for form headings */
 h1 {
@@ -94,7 +101,7 @@ input[type="nickkname"]{
     border: none;
     border-radius: 3px;
     position: absolute;
-    top: 1182px;
+    top: 1248px;
     left: 384px;
 	
 }
@@ -112,7 +119,7 @@ width: 123px;
     border: none;
     border-radius: 3px;
     position: absolute;
-    top: 1193px;
+	top: 1260px;
     left: 253px;
     font-size: 10px;
     
@@ -138,7 +145,7 @@ width: 123px;
 /* Style for form labels */
 span {
     display: inline-block;
-    width: 100px;
+    width: 120px;
     font-weight: bold;
 }
 

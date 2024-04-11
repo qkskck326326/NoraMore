@@ -59,7 +59,7 @@
 
                 } else if(data.autoJibunAddress) {
                     var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+
                     guideTextBox.style.display = 'block';
                 } else {
                     guideTextBox.innerHTML = '';
@@ -99,7 +99,7 @@ function dupNicnameCheck(){
 			
 			}
 			if(data == "dup"){
-				alert("이미 사용중인 닉네임입니다.");
+				alert("");
 				$('#membernicname').select();
 				$('#save').attr("disabled", true); 
 			
@@ -122,6 +122,47 @@ function dupNicnameCheck(){
 
 
 
+<script type="text/javascript">
+
+
+	//닉네임 제출 클릭시 중복 막음
+	$(document).ready(function() {
+	$('#save').on('submit', function(e) {
+	    e.preventDefault(); // 폼 기본 제출 동작을 막습니다.
+	    
+	    var memberNicname = $('#membernicname').val(); 
+	    
+	    // AJAX 요청
+	    $.ajax({
+	        url: 'nicnamechk.do', // 중복 검사를 처리할 서버의 URL
+	        type: 'POST',
+	        data: { memberNicname: memberNicname }, // 서버로 보낼 데이터
+	        success: function(data) {
+	            // 여기서 data는 서버에서 보낸 응답입니다.
+	            // 서버 응답 예: {isDuplicated: true} or {isDuplicated: false}
+	            if(data == "dup") {
+	                alert('이미 사용 중인 닉네임입니다.'); // 중복 알림
+	                consol.log("dup : " + data)
+	            } else {
+	                // ID 중복이 아닌 경우, 폼 제출을 진행합니다.
+	                // 이를 위해 폼의 제출 이벤트를 다시 트리거하거나,
+	                // 폼 데이터를 AJAX로 전송할 수 있습니다.
+	               $('#save')[0].submit();// 폼 제출
+	            }
+	        },
+	        error: function(request, status, error) {
+	            // 오류 처리
+	            alert('오류가 발생했습니다. 다시 시도해주세요.');
+	        }
+	        
+	    });
+	    
+	});
+	return false;
+
+});
+	
+</script>
 
 
 
@@ -165,6 +206,15 @@ function dupNicnameCheck(){
 	</div >
 	<input type="button" id="dupchk" value="중복체크" onclick="return dupNicnameCheck();">
 	
+	<div id="birth">
+		<h3 class="list">생년월일</h3>
+		<span>
+			<input type="date" name="birth" id="birth"  required></span>
+	</div>
+	
+	<br>
+	
+	
 	
 	<div id="pw">
 		<span>비밀번호</span>
@@ -174,7 +224,7 @@ function dupNicnameCheck(){
 	
 	<div id="pwchk">
 		<span >비밀번호 재확인</span>
-		<input type="password" id= "memberpwd2">   
+		<input type="password" id= "memberpwd2">  
 	</div> 
 	<div class="mismatch-message hide">비밀번호가 일치하지 않습니다</div>          
 	                        
@@ -216,10 +266,16 @@ function dupNicnameCheck(){
 			       
     	</div>
 	</div>
-		<input type="submit" id="save" value="저장하기" > &nbsp;
+			수정하기 전에 닉네임 중복체크를 해주세요!
+		<input type="submit" id="save" disabled = "disabled" value="저장하기" > &nbsp;
 	<a href="javascript:history.go(-1);" id="back">이전 페이지로 이동</a> &nbsp;
 
+
+
 </form>
+
+
+
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 function validate(){
@@ -244,10 +300,7 @@ function validate(){
 	    return false;
 	}
 	
-	
 
-		
-		
 		//닉네임
 		/* if(!/^[가-힝]{2,}$/.test(nicnameValue)){ */
 		if(!/^[가-힝a-zA-Z]{2,}$/.test(nicnameValue)){
@@ -257,6 +310,15 @@ function validate(){
 			return false;
 		}
 		
+		
+		
+
+	  if(birthValue == null){   
+			alert("생일을 지정해 주세요!");
+		
+			document.getElementById("birth").select();  
+			return false; 
+		}
 	
 
 	return true;
@@ -265,47 +327,6 @@ function validate(){
 
 
 
-<script type="text/javascript">
-
-
-//닉네임 제출 클릭시 중복 막음
-$(document).ready(function() {
-$('#limit').on('submit', function(e) {
-    e.preventDefault(); // 폼 기본 제출 동작을 막습니다.
-    
-    var memberNicname = $('#membernicname').val(); 
-    
-    // AJAX 요청
-    $.ajax({
-        url: 'nicnamechk.do', // 중복 검사를 처리할 서버의 URL
-        type: 'POST',
-        data: { memberNicname: memberNicname }, // 서버로 보낼 데이터
-        success: function(data) {
-            // 여기서 data는 서버에서 보낸 응답입니다.
-            // 서버 응답 예: {isDuplicated: true} or {isDuplicated: false}
-            if(data == "dup") {
-                alert('이미 사용 중인 닉네임입니다.'); // 중복 알림
-            } else {
-                // ID 중복이 아닌 경우, 폼 제출을 진행합니다.
-                // 이를 위해 폼의 제출 이벤트를 다시 트리거하거나,
-                // 폼 데이터를 AJAX로 전송할 수 있습니다.
-               $('#limit')[0].submit();// 폼 제출
-            }
-        },
-        error: function(request, status, error) {
-            // 오류 처리
-            alert('오류가 발생했습니다. 다시 시도해주세요.');
-        }
-        
-    });
-    return false;
-    
-});
-return false;
-
-});
-
-</script>
 
 
 

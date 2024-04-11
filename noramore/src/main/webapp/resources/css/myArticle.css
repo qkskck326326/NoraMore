@@ -75,11 +75,11 @@ hr{
 
 table {
     position: absolute;
-    top: 137px;
-    left: 21px;
+    top: 6px;
+    left: 17px;
     width: 90%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: white;
 }
 
@@ -105,4 +105,6 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+
 

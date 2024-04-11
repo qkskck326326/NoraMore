@@ -8,12 +8,23 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 
+
+
+
 <link rel="stylesheet" type="text/css" href="resources/css/myArticle.css" />
+<style>
+.scrollable-div {
+    height: 350px;
+    overflow: auto; /* 내용이 넘칠 경우 스크롤바 표시 */
+}
+</style>
+
 </head>
 <body>
  <c:import url="/WEB-INF/views/common/header.jsp" /> 
 
  <c:import url="/WEB-INF/views/member/mypageSidebar.jsp" />
+ 
 
 
 <div id="box_act">
@@ -35,10 +46,18 @@
 		</c:url>
 		<a href="${ moveFreeBoard }" onclick="loadFreeBoard();">자유게시판</a>
 </div>
-	
 
+<script>
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+</script>
+
+ 
 <hr id="hr">
-	<table>
+
+<div class="scrollable-div">
+	<table >
 		<tr>
 			<th class="title">활동 시작일</th>   
 			<th class="title">제목</th>
@@ -57,7 +76,8 @@
 		</tr>
 		</c:forEach>
 	</table>
-	
+</div>
+	<button onclick="scrollToTop()">맨 위로</button>
 	
 
 	

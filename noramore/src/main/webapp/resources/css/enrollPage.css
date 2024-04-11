@@ -60,6 +60,7 @@ h1 {
 	padding: 8px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
+	margin-bottom: 10px;
 }
 
 #myphoto {
@@ -116,16 +117,23 @@ h1 {
 }
 
 .hide {
+	color: red;
 	display: none;
+	
 }
 
 
 #registerBtn {
-	margin-top: 20px;
-	width: 100%;
+	margin: 10px;
+    width: 11%;
+    height: 30px;
+    position: absolute;
+    top: 1191px;
+    left: 606px;
 }
 
 a {
 	text-decoration: none;
 	color: inherit;
+	font-size:12px;
 }
