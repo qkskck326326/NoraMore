@@ -27,7 +27,7 @@ public class MemberDao {
 
 	public int selectCheckEmail(String email) {
 		return sqlSessionTemplate.selectOne("memberMapper.selectCheckEmail", email);
-	}
+	} 
 
 	public Member selectFindId(Member member) {  //이름, 이메일
 		return sqlSessionTemplate.selectOne("memberMapper.selectFindId", member);
