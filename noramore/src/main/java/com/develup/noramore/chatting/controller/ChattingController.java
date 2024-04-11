@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,6 +89,12 @@ public class ChattingController {
     	message.setSender(sender);
     	
     	chattingService.deleteMessage(message);
+    }
+    
+    // 채팅 요청 응답 또는 연결 종료 시  요청대기 삭제
+    @RequestMapping(value="cleanChat.do", method=RequestMethod.POST)
+    public void cleanChat(HttpSession session) {
+    	session.removeAttribute("chatOn");
     }
     
 }

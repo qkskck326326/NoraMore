@@ -10,15 +10,17 @@
 <style>
 
 </style>
-<%-- <c:import url="/WEB-INF/views/common/header.jsp" />
-<c:import url="/WEB-INF/views/common/sideSample.jsp" /> --%>
+<c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/common/sideSample.jsp" />
 </head>
 <body>
-<div class="container">
-    <h2>채팅</h2>
+<div class="chat">
+    <h2>요청 온 채팅</h2>
+    <div class="startchat">
     <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/> <br> 
     <span>상대방 ID : </span><input type="text" id="recvUser" style="width:100px;" value="${ sender }" readonly/> &nbsp;
     <button type="button" id="startBtn">응답하기</button><br>
+    </div>
     
     <!-- 채팅 창 구현 부분 -->
     	
@@ -37,6 +39,7 @@ $('#startBtn').on('click',function(){
 		alert("채팅 요청을 승인하셨습니다.");
 	    $('#chatbox').css('display', 'block');
 		$(this).css('display', 'none');
+		$('#startBtn').css('display', 'block');
 		connection();
 
 });
@@ -46,7 +49,24 @@ $('#endBtn').on('click',function(){
     $('#startBtn').css('display', 'inline');
     webSocket.send($('#chat_id').val()
             +"|님이 채팅방을 퇴장하였습니다.");
-    webSocket.close();
+    $.ajax({
+    	url: "removeRequest.do",
+    	type: "POST",
+    	data: {receiver: $('#recvUser').val(),
+    			sender: $('#chat_id').val()},
+    	success: function(response) {
+    		if(response == "exit"){
+    			webSocket.close();
+    		}
+    	},
+        error: function(xhr, status, error) {
+            console.error("에러 : ", error);
+        }
+    });
+    $.ajax({
+    	url: "cleanChat.do".do",
+    	type: "POST"
+    });
 });
 
 // 채팅창 내용 부분

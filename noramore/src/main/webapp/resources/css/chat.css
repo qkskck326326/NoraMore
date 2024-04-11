@@ -1,52 +1,47 @@
 @charset "UTF-8";
 
-body {
-    font-family: Arial, sans-serif;
+.chat {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; /* 원하는 너비로 조정 */
     background-color: #f2f2f2;
-}
-
-.container {
-    width: 500px;
-    margin: 0 auto;
-    background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
-    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+.startchat {
     text-align: center;
-    color: #333;
 }
 
-span {
-    display: inline-block;
+.startchat input[type="text"] {
+    width: 200px; /* 입력 필드 너비 조정 */
     margin-bottom: 10px;
 }
 
-input[type="text"] {
-    width: calc(20% - 150px);
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    margin:auto;
-}
-
-button {
-    padding: 5px 10px;
-    background-color: #007bff;
+.startchat button {
+    background-color: #4CAF50;
     border: none;
-    color: #fff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 8px;
+    transition-duration: 0.4s;
 }
 
-button:hover {
-    background-color: #0056b3;
+.startchat button:hover {
+    background-color: #45a049;
 }
 
 #chatbox {
-    margin-top: 20px;
+    margin-top: 20px; /* 채팅 창과 시작 버튼 사이 여백 조정 */
 }
 
 #messageWindow {
