@@ -54,7 +54,7 @@
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
                     var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+               
                     guideTextBox.style.display = 'block';
 
                 } else if(data.autoJibunAddress) {
@@ -143,42 +143,42 @@ function dupNicnameCheck(){
 
 	<input type="hidden" name="originPwd" value="${ member.memberPWD }"> 
 
-<h1>회원정보 수정</h1>
+<h1 id="h1">회원정보 수정</h1>
 
-	<div>
+	<div id="info">
 	등록된 회원정보는 아래와 같습니다.<br> 
-	수정할 내용이 있으면 변경하고 수정하기 버튼을 누르세요.
+	수정할 내용이 있으면 변경하고 수정하기 버튼을 누르세요.<br>
 	암호를 입력해야 수정가능합니다.(변경사항 없을 시 기존 암호입력)
 	</div>
 	
-    <div>
+    <div id="idDiv">
 	    <span>아이디</span>
 		<input type="text" name="memberID" id="memberid" value="${ member.memberID }" readonly>  <!-- readonly: 수정못함 -->
 	</div>
-	<div>
+	<div id="name">
 		<span>이름</span>
 		<input type="text" name="memberName" id="membername" value="${ member.memberName }" readonly>
 	</div>	
-	<div>
-		<span>닉네임</span>
+	<div id="nickname">
+		<span >닉네임</span>
 		<input type="text" name="memberNicname" id="membernicname" value="${ member.memberNicname }">
-	</div>
-	<input type="button" value="중복체크" onclick="return dupNicnameCheck();">
+	</div >
+	<input type="button" id="dupchk" value="중복체크" onclick="return dupNicnameCheck();">
 	
 	
-	<div>
-		<span>비밀번호<span id="pwError" ></span></span>
+	<div id="pw">
+		<span>비밀번호</span>
 		<input type="password" name="memberPWD" id= "memberpwd" required>
 	</div>
 	<div class="strongPassword-message hide">8글자 이상, 첫글자 영대문자, 소문자와 숫자 그리고 특수문자(@$!%*#?&)를 사용하세요</div>
 	
-	<div>
-		<span>비밀번호 재확인</span>
+	<div id="pwchk">
+		<span >비밀번호 재확인</span>
 		<input type="password" id= "memberpwd2">   
 	</div> 
 	<div class="mismatch-message hide">비밀번호가 일치하지 않습니다</div>          
 	                        
-	<div>                                 
+	<div id="gender">                                 
 		<span>성별</span>
 
 		<c:if test="${ member.gender eq 'M' }">
@@ -193,12 +193,12 @@ function dupNicnameCheck(){
 		</c:if>
 	</div> 
 
-	<div>
+	<div id="email">
 	<span>이메일</span>
 	<input type="email" name="email"  id="email" value="${ member.email }">
 	</div>
 	
-	<div>
+	<div id="address">
 	   <h3 class="list">자택주소</h3>
 	   <input type="text" name="address" value="${ member.address }" readonly>
 	   <div>수정할 자택 주소를 아래에 입력해 주세요.</div>

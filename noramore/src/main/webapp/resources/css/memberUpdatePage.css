@@ -1,110 +1,148 @@
 @charset "UTF-8";@charset "UTF-8";@charset "UTF-8";
 
-/* Apply styles to the body */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
+
+
+body{
+	height: 1400px;
 }
 
-/* Style the form container */
-form {
-	
-    position: relative;
-    top: 119px;
-    left: -8px;
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #fff;
+
+/* Style for form container */
+#form{
+    position: absolute;
+    top: 153px;
+    left: 380px;
+    width: 500px;
+    height: 1230px;
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    
 }
 
-/* Style the form headings */
+/* Style for form headings */
 h1 {
+    text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
-    text-align:center;
 }
 
-h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
+#info{
+	font-size:15px;
 }
 
-/* Style form input fields */
+/* Style for input fields */
 input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="submit"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 3px;
     box-sizing: border-box;
 }
 
-/* Style radio buttons */
-input[type="radio"] {
-    margin-right: 5px;
+input[type="button"] {
+	width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
 }
 
-/* Style error messages */
-.mismatch-message,
-.strongPassword-message {
-    color: #ff0000;
-    font-size: 14px;
-    margin-top: 5px;
+input[type="nickkname"]{
+		width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+#nickname{
+	
+	
+	
+}
+/* Style for error messages */
+.hide {
     display: none;
 }
 
-/* Style the submit button */
-input[type="submit"] {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-/* Style the back link */
-#back {
-    text-decoration: none;
-    color: #333;
-    margin-left: 10px;
-}
-
-/* Style the container div */
-div {
+.error {
+    color: red;
+    margin-top: -10px;
     margin-bottom: 10px;
 }
 
-/* Style the span */
+/* Style for buttons */
+#save{
+	width: auto;
+    padding: 10px 20px;
+    margin-top: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    position: absolute;
+    top: 1182px;
+    left: 384px;
+	
+}
+#back {
+width: 123px;
+    height: 23px;
+    padding: 7px 20px;
+    margin-top: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #8eb7d5;
+    color: #ffff;
+    border: none;
+    border-radius: 3px;
+    position: absolute;
+    top: 1193px;
+    left: 253px;
+    font-size: 10px;
+    
+}
+
+#save:hover,
+#back:hover {
+    background-color: #0056b3;
+}
+
+/* Style for form layout */
+#idDiv,
+#name,
+#nickname,
+#pw,
+#pwchk,
+#gender,
+#email,
+#address {
+    margin-bottom: 15px;
+}
+
+/* Style for form labels */
 span {
-    margin-right: 10px;
+    display: inline-block;
+    width: 100px;
     font-weight: bold;
 }
 
-/* Style the container for address inputs */
-#address {
-    margin-top: 10px;
-}
-
-/* Style the guide text */
-#guide {
-    color: #999;
-    display: none;
-}
-
-/* Hide/show class */
-.hide {
-    display: none;
+/* Style for radio buttons */
+input[type="radio"] {
+    margin-right: 5px;
 }
