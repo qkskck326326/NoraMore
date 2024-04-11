@@ -74,8 +74,8 @@ public class FreeBoardController {
 		int limit = 10;
 		if(slimit != null && slimit.trim().length() > 0) {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
-		}
-		
+		} 
+		 
 		int categoryId = 1;
 		if(categoryId1 != null) {
 			categoryId = Integer.parseInt(categoryId1);
