@@ -162,9 +162,8 @@
 
 
 	<update id="upNowRecr" parameterType="_int">
-		UPDATE RECR_BOARD
-		SET
-		NOW_RECR = NOW_RECR + 1
+		UPDATE RECR_BOARD 
+		SET NOW_RECR = (select count(*) from recr_appl WHERE BOARD_ID = #{boardId})
 		WHERE BOARD_ID = #{boardId}
 	</update>
 
@@ -203,8 +202,9 @@
 
 	<update id="countAppl" parameterType="_int">
 		UPDATE RECR_BOARD
-		SET NOW_RECR = (SELECT COUNT (*) FROM RECR_APPL WHERE BOARD_ID =
-		#{boardId})
+		SET NOW_RECR = (SELECT COUNT (*) FROM RECR_APPL WHERE BOARD_ID = 
+		#{boardId} and recr_status = 2) 
+		where BOARD_ID = #{boardId} 
 	</update>
 
 	<update id="closerecr" parameterType="_int">

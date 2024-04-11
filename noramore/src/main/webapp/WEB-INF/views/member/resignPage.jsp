@@ -26,7 +26,8 @@
 	
 	<input type="hidden" name="originPWD" value="${ member.memberPWD }">
 	<input type="hidden" name="memberID" value="${ member.memberID }">
-	<div>※회원님의 정보로 30일 동안 회원가입을 할 수없습니다.</div>
+	<p>
+	<div id='warn'>※회원님의 정보로 30일 동안 회원가입을 할 수없습니다.</div>
 </form>
 
 

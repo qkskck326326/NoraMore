@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <c:import url="/WEB-INF/views/common/sideSample.jsp" />
-<%-- <c:import url="/WEB-INF/views/common/sideSample.jsp"/> --%>
 <c:if test="${!empty requestScope.currentPage}">
 	<c:set var="page" value="${requestScope.currentPage}" />
 </c:if>

@@ -490,7 +490,7 @@ public class RecrBoardController {
 		RecrBoard recrBoard = recrBoardService.selectBoardId(boardId);
 		model.addAttribute("applList", applList);
 		model.addAttribute("RecrBoard", recrBoard);
-		model.addAttribute("page", currentPage);
+		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("categoryId", categoryId);
 		model.addAttribute("message", message);
 		return "recrBoard/RecrBoardDetail";

@@ -12,18 +12,41 @@
     min-height: 100vh;
   }
 
+
+
+
   h1 {
     color: #333;
-    margin: 0 0 20px 0; /* h1 태그 아래의 마진을 조정하여 form과의 간격을 늘립니다. */
+    margin: 0 0 20px 0;
+    position: absolute;
+    top: 303px;
+    left: 492px;
   }
+
+	h3{
+	
+	
+	}
 
   #resign_box {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    width: 305px;
+    height: 195px;
+    position: absolute;
+    top: 374px;
+    left: 399px;
+    text-align: center; 
+  }
+  
+  
+  #warn{
+	font-size: 15px;
+    position: abstract;
+    top: 41px;
+    left: -1px;
   }
 
   #resign_box h3, input[type="password"], input[type="submit"], div {

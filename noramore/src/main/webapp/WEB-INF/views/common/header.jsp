@@ -10,8 +10,6 @@
     <c:set var="nowpage" value="${ requestScope.currentPage }" />
 </c:if>
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +18,6 @@
 <script src="/noramore/resources/js/jquery-3.7.0.min.js"></script>
 <title>noramore</title>
 </head>
-
 <body>
     <header id="header" style="height: 90px">
         <c:if test="${ empty sessionScope.loginMember }">
@@ -48,6 +45,9 @@
                     <ul>
                         <li><a href="chattingPage.do"><img
                                 src="resources/images/alarmIcon.png">채팅</a></li>
+                        <c:if test="${ !empty chatOn }">
+                        <li><a href="${ pageContext.servletContext.contextPath }/enterChat.do">요청(1)</a> </li>
+                        </c:if>
                         <li><a href="receiveHome.jsp">문의내역</a></li>
                         <li><a href="chatbot.do">챗봇</a></li>
                          <li>
@@ -85,7 +85,7 @@
                                         <div id="chatbot">
                                             <div id="conversation">
                                                 <div class="chatbot-message">
-                                                    <p class="chatbot-text">노라모아에 오신것을 환영합니다23 !<br><br>원하시는 질문을 말씀하세요</p>
+                                                    <p class="chatbot-text">노라모아에 오신것을 환영합니다 !<br><br>원하시는 질문을 말씀하세요</p>
                                                 </div>
                                             </div>
                                             <form id="input-form">
@@ -100,8 +100,6 @@
                                     </div>
                                 </div>
                                 </section>
-
-
                             </li>
                     
                         <li><a href="chattingPage.do"><img

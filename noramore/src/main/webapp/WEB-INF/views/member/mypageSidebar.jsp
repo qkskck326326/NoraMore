@@ -43,7 +43,7 @@ window.onload = function(){
 
 $(document).ready(function() {
 
-
+ 
  
 $.ajax({
 	url : "memberProfile.do",  //DispatcherServlet로 보냄
@@ -58,7 +58,7 @@ $.ajax({
 		
 		
 		values = "/noramore/resources/images/" +data.photoFile;
-		
+		values =
 		console.log("success22 : " + values);
 		
 		$('#photo').attr('src', values);
@@ -114,7 +114,7 @@ $(document).ready(function() {
 	</form>
 		
 
-	<hr>
+	<hr id="hr1">
 	
 	<div id="profileBtn" class="moveBtn">
 		<c:url var="memberDetail" value="myinfo.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
