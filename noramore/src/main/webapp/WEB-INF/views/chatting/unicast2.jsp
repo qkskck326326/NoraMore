@@ -4,85 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Unicast</title>
+<title>채팅 응답</title>
+<link href="resources/css/chat.css" rel="stylesheet">
 <script type="text/javascript" src="resources/js/jquery-3.7.0.min.js"></script>
 <style>
 
-.container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: auto; /* 중앙 정렬 */
-}
-
-#messageWindow {
-    background: LightSkyBlue;
-    height: 300px;
-    overflow: auto;
-}
-
-.chat_content {
-    background: rgb(255, 255, 102);
-    padding: 10px;
-    border-radius: 10px;
-    display: inline-block;
-    position: relative;
-    margin: 10px;
-    float: right;
-    clear: both;
-}
-
-.chat_content:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-left-color: rgb(255, 255, 102);
-    border-right: 0;
-    border-top: 0;
-    margin-top: -3.5px;
-    margin-right: -10px;
-}
-
-.other-side {
-    background: white;
-    float: left;
-    clear: both;
-}
-
-.other-side:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-right-color: white;
-    border-left: 0;
-    border-top: 0;
-    margin-top: -3.5px;
-    margin-left: -10px;
-}
 </style>
-<c:import url="/WEB-INF/views/common/header.jsp" />
-<c:import url="/WEB-INF/views/common/sideSample.jsp" />
+<%-- <c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/common/sideSample.jsp" /> --%>
 </head>
 <body>
 <div class="container">
     <h2>채팅</h2>
     <input type="hidden" id="chat_id" value="${ loginMember.memberID }"/> <br> 
-    <span>상대방 ID : </span><span><input type="text" id="recvUser" size="12" value="${ sender }" readonly/> &nbsp;</span>
+    <span>상대방 ID : </span><input type="text" id="recvUser" style="width:100px;" value="${ sender }" readonly/> &nbsp;
     <button type="button" id="startBtn">응답하기</button><br>
     
     <!-- 채팅 창 구현 부분 -->
-    
+    	
     <div style="display:none;" id="chatbox">
         <fieldset>
             <div id="messageWindow"></div><br>
@@ -99,6 +38,7 @@ $('#startBtn').on('click',function(){
 	    $('#chatbox').css('display', 'block');
 		$(this).css('display', 'none');
 		connection();
+
 });
 
 $('#endBtn').on('click',function(){

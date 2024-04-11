@@ -54,17 +54,15 @@ public class AdminController {
 	public String selectEnrollandWithdrawalFlowList(HttpServletRequest request, Model model) {
 		Member member = (Member)request.getSession().getAttribute("loginMember");
 		System.out.println(member.getAdminYN());
-		/* if (member.getAdminYN() == "Y") { */
+
 			Flow flow = adminService.selectEWFlowCount();
 			int mlistCount = adminService.selectReportedMemListCount();
 			int blistCount = adminService.selectReportedListCount();
 			model.addAttribute("flow", flow);
 			model.addAttribute("mlist", mlistCount);
 			model.addAttribute("blist", blistCount);
+			
 			return "admin/adminView";
-			/*
-			 * }else { model.addAttribute("error", "잘못된 접근입니다."); return "common/error";
-			 }*/
 	}
 
 	//회원 목록 조회
@@ -92,7 +90,7 @@ public class AdminController {
 
 		if(list != null & list.size() >0) {
 			model.addAttribute("list", list);
-			model.addAttribute("paing", paging);
+			model.addAttribute("paging", paging);
 			model.addAttribute("currentPage", currentPage);
 			return "admin/memManageView";
 		}else {
@@ -189,9 +187,6 @@ public class AdminController {
 			if(keyword != null) {
 				mv.addObject("error", action + "에 대한 " + keyword 
 						+ " 검색결과가 존재하지 않습니다.");
-			}else {
-				mv.addObject("error", action + "에 대한 " + begin + " 부터 "
-						+ end + " 기간 사이에 가입한 회원 정보가 존재하지 않습니다.");
 			}
 			mv.setViewName("admin/memManageView");
 		}
@@ -226,7 +221,7 @@ public class AdminController {
 		
 		if(list != null & list.size() >0) {
 			model.addAttribute("list", list);
-			model.addAttribute("paing", paging);
+			model.addAttribute("paging", paging);
 			model.addAttribute("currentPage", currentPage);
 			return "admin/reportedMemView";
 		}else {

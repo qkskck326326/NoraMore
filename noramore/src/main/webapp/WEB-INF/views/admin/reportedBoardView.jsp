@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>신고된 게시글 NoraMore : 나랑 함께 놀 사람~ 놀아!모아!</title>
-<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/alarm.css">
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jquery-3.7.0.min.js"></script>
 <c:import url="/WEB-INF/views/admin/adminSidebar.jsp" />
 <style>
@@ -56,7 +55,7 @@ button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 5px 5px;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -68,7 +67,7 @@ button:hover {
 function deleteRboard(boardId, categoryId) {
     $.ajax({
         type: 'GET',
-        url: 'freeboarddelete.do',
+        url: 'deleteboard.do',
         data: { page: 1,
         		boardId: boardId,
         		categoryId: categoryId },
@@ -84,7 +83,7 @@ function deleteRboard(boardId, categoryId) {
 function deleteFboard(boardId, categoryId) {
     $.ajax({
         type: 'GET',
-        url: 'deleteboard.do',
+        url: 'freeboarddelete.do',
         data: { page: 1,
         		boardId: boardId,
         		categoryId: categoryId },
@@ -137,16 +136,14 @@ function deleteFboard(boardId, categoryId) {
                         <td>${ a.readCount }</td>
                         <td>${ a.registDate }</td>
                         <td>${ a.reportCount }</td>
-                        <td>
 	                        <c:choose>
 								<c:when test="${ a.boardRef eq '모집' }">
-									<button onclick="deleteRboard(${ a.boardId }, ${ a.categoryId });">삭 제</button>
+									<td><button onclick="deleteRboard(${ a.boardId }, ${ a.categoryId });">삭제</button><td>
 								</c:when>
 								<c:when test="${ a.boardRef eq '자유' }">
-									<button onclick="deleteFboard(${ a.boardId }, ${ a.categoryId });">삭 제</button>
+									<td><button onclick="deleteFboard(${ a.boardId }, ${ a.categoryId });">삭제</button><td>
 								</c:when>
 							</c:choose>                   
-                        <td>
                     </tr>
                 </c:forEach> 
             </tbody>
