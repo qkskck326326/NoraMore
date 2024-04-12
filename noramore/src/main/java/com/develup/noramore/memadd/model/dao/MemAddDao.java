@@ -15,7 +15,9 @@ public class MemAddDao {
 		System.out.println("dao" + memberid);
 	
 		return sqlSessionTemplate.selectOne("memAddMapper.selectMemAdd", memberid);
-		
-		
+	}
+	
+	public int selectArticleCount(String memberid) {
+		return sqlSessionTemplate.selectOne("memAddMapper.selectArticleCount", memberid);
 	}
 }
