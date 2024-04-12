@@ -14,6 +14,9 @@
 <c:if test="${!empty requestScope.href}">
 	<c:set var="href" value="${requestScope.href}" />
 </c:if>
+<c:if test="${!empty requestScope.message}">
+	<c:set var="message" value="${requestScope.message}" />
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +39,12 @@
  
  
 //마커 표시 함수 호출
-
+window.onload = function(){
+	var message = "${message}";
+	if(message != ""){
+		alert(message);
+	}
+}
 
 window.onload = function(){
 	
@@ -138,7 +146,7 @@ function rbwriteform(){
 </style>
 </head>
 <body>
-	<section id="board" style="margin-left: 200px; height:1600px;">
+	<section id="board" style="margin-left: 200px; height:1800px;">
 		<h1>모집게시판 전체 목록</h1>
 	
 	<div id="map" style="width:1200px;height:350px; left: 20%;"></div>   
@@ -180,9 +188,11 @@ function rbwriteform(){
 				</fieldset>
 				<input  type="hidden" name="categoryId" value="${categoryId}">
 			</form>
-			<button class="whiteBtn" style="float: right;" onclick="rbwriteform()">글작성</button>
+			
 		</section>
+		
 		<section style='width: 1200px; left: 20%;'>
+			<button class="whiteBtn" style="float: right;" onclick="rbwriteform()">글작성</button>
 			<table style='width: 1200px;'>
 				<tr>
 					<th>게시글 번호</th>

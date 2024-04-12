@@ -369,10 +369,11 @@ public class RecrBoardController {
 		if(recrBoardService.deleteBoard(recrBoard.getBoardId()) > 0 ) {
 			model.addAttribute("message", "글이 삭제되었습니다");
 			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("categoryId", categoryId);
 			return"redirect:rblist.do";
 		}else {
 			model.addAttribute("boardId", recrBoard.getBoardId());
-			model.addAttribute("page", currentPage);
+			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("message", "error! 글 삭제에 실패하였습니다!");
 			model.addAttribute("categoryId", categoryId);
 			return"redirect:rblist.do";
