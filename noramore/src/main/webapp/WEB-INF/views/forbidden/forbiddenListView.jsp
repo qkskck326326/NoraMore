@@ -13,17 +13,15 @@
 <script type="text/javascript" src="resources/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 
-// 팝업 열기 함수
+
 function openPopup() {
   document.getElementById("popup").style.display = "block";
 }
 
-// 팝업 닫기 함수
 function closePopup() {
   document.getElementById("popup").style.display = "none";
 }
 function dupFbCheck(){
-	//사용 가능한 아이디인지 확인하는 함수 : ajax 기술 사용해야 함
 	
 	$.ajax({
 		url: "fbchk.do",
@@ -47,7 +45,7 @@ function dupFbCheck(){
 		}
 	});
 	
-	return false;  //버튼 클릭이벤트 취소 (submit 버튼에 클릭이벤트 전달을 막기 위함)
+	return false;  
 }
 
 
@@ -106,12 +104,12 @@ function dupFbCheck(){
 		</div>
 
 
-	<!-- 팝업 -->
+
 	<div id="popup" class="popup">
 	  <form action="fbinsert.do" class="popup-content" onsubmit="return dupFbCheck();">
 	  	<h4 class="fbenroll">새 금지어 등록</h4><p>
-	    <span class="close" onclick="closePopup();">&times;</span> <!-- 팝업 닫기 버튼 -->
-	    <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord" maxlength="30">&nbsp; <!-- 팝업 내부의 input 태그 -->
+	    <span class="close" onclick="closePopup();">&times;</span>
+	    <input id="fbtext" type="text" placeholder="입력해주세요" name="fbWord" maxlength="30">&nbsp;
 	    <input class="fbsubmit" type="submit" value="등록">
 	  </form>
 	</div>
