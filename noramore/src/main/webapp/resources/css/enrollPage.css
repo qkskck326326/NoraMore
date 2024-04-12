@@ -128,8 +128,8 @@ h1 {
     width: 11%;
     height: 30px;
     position: absolute;
-    top: 1191px;
-    left: 606px;
+    top: 1170px;
+    left: 518px;
 }
 
 a {
@@ -259,14 +259,6 @@ h1 {
 }
 
 
-#registerBtn {
-	margin: 10px;
-    width: 11%;
-    height: 30px;
-    position: absolute;
-    top: 1150px;
-    left: 606px;
-}
 
 a {
 	text-decoration: none;

@@ -248,9 +248,7 @@ function dupNicnameCheck(){
 				$('#registerBtn').attr("disabled", true); 
 			
 			}
-			
-		
-			
+	
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 			console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
@@ -259,6 +257,9 @@ function dupNicnameCheck(){
 	return false;
 	
 }
+
+
+
 
 
 </script>
@@ -308,7 +309,7 @@ function dupNicnameCheck(){
 </script>
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 //아이디 중복 될시 제출막음
 $(document).ready(function() {
     $('#limit').on('submit', function(e) {
@@ -352,7 +353,7 @@ $(document).ready(function() {
 //닉네임 제출 클릭시 중복 막음
 $(document).ready(function() {
     $('#limit').on('submit', function(e) {
-        e.preventDefault(); // 폼 기본 제출 동작을 막습니다.
+        e.preventDefault(); // 폼 기본 제출 동작을 막습니다. 
         
         var memberNicname = $('#memberNicname').val(); 
         
@@ -384,7 +385,7 @@ $(document).ready(function() {
     return false;
 });
 
-</script>
+</script> -->
 
 
 
