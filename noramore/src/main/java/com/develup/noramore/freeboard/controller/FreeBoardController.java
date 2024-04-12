@@ -276,30 +276,20 @@ public class FreeBoardController {
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
 			@RequestParam(name="categoryId") int categoryId) {
 		
-		
 		int currentPage = 1;
-		
 		
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
 		}
-		
 		
 		int limit = 10;
 		if(slimit != null && slimit.trim().length() > 0) {
 			limit = Integer.parseInt(slimit);  //전송받은 한 페이지에 출력할 목록 갯수를 적용
 		}
 		
-		
-		
-		
 		if(search.getCategoryId() != 0) {
 			categoryId = search.getCategoryId();
 		}
-		
-		
-		
-		
 		
 		int listCount = freeBoardService.searchTitleCount(search);
 		Paging paging = new Paging(listCount, currentPage, limit, "fbsearchTitle.do");
@@ -307,11 +297,8 @@ public class FreeBoardController {
 		
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
-		//search.setCategoryId(categoryId);
 
-		
 		ArrayList<FreeBoard> list = freeBoardService.selectSearchTitle(search);
-
 
 		mv.addObject("list", list);
 		mv.setViewName("freeboard/freeboardListView");
