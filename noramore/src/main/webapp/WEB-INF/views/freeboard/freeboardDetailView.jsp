@@ -102,17 +102,7 @@ async function translateText() {
 	        type: "POST",
 	        url: "incrementReportCount.do",
 	        data: { boardId: boardId },
-	        /*
-	        success: function(response) {
-	            // 성공적으로 신고가 처리되었을 때 수행할 코드
-	            alert("게시물이 신고되었습니다.");
-	            // 페이지 새로고침 또는 신고 버튼 비활성화 등의 추가적인 처리 가능
-	        },
-	        error: function(xhr, status, error) {
-	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
-	            alert("오류가 발생했습니다.");
-	        }
-	        */
+	        
 	        
 	        success: function(response) {
 	            if (response === "Success") {
@@ -137,17 +127,6 @@ async function translateText() {
 	        type: "POST",
 	        url: "incrementLikeCount.do",
 	        data: { boardId: boardId },
-	        /*
-	        success: function(response) {
-	            // 성공적으로 신고가 처리되었을 때 수행할 코드
-	            alert("좋아요를 누르셨습니다.");
-	            // 페이지 새로고침 또는 신고 버튼 비활성화 등의 추가적인 처리 가능
-	        },
-	        error: function(xhr, status, error) {
-	            // 서버와의 통신 중 오류가 발생했을 때 수행할 코드
-	            alert("오류가 발생했습니다.");
-	        }
-	        */
 	        
 	        success: function(response) {
 	            if (response === "Success") {
@@ -436,10 +415,6 @@ textarea.commentForm:hover {
 	<div class="container">
 		<div class="boardFree-div">
 	
-<%--<form action="freeboardlist.do" method="post"
-		enctype="multipart/form-data">  --%>
-		<%-- <input type="hidden" value="<%= vo.getUserId() %>" name="writer"> --%>
-	
 		<div id="write" style="margin-bottom: 20px;">
 			<h1 style="text-align: left;">${FreeBoard.title}</h1>
 			<div style="text-align: left; margin-bottom: 10px;">
@@ -467,13 +442,6 @@ textarea.commentForm:hover {
 			<c:if test="${ empty FreeBoard.freeOriginalFileName}">
 				<p>첨부파일 없음</p>
 			</c:if>
-			<!-- 
-			<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button>
-			&nbsp;
-			<button onclick="requestDelete(); return false;">글삭제</button>
-			&nbsp;
-			 -->
-		
 			
 			<%-- 로그인한 경우 : 본인 글 상세보기 일때는 수정페이지로 이동과 삭제 버튼 표시함 --%>
 		
