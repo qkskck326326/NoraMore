@@ -141,7 +141,7 @@ public class RecrBoardController {
 		return mv;
 	}
 	
-		// 이름으로 검색
+		// 아이디로 검색
 		@RequestMapping("searchrecrwriter.do")
 		public ModelAndView searchRecrWriter(Search search, 
 				@RequestParam(name="limit", required=false) String limit1,
