@@ -31,29 +31,12 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	//----------------------------------------------------------------------------------------------
-	//Page 이동 요청
-	
-	//QnA 게시판 이동
-	@RequestMapping("qnaPage.do")
-	public String moveQnAPage() {
-		return "qna/qna";
-	}
-	
-	//공지사항 게시판 이동
-	@RequestMapping("noticePage.do")
-	public String moveNoticePage() {
-		return "notice/notice";
-	}
-	
 	//-----------------------------------------------------------------------------------------------
 	//페이지별 목록 조회
 	
 	//관리자 페이지 메인 (가입&탈퇴 유동 목록)
 	@RequestMapping("adminPage.do")
 	public String selectEnrollandWithdrawalFlowList(HttpServletRequest request, Model model) {
-		Member member = (Member)request.getSession().getAttribute("loginMember");
-		System.out.println(member.getAdminYN());
 
 			Flow flow = adminService.selectEWFlowCount();
 			int mlistCount = adminService.selectReportedMemListCount();

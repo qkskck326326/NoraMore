@@ -31,7 +31,9 @@
                 <c:if test="${a.alarmKind.trim() eq 'COMM_RECR'}">
                     <td>
                         <c:if test="${ !( a.refCommentId > 0 )}">
-                            글 <a class="aTag" href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1" onclick="markAsRead(${a.alarmId});">
+                            글 <a class="aTag"
+                            href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1"
+                            onclick="markAsRead(${a.alarmId});">
                                     <c:if test="${a.title.length() > 10 }">
                                         '${a.title.substring(0, 10)} ... '
                                     </c:if>
@@ -41,7 +43,9 @@
                                 </a> 에 새로운 댓글이 달렸습니다.
                             <br>
                             └ '${ a.senderId }' : 
-                                        <a class="aTag" href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1" onclick="markAsRead(${a.alarmId});">
+                                        <a class="aTag"
+                                        href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1"
+                                        onclick="markAsRead(${a.alarmId});">
                                             <c:if test="${a.context.length() > 10 }">
                                                 '${a.context.substring(0, 10)} ... '
                                             </c:if>
@@ -52,7 +56,9 @@
                         </c:if>
                         <c:if test="${ a.refCommentId > 0}">
                             '${ a.senderId }' 님의 답글 :    
-                            <a class="aTag" href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1" onclick="markAsRead(${a.alarmId})">
+                            <a class="aTag"
+                            href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1"
+                            onclick="markAsRead(${a.alarmId})">
                                 <c:if test="${a.context.length() > 10 }">
                                     '${a.context.substring(0, 10)} ... '
                                 </c:if>
@@ -66,7 +72,9 @@
                 <c:if test="${ a.alarmKind.trim() eq 'COMM_FREE'}">
                     <td>
                         <c:if test="${ !( a.refCommentId > 0 )}">
-                            글 <a class="aTag" href="${ pageContext.servletContext.contextPath }/fbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1" onclick="markAsRead(${a.alarmId});">
+                            글 <a class="aTag"
+                            href="${ pageContext.servletContext.contextPath }/fbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1"
+                            onclick="markAsRead(${a.alarmId});">
                                     <c:if test="${a.title.length() > 10 }">
                                         '${a.title.substring(0, 10)} ... '
                                     </c:if>
@@ -76,7 +84,9 @@
                                 </a> 에 새로운 댓글이 달렸습니다.
                             <br>
                             └ '${ a.senderId }' : 
-                                        <a class="aTag" href="${ pageContext.servletContext.contextPath }/fbdetail.do.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1" onclick="markAsRead(${a.alarmId});">
+                                        <a class="aTag"
+                                        href="${ pageContext.servletContext.contextPath }/fbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1"
+                                        onclick="markAsRead(${a.alarmId});">
                                             <c:if test="${a.context.length() > 10 }">
                                                 '${a.context.substring(0, 10)} ... '
                                             </c:if>
@@ -87,7 +97,9 @@
                         </c:if>
                         <c:if test="${ a.refCommentId > 0}">
                             '${ a.senderId }' 님의 답글 :    
-                            <a class="aTag" href="${ pageContext.servletContext.contextPath }/fbdetail.do.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1" onclick="markAsRead(${a.alarmId})">
+                            <a class="aTag"
+                            href="${ pageContext.servletContext.contextPath }/fbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1"
+                            onclick="markAsRead(${a.alarmId})">
                                 <c:if test="${a.context.length() > 10 }">
                                     '${a.context.substring(0, 10)} ... '
                                 </c:if>
@@ -102,7 +114,9 @@
                 <c:if test="${ a.alarmKind.trim() eq 'RECR_APPL' }">
                     <td>
                        '${ a.senderId }' 님께서 모집 
-                                <a class="aTag" href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1" onclick="markAsRead(${a.alarmId});"  >
+                                <a class="aTag"
+                                href="${ pageContext.servletContext.contextPath }/rbdetail.do?boardId=${ a.boardId }&categoryId=${ a.categoryId }&page=1"
+                                onclick="markAsRead(${a.alarmId});"  >
                                     <c:if test="${a.title.length() > 10 }">
                                         '${a.title.substring(0, 10)} ... '
                                     </c:if>
