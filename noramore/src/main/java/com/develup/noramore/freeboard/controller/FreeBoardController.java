@@ -62,11 +62,7 @@ public class FreeBoardController {
 		ArrayList<Category> categoryList = categoryService.selectAll();
 		
 		int currentPage = 1;
-		/*
-		if(page != null) {
-			currentPage = Integer.parseInt(page);
-		}
-		*/
+		
 		if(page != null && page.trim().length() > 0) {
 			currentPage = Integer.parseInt(page);
 		}
@@ -80,13 +76,7 @@ public class FreeBoardController {
 		if(categoryId1 != null) {
 			categoryId = Integer.parseInt(categoryId1);
 		}
-		/*
-		if (page != null) {
-			currentPage = Integer.parseInt(page);
-		}
-		*/
-		
-		
+	
 		int listCount = freeBoardService.selectListcount(categoryId);
 		
 		Paging paging = new Paging(listCount, currentPage, limit, "freeboardlist.do");
@@ -335,8 +325,7 @@ public class FreeBoardController {
 		
 		search.setStartRow(paging.getStartRow());
 		search.setEndRow(paging.getEndRow());
-		
-
+	
 		
 		ArrayList<FreeBoard> list = freeBoardService.selectSearchWriter(search);
 
@@ -528,7 +517,6 @@ public class FreeBoardController {
 			@RequestParam("categoryId") int categoryId) {
 		// input을 number 로 해도 이쪽으로 보낼 때는 String 형태로 넘어와서 취한 조취
 		
-		
 		//게시글 첨부파일 저장용 폴더 지정 : 톰켓이 구동하고 있는 애플리케이션 프로젝트 안의 폴더 지정
 		//el 절대경로 표기인 ${ pageContext.servletContext.contextPath } 와 같은 의미의 코드임
 		String savePath = request.getSession().getServletContext().getRealPath(
@@ -554,10 +542,7 @@ public class FreeBoardController {
 					e.printStackTrace();
 					model.addAttribute("message", "첨부 파일 저장 실패!");
 					return "common/error";
-				}
-				
-				
-				
+				}	
 			} //파일명 바꾸기
 			//freeboard에 첨부파일 정보 저장 처리
 			freeBoard.setFreeOriginalFileName(fileName);
