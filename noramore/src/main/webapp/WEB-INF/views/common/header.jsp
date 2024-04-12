@@ -99,7 +99,7 @@
                         <li><a href="receiveHome.jsp">문의내역</a></li>
                         
                          <li>
-                     <a href="my.do">마이페이지</a>
+                     <a href="selectRecrBoadMemberId.do">마이페이지</a>
                      <c:if test="${ !(sessionScope.alarmCount > 0) }">
                         <a href="alarmlist.do" ><img src="resources/images/alarmIcon.png" style="height:29px;width:auto;"></a>
                      </c:if>
