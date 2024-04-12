@@ -43,8 +43,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		var key = getCookie("idChk"); //user1
-		if (key != "") {
+		var key = getCookie("idChk"); //쿠키에 아이디를 key변수로 가져옴
+		if (key != "") {   
 			$("#mid").val(key);
 		}
 
