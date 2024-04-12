@@ -451,7 +451,7 @@ function checkedChange() {
 	<h3 class="list">*아이디<span id="idError"></span></h3>
 		<span class="box int_id" >
 		 <c:if test="${ !empty param.id }">
-				<input type="text" name="memberID" id="memberid" class="input" autocomplete="off" value="${ param.id }" >
+				<input type="text" name="memberID" id="memberid" class="input" readonly autocomplete="off" value="${ param.id }" >
 			</c:if> 
 			
 			<c:if test="${ empty param.id }">
