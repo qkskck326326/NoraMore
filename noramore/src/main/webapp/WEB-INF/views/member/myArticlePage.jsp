@@ -36,7 +36,7 @@
 		<c:url var="moveRecrBoard" value="selectRecrBoadMemberId.do"><!-- url변수를 만듦, 연결할 대상 컨트롤러 매핑값 -->		
 			<c:param name="memberID" value="${ loginMember.memberID }"></c:param>
 		</c:url>
-		<a href="${ moveRecrBoard }">활동기록</a>
+		<a href="${ moveRecrBoard }">모집게시판</a>
 		
 	</div>
 
