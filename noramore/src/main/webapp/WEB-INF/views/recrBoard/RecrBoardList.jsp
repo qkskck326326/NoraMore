@@ -223,7 +223,7 @@ function rbwriteform(){
 		<c:import url="/WEB-INF/views/common/pagingView+category.jsp" />
 		
 	</section>
-<c:import url="/WEB-INF/views/common/footer.jsp" />
+
 </body>
 <script type="text/javascript">
 document.getElementById("limitSelect").addEventListener("change", function() {

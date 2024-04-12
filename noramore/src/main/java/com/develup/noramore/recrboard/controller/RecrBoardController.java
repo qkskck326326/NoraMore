@@ -101,7 +101,8 @@ public class RecrBoardController {
 	public ModelAndView searchRecrTitle(Search search, 
 			@RequestParam(name="limit", required=false) String limit1,
 			@RequestParam(name="page", required=false) String page, ModelAndView mv,
-			@RequestParam("categoryId") int categoryId) throws JsonGenerationException, JsonMappingException, IOException {
+			@RequestParam("categoryId") int categoryId) throws JsonGenerationException, 
+			JsonMappingException, IOException {
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = Integer.parseInt(page);
@@ -140,12 +141,13 @@ public class RecrBoardController {
 		return mv;
 	}
 	
-	// 이름으로 검색
+		// 이름으로 검색
 		@RequestMapping("searchrecrwriter.do")
 		public ModelAndView searchRecrWriter(Search search, 
 				@RequestParam(name="limit", required=false) String limit1,
 				@RequestParam(name="page", required=false) String page, ModelAndView mv, 
-				@RequestParam("categoryId") int categoryId) throws JsonGenerationException, JsonMappingException, IOException {
+				@RequestParam("categoryId") int categoryId) throws JsonGenerationException, 
+				JsonMappingException, IOException {
 			int currentPage = 1;
 			if (page != null) {
 				currentPage = Integer.parseInt(page);
