@@ -496,8 +496,8 @@ th{
 							<tr>
 								<th>번호</th>
 								<th width="150px">신청자ID</th>
-								<th width="120px">거절</th>
 								<th width="120px">수락</th>
+								<th width="120px">거절</th>
 							</tr>
 							<c:if test="${empty applList}">
 								<tr>
