@@ -895,9 +895,6 @@ public class MemberController {
 				
 			String memberPWD = member.getMemberPWD();  //입력한 암호
 
-			
-			
-			
 			String memberid = member.getMemberID();
 			int updateResign = memberService.updateResign(memberid); //탈퇴필드 업데이트
 

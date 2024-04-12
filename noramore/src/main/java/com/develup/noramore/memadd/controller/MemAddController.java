@@ -40,10 +40,15 @@ public class MemAddController {
 	// RequestMethod.GET : get방식으로 전송오면 받음, RequestMethod.POST : post방식으로 전송오면 받음
 	public String gradePage(@RequestParam("memberID") String memberid, Model model) {
 		System.out.println("memberid : " + memberid);
-		
+	
+		int actCount = memAddService.selectArticleCount(memberid);
+		/* memAdd.setArticleCount(articleCount) */
+
 		MemAdd memAdd = memAddService.selectMemAdd(memberid);
+
+		memAdd.setArticleCount(actCount);
 		
-		System.out.println("memAdd : " + memAdd);
+
 		if (memAdd != null) { 
 			model.addAttribute("memAdd", memAdd); // 꺼낼 때는 여기서 저장한 이름으로 꺼냄
 			return "member/gradePage";

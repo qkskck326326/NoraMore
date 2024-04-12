@@ -8,6 +8,6 @@ public interface MemAddService {
 	MemAdd selectMemAdd(String memberid);
 
 	
-	
+	int selectArticleCount(String memberid);
 
 }

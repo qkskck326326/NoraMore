@@ -19,6 +19,11 @@ public class MemAddServiceImpl implements MemAddService{
 	}
 
 	
+	@Override
+	public int selectArticleCount(String memberid) {
+
+		return memAddDao.selectArticleCount(memberid);
 	
+	}
 	
 }

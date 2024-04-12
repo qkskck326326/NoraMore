@@ -19,7 +19,7 @@
 <br>
 <div id="title">당신은 "${ memAdd.grade }" 등급입니다!</div>
 
-<div id="result">활동한 횟수는 "17" 입니다.</div>
+<div id="result">활동한 횟수는 "${ memAdd.articleCount }" 입니다.</div> 
 
 <div id="count">
 	<span>1 ~ 30</span>

@@ -25,4 +25,10 @@
 		where MEMBER_ID = #{ memberID } 
 	</select>
 
+	<select id="selectArticleCount" parameterType="string" resultType="_int">
+		select count(*)
+		from RECR_BOARD
+		where MEMBER_ID = #{ memberID }
+	</select>
+	
 </mapper>
