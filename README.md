@@ -1,7 +1,7 @@
 # NoraMore 프로젝트
 
 ## 프로젝트 개요
-**NoraMore**는 SpringLegacy와 jsp를 기반으로 만든 어플리케이션으로, 
+**NoraMore**는 SpringMVC와 jsp를 기반으로 만든 어플리케이션으로, 
 OracleDB와 통신하여 작동하여 사용자에게 후술하는 서비스를 제공합니다.
 해당 프로젝트는 특정한 모임을 모집하고 참여하는 것을 목적으로 제작되었습니다.
 
